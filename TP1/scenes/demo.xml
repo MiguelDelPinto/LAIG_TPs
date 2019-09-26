@@ -47,7 +47,12 @@
         <primitive id="demoRectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
+        <primitive id="demoSphere">    <!-- // ADDED !!!!-->
+            <sphere radius="1" slices="6" stacks="6" />
+        </primitive>
     </primitives>
+
+
 
     <components>
         <component id="demoRoot">

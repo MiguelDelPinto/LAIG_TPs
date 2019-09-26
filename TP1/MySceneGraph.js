@@ -43,6 +43,7 @@ class MySceneGraph {
          * If any error occurs, the reader calls onXMLError on this object, with an error message
          */
         this.reader.open('scenes/' + filename, this);
+
     }
 
     /*
@@ -559,6 +560,26 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = rect;
             }
+            else if (primitiveType == 'sphere') {  // ADDED ---> CHANGE !!!!!!!!!!!!!!!!
+                // radius
+                var radius = this.reader.getFloat(grandChildren[0], 'radius');
+                if (!(x1 != null && !isNaN(radius)))
+                    return "unable to parse radius of the primitive coordinates for ID = " + primitiveId;
+
+                // slices
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if (!(y1 != null && !isNaN(slices)))
+                    return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+                // stacks
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if (!(x2 != null && !isNaN(stacks)))
+                    return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
+
+                var sph = new MySphere(this.scene, primitiveId, radius, slices, stacks);   
+
+                this.primitives[primitiveId] = sph;
+            }
             else {
                 console.warn("To do: Parse other primitives.");
             }
@@ -741,5 +762,7 @@ class MySceneGraph {
 
         //To test the parsing/creation of the primitives, call the display function directly
         this.primitives['demoRectangle'].display();
+        this.primitives['demoSphere'].display();
+        //this.sphere.display();
     }
 }
