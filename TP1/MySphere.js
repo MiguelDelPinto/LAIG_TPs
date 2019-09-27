@@ -34,7 +34,7 @@ class MySphere extends CGFobject {
                 this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
                 this.normals.push(x, y, z);
                 this.texCoords.push(1 - (slice / this.slices), 1 - (stack / this.stacks));
-                
+              
                 if(stack != this.stacks && slice != this.slices) {
                     var index = (stack * (this.slices + 1)) + slice;
 
@@ -42,8 +42,15 @@ class MySphere extends CGFobject {
                     this.indices.push(index, index + 1, index + this.slices + 2);
                 }
             }
-        }       
-
+        }   
+/*
+        for(let i = 0; i < this.stacks; i++) {
+            for(let j = 0; j < this.slices; j++) {
+                this.indices.push(i * (this.slices + 1) + j, i * (this.slices + 1) + 1 + j, (i+1) * (this.slices + 1) + j);
+                this.indices.push(i * (this.slices + 1) + 1 + j, (i+1) * (this.slices + 1) + 1 + j, (i*1) * (this.slices + 1) + j);
+            }
+        }  
+*/
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
