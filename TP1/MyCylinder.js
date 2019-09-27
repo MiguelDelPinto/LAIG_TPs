@@ -25,10 +25,7 @@ class MyCylinder extends CGFobject {
         var stackHeight = this.height/this.stacks;
         var currentHeight = 0, nextHeight = 0;
         var currentRadius = 0, nextRadius = 0;
-        
-        var center = [(this.top+this.top+this.base)/3, this.height/3];
-        var hyp_center = [(this.top+this.base)/2, this.height/2];
-        var normal_direction = [hyp_center[0] - center[0], hyp_center[1] - center[1]];
+
 
         for(var stack = 0; stack < this.stacks; stack++){
             ang = 0;
@@ -39,19 +36,19 @@ class MyCylinder extends CGFobject {
 
             for(var slice = 0; slice < this.slices; slice++){
 
-                this.vertices.push(Math.cos(ang)*currentRadius, currentHeight, -Math.sin(ang)*currentRadius);
-                this.vertices.push(Math.cos(ang)*currentRadius, nextHeight, -Math.sin(ang)*currentRadius);         
-                this.vertices.push(Math.cos(ang+alphaAng)*nextRadius, currentHeight, -Math.sin(ang+alphaAng)*nextRadius);
-                this.vertices.push(Math.cos(ang+alphaAng)*nextRadius, nextHeight, -Math.sin(ang+alphaAng)*nextRadius);
+                this.vertices.push(-Math.sin(ang)*currentRadius, Math.cos(ang)*currentRadius,  currentHeight);
+                this.vertices.push(-Math.sin(ang)*nextRadius, Math.cos(ang)*nextRadius,  nextHeight);         
+                this.vertices.push(-Math.sin(ang+alphaAng)*currentRadius, Math.cos(ang+alphaAng)*currentRadius, currentHeight);
+                this.vertices.push(-Math.sin(ang+alphaAng)*nextRadius, Math.cos(ang+alphaAng)*nextRadius,  nextHeight);
 
                 this.indices.push(4*slice + 4*this.slices*stack, (4*slice + 4*this.slices*stack +3) % (4*this.slices*this.stacks), (4*slice+ 4*this.slices*stack +1)%(4*this.slices*this.stacks));
                 this.indices.push(4*slice + 4*this.slices*stack, (4*slice + 4*this.slices*stack +2) % (4*this.slices*this.stacks), (4*slice+ 4*this.slices*stack +3)%(4*this.slices*this.stacks));
 
 
-                this.normals.push(Math.cos(ang)*normal_direction[0],  normal_direction[1], -Math.sin(ang)*normal_direction[0]);
-                this.normals.push(Math.cos(ang)*normal_direction[0], normal_direction[1], -Math.sin(ang)*normal_direction[0]);
-                this.normals.push(Math.cos(ang+alphaAng)*normal_direction[0], normal_direction[1], -Math.sin(ang+alphaAng)*normal_direction[0]);
-                this.normals.push(Math.cos(ang+alphaAng)*normal_direction[0], normal_direction[1], -Math.sin(ang+alphaAng)*normal_direction[0]);
+                this.normals.push(-Math.sin(ang), Math.cos(ang), 0);
+                this.normals.push(-Math.sin(ang),Math.cos(ang), 0);
+                this.normals.push(-Math.sin(ang+alphaAng), Math.cos(ang+alphaAng),0);
+                this.normals.push(-Math.sin(ang+alphaAng), Math.cos(ang+alphaAng), 0);
 
                 /*if(this.wrap){
                     this.texCoords.push(i/this.slices, 1);

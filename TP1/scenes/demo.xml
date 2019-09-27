@@ -51,7 +51,7 @@
             <sphere radius="1" slices="12" stacks="12" />
         </primitive>
         <primitive id="demoCylinder">  <!-- // ADDED !!!!-->
-            <cylinder base="1.5" top="1" height="2" slices="50" stacks="50" />
+            <cylinder base="1.5" top="1" height="2" slices="25" stacks="25" />
         </primitive>
     </primitives>
 
