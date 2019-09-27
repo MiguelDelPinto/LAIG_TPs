@@ -18,6 +18,7 @@ serialInclude(['../lib/CGF.js',
                 'MyRectangle.js',
                 'MySphere.js',
                 'MyCylinder.js',
+                'MyTriangle.js',
 
 main=function()
 {
