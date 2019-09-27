@@ -2,8 +2,9 @@
  * MySphere
  * @constructor
  * @param scene - Reference to MyScene object
- * @param x - Scale of Sphere in X
- * @param y - Scale of Sphere in Y
+ * @param radius - Radius of the Sphere
+ * @param slices - Slices of the Sphere
+ * @param stacks - Stacks of the Sphere
  */
 class MySphere extends CGFobject {
     constructor(scene, id, radius, slices, stacks) {
