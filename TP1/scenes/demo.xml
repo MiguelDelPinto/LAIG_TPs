@@ -56,6 +56,9 @@
         <primitive id="demoCylinder">  <!-- // ADDED !!!!-->
             <cylinder base="1.5" top="1" height="2" slices="25" stacks="25" />
         </primitive>
+        <primitive id="demoTorus"> <!-- // ADDED !!!!-->
+            <torus inner="2.5" outer="0.25" slices="10" loops="10" />
+        </primitive>
     </primitives>
 
 
