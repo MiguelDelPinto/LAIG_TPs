@@ -26,12 +26,13 @@ class MyCylinder extends CGFobject {
         var currentHeight = 0;
         var currentRadius = 0;
 
-        for(var stack = 0; stack < this.stacks; stack++){
+        for(var stack = 0; stack <= this.stacks; stack++){
             ang = 0;
             currentHeight = stackHeight*stack;
             currentRadius = this.base + currentHeight*(this.top-this.base)/this.height;
 
             for(var slice = 0; slice < this.slices; slice++){
+                console.log((slice + stack*this.slices)+":"+(-Math.sin(ang)*currentRadius)+","+(Math.cos(ang)*currentRadius)+","+(currentHeight));
                 this.vertices.push(-Math.sin(ang)*currentRadius, Math.cos(ang)*currentRadius,  currentHeight);
                 this.normals.push(-Math.sin(ang), Math.cos(ang), 0);
 
@@ -41,8 +42,8 @@ class MyCylinder extends CGFobject {
 
         for(let stack = 0; stack < this.stacks; stack++){
             for(let slice = 0; slice < this.slices; slice++){
-                this.indices.push(slice+this.slices*stack, (((slice+1)%(this.slices))+this.slices*(stack+1))%(this.slices*this.stacks), (slice+this.slices*(stack+1))%(this.slices*this.stacks));
-                this.indices.push(slice+this.slices*stack, (((slice+1)%(this.slices))+this.slices*stack)%(this.slices*this.stacks), (((slice+1)%(this.slices))+this.slices*(stack+1))%(this.slices*this.stacks));
+                this.indices.push(slice+this.slices*stack, (((slice+1)%(this.slices))+this.slices*(stack+1))%(this.slices*(this.stacks+1)), (slice+this.slices*(stack+1))%(this.slices*(this.stacks+1)));
+                this.indices.push(slice+this.slices*stack, (((slice+1)%(this.slices))+this.slices*stack)%(this.slices*(this.stacks+1)), (((slice+1)%(this.slices))+this.slices*(stack+1))%(this.slices*(this.stacks+1)));
             }
         }
 
