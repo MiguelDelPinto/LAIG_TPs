@@ -32,7 +32,6 @@ class MyCylinder extends CGFobject {
             currentRadius = this.base + currentHeight*(this.top-this.base)/this.height;
 
             for(var slice = 0; slice < this.slices; slice++){
-                console.log((slice + stack*this.slices)+":"+(-Math.sin(ang)*currentRadius)+","+(Math.cos(ang)*currentRadius)+","+(currentHeight));
                 this.vertices.push(-Math.sin(ang)*currentRadius, Math.cos(ang)*currentRadius,  currentHeight);
                 this.normals.push(-Math.sin(ang), Math.cos(ang), 0);
 
