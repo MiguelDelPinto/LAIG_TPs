@@ -32,6 +32,9 @@ class MyTorus extends CGFobject {
                   this.vertices.push(loop_center[0] + this.inner*Math.cos(phi*slice)*Math.cos(loop*theta), 
                                      loop_center[1] + this.inner*Math.cos(phi*slice)*Math.sin(loop*theta), 
                                      this.inner*Math.sin(phi*slice));
+                  this.normals.push(this.inner*Math.cos(phi*slice)*Math.cos(loop*theta), 
+                                    this.inner*Math.cos(phi*slice)*Math.sin(loop*theta), 
+                                    this.inner*Math.sin(phi*slice));
             }
         }
 
