@@ -24,8 +24,9 @@ class MyTorus extends CGFobject {
 
         let phi = 2*Math.PI/this.slices;    //0 to 360 degrees
         let theta = 2*Math.PI/this.loops;    //0 to 360 degrees  
-        let loop_center = [0, 0];
-        
+        let loop_center = [0, 0, 0];
+
+/*        
         for(let loop = 0; loop <= this.loops; loop++) {
             loop_center = [this.outer*Math.cos(theta*loop), this.outer*Math.sin(theta*loop)];
             for(let slice = 0; slice <= this.slices; slice++) {
@@ -35,6 +36,23 @@ class MyTorus extends CGFobject {
                   this.normals.push(this.inner*Math.cos(phi*slice)*Math.cos(loop*theta), 
                                     this.inner*Math.cos(phi*slice)*Math.sin(loop*theta), 
                                     this.inner*Math.sin(phi*slice));
+            }
+        }
+*/
+
+        for(let loop = 0; loop <= this.loops; loop++) {
+            loop_center = [this.outer + this.inner*Math.cos(theta*loop), 
+                           this.outer + this.inner*Math.cos(theta*loop),
+                           this.inner*Math.sin(theta*loop)];    //x and y need to multiply with cos and sin of phi*slice to "go to the right place"      
+            
+            for(let slice = 0; slice <= this.slices; slice++) {
+                this.vertices.push(loop_center[0] * Math.cos(phi*slice),
+                                   loop_center[1] * Math.sin(phi*slice),
+                                   loop_center[2]);
+
+                this.normals.push(this.inner*Math.cos(phi*slice)*Math.cos(theta*loop), 
+                                  this.inner*Math.cos(phi*slice)*Math.sin(theta*loop), 
+                                  this.inner*Math.sin(phi*loop));
             }
         }
 
