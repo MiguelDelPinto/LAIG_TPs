@@ -427,6 +427,19 @@ class MySceneGraph {
             if (this.materials[materialID] != null)
                 return "ID must be unique for each light (conflict: ID = " + materialID + ")";
 
+            // Get shininess of the current material.
+            let shininess = this.reader.getFloat(children[i], 'shininess');
+            if (shininess == null)
+                return "no shininess defined for material";
+
+            // Get the material's components
+            let material_components = children[i].children;
+
+            // ERROR CHECKING FOR THE MATERIAL_COMPONENTS ???
+
+            //And parse them
+            //let emision = 
+
             //Continue here
             this.onXMLMinorError("To do: Parse materials.");
         }
