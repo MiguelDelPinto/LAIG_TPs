@@ -24,44 +24,31 @@ class MyTorus extends CGFobject {
 
         let phi = 2*Math.PI/this.slices;    //0 to 360 degrees
         let theta = 2*Math.PI/this.loops;    //0 to 360 degrees  
-        let loop_center = [0, 0];
+  
+		for(let slice = 0; slice <= this.slices; slice++) {
+			let slice_coefs = [Math.cos(phi*slice), Math.sin(phi*slice)];
+			
+			for(let loop = 0; loop <= this.loops; loop++) {
+				let loop_coefs = [Math.cos(theta*loop), Math.sin(theta*loop)];
+				
+				this.vertices.push(slice_coefs[0] * (this.outer + this.inner*loop_coefs[0]), 
+								   slice_coefs[1] * (this.outer + this.inner*loop_coefs[0]), 
+								   loop_coefs[1] * this.inner);
 
-/*        
-        for(let loop = 0; loop <= this.loops; loop++) {
-            loop_center = [this.outer*Math.cos(theta*loop), this.outer*Math.sin(theta*loop)];
-            for(let slice = 0; slice <= this.slices; slice++) {
-                  this.vertices.push(loop_center[0] + this.inner*Math.cos(phi*slice)*Math.cos(loop*theta), 
-                                     loop_center[1] + this.inner*Math.cos(phi*slice)*Math.sin(loop*theta), 
-                                     this.inner*Math.sin(phi*slice));
-                  this.normals.push(this.inner*Math.cos(phi*slice)*Math.cos(loop*theta), 
-                                    this.inner*Math.cos(phi*slice)*Math.sin(loop*theta), 
-                                    this.inner*Math.sin(phi*slice));
-            }
-        }
-*/
+				this.normals.push(loop_coefs[0] * slice_coefs[0], 
+							      loop_coefs[0] * slice_coefs[1],
+								  loop_coefs[1]);
+			}
+		}
 
-        for(let loop = 0; loop <= this.loops; loop++) {
-            loop_center = [this.outer + this.inner*Math.cos(theta*loop), 
-                           this.outer + this.inner*Math.cos(theta*loop)];    //x and y need to multiply with cos and sin of phi*slice to "go to the right place"      
-            
-            for(let slice = 0; slice <= this.slices; slice++) {
-                this.vertices.push(loop_center[0] * Math.cos(phi*slice),
-                                   loop_center[1] * Math.sin(phi*slice),
-                                   this.inner*Math.sin(theta*loop));
-
-                this.normals.push(this.inner*Math.cos(phi*slice)*Math.cos(theta*loop), 
-                                  this.inner*Math.cos(phi*slice)*Math.sin(theta*loop), 
-                                  this.inner*Math.sin(phi*loop));
-            }
-        }
-
-        for(let loop = 0; loop < this.loops; loop++){
-            for(let slice = 0; slice < this.slices; slice++){
-                var index = (loop * (this.slices + 1)) + slice;
-                this.indices.push(index, index + this.slices + 2, index + this.slices + 1);
-                this.indices.push(index, index + 1, index + this.slices + 2);
-            }
-        } 
+		for (let slice = 0; slice < this.slices; slice++) {
+			for(let loop = 0; loop < this.loops; loop++) {
+				this.indices.push(
+					(slice+1)*(this.loops+1) + loop, slice*(this.loops+1) + loop+1, slice*(this.loops+1) + loop,
+					slice*(this.loops+1) + loop+1, (slice+1)*(this.loops+1) + loop, (slice+1)*(this.loops+1) + loop+1
+				);
+			}
+		}	
 
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
