@@ -1,0 +1,103 @@
+<lxs>
+    <scene root="death_mountain" axis_length="5"/>
+
+    <views default="defaultCamera">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="45">
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
+        </perspective>
+    </views>
+
+    <ambient>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </ambient>
+
+    <lights>
+        <omni id="demoLight" enabled="1">
+            <location x="9.8" y="11.9" z="10" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+    </lights>
+
+    <textures>
+        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="volcano" file="scenes/images/volcano.jpg" />
+        <texture id="cloud" file="scenes/images/cloud.jpg" />
+    </textures>
+
+    <materials>
+        <material id="demoMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
+    </materials>
+
+    <transformations>
+        <transformation id="demoTransform">
+            <scale x="5" y="1" z="5" />
+            <rotate axis="x" angle="-45" />
+            <rotate axis="z" angle="-45" />
+        </transformation>
+    </transformations>
+
+    <primitives>
+        <primitive id="mountain">
+            <cylinder base="2" top="1" height="2" slices="15" stacks="15" />
+        </primitive>
+        <primitive id="cloud">
+            <torus inner="0.25" outer="1.25" slices="15" loops="15" />
+        </primitive>
+    </primitives>
+
+
+    <components>
+        <!-- <component id="demoRoot">
+            <transformation>
+                <translate x="0" y="0" z="1" />
+                <scale x="2" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="demoMaterial" />
+            </materials>
+            <texture id="demoTexture"/>
+            <children>
+                <primitiveref id="demoRectangle" />
+            </children>
+        </component> -->
+
+        <component id="death_mountain">
+            <transformation>
+                <rotate axis="x" angle="-90"/>
+                <translate x="-20" y="0" z="-20" />
+                <scale x="10" y="10" z="10" />
+            </transformation>
+            <material>
+                <material id="inherit" />
+            </material>
+            <texture id="volcano" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="mountain" />
+                <componentref id="death_mountain_cloud" />
+            </children>
+        </component>
+
+        <component id="death_mountain_cloud">
+            <transformation>
+                <translate x="0" y="22" z="0" />
+                <scale x="0.5" y="0.5" z="0.5" />
+            </transformation>
+            <material>
+                <material id="inherit" />
+            </material>
+            <texture id="cloud" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="cloud" />
+            </children>
+        </component>
+    </components>
+</lxs>
