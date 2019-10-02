@@ -490,12 +490,25 @@ class MySceneGraph {
 
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
-                    case 'scale':                        
-                        this.onXMLMinorError("To do: Parse scale transformations.");
+                    case 'scale':         
+                        var coordinates = this.parseCoordinates3D(grandChildren[j], "scale transformation for ID " + transformationID);
+                        if(!Array.isArray(coordinates))
+                            return coordinates;
+
+                        transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);   
                         break;
                     case 'rotate':
+                        //Axis coordinates
+                        var coordinates = this.parseAxis(grandChildren[j], "rotate transformation for ID " + transformationID);
+                        if(!Array.isArray(coordinates))
+                            return coordinates;
+
                         // angle
-                        this.onXMLMinorError("To do: Parse rotate transformations.");
+                        var angle = this.parseAngle(grandChildren[j], "rotate transformation for ID " + transformationID);
+                        if(isNaN(angle))
+                            return angle;
+
+                        transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle, coordinates);
                         break;
                 }
             }
@@ -815,6 +828,45 @@ class MySceneGraph {
     }
 
     /**
+     * Parse the rotation axis from a node with ID = id
+     * @param {block element} node 
+     * @param {message to be displayed in case of error} messageError 
+     */
+    parseAxis(node, messageError){
+        let axis = "";
+
+        //Get axis
+        axis = this.reader.getString(node, "axis");
+        if(axis == null)
+            return "unable to parse axis of the " + messageError;
+
+        if(axis === "x")
+            return [1, 0, 0];
+        else if(axis === "y")
+            return [0, 1, 0];
+        else if(axis === "z")
+            return [0, 0, 1];
+        
+        //If occurs an error
+        return "unable to detect that axis of the " + messageError; 
+    }
+
+    /**
+     * 
+     * @param {block element} node 
+     * @param {message to be displayed in case of error} messageError 
+     */
+    parseAngle(node, messageError){
+        //Get angle
+        var angle = 0;
+        angle = this.reader.getFloat(node, "angle");
+        if(!(angle != null && !isNaN(angle)))
+            return "unable to parse angle of the " + messageError;
+        
+        return angle;
+    }
+
+    /**
      * Parse the color components from a node
      * @param {block element} node
      * @param {message to be displayed in case of error} messageError
@@ -880,7 +932,7 @@ class MySceneGraph {
 
         //To test the parsing/creation of the primitives, call the display function directly
         //this.primitives['demoRectangle'].display();
-        this.primitives['demoTorus'].display();
+        this.primitives['mountain'].display();
         //this.primitives['demoTriangle'].display();
         //this.primitives['demoSphere'].display();
     }
