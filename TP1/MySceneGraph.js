@@ -433,18 +433,39 @@ class MySceneGraph {
                 return "no shininess defined for material";
 
             // Get the material's components
-            let material_components = children[i].children;
+            grandChildren = children[i].children;
 
             // ERROR CHECKING FOR THE MATERIAL_COMPONENTS ???
-
+            if(grandChildren.length != 4)
+                return "material must have emission, ambient, diffuse and specular components";
+    
             //And parse them
-            //let emision = 
+            let emission = this.parseColor(grandChildren[0],  "material emission component for ID " + materialID); 
+            if (!Array.isArray(emission))
+                return emission;
 
-            //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            let ambient = this.parseColor(grandChildren[1], "material ambient component for ID " + materialID);
+            if(!Array.isArray(ambient))
+                return ambient;
+
+            let diffuse = this.parseColor(grandChildren[2], "material diffuse component for ID " + materialID);
+            if(!Array.isArray(diffuse))
+                return diffuse;
+
+            let specular = this.parseColor(grandChildren[3], "material specular component for ID " + materialID);
+            if(!Array.isArray(specular))
+                return specular;
+            
+            let new_material = new CGFappearance(this.scene);
+            new_material.setEmission(emission);
+            new_material.setAmbient(ambient);
+            new_material.setDiffuse(diffuse);
+            new_material.setSpecular(specular);
+            
+            this.materials[materialID] = new_material;
         }
 
-        //this.log("Parsed materials");
+        this.log("Parsed materials");
         return null;
     }
 
