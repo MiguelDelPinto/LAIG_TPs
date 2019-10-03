@@ -930,10 +930,15 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph
 
-        //To test the parsing/creation of the primitives, call the display function directly
-        //this.primitives['demoRectangle'].display();
+        //For testing:
         this.primitives['mountain'].display();
-        //this.primitives['demoTriangle'].display();
-        //this.primitives['demoSphere'].display();
+
+        //For real:
+        //this.traverseGraph(idRoot);
+    }
+
+    traverseGraph(idNode) {
+        //Uses a depth first search to traverse the scene's graph
+
     }
 }
