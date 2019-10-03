@@ -1008,16 +1008,99 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         //To test the parsing/creation of the primitives, call the display function directly
-        //this.primitives['demoRectangle'].display();
-        
-        this.scene.translate(-20, 0, -20);
-        this.scene.scale(10, 10, 10);
-        this.scene.rotate(this.degreeToRad(-90), 1, 0, 0);
-        this.primitives['mountain'].display();
-        this.scene.translate(0, 0, 2.5);
-        this.scene.scale(0.75, 0.75, 0.75);
-        this.primitives['cloud'].display();
         //this.primitives['demoTriangle'].display();
         //this.primitives['demoSphere'].display();
+
+        //house
+        this.scene.pushMatrix();
+        this.scene.translate(0, 1, 0);
+
+        //walls
+        this.scene.pushMatrix();
+            this.scene.translate(0, 0, 1);
+            this.scene.scale(3, 1, 1);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+            this.scene.translate(0, 0, -1);
+            this.scene.scale(3, 1, 1);
+            this.scene.rotate(Math.PI, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(1.5, 0, 0);
+            this.scene.scale(1, 1, 2);
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix(); 
+
+        this.scene.pushMatrix();
+            this.scene.translate(-1.5, 0, 0);
+            this.scene.scale(1, 1, 2);
+            this.scene.rotate(-Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();  
+        this.scene.popMatrix();
+
+        //roof
+        this.scene.pushMatrix();
+            this.scene.translate(0, 1.43, 1-Math.cos(-Math.PI/3));
+            this.scene.scale(3, 0.5, 1);
+            this.scene.rotate(-Math.PI/6, 1, 0, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(0, 1.43, -1+Math.cos(-Math.PI/3));
+            this.scene.scale(3, 0.5, 1);
+            this.scene.rotate(Math.PI, 0, 1, 0);
+            this.scene.rotate(-Math.PI/6, 1, 0, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        
+        this.scene.pushMatrix();
+            this.scene.translate(-1.5, 1, 0);
+            this.scene.scale(1, 0.87, 1);
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.primitives['demoTriangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(1.5, 1, 0);
+            this.scene.scale(1, 0.87, 1);
+            this.scene.rotate(-Math.PI/2, 0, 1, 0);
+            this.primitives['demoTriangle'].display();
+        this.scene.popMatrix();
+        
+        //roof window ?
+        this.scene.pushMatrix();
+            this.scene.translate(0, 1.4, 0.75);
+            this.scene.scale(0.5, 0.175, 1);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+        
+        this.scene.pushMatrix();
+            this.scene.translate(0.25, 1.4, 0.425);
+            this.scene.scale(0.5, 0.175, 0.65);
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(-0.25, 1.4, 0.425);
+            this.scene.scale(0.5, 0.175, 0.65);
+            this.scene.rotate(-Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(0, 2, 0);
+           
+            this.primitives['demoTriangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.popMatrix();
     }
 }

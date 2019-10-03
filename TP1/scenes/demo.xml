@@ -51,7 +51,7 @@
             <sphere radius="1" slices="50" stacks="50" />
         </primitive>
         <primitive id="demoTriangle">
-            <triangle x1="-1" y1="-1" z1="2" x2="1" y2="-1" z2="-1" x3="-1" y3="1" z3="0" />
+            <triangle x1="-1" y1="0" z1="0" x2="0" y2="1" z2="0" x3="1" y3="0" z3="0" />
         </primitive>
         <primitive id="demoCylinder">  <!-- // ADDED !!!!-->
             <cylinder base="1.5" top="1" height="2" slices="25" stacks="25" />
