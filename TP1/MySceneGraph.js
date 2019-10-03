@@ -433,18 +433,39 @@ class MySceneGraph {
                 return "no shininess defined for material";
 
             // Get the material's components
-            let material_components = children[i].children;
+            grandChildren = children[i].children;
 
             // ERROR CHECKING FOR THE MATERIAL_COMPONENTS ???
-
+            if(grandChildren.length != 4)
+                return "material must have emission, ambient, diffuse and specular components";
+    
             //And parse them
-            //let emision = 
+            let emission = this.parseColor(grandChildren[0],  "material emission component for ID " + materialID); 
+            if (!Array.isArray(emission))
+                return emission;
 
-            //Continue here
-            this.onXMLMinorError("To do: Parse materials.");
+            let ambient = this.parseColor(grandChildren[1], "material ambient component for ID " + materialID);
+            if(!Array.isArray(ambient))
+                return ambient;
+
+            let diffuse = this.parseColor(grandChildren[2], "material diffuse component for ID " + materialID);
+            if(!Array.isArray(diffuse))
+                return diffuse;
+
+            let specular = this.parseColor(grandChildren[3], "material specular component for ID " + materialID);
+            if(!Array.isArray(specular))
+                return specular;
+            
+            let new_material = new CGFappearance(this.scene);
+            new_material.setEmission(emission);
+            new_material.setAmbient(ambient);
+            new_material.setDiffuse(diffuse);
+            new_material.setSpecular(specular);
+            
+            this.materials[materialID] = new_material;
         }
 
-        //this.log("Parsed materials");
+        this.log("Parsed materials");
         return null;
     }
 
@@ -508,7 +529,7 @@ class MySceneGraph {
                         if(isNaN(angle))
                             return angle;
 
-                        transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle, coordinates);
+                        transfMatrix = mat4.rotate(transfMatrix, transfMatrix, this.degreeToRad(angle), coordinates);
                         break;
                 }
             }
@@ -517,6 +538,10 @@ class MySceneGraph {
 
         this.log("Parsed transformations");
         return null;
+    }
+
+    degreeToRad(angle){
+        return Math.PI*angle/180;
     }
 
     /**
@@ -724,7 +749,7 @@ class MySceneGraph {
    * Parses the <components> block.
    * @param {components block element} componentsNode
    */
-    parseComponents(componentsNode) {
+    parseComponents(componentsNode) {   
         var children = componentsNode.children;
 
         this.components = [];
@@ -750,6 +775,10 @@ class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
+            var component = new Object();
+            component.id = componentID;
+
+            //Stores transformation(s), material(s), texture and reference(s) to components/primitives
             grandChildren = children[i].children;
 
             nodeNames = [];
@@ -763,13 +792,91 @@ class MySceneGraph {
             var childrenIndex = nodeNames.indexOf("children");
 
             this.onXMLMinorError("To do: Parse components.");
+
             // Transformations
+
+            var transfMatrix;
+            grandgrandChildren = grandChildren[transformationIndex];
+                  
+            if(grandgrandChildren.length == 1 && grandgrandChildren[0].nodeName == "transformationref"){
+                if(grandgrandChildren.length > 1)
+                    return "component " + componentID + " can only have one transformationref in its transformation";
+            
+                var transformationID = this.reader.getString(grandgrandChildren[j], 'id');
+                if(transformationID == null)
+                    return "no ID defined for component transformationID";
+
+                // Checks if the transformation exists.
+                if (this.transformations[transformationID] != null && transformationID != "inherit")
+                    return "transformation with ID " + transformationID + " must exist ";
+
+                transfMatrix = this.transformations[transformationID];
+                componentTransformations.push(transfMatrix);
+            }
+            else{
+                transfMatrix = mat4.create();
+
+                for (var j = 0; j < grandgrandChildren.length; j++) {
+                    switch (grandgrandChildren[j].nodeName) {
+                        case 'translate':
+                            var coordinates = this.parseCoordinates3D(grandgrandChildren[j], "translate transformation for ID " + transformationID);
+                            if (!Array.isArray(coordinates))
+                                return coordinates;
+
+                            transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
+                            break;
+                        case 'scale':         
+                            var coordinates = this.parseCoordinates3D(grandgrandChildren[j], "scale transformation for ID " + transformationID);
+                            if(!Array.isArray(coordinates))
+                                return coordinates;
+
+                            transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);   
+                            break;
+                        case 'rotate':
+                            //Axis coordinates
+                            var coordinates = this.parseAxis(grandgrandChildren[j], "rotate transformation for ID " + transformationID);
+                            if(!Array.isArray(coordinates))
+                                return coordinates;
+
+                            // angle
+                            var angle = this.parseAngle(grandgrandChildren[j], "rotate transformation for ID " + transformationID);
+                            if(isNaN(angle))
+                                return angle;
+
+                            transfMatrix = mat4.rotate(transfMatrix, transfMatrix, this.degreeToRad(angle), coordinates);
+                            break;
+                    }
+                }
+            }
+
+            component.transformationMatrix = transfMatrix;
+
 
             // Materials
 
             // Texture
 
             // Children
+            grandgrandChildren = grandChildren[childrenIndex];      //MAYBE CHANGE NAME TO 'childrenReferences' ?
+
+            if(grandgrandChildren.length == 0)
+                return "there must be at least one reference to a component or primitive";
+
+            for(var j = 0; j < grandgrandChildren.length; j++) {
+                switch (grandgrandChildren[j].nodeName) {
+                    case 'componentref':
+                        var childrenComponentId = this.reader.getString(grandgrandChildren[j], 'id');
+                        component.componentIds.push(childrenComponentId);
+                        break;
+                    case 'primitiveref':         
+                        var childrenPrimitiveId = this.reader.getString(grandgrandChildren[j], 'id');
+                        component.primitiveIds.push(childrenPrimitiveId);
+                        break;
+                }            
+            }
+
+            //Adding the component
+            this.components[component.id] = component;
         }
     }
 
@@ -931,14 +1038,59 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         //For testing:
+        this.scene.translate(-20, 0, -20);
+        this.scene.scale(10, 10, 10);
+        this.scene.rotate(this.degreeToRad(-90), 1, 0, 0);
         this.primitives['mountain'].display();
+        this.scene.translate(0, 0, 2.5);
+        this.scene.scale(0.75, 0.75, 0.75);
+        this.primitives['cloud'].display();
+        //this.primitives['demoTriangle'].display();
+        //this.primitives['demoSphere'].display();;
 
+/*
         //For real:
-        //this.traverseGraph(idRoot);
+        this.transformationStack;
+        this.materialStack;
+        this.textureStack;
+        
+        this.traverseGraph(idRoot, defaultMaterial, defaultTexture, defaultTransformation);
+*/
     }
 
-    traverseGraph(idNode) {
+    traverseGraph(idNode, idCurrentMaterial, idCurrentTexture, currentTransformation) {
         //Uses a depth first search to traverse the scene's graph
+        let currentNode = this.components[idNode];
 
+        //Updates the current material's id
+        if(this.currentNode.material.id != 'inherit')
+            idCurrentMaterial = currentNode.material.id;
+        
+        //Updates the current texture's id
+        if(this.currentNode.texture.id != 'inherit')   //ACRESCENTAR CASO DA TEXTURA SER NONE
+            idCurrentTexture = currentNode.texture.id;
+
+        //Updates the current transformation Matrix
+
+        for(let i = 0; i < currentNode.primitiveIds.length; i++) {
+            this.pushMatrix();
+            this.appliViewMatrix(currentNode.transformationMatrix);
+            this.materials[idCurrentMaterial].apply();
+            //Load texture here
+            this.primitives[currentNode.primtiveIds[i]].display();
+            this.popMatrix();
+        }
+
+        for(let i = 0; i < currentNode.componentIds.length; i++) {
+            this.materialStack.push(idCurrentMaterial);
+            this.textureStack.push(idCurrentTexture);
+            this.tranformationStack.push(currentTransformation);
+
+            traverseGraph(currentNode.componentIds[i], idCurrentMaterial, idCurrentTexture, currentTransformation);
+
+            currentTransformation = this.materialStack.pop();
+            idCurrentTexture = this.textureStack.pop();
+            idCurrentMaterial = this.materialStack.pop();
+        }                 
     }
 }
