@@ -1096,9 +1096,89 @@ class MySceneGraph {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0, 2, 0);
-           
+            this.scene.translate(0, 1.575, 0.75);
+            this.scene.scale(0.25, 0.25, 1);
+            this.scene.rotate(Math.PI, 0, 1, 0);
             this.primitives['demoTriangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(0.125, 1.7, 0.5);
+            this.scene.rotate(Math.PI/4, 0, 0, 1);
+            this.scene.scale(0.15, 0.1725, 0.5);
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(-0.125, 1.7, 0.5);
+            this.scene.rotate(-Math.PI/4, 0, 0, 1);
+            this.scene.scale(0.15, 0.1725, 0.5);
+            this.scene.rotate(-Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+        
+        //Chimney
+        this.scene.pushMatrix();
+            this.scene.translate(0.75, 2.25, -0.4);
+            this.scene.scale(0.25, 1, 0.25);
+            this.scene.rotate(Math.PI/2, 1, 0, 0);
+            this.primitives['demoCylinder'].display();
+        this.scene.popMatrix();
+
+        //Stairs
+        this.scene.pushMatrix();
+            this.scene.translate(0, -0.8, 1.1);
+            this.scene.scale(3, 1, 0.1);
+            this.scene.rotate(-Math.PI/2, 1, 0, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(0, -0.9, 1.3);
+            this.scene.scale(3, 1, 0.1);
+            this.scene.rotate(-Math.PI/2, 1, 0, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(0, -0.85, 1.2);
+            this.scene.scale(3, 0.05, 1);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(0, -0.95, 1.4);
+            this.scene.scale(3, 0.05, 1);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(1.5, -0.95, 1.2);
+            this.scene.scale(3, 0.05, 0.4);
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(-1.5, -0.95, 1.2);
+            this.scene.scale(3, 0.05, 0.4);
+            this.scene.rotate(-Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(1.5, -0.85, 1.1);
+            this.scene.scale(3, 0.05, 0.2);
+            this.scene.rotate(Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+            this.scene.translate(-1.5, -0.85, 1.1);
+            this.scene.scale(3, 0.05, 0.2);
+            this.scene.rotate(-Math.PI/2, 0, 1, 0);
+            this.primitives['demoRectangle'].display();
         this.scene.popMatrix();
 
         this.scene.popMatrix();

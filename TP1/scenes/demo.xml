@@ -54,7 +54,7 @@
             <triangle x1="-1" y1="0" z1="0" x2="0" y2="1" z2="0" x3="1" y3="0" z3="0" />
         </primitive>
         <primitive id="demoCylinder">  <!-- // ADDED !!!!-->
-            <cylinder base="1.5" top="1" height="2" slices="25" stacks="25" />
+            <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
         </primitive>
         <primitive id="demoTorus"> <!-- // ADDED !!!!-->
             <torus inner="0.5" outer="3" slices="50" loops="50" />
