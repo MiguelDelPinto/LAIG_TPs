@@ -529,7 +529,7 @@ class MySceneGraph {
                         if(isNaN(angle))
                             return angle;
 
-                        transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle, coordinates);
+                        transfMatrix = mat4.rotate(transfMatrix, transfMatrix, this.degreeToRad(angle), coordinates);
                         break;
                 }
             }
@@ -538,6 +538,10 @@ class MySceneGraph {
 
         this.log("Parsed transformations");
         return null;
+    }
+
+    degreeToRad(angle){
+        return Math.PI*angle/180;
     }
 
     /**
@@ -745,7 +749,7 @@ class MySceneGraph {
    * Parses the <components> block.
    * @param {components block element} componentsNode
    */
-    parseComponents(componentsNode) {
+    parseComponents(componentsNode) {   
         var children = componentsNode.children;
 
         this.components = [];
@@ -831,7 +835,7 @@ class MySceneGraph {
                             if(isNaN(angle))
                                 return angle;
 
-                            transfMatrix = mat4.rotate(transfMatrix, transfMatrix, angle, coordinates);
+                            transfMatrix = mat4.rotate(transfMatrix, transfMatrix, this.degreeToRad(angle), coordinates);
                             break;
                     }
                 }
@@ -1005,7 +1009,14 @@ class MySceneGraph {
 
         //To test the parsing/creation of the primitives, call the display function directly
         //this.primitives['demoRectangle'].display();
+        
+        this.scene.translate(-20, 0, -20);
+        this.scene.scale(10, 10, 10);
+        this.scene.rotate(this.degreeToRad(-90), 1, 0, 0);
         this.primitives['mountain'].display();
+        this.scene.translate(0, 0, 2.5);
+        this.scene.scale(0.75, 0.75, 0.75);
+        this.primitives['cloud'].display();
         //this.primitives['demoTriangle'].display();
         //this.primitives['demoSphere'].display();
     }
