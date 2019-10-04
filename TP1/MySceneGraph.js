@@ -322,8 +322,8 @@ class MySceneGraph {
             global.push(children[i].nodeName);
 
             grandChildren = children[i].children;
-            // Specifications for the current light.
 
+            // Specifications for the current light.
             nodeNames = [];
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
@@ -421,7 +421,7 @@ class MySceneGraph {
 
             if(new_texture == null)
                 return "the file for the texture is incorrect";
-                
+
             this.textures[textureId] = new_texture;             
         }
 
@@ -828,7 +828,7 @@ class MySceneGraph {
 
             // Transformations
             var transfMatrix;
-            grandgrandChildren = grandChildren[transformationIndex];
+            grandgrandChildren = grandChildren[transformationIndex].children;
                   
             if(grandgrandChildren.length == 1 && grandgrandChildren[0].nodeName == "transformationref"){
                 if(grandgrandChildren.length > 1)
@@ -1084,7 +1084,7 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph
 
-
+/*
         //For testing:
         this.scene.translate(-20, -15, -20);
         this.scene.scale(5, 5, 5);
@@ -1093,12 +1093,10 @@ class MySceneGraph {
         this.scene.translate(0, 0, 2.5);
         this.scene.scale(0.75, 0.75, 0.75);
         this.primitives['cloud'].display();
+*/
 
-
-/*
         //For real:        
         this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture');
-*/
     }
 
     traverseGraph(idNode, idCurrentMaterial, idCurrentTexture) {
