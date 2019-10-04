@@ -828,7 +828,7 @@ class MySceneGraph {
 
             // Transformations
             var transfMatrix;
-            grandgrandChildren = grandChildren[transformationIndex];
+            grandgrandChildren = grandChildren[transformationIndex].children;
                   
             if(grandgrandChildren.length == 1 && grandgrandChildren[0].nodeName == "transformationref"){
                 if(grandgrandChildren.length > 1)
