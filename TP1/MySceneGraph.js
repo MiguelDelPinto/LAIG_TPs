@@ -834,12 +834,12 @@ class MySceneGraph {
                 if(grandgrandChildren.length > 1)
                     return "component " + componentID + " can only have one transformationref in its transformation";
             
-                var transformationID = this.reader.getString(grandgrandChildren[j], 'id');
+                var transformationID = this.reader.getString(grandgrandChildren[0], 'id');
                 if(transformationID == null)
                     return "no ID defined for component transformationID";
 
                 // Checks if the transformation exists.
-                if (this.transformations[transformationID] != null && transformationID != "inherit")
+                if (this.transformations[transformationID] == null && transformationID != "inherit")
                     return "transformation with ID " + transformationID + " must exist ";
 
                 transfMatrix = this.transformations[transformationID];
@@ -1122,7 +1122,7 @@ class MySceneGraph {
         }
 
         for(let i = 0; i < currentNode.componentIds.length; i++) {
-            traverseGraph(currentNode.componentIds[i], idCurrentMaterial, idCurrentTexture);
+            this.traverseGraph(currentNode.componentIds[i], idCurrentMaterial, idCurrentTexture);
         }
 
         this.scene.popMatrix();         

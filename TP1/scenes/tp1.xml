@@ -1,5 +1,5 @@
 <lxs>
-    <scene root="death_mountain" axis_length="5"/>
+    <scene root="house" axis_length="5"/>
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
