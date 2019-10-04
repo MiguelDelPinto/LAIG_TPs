@@ -1056,7 +1056,7 @@ class MySceneGraph {
 
             //Front roof
             this.scene.pushMatrix();
-                this.scene.translate(0, 1.425, 0.5);
+                this.scene.translate(0, 1.43, 0.5);
                 this.scene.scale(3, 0.5, 1);
                 this.scene.rotate(-Math.PI/6, 1, 0, 0);
                 this.primitives['demoRectangle'].display();
@@ -1064,7 +1064,7 @@ class MySceneGraph {
             
             //Back roof
             this.scene.pushMatrix();
-                this.scene.translate(0, 1.425, -0.5);
+                this.scene.translate(0, 1.43, -0.5);
                 this.scene.scale(3, 0.5, 1);
                 this.scene.rotate(Math.PI, 0, 1, 0);
                 this.scene.rotate(-Math.PI/6, 1, 0, 0);
