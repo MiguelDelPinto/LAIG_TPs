@@ -224,7 +224,7 @@
                 <translate x="0.2" y="-0.05" z="0.01" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="grayRoof" />
             </materials>
             <texture id="door" />
             <children>
@@ -234,7 +234,7 @@
         
         <component id="door" >
             <transformation>
-                <scale x="0.9" y="0.75" z="1" />
+                <scale x="0.8" y="0.75" z="1" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -847,10 +847,10 @@
 
         <component id="protuberance_window">
             <transformation>
-                <translate x="0" y="0" z="0.01" />
+                <translate x="0" y="0.15" z="0.01" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="grayRoof" />
             </materials>
             <texture id="window" />
             <children>
