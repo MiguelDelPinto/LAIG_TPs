@@ -63,20 +63,6 @@
 
 
     <components>
-        <!-- <component id="demoRoot">
-            <transformation>
-                <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="demoTexture"/>
-            <children>
-                <primitiveref id="demoRectangle" />
-            </children>
-        </component> -->
-
         <component id="death_mountain">
             <transformation>
                 <translate x="-20" y="0" z="-20" />
@@ -710,6 +696,63 @@
             <children>
                 <primitiveref id="rectangle" />
            </children>
+        </component>
+
+        <component id="floor">
+            <transformation>
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="main_floor" />
+                <componentref id="protuberance_floor" />
+                <componentref id="stairs_floor" />
+            </children>
+        </component>
+
+        <component id="main_floor">
+            <transformation>
+                <translate x="0" y="-0.05" z="1" />
+                <scale x="3" y="0.95" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="protuberance_floor">
+            <transformation>
+                <translate x="1.125" y="0.95" z="1" />
+                <scale x="0.75" y="0.05" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="stairs_floor">
+            <transformation>
+                <translate x="0.19" y="1.1" z="1" />
+                <scale x="1.125" y="0.2" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
         </component>
     </components>
 </lxs>
