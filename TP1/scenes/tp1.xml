@@ -126,8 +126,6 @@
 
 
     <components>
-<<<<<<< HEAD
-=======
         <component id="scene_component">
             <transformation/>
             <materials>
@@ -140,7 +138,6 @@
             </children>
         </component> 
 
->>>>>>> master
         <component id="death_mountain">
             <transformation>
                 <translate x="-10" y="0" z="-10" />
@@ -184,6 +181,7 @@
                 <componentref id="roof" />
                 <componentref id="outside" />
                 <componentref id="protuberance" />
+                <componentref id="floor" />
             </children>
         </component>
 
