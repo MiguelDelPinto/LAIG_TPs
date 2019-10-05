@@ -26,6 +26,8 @@
         <texture id="defaultTexture" file="scenes/images/vidral.jpg" />
         <texture id="volcano" file="scenes/images/volcano.jpg" />
         <texture id="cloud" file="scenes/images/cloud.jpg" />
+        <texture id="window" file="scenes/images/window.jpg" />
+        <texture id="door" file="scenes/images/door.jpg" />
     </textures>
 
     <materials>
@@ -224,7 +226,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="door" />
             <children>
                 <componentref id="door" />
             </children>
@@ -237,7 +239,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -248,9 +250,9 @@
                 <translate x="-0.9" y="0.2" z="0.01" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="grayRoof" />
             </materials>
-            <texture id="none" />
+            <texture id="window" />
             <children>
                 <componentref id="window" />
             </children>
@@ -263,7 +265,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -472,7 +474,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="window" />
             <children>
                 <componentref id="window" />
             </children>
@@ -850,7 +852,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="window" />
             <children>
                 <componentref id="window" />
             </children>  
