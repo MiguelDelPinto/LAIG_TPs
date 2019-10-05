@@ -126,9 +126,75 @@
             </children>
         </component>
 
-        <component id="wall_front">
+        <component id="wall_front" >
             <transformation>
                 <translate x="0" y="0" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="front_wall" />
+                <componentref id="front_door" />
+                <componentref id="front_window" />
+            </children>
+        </component>
+
+        <component id="front_door" >
+            <transformation>
+                <translate x="0.2" y="-0.05" z="0.01" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="door" />
+            </children>
+        </component>
+        
+        <component id="door" >
+            <transformation>
+                <scale x="0.9" y="0.75" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+        
+        <component id="front_window">
+            <transformation>
+                <translate x="-0.9" y="0.2" z="0.01" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="window" />
+            </children>
+        </component>
+
+        <component id="window">
+            <transformation>
+                <scale x="0.6" y="0.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="front_wall">
+            <transformation>
                 <scale x="3" y="1" z="1" />
             </transformation>
             <materials>
@@ -186,7 +252,9 @@
         </component>
 
         <component id="roof">
-            <transformation></transformation>
+            <transformation>
+                <translate x="0" y="1" z="0" />
+            </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -204,7 +272,7 @@
         
         <component id="roof_front">
             <transformation>
-                <translate x="0" y="1.425" z="0.5" />
+                <translate x="0" y="0.425" z="0.5" />
                 <scale x="3" y="0.5" z="1" />
                 <rotate axis="x" angle="-30" />
             </transformation>
@@ -219,7 +287,7 @@
 
         <component id="roof_back">
             <transformation>
-                <translate x="0" y="1.425" z="-0.5" />
+                <translate x="0" y="0.425" z="-0.5" />
                 <scale x="3" y="0.5" z="1" />
                 <rotate axis="y" angle="180" />
                 <rotate axis="x" angle="-30" />
@@ -235,7 +303,7 @@
 
         <component id="roof_left">
             <transformation>
-                <translate x="-1.5" y="1" z="0" />
+                <translate x="-1.5" y="0" z="0" />
                 <scale x="1" y="0.87" z="1" />
                 <rotate axis="y" angle="90" />
             </transformation>
@@ -250,7 +318,7 @@
 
         <component id="roof_right">
             <transformation>
-                <translate x="1.5" y="1" z="0" />
+                <translate x="1.5" y="0" z="0" />
                 <scale x="1" y="0.87" z="1" />
                 <rotate axis="y" angle="-90" />
             </transformation>
@@ -265,7 +333,6 @@
 
         <component id="roof_bottom">
             <transformation>
-                <translate x="0" y="1" z="0" />
                 <scale x="3" y="1" z="1" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -279,7 +346,9 @@
         </component>
 
         <component id="roof_window">
-            <transformation></transformation>
+            <transformation>
+                <translate x="0" y="0.4" z="0" />
+            </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -294,7 +363,20 @@
 
          <component id="roof_window_front">
             <transformation>
-                <translate x="0" y="1.4" z="0.75" />
+                <translate x="0" y="0" z="0.75" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="roof_window_front_wall" />
+                <componentref id="roof_window_front_window" />
+            </children>
+        </component>
+
+        <component id="roof_window_front_wall">
+            <transformation>
                 <scale x="0.5" y="0.175" z="1" />
             </transformation>
             <materials>
@@ -306,9 +388,23 @@
             </children>
         </component>
 
+        <component id="roof_window_front_window">
+            <transformation>
+                <translate x="0" y="0" z="0.01" />
+                <scale x="0.5" y="0.3" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="window" />
+            </children>
+        </component>
+
          <component id="roof_window_right">
             <transformation>
-                <translate x="0.25" y="1.4" z="0.425" />
+                <translate x="0.25" y="0" z="0.425" />
                 <scale x="30.5" y="0.175" z="0.65" />
                 <rotate axis="y" angle="90" />
             </transformation>
@@ -323,7 +419,7 @@
 
          <component id="roof_window_left">
             <transformation>
-                <translate x="-0.25" y="1.4" z="0.425" />
+                <translate x="-0.25" y="0" z="0.425" />
                 <scale x="0.5" y="0.175" z="0.65" />
                 <rotate axis="y" angle="-90" />
             </transformation>
@@ -337,7 +433,7 @@
         </component>
 
          <component id="roof_window_roof">
-            <transformation></transformation>
+            <transformation />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -351,7 +447,7 @@
 
         <component id="roof_window_roof_front">
             <transformation>
-                <translate x="0" y="1.575" z="0.75" />
+                <translate x="0" y="0.175" z="0.75" />
                 <scale x="0.25" y="0.25" z="1" />
                 <rotate axis="y" angle="180" />
             </transformation>
@@ -366,7 +462,7 @@
 
         <component id="roof_window_roof_right">
             <transformation>
-                <translate x="0.125" y="1.7" z="0.5" />
+                <translate x="0.125" y="0.3" z="0.5" />
                 <rotate axis="z" angle="45" />
                 <scale x="0.15" y="0.1725" z="0.5" />
                 <rotate axis="y" angle="90" />
@@ -382,7 +478,7 @@
 
         <component id="roof_window_roof_left">
             <transformation>
-                <translate x="-0.125" y="1.7" z="0.5" />
+                <translate x="-0.125" y="0.3" z="0.5" />
                 <rotate axis="z" angle="-45" />
                 <scale x="0.15" y="0.1725" z="0.5" />
                 <rotate axis="y" angle="-90" />
@@ -398,7 +494,7 @@
 
         <component id="chimney">
             <transformation>
-                <translate x="0.75" y="2.25" z="-0.4" />
+                <translate x="0.75" y="1.25" z="-0.4" />
                 <scale x="0.25" y="1" z="0.25" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -665,9 +761,23 @@
             <texture id="none" />
             <children>
                 <primitiveref id="rectangle" />
+                <componentref id="protuberance_window" />
                 <componentref id="protuberance_right" />
                 <componentref id="protuberance_left" />
             </children>
+        </component>
+
+        <component id="protuberance_window">
+            <transformation>
+                <translate x="0" y="0" z="0.01" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="window" />
+            </children>  
         </component>
 
         <component id="protuberance_right">
