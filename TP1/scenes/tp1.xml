@@ -566,7 +566,7 @@
         </component>
 
         <component id="porch">
-            <transformation></transformation>
+            <transformation/>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -577,6 +577,102 @@
                 <componentref id="porch_left_bottom" />
                 <componentref id="first_column" />
                 <componentref id="second_column" />
+                <componentref id="big_grilles" />
+                <componentref id="small_grilles" />
+            </children>
+        </component>
+
+        <component id="big_grilles">
+            <transformation>
+                <translate x="-1.4" y="-0.15" z="1.4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="big_handrail" />
+                <componentref id="big_grilles_columns" />
+            </children>
+        </component>
+
+        <component id="big_handrail">
+            <transformation>
+                <scale x="1.25" y="0.05" z="0.05" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="big_grilles_columns">
+            <transformation/>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="first_small_column" />
+                <componentref id="second_small_column" />
+                <componentref id="third_small_column" />
+            </children>
+        </component>
+
+        <component id="first_small_column">
+            <transformation>
+                <translate x="0.3" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="small_column" />
+            </children>
+        </component>
+
+        <component id="second_small_column">
+            <transformation>
+                <translate x="0.65" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="small_column" />
+            </children>
+        </component>
+
+        <component id="third_small_column">
+            <transformation>
+                <translate x="1" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="small_column" />
+            </children>
+        </component>
+
+        <component id="small_column">
+            <transformation>
+                <scale x="0.05" y="0.65" z="0.05" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
             </children>
         </component>
 
