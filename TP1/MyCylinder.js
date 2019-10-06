@@ -34,7 +34,7 @@ class MyCylinder extends CGFobject {
             for(var slice = 0; slice <= this.slices; slice++){
                 this.vertices.push(-Math.sin(ang)*currentRadius, Math.cos(ang)*currentRadius,  currentHeight);
                 this.normals.push(-Math.sin(ang), Math.cos(ang), 0);
-
+                this.texCoords.push(slice/this.slices, 1-stack/this.stacks);
                 ang+=alphaAng;   
             }
         }

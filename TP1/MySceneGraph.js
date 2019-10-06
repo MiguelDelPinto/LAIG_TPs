@@ -1114,10 +1114,16 @@ class MySceneGraph {
         //Updates the current transformation Matrix
         this.scene.pushMatrix();
         this.scene.multMatrix(currentNode.transformationMatrix);
+        
+        const material = this.materials[idCurrentMaterial];
+        if(material === undefined)
+            console.log("Undefined material used in the "+idNode+" component");
+
+        if(idCurrentTexture !== "none")
+            material.setTexture(this.textures[idCurrentTexture]);
 
         for(let i = 0; i < currentNode.primitiveIds.length; i++) {
-            this.materials[idCurrentMaterial].apply();
-            //this.textures[idCurrentTexture].apply();
+            material.apply();
             this.primitives[currentNode.primitiveIds[i]].display();
         }
 
