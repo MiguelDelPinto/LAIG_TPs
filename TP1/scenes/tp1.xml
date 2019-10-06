@@ -124,6 +124,12 @@
         <primitive id="cylinder">  
             <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
         </primitive>
+        <primitive id="sphere">  
+            <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
+        </primitive>
+        <primitive id="torus">  
+            <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
+        </primitive>                
     </primitives>
 
 
