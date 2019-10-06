@@ -1118,12 +1118,15 @@ class MySceneGraph {
         const material = this.materials[idCurrentMaterial];
         if(material === undefined)
             console.log("Undefined material used in the "+idNode+" component");
-
-        if(idCurrentTexture !== "none")
-            material.setTexture(this.textures[idCurrentTexture]);
+        
+        const texture = this.textures[idCurrentTexture];
+        /*if(idCurrentTexture !== "none")
+            material.setTexture(this.textures[idCurrentTexture]);*/
 
         for(let i = 0; i < currentNode.primitiveIds.length; i++) {
             material.apply();
+            if(texture !== undefined)
+                console.log(texture.bind(0));
             this.primitives[currentNode.primitiveIds[i]].display();
         }
 

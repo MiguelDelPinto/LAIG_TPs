@@ -29,14 +29,17 @@
         <texture id="window" file="scenes/images/window.jpg" />
         <texture id="door" file="scenes/images/door.jpg" />
         <texture id="chimney" file="scenes/images/chimney.jpg" />
+        <texture id="wood" file="scenes/images/wood.jpg" />
+        <texture id="roof" file="scenes/images/roof.jpg" />
+        <texture id="ground" file="scenes/images/ground.jpg" />
     </textures>
 
     <materials>
         <material id="defaultMaterial" shininess="5">
-            <emission r="0.0" g="0.0" b="0.5" a="1.0" />
-            <ambient r="0.0" g="0.0" b="0.5" a="1.0" />
-            <diffuse r="0.0" g="0.0" b="0.5" a="1.0" />
-            <specular r="0.0" g="0.0" b="0.5" a="1.0" />
+            <emission r="1.0" g="1.0" b="1.0" a="0.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="0.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="0.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="0.0" />
         </material>
 
         <material id="wallMaterial" shininess="1">
@@ -138,8 +141,23 @@
             <children>
                 <componentref id="death_mountain" />
                 <componentref id="house" />
+                <!-- <componentref id="ground" /> -->
             </children>
         </component> 
+
+        <!--<component id="ground">
+            <transformation>
+                <scale x="60" y="1" z="40" />
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="ground" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component> -->
 
         <component id="death_mountain">
             <transformation>
@@ -196,7 +214,7 @@
             <materials>
                 <material id="orangeHouse" />
             </materials>
-            <texture id="none" />
+            <texture id="wood" length_s="1" length_t="1" />
             <children>
                 <componentref id="wall_front" />
                 <componentref id="wall_back" />
@@ -212,7 +230,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <componentref id="front_wall" />
                 <componentref id="front_door" />
@@ -279,7 +297,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -294,7 +312,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -309,7 +327,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -324,7 +342,7 @@
             <materials>
                 <material id="beigeHouse" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -337,7 +355,7 @@
             <materials>
                 <material id="grayRoof" />
             </materials>
-            <texture id="none" />
+            <texture id="roof" length_s="1" length_t="1" />
             <children>
                 <componentref id="roof_front" />
                 <componentref id="roof_back" />
@@ -358,7 +376,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -374,7 +392,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -389,7 +407,7 @@
             <materials>
                 <material id="beigeHouse" />
             </materials>
-            <texture id="none" />
+            <texture id="wood" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -404,7 +422,7 @@
             <materials>
                 <material id="yellowRoof" />
             </materials>
-            <texture id="none" />
+            <texture id="wood" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -431,7 +449,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="wood" length_s="1" length_t="1" />
             <children>
                 <componentref id="roof_window_front" />
                 <componentref id="roof_window_right" />
@@ -447,7 +465,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <componentref id="roof_window_front_wall" />
                 <componentref id="roof_window_front_window" />
@@ -461,7 +479,7 @@
             <materials>
                 <material id="yellowRoof" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -490,7 +508,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -505,7 +523,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -516,7 +534,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="roof" length_s="1" length_t="1" />
             <children>
                 <componentref id="roof_window_roof_front" />
                 <componentref id="roof_window_roof_right" />
@@ -533,7 +551,7 @@
             <materials>
                 <material id="blueRoof" />
             </materials>
-            <texture id="none" />
+            <texture id="wood" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -549,7 +567,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -565,7 +583,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -842,7 +860,7 @@
 
         <component id="ceiling_big_grilles">
             <transformation>
-                <translate x="0" y="0.6" z="2.8" />
+                <translate x="-0.025" y="0.6" z="2.8" />
                 <scale x="1" y="0.5" z="1" />
                 <rotate axis="x" angle="180" />
             </transformation>
@@ -857,7 +875,7 @@
 
         <component id="door_ceiling_big_grilles">
             <transformation>
-                <translate x="1.5" y="0.6" z="2.8" />
+                <translate x="1.55" y="0.6" z="2.8" />
                 <scale x="1.1" y="0.5" z="1" />
                 <rotate axis="x" angle="180" />
             </transformation>
@@ -981,7 +999,7 @@
 
         <component id="ceiling_small_grilles">
             <transformation>
-                <translate x="0" y="0.6" z="2.35" />
+                <translate x="0" y="0.6" z="2.365" />
                 <scale x="1" y="0.5" z="1" />
                 <rotate axis="x" angle="180" />
             </transformation>
@@ -1076,7 +1094,7 @@
             <materials>
                 <material id="greenProtuberance" />
             </materials>
-            <texture id="none" />
+            <texture id="wood" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
                 <componentref id="protuberance_window" />
@@ -1106,7 +1124,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
            </children>
@@ -1120,7 +1138,7 @@
             <materials>
                 <material id="pinkHouse" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="rectangle" />
            </children>

@@ -65,12 +65,12 @@ class MyTriangle extends CGFobject {
 		//REVIEW THE TEX COORDS LATER
 		this.texCoords = [
 			0, 1,
-			0.5, 1,
-			0, 0.5,
+			0.5, 0,
+			1, 1,
 
 			0, 1,
-			0.5, 1,
-			0, 0.5,
+			0.5, 0,
+			1, 1
 		]
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
