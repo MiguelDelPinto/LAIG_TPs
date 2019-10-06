@@ -662,7 +662,7 @@
             </children>
         </component>
 
-        <component id="ceiling_big_grills">
+        <component id="ceiling_big_grilles">
             <transformation>
                 <translate x="0" y="0.6" z="2.8" />
                 <scale x="1" y="0.5" z="1" />
@@ -677,7 +677,7 @@
             </children>
         </component>
 
-        <component id="door_ceiling_big_grills">
+        <component id="door_ceiling_big_grilles">
             <transformation>
                 <translate x="1.5" y="0.6" z="2.8" />
                 <scale x="1" y="0.5" z="1" />
@@ -716,16 +716,12 @@
             </materials>
             <texture id="none" />
             <children>
-                <componentref id="handrail" />
+                <componentref id="big_handrail" />
             </children>
         </component>
 
         <component id="giant_grilles_columns">
-            <transformation>
-                <translate x="1.5" y="0.6" z="2.8" />
-                <scale x="1" y="0.5" z="1" />
-                <rotate axis="x" angle="180" />
-            </transformation>
+            <transformation />
             <materials>
                 <material id="inherit" />
             </materials>
