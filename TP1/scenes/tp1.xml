@@ -662,6 +662,95 @@
             </children>
         </component>
 
+        <component id="ceiling_big_grills">
+            <transformation>
+                <translate x="0" y="0.6" z="2.8" />
+                <scale x="1" y="0.5" z="1" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="big_grilles" />
+            </children>
+        </component>
+
+        <component id="door_ceiling_big_grills">
+            <transformation>
+                <translate x="1.5" y="0.6" z="2.8" />
+                <scale x="1" y="0.5" z="1" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="giant_grilles" />
+            </children>
+        </component>
+
+        <component id="giant_grilles">
+            <transformation>
+                <translate x="-1.25" y="-0.15" z="1.4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="giant_grilles_handrail" />
+                <componentref id="giant_grilles_columns" />
+            </children>
+        </component>
+
+        <component id="giant_grilles_handrail">
+            <transformation>
+                <translate x="-0.3" y="0" z="0" />
+                <scale x="1.275" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="handrail" />
+            </children>
+        </component>
+
+        <component id="giant_grilles_columns">
+            <transformation>
+                <translate x="1.5" y="0.6" z="2.8" />
+                <scale x="1" y="0.5" z="1" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="first_small_column" />
+                <componentref id="second_small_column" />
+                <componentref id="third_small_column" />
+                <componentref id="fourth_small_column" />
+            </children>
+        </component>
+
+        <component id="fourth_small_column">
+            <transformation>
+                <translate x="-0.05" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="small_column" />
+            </children>
+        </component>
+
         <component id="small_column">
             <transformation>
                 <scale x="0.05" y="0.65" z="0.05" />
@@ -713,6 +802,21 @@
             <texture id="none" />
             <children>
                 <componentref id="small_column" />
+            </children>
+        </component>
+
+        <component id="ceiling_small_grilles">
+            <transformation>
+                <translate x="0" y="0.6" z="2.35" />
+                <scale x="1" y="0.5" z="1" />
+                <rotate axis="x" angle="180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="small_grilles" />
             </children>
         </component>
 

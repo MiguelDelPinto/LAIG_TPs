@@ -1305,9 +1305,137 @@ class MySceneGraph {
                         this.scene.popMatrix();
                     this.scene.popMatrix();
 
+                    //Ceiling Big Grilles
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 0.6, 2.8);
+                        this.scene.scale(1, 0.5, 1);
+                        this.scene.rotate(Math.PI, 1, 0, 0);
+                        //Big grilles
+                        this.scene.pushMatrix();
+                            this.scene.translate(-1.4, -0.15, 1.4);
+                            
+                            //Handrail
+                            this.scene.pushMatrix();
+                                this.scene.scale(1.25, 0.05, 0.05);
+                                this.scene.rotate(Math.PI/2, 0, 1, 0);
+                                this.primitives['demoCylinder'].display();
+                            this.scene.popMatrix();
+
+                            //Small Columns
+
+                            //First
+                            this.scene.pushMatrix();
+                                this.scene.translate(0.3, 0, 0);
+                                
+                                //Small Column 
+                                this.scene.pushMatrix();
+                                    this.scene.scale(0.05, 0.65, 0.05);
+                                    this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+
+                            //Second
+                            this.scene.pushMatrix();
+                                this.scene.translate(0.65, 0, 0);
+                                
+                                //Small Column 
+                                this.scene.pushMatrix();
+                                    this.scene.scale(0.05, 0.65, 0.05);
+                                    this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+
+                            //Third
+                            this.scene.pushMatrix();
+                                this.scene.translate(1, 0, 0);
+                                
+                                //Small Column 
+                                this.scene.pushMatrix();
+                                    this.scene.scale(0.05, 0.65, 0.05);
+                                    this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+                        this.scene.popMatrix();
+                    this.scene.popMatrix();
+
+                    //Door Ceiling Big Grilles
+                    this.scene.pushMatrix();
+                        this.scene.translate(1.5, 0.6, 2.8);
+                        this.scene.scale(1, 0.5, 1);
+                        this.scene.rotate(Math.PI, 1, 0, 0);
+                        
+                        //Giant grilles
+                        this.scene.pushMatrix();
+                            this.scene.translate(-1.25, -0.15, 1.4);
+                            
+                            this.scene.pushMatrix();
+                                this.scene.translate(-0.3, 0, 0);
+                                this.scene.scale(1.275, 1, 1);
+                                //Handrail
+                                this.scene.pushMatrix();
+                                    this.scene.scale(1.25, 0.05, 0.05);
+                                    this.scene.rotate(Math.PI/2, 0, 1, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+
+                            //Small Columns
+
+                            //First
+                            this.scene.pushMatrix();
+                                this.scene.translate(0.3, 0, 0);
+                                
+                                //Small Column 
+                                this.scene.pushMatrix();
+                                    this.scene.scale(0.05, 0.65, 0.05);
+                                    this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+
+                            //Second
+                            this.scene.pushMatrix();
+                                this.scene.translate(0.65, 0, 0);
+                                
+                                //Small Column 
+                                this.scene.pushMatrix();
+                                    this.scene.scale(0.05, 0.65, 0.05);
+                                    this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+
+                            //Third
+                            this.scene.pushMatrix();
+                                this.scene.translate(1, 0, 0);
+                                
+                                //Small Column 
+                                this.scene.pushMatrix();
+                                    this.scene.scale(0.05, 0.65, 0.05);
+                                    this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+
+                            //Fourth
+                            this.scene.pushMatrix();
+                                this.scene.translate(-0.05, 0, 0);
+                                //Small Column 
+                                this.scene.pushMatrix();
+                                    this.scene.scale(0.05, 0.65, 0.05);
+                                    this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+                        this.scene.popMatrix();
+                    this.scene.popMatrix();
+
                     //Small grilles
                     this.scene.pushMatrix();
-                        this.scene.translate(-1.4, -0.15, 1);   
+                        this.scene.translate(-1.4, -0.15, 0.975);   
 
                         //Handrail
                         this.scene.pushMatrix();
@@ -1316,7 +1444,7 @@ class MySceneGraph {
                         this.scene.popMatrix();
                         
                         this.scene.pushMatrix();
-                            this.scene.translate(0, 0, 0.175);
+                            this.scene.translate(0, 0, 0.2);
                             //Small Column 
                             this.scene.pushMatrix();
                                 this.scene.scale(0.05, 0.65, 0.05);
@@ -1325,6 +1453,35 @@ class MySceneGraph {
                             this.scene.popMatrix();
                         this.scene.popMatrix();
                       
+                    this.scene.popMatrix();
+
+                    //Ceiling small grilles
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 0.6, 2.35);
+                        this.scene.scale(1, 0.5, 1);
+                        this.scene.rotate(Math.PI, 1, 0, 0);
+
+                        //Small grilles
+                        this.scene.pushMatrix();
+                            this.scene.translate(-1.4, -0.15, 0.975);   
+
+                            //Handrail
+                            this.scene.pushMatrix();
+                                this.scene.scale(0.05, 0.05, 0.4);
+                                this.primitives['demoCylinder'].display();
+                            this.scene.popMatrix();
+
+                            this.scene.pushMatrix();
+                                this.scene.translate(0, 0, 0.2);
+                                //Small Column 
+                                this.scene.pushMatrix();
+                                    this.scene.scale(0.05, 0.65, 0.05);
+                                    this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                    this.primitives['demoCylinder'].display();
+                                this.scene.popMatrix();
+                            this.scene.popMatrix();
+
+                        this.scene.popMatrix();
                     this.scene.popMatrix();
                 this.scene.popMatrix();
 
