@@ -1,5 +1,5 @@
 <lxs>
-    <scene root="death_mountain" axis_length="5"/>
+    <scene root="scene_component" axis_length="5"/>
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
@@ -8,10 +8,10 @@
         </perspective>
     </views>
 
-    <ambient>
+    <globals>
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
-    </ambient>
+    </globals>
 
     <lights>
         <omni id="demoLight" enabled="1">
@@ -23,23 +23,88 @@
     </lights>
 
     <textures>
-        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
+        <texture id="defaultTexture" file="scenes/images/vidral.jpg" />
         <texture id="volcano" file="scenes/images/volcano.jpg" />
         <texture id="cloud" file="scenes/images/cloud.jpg" />
+        <texture id="window" file="scenes/images/window.jpg" />
+        <texture id="door" file="scenes/images/door.jpg" />
     </textures>
 
     <materials>
-        <material id="demoMaterial" shininess="10">
-            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
-            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
-            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
-            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        <material id="defaultMaterial" shininess="5">
+            <emission r="0.0" g="0.0" b="0.5" a="1.0" />
+            <ambient r="0.0" g="0.0" b="0.5" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.5" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.5" a="1.0" />
+        </material>
+
+        <material id="wallMaterial" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
+            <ambient r="0.0" g="0.0" b="0.0" a="0.0" />
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+        </material>
+
+        <material id="blueRoof" shininess="1">
+            <emission r="0.0" g="0.1875" b="0.75" a="0.0" />
+            <ambient r="0.0" g="0.1875" b="0.75" a="0.0" />
+            <diffuse r="0.0" g="0.1875" b="0.75" a="0.0" />
+            <specular r="0.0" g="0.1875" b="0.75" a="0.0" />
+        </material>
+
+        <material id="grayRoof" shininess="1">
+            <emission r="0.2" g="0.2" b="0.2" a="0.0" />
+            <ambient r="0.2" g="0.2" b="0.2" a="0.0" />
+            <diffuse r="0.2" g="0.2" b="0.2" a="0.0" />
+            <specular r="0.2" g="0.2" b="0.2" a="0.0" />
+        </material>
+
+        <material id="orangeHouse" shininess="1">
+             <emission r="0.4" g="0.2" b="0.0" a="0.0" />
+             <ambient r="0.4" g="0.2" b="0.0" a="0.0" />
+             <diffuse r="0.4" g="0.2" b="0.0" a="0.0" />
+             <specular r="0.4" g="0.2" b="0.0" a="0.0" />
+        </material>
+
+        <material id="beigeHouse" shininess="1">
+                <emission r="0.5" g="0.4" b="0.3" a="0.0" />
+                <ambient r="0.5" g="0.4" b="0.3" a="0.0" />
+                <diffuse r="0.5" g="0.4" b="0.3" a="0.0" />
+                <specular r="0.5" g="0.4" b="0.3" a="0.0" />
+        </material>
+
+        <material id="pinkHouse" shininess="1">
+                <emission r="0.25" g="0.125" b="0.25" a="0.0" />
+                <ambient r="0.25" g="0.125" b="0.25" a="0.0" />
+                <diffuse r="0.25" g="0.125" b="0.25" a="0.0" />
+                <specular r="0.25" g="0.125" b="0.25" a="0.0" />
+        </material>
+
+        <material id="brownChimney" shininess="1">
+                <emission r="0.15" g="0.1" b="0.05" a="0.0" />
+                <ambient r="0.15" g="0.1" b="0.05" a="0.0" />
+                <diffuse r="0.15" g="0.1" b="0.05" a="0.0" />
+                <specular r="0.15" g="0.1" b="0.05" a="0.0" />
+        </material>
+
+        <material id="greenProtuberance" shininess="1">
+                <emission r="0.1" g="0.25" b="0.05" a="0.0" />
+                <ambient r="0.1" g="0.25" b="0.05" a="0.0" />
+                <diffuse r="0.1" g="0.25" b="0.05" a="0.0" />
+                <specular r="0.1" g="0.25" b="0.05" a="0.0" />
+        </material>
+
+        <material id="yellowRoof" shininess="1">
+                <emission r="0.4" g="0.3" b="0.0" a="0.0" />
+                <ambient r="0.4" g="0.3" b="0.0" a="0.0" />
+                <diffuse r="0.4" g="0.3" b="0.0" a="0.0" />
+                <specular r="0.4" g="0.3" b="0.0" a="0.0" />
         </material>
     </materials>
 
     <transformations>
         <transformation id="house_transform">
-            <translate x="0" y="1" z="0" />
+            <translate x="5" y="1" z="0" />
         </transformation>
     </transformations>
 
@@ -63,10 +128,22 @@
 
 
     <components>
+        <component id="scene_component">
+            <transformation/>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="defaultTexture"/>
+            <children>
+                <componentref id="death_mountain" />
+                <componentref id="house" />
+            </children>
+        </component> 
+
         <component id="death_mountain">
             <transformation>
-                <translate x="-20" y="0" z="-20" />
-                <scale x="10" y="10" z="10" />
+                <translate x="-10" y="0" z="-10" />
+                <scale x="5" y="5" z="5" />
                 <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
@@ -98,7 +175,7 @@
                 <transformationref id="house_transform" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="wallMaterial" />
             </materials>
             <texture id="none" />
             <children>
@@ -106,6 +183,7 @@
                 <componentref id="roof" />
                 <componentref id="outside" />
                 <componentref id="protuberance" />
+                <componentref id="floor" />
             </children>
         </component>
 
@@ -115,7 +193,7 @@
                 <scale x="1" y="1" z="0.7" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="orangeHouse" />
             </materials>
             <texture id="none" />
             <children>
@@ -126,9 +204,75 @@
             </children>
         </component>
 
-        <component id="wall_front">
+        <component id="wall_front" >
             <transformation>
                 <translate x="0" y="0" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="front_wall" />
+                <componentref id="front_door" />
+                <componentref id="front_window" />
+            </children>
+        </component>
+
+        <component id="front_door" >
+            <transformation>
+                <translate x="0.2" y="-0.05" z="0.01" />
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="door" />
+            <children>
+                <componentref id="door" />
+            </children>
+        </component>
+        
+        <component id="door" >
+            <transformation>
+                <scale x="0.8" y="0.75" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+        
+        <component id="front_window">
+            <transformation>
+                <translate x="-0.9" y="0.2" z="0.01" />
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="window" />
+            <children>
+                <componentref id="window" />
+            </children>
+        </component>
+
+        <component id="window">
+            <transformation>
+                <scale x="0.6" y="0.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="front_wall">
+            <transformation>
                 <scale x="3" y="1" z="1" />
             </transformation>
             <materials>
@@ -177,7 +321,7 @@
                 <rotate axis="y" angle="-90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="beigeHouse" />
             </materials>
             <texture id="none" />
             <children>
@@ -186,9 +330,11 @@
         </component>
 
         <component id="roof">
-            <transformation></transformation>
+            <transformation>
+                <translate x="0" y="1" z="0" />
+            </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="grayRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -204,7 +350,7 @@
         
         <component id="roof_front">
             <transformation>
-                <translate x="0" y="1.425" z="0.5" />
+                <translate x="0" y="0.425" z="0.5" />
                 <scale x="3" y="0.5" z="1" />
                 <rotate axis="x" angle="-30" />
             </transformation>
@@ -219,7 +365,7 @@
 
         <component id="roof_back">
             <transformation>
-                <translate x="0" y="1.425" z="-0.5" />
+                <translate x="0" y="0.425" z="-0.5" />
                 <scale x="3" y="0.5" z="1" />
                 <rotate axis="y" angle="180" />
                 <rotate axis="x" angle="-30" />
@@ -235,12 +381,12 @@
 
         <component id="roof_left">
             <transformation>
-                <translate x="-1.5" y="1" z="0" />
+                <translate x="-1.5" y="0" z="0" />
                 <scale x="1" y="0.87" z="1" />
                 <rotate axis="y" angle="90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="beigeHouse" />
             </materials>
             <texture id="none" />
             <children>
@@ -250,12 +396,12 @@
 
         <component id="roof_right">
             <transformation>
-                <translate x="1.5" y="1" z="0" />
+                <translate x="1.5" y="0" z="0" />
                 <scale x="1" y="0.87" z="1" />
                 <rotate axis="y" angle="-90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="yellowRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -265,12 +411,11 @@
 
         <component id="roof_bottom">
             <transformation>
-                <translate x="0" y="1" z="0" />
                 <scale x="3" y="1" z="1" />
                 <rotate axis="x" angle="90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="blueRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -279,7 +424,9 @@
         </component>
 
         <component id="roof_window">
-            <transformation></transformation>
+            <transformation>
+                <translate x="0" y="0.4" z="0" />
+            </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
@@ -294,11 +441,24 @@
 
          <component id="roof_window_front">
             <transformation>
-                <translate x="0" y="1.4" z="0.75" />
-                <scale x="0.5" y="0.175" z="1" />
+                <translate x="0" y="0" z="0.75" />
             </transformation>
             <materials>
                 <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="roof_window_front_wall" />
+                <componentref id="roof_window_front_window" />
+            </children>
+        </component>
+
+        <component id="roof_window_front_wall">
+            <transformation>
+                <scale x="0.5" y="0.175" z="1" />
+            </transformation>
+            <materials>
+                <material id="yellowRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -306,9 +466,23 @@
             </children>
         </component>
 
+        <component id="roof_window_front_window">
+            <transformation>
+                <translate x="0" y="0" z="0.01" />
+                <scale x="0.5" y="0.3" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="window" />
+            <children>
+                <componentref id="window" />
+            </children>
+        </component>
+
          <component id="roof_window_right">
             <transformation>
-                <translate x="0.25" y="1.4" z="0.425" />
+                <translate x="0.25" y="0" z="0.425" />
                 <scale x="30.5" y="0.175" z="0.65" />
                 <rotate axis="y" angle="90" />
             </transformation>
@@ -323,7 +497,7 @@
 
          <component id="roof_window_left">
             <transformation>
-                <translate x="-0.25" y="1.4" z="0.425" />
+                <translate x="-0.25" y="0" z="0.425" />
                 <scale x="0.5" y="0.175" z="0.65" />
                 <rotate axis="y" angle="-90" />
             </transformation>
@@ -337,7 +511,7 @@
         </component>
 
          <component id="roof_window_roof">
-            <transformation></transformation>
+            <transformation />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -351,12 +525,12 @@
 
         <component id="roof_window_roof_front">
             <transformation>
-                <translate x="0" y="1.575" z="0.75" />
+                <translate x="0" y="0.175" z="0.75" />
                 <scale x="0.25" y="0.25" z="1" />
                 <rotate axis="y" angle="180" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="blueRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -366,7 +540,7 @@
 
         <component id="roof_window_roof_right">
             <transformation>
-                <translate x="0.125" y="1.7" z="0.5" />
+                <translate x="0.125" y="0.3" z="0.5" />
                 <rotate axis="z" angle="45" />
                 <scale x="0.15" y="0.1725" z="0.5" />
                 <rotate axis="y" angle="90" />
@@ -382,7 +556,7 @@
 
         <component id="roof_window_roof_left">
             <transformation>
-                <translate x="-0.125" y="1.7" z="0.5" />
+                <translate x="-0.125" y="0.3" z="0.5" />
                 <rotate axis="z" angle="-45" />
                 <scale x="0.15" y="0.1725" z="0.5" />
                 <rotate axis="y" angle="-90" />
@@ -398,12 +572,12 @@
 
         <component id="chimney">
             <transformation>
-                <translate x="0.75" y="2.25" z="-0.4" />
+                <translate x="0.75" y="1.25" z="-0.4" />
                 <scale x="0.25" y="1" z="0.25" />
                 <rotate axis="x" angle="90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="brownChimney" />
             </materials>
             <texture id="none" />
             <children>
@@ -417,7 +591,7 @@
                 <scale x="0.75" y="1" z="1" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="beigeHouse" />
             </materials>
             <texture id="none" />
             <children>
@@ -737,7 +911,7 @@
                 <scale x="1.5" y="0.1" z="1" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="pinkHouse" />
             </materials>
             <texture id="none" />
             <children>
@@ -777,7 +951,7 @@
 
         <component id="second_column">
             <transformation>
-                <translate x="-0.5" y="1" z="1.4" />
+                <translate x="-0.15" y="1" z="1.4" />
                 <scale x="0.05" y="1.8" z="0.05" />
                 <rotate axis="x" angle="90" />
             </transformation>
@@ -796,14 +970,28 @@
                 <scale x="0.75" y="1" z="0.6" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="greenProtuberance" />
             </materials>
             <texture id="none" />
             <children>
                 <primitiveref id="rectangle" />
+                <componentref id="protuberance_window" />
                 <componentref id="protuberance_right" />
                 <componentref id="protuberance_left" />
             </children>
+        </component>
+
+        <component id="protuberance_window">
+            <transformation>
+                <translate x="0" y="0.15" z="0.01" />
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="window" />
+            <children>
+                <componentref id="window" />
+            </children>  
         </component>
 
         <component id="protuberance_right">
@@ -826,7 +1014,7 @@
                 <rotate axis="y" angle="-90" />
             </transformation>
             <materials>
-                <material id="inherit" />
+                <material id="pinkHouse" />
             </materials>
             <texture id="none" />
             <children>

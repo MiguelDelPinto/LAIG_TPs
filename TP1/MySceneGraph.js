@@ -3,7 +3,7 @@ var DEGREE_TO_RAD = Math.PI / 180;
 // Order of the groups in the XML document.
 var SCENE_INDEX = 0;
 var VIEWS_INDEX = 1;
-var AMBIENT_INDEX = 2;
+var GLOBALS_INDEX = 2;
 var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
@@ -113,15 +113,15 @@ class MySceneGraph {
                 return error;
         }
 
-        // <ambient>
-        if ((index = nodeNames.indexOf("ambient")) == -1)
-            return "tag <ambient> missing";
+        // <globals>
+        if ((index = nodeNames.indexOf("globals")) == -1)
+            return "tag <globals> missing";
         else {
-            if (index != AMBIENT_INDEX)
-                this.onXMLMinorError("tag <ambient> out of order");
+            if (index != GLOBALS_INDEX)
+                this.onXMLMinorError("tag <globals> out of order");
 
-            //Parse ambient block
-            if ((error = this.parseAmbient(nodes[index])) != null)
+            //Parse globals block
+            if ((error = this.parseGlobals(nodes[index])) != null)
                 return error;
         }
 
@@ -234,12 +234,12 @@ class MySceneGraph {
     }
 
     /**
-     * Parses the <ambient> node.
-     * @param {ambient block element} ambientsNode
+     * Parses the <globals> node.
+     * @param {globals block element} globalsNode
      */
-    parseAmbient(ambientsNode) {
+    parseGlobals(globalsNode) {
 
-        var children = ambientsNode.children;
+        var children = globalsNode.children;
 
         this.ambient = [];
         this.background = [];
@@ -264,7 +264,7 @@ class MySceneGraph {
         else
             this.background = color;
 
-        this.log("Parsed ambient");
+        this.log("Parsed globals");
 
         return null;
     }
@@ -322,8 +322,8 @@ class MySceneGraph {
             global.push(children[i].nodeName);
 
             grandChildren = children[i].children;
-            // Specifications for the current light.
 
+            // Specifications for the current light.
             nodeNames = [];
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
@@ -393,8 +393,39 @@ class MySceneGraph {
      */
     parseTextures(texturesNode) {
 
-        //For each texture in textures block, check ID and file URL
-        this.onXMLMinorError("To do: Parse textures.");
+        var children = texturesNode.children;
+
+        this.textures = [];
+
+        for (var i = 0; i < children.length; i++) {
+            if (children[i].nodeName != "texture") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            } 
+
+            // Get ID of the current texture.
+            var textureId = this.reader.getString(children[i], 'id');
+            if (textureId == null)
+                return "no ID defined for texture";   
+
+            // Checks for repeated IDs.
+            if (this.textures[textureId] != null)
+                return "ID must be unique for each texture (conflict: ID = " + textureId + ")";
+
+            //Get file location of the current texture.   
+            var file = this.reader.getString(children[i], 'file');
+            if (file == null)
+                return "no file defined for texture";
+            
+            var new_texture = new CGFtexture(this.scene, file);
+
+            if(new_texture == null)
+                return "the file for the texture is incorrect";
+
+            this.textures[textureId] = new_texture;             
+        }
+
+        this.log("Parsed textures");
         return null;
     }
 
@@ -425,7 +456,7 @@ class MySceneGraph {
 
             // Checks for repeated IDs.
             if (this.materials[materialID] != null)
-                return "ID must be unique for each light (conflict: ID = " + materialID + ")";
+                return "ID must be unique for each material (conflict: ID = " + materialID + ")";
 
             // Get shininess of the current material.
             let shininess = this.reader.getFloat(children[i], 'shininess');
@@ -456,11 +487,11 @@ class MySceneGraph {
             if(!Array.isArray(specular))
                 return specular;
             
-            let new_material = new CGFappearance(this.scene);
-            new_material.setEmission(emission);
-            new_material.setAmbient(ambient);
-            new_material.setDiffuse(diffuse);
-            new_material.setSpecular(specular);
+            var new_material = new CGFappearance(this.scene);
+            new_material.setEmission(emission[0], emission[1], emission[2], emission[3]);
+            new_material.setAmbient(ambient[0], ambient[1], ambient[2], ambient[3]);
+            new_material.setDiffuse(diffuse[0], diffuse[1], diffuse[2], diffuse[3]);
+            new_material.setSpecular(specular[0], specular[1], specular[2], specular[3]);
             
             this.materials[materialID] = new_material;
         }
@@ -775,6 +806,14 @@ class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
+            const component = new Object();
+            component.materialIds = [];
+            component.componentIds = [];
+            component.primitiveIds = [];
+
+            component.id = componentID;
+
+            //Stores transformation(s), material(s), texture and reference(s) to components/primitives
             grandChildren = children[i].children;
 
             nodeNames = [];
@@ -787,20 +826,20 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
-            this.onXMLMinorError("To do: Parse components.");
             // Transformations
             var transfMatrix;
-            grandgrandChildren = grandChildren[transformationIndex];
+            grandgrandChildren = grandChildren[transformationIndex].children;
+                  
             if(grandgrandChildren.length == 1 && grandgrandChildren[0].nodeName == "transformationref"){
                 if(grandgrandChildren.length > 1)
                     return "component " + componentID + " can only have one transformationref in its transformation";
             
-                var transformationID = this.reader.getString(grandgrandChildren[j], 'id');
+                var transformationID = this.reader.getString(grandgrandChildren[0], 'id');
                 if(transformationID == null)
                     return "no ID defined for component transformationID";
 
                 // Checks if the transformation exists.
-                if (this.transformations[transformationID] != null && transformationID != "inherit")
+                if (this.transformations[transformationID] == null && transformationID != "inherit")
                     return "transformation with ID " + transformationID + " must exist ";
 
                 transfMatrix = this.transformations[transformationID];
@@ -840,14 +879,52 @@ class MySceneGraph {
                     }
                 }
             }
+            component.transformationMatrix = transfMatrix;
 
 
             // Materials
+            grandgrandChildren = grandChildren[materialsIndex].children;
+              
+            if(grandgrandChildren.length == 0)
+                return "there must be at least one reference to a material";
+
+            for(var j = 0; j < grandgrandChildren.length; j++) {
+                var materialId = this.reader.getString(grandgrandChildren[0], 'id');
+                component.materialIds.push(materialId);
+            }                      
 
             // Texture
+            var textureNode = 0;
+            grandgrandChildren = grandChildren[textureIndex];             
+            //ADD ERROR CHECKING ?          
+            component.textureId = this.reader.getString(grandgrandChildren, 'id');
+
 
             // Children
+            grandgrandChildren = grandChildren[childrenIndex].children;      //MAYBE CHANGE NAME TO 'childrenReferences' ?
+
+            if(grandgrandChildren.length == 0)
+                return "there must be at least one reference to a component or primitive";
+
+            for(var j = 0; j < grandgrandChildren.length; j++) {
+                switch (grandgrandChildren[j].nodeName) {
+                    case 'componentref':
+                        var childrenComponentId = this.reader.getString(grandgrandChildren[j], 'id');
+                        component.componentIds.push(childrenComponentId);
+                        break;
+                    case 'primitiveref':         
+                        var childrenPrimitiveId = this.reader.getString(grandgrandChildren[j], 'id');
+                        component.primitiveIds.push(childrenPrimitiveId);
+                        break;
+                }            
+            }
+
+            //Adding the component
+            this.components[component.id] = component;
         }
+
+        this.log("Parsed components");
+        return null;
     }
 
 
@@ -1007,368 +1084,47 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph
 
-        //To test the parsing/creation of the primitives, call the display function directly
-        //this.primitives['demoTriangle'].display();
-        //this.primitives['demoSphere'].display();
+/*
+        //For testing:
+        this.scene.translate(-20, -15, -20);
+        this.scene.scale(5, 5, 5);
+        this.scene.rotate(this.degreeToRad(-90), 1, 0, 0);
+        this.primitives['mountain'].display();
+        this.scene.translate(0, 0, 2.5);
+        this.scene.scale(0.75, 0.75, 0.75);
+        this.primitives['cloud'].display();
+*/
 
-        //house
+        //For real:        
+        this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture');
+    }
+
+    traverseGraph(idNode, idCurrentMaterial, idCurrentTexture) {
+        //Uses a depth first search to traverse the scene's graph
+        let currentNode = this.components[idNode];
+
+        //Updates the current material's id
+        if(currentNode.materialIds[0] != 'inherit')
+            idCurrentMaterial = currentNode.materialIds[0]; //0 FOR NOW
+        
+        //Updates the current texture's id
+        if(currentNode.textureId != 'inherit')   //ACRESCENTAR CASO DA TEXTURA SER NONE
+            idCurrentTexture = currentNode.textureId;
+
+        //Updates the current transformation Matrix
         this.scene.pushMatrix();
-            this.scene.translate(0, 1, 0);
+        this.scene.multMatrix(currentNode.transformationMatrix);
 
-            //walls
-            this.scene.pushMatrix();
-                this.scene.translate(0, 0, -0.3);
-                this.scene.scale(1, 1, 0.7);
+        for(let i = 0; i < currentNode.primitiveIds.length; i++) {
+            this.materials[idCurrentMaterial].apply();
+            //this.textures[idCurrentTexture].apply();
+            this.primitives[currentNode.primitiveIds[i]].display();
+        }
 
-                //Front Wall
-                this.scene.pushMatrix();
-                    this.scene.translate(0, 0, 1);
-                    this.scene.scale(3, 1, 1);
-                    this.primitives['demoRectangle'].display();
-                this.scene.popMatrix();
-                
-                //Back Wall
-                this.scene.pushMatrix();
-                    this.scene.translate(0, 0, -1);
-                    this.scene.scale(3, 1, 1);
-                    this.scene.rotate(Math.PI, 0, 1, 0);
-                    this.primitives['demoRectangle'].display();
-                this.scene.popMatrix();
-                
-                //Right Wall
-                this.scene.pushMatrix();
-                    this.scene.translate(1.5, 0, 0);
-                    this.scene.scale(1, 1, 2);
-                    this.scene.rotate(Math.PI/2, 0, 1, 0);
-                    this.primitives['demoRectangle'].display();
-                this.scene.popMatrix(); 
-                
-                //Left Wall
-                this.scene.pushMatrix();
-                    this.scene.translate(-1.5, 0, 0);
-                    this.scene.scale(1, 1, 2);
-                    this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                    this.primitives['demoRectangle'].display();  
-                this.scene.popMatrix();
-            this.scene.popMatrix();
+        for(let i = 0; i < currentNode.componentIds.length; i++) {
+            this.traverseGraph(currentNode.componentIds[i], idCurrentMaterial, idCurrentTexture);
+        }
 
-            //ROOF
-
-            //Front roof
-            this.scene.pushMatrix();
-                this.scene.translate(0, 1.425, 0.5);
-                this.scene.scale(3, 0.5, 1);
-                this.scene.rotate(-Math.PI/6, 1, 0, 0);
-                this.primitives['demoRectangle'].display();
-            this.scene.popMatrix();
-            
-            //Back roof
-            this.scene.pushMatrix();
-                this.scene.translate(0, 1.425, -0.5);
-                this.scene.scale(3, 0.5, 1);
-                this.scene.rotate(Math.PI, 0, 1, 0);
-                this.scene.rotate(-Math.PI/6, 1, 0, 0);
-                this.primitives['demoRectangle'].display();
-            this.scene.popMatrix();
-
-            //Left roof
-            this.scene.pushMatrix();
-                this.scene.translate(-1.5, 1, 0);
-                this.scene.scale(1, 0.87, 1);
-                this.scene.rotate(Math.PI/2, 0, 1, 0);
-                this.primitives['demoTriangle'].display();
-            this.scene.popMatrix();
-            
-            //Right roof
-            this.scene.pushMatrix();
-                this.scene.translate(1.5, 1, 0);
-                this.scene.scale(1, 0.87, 1);
-                this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                this.primitives['demoTriangle'].display();
-            this.scene.popMatrix();
-            
-            //Bottom roof
-            this.scene.pushMatrix();
-                this.scene.translate(0, 1, 0);
-                this.scene.scale(3, 1, 1);
-                this.scene.rotate(Math.PI/2, 1, 0, 0);
-                this.primitives['demoRectangle'].display();
-            this.scene.popMatrix();
-
-            //ROOF WINDOW 
-
-            //Front roof window
-            this.scene.pushMatrix();
-                this.scene.translate(0, 1.4, 0.75);
-                this.scene.scale(0.5, 0.175, 1);
-                this.primitives['demoRectangle'].display();
-            this.scene.popMatrix();
-
-            //Right roof window
-            this.scene.pushMatrix();
-                this.scene.translate(0.25, 1.4, 0.425);
-                this.scene.scale(0.5, 0.175, 0.65);
-                this.scene.rotate(Math.PI/2, 0, 1, 0);
-                this.primitives['demoRectangle'].display();
-            this.scene.popMatrix();
-            
-            //Left roof window
-            this.scene.pushMatrix();
-                this.scene.translate(-0.25, 1.4, 0.425);
-                this.scene.scale(0.5, 0.175, 0.65);
-                this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                this.primitives['demoRectangle'].display();
-            this.scene.popMatrix();
-            
-            //ROOF WINDOW ROOF
-
-            //Front roof window roof
-            this.scene.pushMatrix();
-                this.scene.translate(0, 1.575, 0.75);
-                this.scene.scale(0.25, 0.25, 1);
-                this.scene.rotate(Math.PI, 0, 1, 0);
-                this.primitives['demoTriangle'].display();
-            this.scene.popMatrix();
-            
-            //Right roof window roof
-            this.scene.pushMatrix();
-                this.scene.translate(0.125, 1.7, 0.5);
-                this.scene.rotate(Math.PI/4, 0, 0, 1);
-                this.scene.scale(0.15, 0.1725, 0.5);
-                this.scene.rotate(Math.PI/2, 0, 1, 0);
-                this.primitives['demoRectangle'].display();
-            this.scene.popMatrix();
-
-            //Left roof window roof
-            this.scene.pushMatrix();
-                this.scene.translate(-0.125, 1.7, 0.5);
-                this.scene.rotate(-Math.PI/4, 0, 0, 1);
-                this.scene.scale(0.15, 0.1725, 0.5);
-                this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                this.primitives['demoRectangle'].display();
-            this.scene.popMatrix();
-
-            //Chimney
-            this.scene.pushMatrix();
-                this.scene.translate(0.75, 2.25, -0.4);
-                this.scene.scale(0.25, 1, 0.25);
-                this.scene.rotate(Math.PI/2, 1, 0, 0);
-                this.primitives['demoCylinder'].display();
-            this.scene.popMatrix();
-            
-            //Outside 
-            this.scene.pushMatrix();
-                this.scene.translate(-0.375, 0, -0.6);
-                this.scene.scale(0.75, 1, 1);
-                
-                //Stairs
-                this.scene.pushMatrix();
-                    this.scene.translate(0.75, 0, 0.5);
-                    this.scene.scale(0.5, 1, 1);
-                    
-                    //First stair
-                    this.scene.pushMatrix();
-                        this.scene.translate(0, -0.8, 1.1);
-                        this.scene.scale(3, 1, 0.1);
-                        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-                    
-                    //Second stair
-                    this.scene.pushMatrix();
-                        this.scene.translate(0, -0.9, 1.3);
-                        this.scene.scale(3, 1, 0.1);
-                        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-                    
-                    //First stair front
-                    this.scene.pushMatrix();
-                        this.scene.translate(0, -0.85, 1.2);
-                        this.scene.scale(3, 0.05, 1);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-                    
-                    //Second stair front
-                    this.scene.pushMatrix();
-                        this.scene.translate(0, -0.95, 1.4);
-                        this.scene.scale(3, 0.05, 1);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-                    
-                    //Second stair right
-                    this.scene.pushMatrix();
-                        this.scene.translate(1.5, -0.95, 1.2);
-                        this.scene.scale(3, 0.05, 0.4);
-                        this.scene.rotate(Math.PI/2, 0, 1, 0);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-
-                    //Second stair left
-                    this.scene.pushMatrix();
-                        this.scene.translate(-1.5, -0.95, 1.2);
-                        this.scene.scale(3, 0.05, 0.4);
-                        this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-                    
-                    //First stair right
-                    this.scene.pushMatrix();
-                        this.scene.translate(1.5, -0.85, 1.1);
-                        this.scene.scale(3, 0.05, 0.2);
-                        this.scene.rotate(Math.PI/2, 0, 1, 0);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-
-                    //First stair left
-                    this.scene.pushMatrix();
-                        this.scene.translate(-1.5, -0.85, 1.1);
-                        this.scene.scale(3, 0.05, 0.2);
-                        this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-
-                this.scene.popMatrix();
-                
-                //Porch 
-                this.scene.pushMatrix();
-                    //Front Porch
-                    this.scene.pushMatrix();
-                        this.scene.translate(0, -0.8, 1.25);
-                        this.scene.scale(3, 1, 0.25);
-                        this.scene.rotate(-Math.PI/2, 1, 0, 0);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-
-                    //Front bottom porch 
-                    this.scene.pushMatrix();
-                        this.scene.translate(-0.75, -0.9, 1.5);
-                        this.scene.scale(1.5, 0.1, 1);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-
-                    //Left bottom porch
-                    this.scene.pushMatrix();
-                        this.scene.translate(-1.5, -0.9, 1.25);
-                        this.scene.scale(1.5, 0.1, 0.5);
-                        this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                        this.primitives['demoRectangle'].display();
-                    this.scene.popMatrix();
-                    
-                    //Big grilles
-                    this.scene.pushMatrix();
-                        this.scene.translate(-1.4, -0.15, 1.4);
-                        
-                        //Handrail
-                        this.scene.pushMatrix();
-                            this.scene.scale(1.25, 0.05, 0.05);
-                            this.scene.rotate(Math.PI/2, 0, 1, 0);
-                            this.primitives['demoCylinder'].display();
-                        this.scene.popMatrix();
-
-                        //Small Columns
-
-                        //First
-                        this.scene.pushMatrix();
-                            this.scene.translate(0.3, 0, 0);
-                            
-                            //Small Column 
-                            this.scene.pushMatrix();
-                                this.scene.scale(0.05, 0.65, 0.05);
-                                this.scene.rotate(Math.PI/2, 1, 0, 0);
-                                this.primitives['demoCylinder'].display();
-                            this.scene.popMatrix();
-                        this.scene.popMatrix();
-
-                        //Second
-                        this.scene.pushMatrix();
-                            this.scene.translate(0.65, 0, 0);
-                            
-                            //Small Column 
-                            this.scene.pushMatrix();
-                                this.scene.scale(0.05, 0.65, 0.05);
-                                this.scene.rotate(Math.PI/2, 1, 0, 0);
-                                this.primitives['demoCylinder'].display();
-                            this.scene.popMatrix();
-                        this.scene.popMatrix();
-
-                        //Third
-                        this.scene.pushMatrix();
-                            this.scene.translate(1, 0, 0);
-                            
-                            //Small Column 
-                            this.scene.pushMatrix();
-                                this.scene.scale(0.05, 0.65, 0.05);
-                                this.scene.rotate(Math.PI/2, 1, 0, 0);
-                                this.primitives['demoCylinder'].display();
-                            this.scene.popMatrix();
-                        this.scene.popMatrix();
-                    this.scene.popMatrix();
-
-                    //Small grilles
-                    this.scene.pushMatrix();
-                        this.scene.translate(-1.4, -0.15, 1);   
-
-                        //Handrail
-                        this.scene.pushMatrix();
-                            this.scene.scale(0.05, 0.05, 0.4);
-                            this.primitives['demoCylinder'].display();
-                        this.scene.popMatrix();
-                        
-                        this.scene.pushMatrix();
-                            this.scene.translate(0, 0, 0.175);
-                            //Small Column 
-                            this.scene.pushMatrix();
-                                this.scene.scale(0.05, 0.65, 0.05);
-                                this.scene.rotate(Math.PI/2, 1, 0, 0);
-                                this.primitives['demoCylinder'].display();
-                            this.scene.popMatrix();
-                        this.scene.popMatrix();
-                      
-                    this.scene.popMatrix();
-                this.scene.popMatrix();
-
-                //First column
-                this.scene.pushMatrix();
-                    this.scene.translate(-1.4, 1, 1.4);
-                    this.scene.scale(0.05, 1.8, 0.05);
-                    this.scene.rotate(Math.PI/2, 1, 0, 0);
-                    this.primitives['demoCylinder'].display();
-                this.scene.popMatrix();
-                
-                //Second column
-                this.scene.pushMatrix();
-                    this.scene.translate(-0.1, 1, 1.4);
-                    this.scene.scale(0.05, 1.8, 0.05);
-                    this.scene.rotate(Math.PI/2, 1, 0, 0);
-                    this.primitives['demoCylinder'].display();
-                this.scene.popMatrix();
-                
-            this.scene.popMatrix();
-
-            //Protuberance
-            this.scene.pushMatrix();
-                this.scene.translate(1.125, 0, 1);
-                this.scene.scale(0.75, 1, 0.6);
-    
-                this.primitives['demoRectangle'].display();
-    
-                //Right protuberance
-                this.scene.pushMatrix();
-                    this.scene.translate(0.5, 0, -0.5);
-                    this.scene.rotate(Math.PI/2, 0, 1, 0);
-                    this.primitives['demoRectangle'].display();
-                this.scene.popMatrix();
-                
-                //Left protuberance
-                this.scene.pushMatrix();
-                    this.scene.translate(-0.5, 0, -0.5);
-                    this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                    this.primitives['demoRectangle'].display();
-                this.scene.popMatrix();
-
-            this.scene.popMatrix();
-
-        this.scene.popMatrix();
+        this.scene.popMatrix();         
     }
 }
