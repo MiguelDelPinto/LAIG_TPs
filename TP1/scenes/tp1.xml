@@ -184,8 +184,201 @@
                 <componentref id="outside" />
                 <componentref id="protuberance" />
                 <componentref id="floor" />
+                <componentref id="balloons" />
             </children>
         </component>
+
+        <component id="balloons">
+            <transformation>
+                <translate x="0" y="4" z="-0.3" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon1" />
+                <componentref id="balloon2" />
+                <componentref id="balloon3" />
+                <componentref id="balloon4" />
+                <componentref id="balloon5" />
+                <componentref id="balloon6" />
+                <componentref id="balloon7" />
+                <componentref id="balloon8" />
+                <componentref id="balloon9" />
+            </children>
+        </component>
+
+        <component id="balloon1">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon2">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon3">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon4">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon5">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon6">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon7">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon8">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon9">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon_head" />
+                <componentref id="balloon_knot" />
+                <componentref id="balloon_thread" />                                
+            </children>
+        </component>
+
+        <component id="balloon_head">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>
+
+        <component id="balloon_knot">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="torus" />
+            </children>
+        </component>
+
+        <component id="balloon_thread">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>                        
 
         <component id="walls">
             <transformation>
