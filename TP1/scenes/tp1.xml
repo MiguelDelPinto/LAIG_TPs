@@ -6,6 +6,11 @@
             <from x="30" y="15" z="30" />
             <to x="0" y="-2" z="0" />
         </perspective>
+
+        <perspective id="topDown" near="0.1" far="500" angle="0">
+            <from x="0" y="100" z="0" />
+            <to x="0" y="0" z="0" />
+        </perspective>
     </views>
 
     <globals>
@@ -19,6 +24,14 @@
             <ambient r="0" g="0" b="0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </omni>
+
+        <omni id="sun" enabled="1" >
+            <location x="100" y="100" z="-100" w="1.0" />
+            <ambient r="0.25" g="0.25" b="0.25" a="0.25" />
+            <diffuse r="0.25" g="0.25" b="0.25" a="0.25" />
+            <specular r="0.25" g="0.25" b="0.25" a="0.25" />
+            <attenuation constant="0.0" linear="1.0" quadratic="0.0" />  
         </omni>
     </lights>
 
