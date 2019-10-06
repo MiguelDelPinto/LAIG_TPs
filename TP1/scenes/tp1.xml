@@ -753,6 +753,9 @@
                 <componentref id="second_column" />
                 <componentref id="big_grilles" />
                 <componentref id="small_grilles" />
+                <componentref id="ceiling_big_grilles" />
+                <componentref id="ceiling_small_grilles" />
+                <componentref id="door_ceiling_big_grilles" />
             </children>
         </component>
 
@@ -836,7 +839,7 @@
             </children>
         </component>
 
-        <component id="ceiling_big_grills">
+        <component id="ceiling_big_grilles">
             <transformation>
                 <translate x="0" y="0.6" z="2.8" />
                 <scale x="1" y="0.5" z="1" />
@@ -851,7 +854,7 @@
             </children>
         </component>
 
-        <component id="door_ceiling_big_grills">
+        <component id="door_ceiling_big_grilles">
             <transformation>
                 <translate x="1.5" y="0.6" z="2.8" />
                 <scale x="1" y="0.5" z="1" />
@@ -890,7 +893,7 @@
             </materials>
             <texture id="none" />
             <children>
-                <componentref id="handrail" />
+                <componentref id="big_handrail" />
             </children>
         </component>
 
