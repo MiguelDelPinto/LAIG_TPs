@@ -24,7 +24,7 @@
 
     <textures>
         <texture id="defaultTexture" file="scenes/images/vidral.jpg" />
-        <texture id="volcano" file="scenes/images/volcano.jpg" />
+        <texture id="volcano" file="scenes/images/lavaRock.jpg" />
         <texture id="cloud" file="scenes/images/cloud.jpg" />
         <texture id="window" file="scenes/images/window.jpg" />
         <texture id="door" file="scenes/images/door.jpg" />
@@ -104,11 +104,33 @@
                 <diffuse r="0.4" g="0.3" b="0.0" a="0.0" />
                 <specular r="0.4" g="0.3" b="0.0" a="0.0" />
         </material>
+
+        <material id="whiteThread" shininess="1">
+                <emission r="1" g="1" b="1" a="0.0" />
+                <ambient r="1" g="1" b="1" a="1" />
+                <diffuse r="1" g="1" b="1" a="0.0" />
+                <specular r="1" g="1" b="1" a="0.0" />
+        </material>
+
+        <material id="red" shininess="1">
+                <emission r="0" g="0" b="0" a="0.0" />
+                <ambient r="1" g="0" b="0" a="0.0" />
+                <diffuse r="1" g="0" b="0" a="0.0" />
+                <specular r="1" g="0" b="0" a="0.0" />
+        </material>
+
+        <material id="babyBlue" shininess="1">
+                <emission r="0" g="0" b="00" a="0.0" />
+                <ambient r="0.501" g="0.980" b="0.968" a="0.0" />
+                <diffuse r="0.501" g="0.980" b="0.968" a="0.0" />
+                <specular r="0.501" g="0.980" b="0.968" a="0.0" />
+        </material>
+
     </materials>
 
     <transformations>
         <transformation id="house_transform">
-            <translate x="5" y="1" z="0" />
+            <translate x="5" y="4" z="0" />
         </transformation>
     </transformations>
 
@@ -129,10 +151,10 @@
             <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
         </primitive>
         <primitive id="sphere">  
-            <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
+            <sphere radius="1" slices="20" stacks="20" />
         </primitive>
         <primitive id="torus">  
-            <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
+            <torus inner="0.1" outer="0.4" slices="20" loops="20" />
         </primitive>                
     </primitives>
 
@@ -167,8 +189,8 @@
 
         <component id="death_mountain">
             <transformation>
-                <translate x="-10" y="0" z="-10" />
-                <scale x="5" y="5" z="5" />
+                <translate x="-7" y="0" z="-7" />
+                <scale x="3.8" y="5" z="3.8" />
                 <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
@@ -231,15 +253,26 @@
                 <componentref id="balloon7" />
                 <componentref id="balloon8" />
                 <componentref id="balloon9" />
+                <componentref id="balloon10" />
+                <componentref id="balloon11" />
+                <componentref id="balloon12" />
+                <componentref id="balloon13" />    
+                <componentref id="thread1" />
+                <componentref id="thread2" />
+                <componentref id="thread3" />
+                <componentref id="thread4" />
+                <componentref id="thread5" />
+                <componentref id="thread6" />
+                <componentref id="thread7" />            
             </children>
         </component>
 
         <component id="balloon1">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="0" y="1" z="0.45" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="blueRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -249,10 +282,10 @@
 
         <component id="balloon2">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="-0.3" y="0.9" z="-0.5" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="yellowRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -262,10 +295,10 @@
 
         <component id="balloon3">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="-0.4" y="1.1" z="0.3" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="red" />
             </materials>
             <texture id="none" />
             <children>
@@ -275,10 +308,10 @@
 
         <component id="balloon4">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="0.6" y="1" z="0.4" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="greenProtuberance" />
             </materials>
             <texture id="none" />
             <children>
@@ -288,10 +321,10 @@
 
         <component id="balloon5">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="0" y="0.5" z="-0.4" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="blueRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -301,7 +334,7 @@
 
         <component id="balloon6">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="0.1" y="0.4" z="0.4" />
             </transformation>
             <materials>
                 <material id="orangeHouse" />
@@ -314,10 +347,10 @@
 
         <component id="balloon7">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="-0.4" y="0.5" z="0" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="greenProtuberance" />
             </materials>
             <texture id="none" />
             <children>
@@ -327,10 +360,10 @@
 
         <component id="balloon8">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="0.4" y="0.7" z="0" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="yellowRoof" />
             </materials>
             <texture id="none" />
             <children>
@@ -343,6 +376,32 @@
                 <translate x="0" y="0" z="0" />
             </transformation>
             <materials>
+                <material id="pinkHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon10">
+            <transformation>
+                <translate x="-0.3" y="1.4" z="0" />
+            </transformation>
+            <materials>
+                <material id="babyBlue" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon11">
+            <transformation>
+                <translate x="0.1" y="1.6" z="-0.2" />
+            </transformation>
+            <materials>
                 <material id="orangeHouse" />
             </materials>
             <texture id="none" />
@@ -351,27 +410,155 @@
             </children>
         </component>
 
-        <component id="balloon">
+        <component id="balloon12">
+            <transformation>
+                <translate x="0.3" y="1.4" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="pinkHouse" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="balloon13">
+            <transformation>
+                <translate x="0.5" y="1.2" z="-0.3" />
+            </transformation>
+            <materials>
+                <material id="red" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon" />
+            </children>
+        </component>
+
+        <component id="thread1">
             <transformation>
                 <translate x="0" y="0" z="0" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon_thread" />
+            </children>
+        </component>
+
+        <component id="thread2">
+            <transformation>
+                <translate x="0.65" y="0.2" z="0.4" />
+                <rotate axis="x" angle="10" />
+                <rotate axis="z" angle="-17" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon_thread" />
+            </children>
+        </component>
+
+        <component id="thread3">
+            <transformation>
+                <translate x="-0.4" y="-0.1" z="0.3" />
+                <rotate axis="x" angle="10" />
+                <rotate axis="z" angle="10" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon_thread" />
+            </children>
+        </component>        
+
+        <component id="thread4">
+            <transformation>
+                <translate x="-0.35" y="-0.1" z="-0.55" />
+                <rotate axis="x" angle="-10" />
+                <rotate axis="z" angle="10" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon_thread" />
+            </children>
+        </component>
+
+        <component id="thread5">
+            <transformation>
+                <translate x="0.5" y="-0.1" z="0.05" />
+                <rotate axis="x" angle="8" />
+                <rotate axis="z" angle="-14" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon_thread" />
+            </children>
+        </component>
+
+        <component id="thread6">
+            <transformation>
+                <translate x="0.5" y="0.3" z="-0.35" />
+                <rotate axis="x" angle="-8" />
+                <rotate axis="z" angle="-14" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon_thread" />
+            </children>
+        </component>
+
+        <component id="thread7">
+            <transformation>
+                <translate x="0.1" y="0" z="0.55" />
+                <rotate axis="x" angle="14" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="balloon_thread" />
+            </children>
+        </component>        
+
+        <component id="balloon">
+            <transformation>
+                <scale x="0.25" y="0.25" z="0.25" />
+                <translate x="3" y="-3" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
             </materials>
             <texture id="none" />
             <children>
                 <componentref id="balloon_head" />
                 <componentref id="balloon_knot" />
-                <componentref id="balloon_thread" />                                
             </children>
-        </component>
+        </component>       
 
         <component id="balloon_head">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <scale x="1" y="1.2" z="1" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="inherit" />
             </materials>
             <texture id="none" />
             <children>
@@ -381,10 +568,12 @@
 
         <component id="balloon_knot">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <scale x="0.8" y="1.2" z="0.8" />
+                <rotate axis="x" angle="90" />
+                <translate x="0" y="0" z="1.05" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="inherit" />
             </materials>
             <texture id="none" />
             <children>
@@ -394,10 +583,12 @@
 
         <component id="balloon_thread">
             <transformation>
-                <translate x="0" y="0" z="0" />
+                <translate x="0.75" y="0" z="0" />
+                <rotate axis="x" angle="90" />
+                <scale x="0.01" y="0.01" z="4" />
             </transformation>
             <materials>
-                <material id="orangeHouse" />
+                <material id="whiteThread" />
             </materials>
             <texture id="none" />
             <children>
