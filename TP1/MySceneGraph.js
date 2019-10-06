@@ -1229,28 +1229,103 @@ class MySceneGraph {
                     this.scene.popMatrix();
 
                 this.scene.popMatrix();
+                
+                //Porch 
+                this.scene.pushMatrix();
+                    //Front Porch
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, -0.8, 1.25);
+                        this.scene.scale(3, 1, 0.25);
+                        this.scene.rotate(-Math.PI/2, 1, 0, 0);
+                        this.primitives['demoRectangle'].display();
+                    this.scene.popMatrix();
 
-                //Front Porch
-                this.scene.pushMatrix();
-                    this.scene.translate(0, -0.8, 1.25);
-                    this.scene.scale(3, 1, 0.25);
-                    this.scene.rotate(-Math.PI/2, 1, 0, 0);
-                    this.primitives['demoRectangle'].display();
-                this.scene.popMatrix();
-                
-                //Front bottom porch 
-                this.scene.pushMatrix();
-                    this.scene.translate(-0.75, -0.9, 1.5);
-                    this.scene.scale(1.5, 0.1, 1);
-                    this.primitives['demoRectangle'].display();
-                this.scene.popMatrix();
-                
-                //Left bottom porch
-                this.scene.pushMatrix();
-                    this.scene.translate(-1.5, -0.9, 1.25);
-                    this.scene.scale(1.5, 0.1, 0.5);
-                    this.scene.rotate(-Math.PI/2, 0, 1, 0);
-                    this.primitives['demoRectangle'].display();
+                    //Front bottom porch 
+                    this.scene.pushMatrix();
+                        this.scene.translate(-0.75, -0.9, 1.5);
+                        this.scene.scale(1.5, 0.1, 1);
+                        this.primitives['demoRectangle'].display();
+                    this.scene.popMatrix();
+
+                    //Left bottom porch
+                    this.scene.pushMatrix();
+                        this.scene.translate(-1.5, -0.9, 1.25);
+                        this.scene.scale(1.5, 0.1, 0.5);
+                        this.scene.rotate(-Math.PI/2, 0, 1, 0);
+                        this.primitives['demoRectangle'].display();
+                    this.scene.popMatrix();
+                    
+                    //Big grilles
+                    this.scene.pushMatrix();
+                        this.scene.translate(-1.4, -0.15, 1.4);
+                        
+                        //Handrail
+                        this.scene.pushMatrix();
+                            this.scene.scale(1.25, 0.05, 0.05);
+                            this.scene.rotate(Math.PI/2, 0, 1, 0);
+                            this.primitives['demoCylinder'].display();
+                        this.scene.popMatrix();
+
+                        //Small Columns
+
+                        //First
+                        this.scene.pushMatrix();
+                            this.scene.translate(0.3, 0, 0);
+                            
+                            //Small Column 
+                            this.scene.pushMatrix();
+                                this.scene.scale(0.05, 0.65, 0.05);
+                                this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                this.primitives['demoCylinder'].display();
+                            this.scene.popMatrix();
+                        this.scene.popMatrix();
+
+                        //Second
+                        this.scene.pushMatrix();
+                            this.scene.translate(0.65, 0, 0);
+                            
+                            //Small Column 
+                            this.scene.pushMatrix();
+                                this.scene.scale(0.05, 0.65, 0.05);
+                                this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                this.primitives['demoCylinder'].display();
+                            this.scene.popMatrix();
+                        this.scene.popMatrix();
+
+                        //Third
+                        this.scene.pushMatrix();
+                            this.scene.translate(1, 0, 0);
+                            
+                            //Small Column 
+                            this.scene.pushMatrix();
+                                this.scene.scale(0.05, 0.65, 0.05);
+                                this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                this.primitives['demoCylinder'].display();
+                            this.scene.popMatrix();
+                        this.scene.popMatrix();
+                    this.scene.popMatrix();
+
+                    //Small grilles
+                    this.scene.pushMatrix();
+                        this.scene.translate(-1.4, -0.15, 1);   
+
+                        //Handrail
+                        this.scene.pushMatrix();
+                            this.scene.scale(0.05, 0.05, 0.4);
+                            this.primitives['demoCylinder'].display();
+                        this.scene.popMatrix();
+                        
+                        this.scene.pushMatrix();
+                            this.scene.translate(0, 0, 0.175);
+                            //Small Column 
+                            this.scene.pushMatrix();
+                                this.scene.scale(0.05, 0.65, 0.05);
+                                this.scene.rotate(Math.PI/2, 1, 0, 0);
+                                this.primitives['demoCylinder'].display();
+                            this.scene.popMatrix();
+                        this.scene.popMatrix();
+                      
+                    this.scene.popMatrix();
                 this.scene.popMatrix();
 
                 //First column
@@ -1263,7 +1338,7 @@ class MySceneGraph {
                 
                 //Second column
                 this.scene.pushMatrix();
-                    this.scene.translate(-0.5, 1, 1.4);
+                    this.scene.translate(-0.1, 1, 1.4);
                     this.scene.scale(0.05, 1.8, 0.05);
                     this.scene.rotate(Math.PI/2, 1, 0, 0);
                     this.primitives['demoCylinder'].display();

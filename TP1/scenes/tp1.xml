@@ -676,6 +676,46 @@
             </children>
         </component>
 
+        <component id="small_grilles">
+            <transformation>
+                <translate x="-1.4" y="-0.15" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="small_handrail" />
+                <componentref id="small_grilles_columns" />
+            </children>
+        </component>
+
+        <component id="small_handrail">
+            <transformation>
+                <scale x="0.05" y="0.05" z="0.4" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="small_grilles_columns">
+            <transformation>
+                <translate x="0" y="0" z="0.175" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="small_column" />
+            </children>
+        </component>
+
         <component id="porch_front">
             <transformation>
                 <translate x="0" y="-0.8" z="1.25" />
