@@ -45,6 +45,7 @@
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="roof" file="scenes/images/roof.jpg" />
         <texture id="ground" file="scenes/images/ground.jpg" />
+        <texture id="background" file="scenes/images/background_plains.jpg" />
     </textures>
 
     <materials>
@@ -182,7 +183,7 @@
             <children>
                 <componentref id="death_mountain" />
                 <componentref id="house" />
-                <!-- <componentref id="ground" /> -->
+                <componentref id="background" />
             </children>
         </component> 
 
@@ -199,6 +200,21 @@
                 <primitiveref id="rectangle" />
             </children>
         </component> -->
+
+        <component id="background">
+            <transformation>
+                <translate x="0" y="10" z="-20" />
+                <scale x="100" y="30" z="1" />
+                <rotate axis="x" angle="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
 
         <component id="death_mountain">
             <transformation>
