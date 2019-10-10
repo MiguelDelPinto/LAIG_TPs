@@ -415,7 +415,7 @@ class MySceneGraph {
             //Get file location of the current texture.   
             var file = this.reader.getString(children[i], 'file');
             if (file == null)
-                return "no file defined for texture";
+                return "no file defined for texture with id " + textureId;
             
             var new_texture = new CGFtexture(this.scene, file);
 
@@ -896,9 +896,27 @@ class MySceneGraph {
             // Texture
             var textureNode = 0;
             grandgrandChildren = grandChildren[textureIndex];             
-            //ADD ERROR CHECKING ?          
-            component.textureId = this.reader.getString(grandgrandChildren, 'id');
+            if(grandgrandChildren.length == 0)
+                return "there must be at least one reference to a component or primitive";
 
+            const textureId = this.reader.getString(grandgrandChildren, 'id');
+            if(textureId !== null)
+                component.textureId = textureId;
+            else 
+                return "there must be a valid ID (texture reference, none or inherit) for texture";
+            
+            let length_s = 0, length_t = 0;
+            if(textureId !== "none"){
+                length_s = this.reader.getFloat(grandgrandChildren, 'length_s');
+                if(length_s === null)
+                    return "there must be a value for length_s of the texture";
+
+                length_t = this.reader.getFloat(grandgrandChildren, 'length_t');
+                if(length_s === null)
+                    return "there must be a value for length_t of the texture";
+            }
+            component.textureLengthS = length_s;
+            component.textureLengthT = length_t;
 
             // Children
             grandgrandChildren = grandChildren[childrenIndex].children;      //MAYBE CHANGE NAME TO 'childrenReferences' ?
@@ -1120,6 +1138,10 @@ class MySceneGraph {
             console.log("Undefined material used in the "+idNode+" component");
         
         const texture = this.textures[idCurrentTexture];
+        const length_s = currentNode.textureLengthS;
+        const length_t = currentNode.textureLengthT;
+        
+
         /*if(idCurrentTexture !== "none")
             material.setTexture(this.textures[idCurrentTexture]);*/
 
