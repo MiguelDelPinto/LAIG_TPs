@@ -30,6 +30,7 @@ class MyTriangle extends CGFobject {
 
 		this.initBuffers();
 	}
+
 	initBuffers() {
 		this.vertices = [
 			this.x1, this.y1, this.z1,	//0
@@ -48,18 +49,18 @@ class MyTriangle extends CGFobject {
 		];
 
 		//Vectorial product to find the normal vector to the plane
-		let n1 = (this.y2 - this.y1) * (this.z3 - this.z1) - (this.z2 - this.z1) * (this.y3 - this.y1);
-		let n2 = -(this.x2 - this.x1) * (this.z3 - this.z1) + (this.z2 - this.z1) * (this.x3 - this.x1);
-		let n3 = (this.x2 - this.x1) * (this.y3 - this.y1) - (this.y2 - this.y1) * (this.x3 - this.x1);
+		let nx = (this.y2 - this.y1) * (this.z3 - this.z1) - (this.z2 - this.z1) * (this.y3 - this.y1);
+		let ny = -(this.x2 - this.x1) * (this.z3 - this.z1) + (this.z2 - this.z1) * (this.x3 - this.x1);
+		let nz = (this.x2 - this.x1) * (this.y3 - this.y1) - (this.y2 - this.y1) * (this.x3 - this.x1);
 
 		this.normals = [
-			n1, n2, n3,
-			n1, n2, n3,
-			n1, n2, n3,
+			nx, ny, nz,
+			nx, ny, nz,
+			nx, ny, nz,
 
-			-n1, -n2, -n3,
-			-n1, -n2, -n3,
-			-n1, -n2, -n3,
+			-nx, -ny, -nz,
+			-nx, -ny, -nz,
+			-nx, -ny, -nz,
 		];
 
 		//REVIEW THE TEX COORDS LATER
@@ -71,9 +72,30 @@ class MyTriangle extends CGFobject {
 			0, 1,
 			0.5, 0,
 			1, 1
-		]
+		];
+		
+		// length of the sides of the triangle
+		this.a = Math.sqrt(Math.pow(this.x2 - this.x1, 2) + Math.pow(this.y2 - this.y1, 2) + Math.pow(this.z2 - this.z1, 2));
+		this.b = Math.sqrt(Math.pow(this.x3 - this.x2, 2) + Math.pow(this.y3 - this.y2, 2) + Math.pow(this.z3 - this.z2, 2));
+    	this.c = Math.sqrt(Math.pow(this.x1 - this.x3, 2) + Math.pow(this.y1 - this.y3, 2) + Math.pow(this.z1 - this.z3, 2));
+		
+		// law of cosines
+    	this.cos_alpha = (Math.pow(this.a,2) - Math.pow(this.b,2) + Math.pow(this.c,2))/(2*this.a*this.c);
+    	this.sin_alpha = Math.sqrt(1 - Math.pow(this.cos_alpha, 2));
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
+	}
+
+	updateTexCoords(length_s, length_t) {
+		this.texCoords = [
+			0, 0,
+			this.a/length_s, 0,
+			this.c*this.cos_alpha/length_s, this.c*this.sin_alpha/length_t,
+
+			0, 0,
+			this.a/length_s, 0,
+			this.c*this.cos_alpha/length_s, this.c*this.sin_alpha/length_t
+		];
 	}
 }
