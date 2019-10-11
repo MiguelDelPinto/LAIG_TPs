@@ -309,6 +309,8 @@ class MySceneGraph {
 
                 global.push(angle);
             }
+
+            console.log("OLA");
                          
             // ...Or get the additional attributes of the ortho view
             if (children[i].nodeName == "ortho") {
@@ -338,7 +340,7 @@ class MySceneGraph {
                 //Retrieves the view's 'up' component   ---ATENÇÃO, VER DEPOIS, É OPCIONAL---
                 let up = [];
                 if (upIndex != -1) {
-                    let aux = this.parseCoordinates3D(grandeChildren[upIndex], "up view fo ID " + viewId);
+                    let aux = this.parseCoordinates3D(grandChildren[upIndex], "up view fo ID " + viewId);
                     if (!Array.isArray(aux))
                         return aux;
 
@@ -356,11 +358,11 @@ class MySceneGraph {
             numViews++;
 
         }        
-
+        
         if (numViews == 0)
             return "at least one view must be defined";
 
-        this.log("Parsed views ???");
+        this.log("Parsed views");
         return null;
     }
 

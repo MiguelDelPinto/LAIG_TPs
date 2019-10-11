@@ -11,6 +11,12 @@
             <from x="0" y="100" z="0" />
             <to x="0" y="0" z="0" />
         </perspective>
+
+        <ortho id="testingView"  near="0.1" far="500" left="1" right="2" top="3" bottom="0" >
+            <from x="30" y="15" z="30" />
+            <to x="0" y="-2" z="0" />
+            <up x="0" y="0" z="0" /> <!-- opcional, default 0,1,0 -->
+        </ortho>
     </views>
 
     <globals>
@@ -34,6 +40,7 @@
             <specular r="0.25" g="0.25" b="0.25" a="0.25" />
             <attenuation constant="0.0" linear="1.0" quadratic="0.0" />  
         </omni>
+
     </lights>
 
     <textures>
@@ -107,10 +114,10 @@
         </material>
 
         <material id="greenProtuberance" shininess="1">
-                <emission r="0.1" g="0.25" b="0.05" a="0.0" />
-                <ambient r="0.1" g="0.25" b="0.05" a="0.0" />
-                <diffuse r="0.1" g="0.25" b="0.05" a="0.0" />
-                <specular r="0.1" g="0.25" b="0.05" a="0.0" />
+                <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+                <ambient r="0.0" g="0.0" b="0.0" a="1.0" />
+                <diffuse r="0.89" g="1.0" b="0.61" a="1.0" />
+                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
 
         <material id="yellowRoof" shininess="1">
