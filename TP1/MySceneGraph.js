@@ -1237,19 +1237,256 @@ class MySceneGraph {
     displayScene() {
         //To do: Create display loop for transversing the scene graph
 
-/*
+
         //For testing:
-        this.scene.translate(-20, -15, -20);
-        this.scene.scale(5, 5, 5);
-        this.scene.rotate(this.degreeToRad(-90), 1, 0, 0);
-        this.primitives['mountain'].display();
-        this.scene.translate(0, 0, 2.5);
-        this.scene.scale(0.75, 0.75, 0.75);
-        this.primitives['cloud'].display();
-*/
+        this.materials['wallMaterial'].apply();
+
+        this.scene.pushMatrix();
+            this.primitives['sphere'].display();
+
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0, 0.75);
+                this.scene.scale(0.25, 0.25, 0.5);
+                this.primitives['mountain'].display();
+            this.scene.popMatrix();
+            
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0, 1.75);
+                this.scene.scale(0.25, 0.25, 0.25);
+                this.primitives['cylinder'].display();
+            this.scene.popMatrix();
+
+             //Wing
+                this.scene.pushMatrix();
+                    this.scene.scale(1.15, 1.5, 1);
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(0.25, 0.25, 1.5);
+                        this.primitives['hexagon'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 2, 1);
+                        this.primitives['hexagon'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.scene.rotate(Math.PI, 0, 0, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(-Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI, 0, 0, 1);
+                        this.scene.rotate(Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI, 0, 0, 1);
+                        this.scene.rotate(-Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(-2, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(-Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(2*Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(-2*Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+                this.scene.popMatrix();
+
+            //Right part
+            this.scene.pushMatrix();
+                this.scene.rotate(Math.PI, 0, 1, 0);
+
+                this.scene.pushMatrix();
+                    this.scene.translate(0, 0, 0.75);
+                    this.scene.scale(0.25, 0.25, 0.5);
+                    this.primitives['mountain'].display();
+                this.scene.popMatrix();
+
+                this.scene.pushMatrix();
+                    this.scene.translate(0, 0, 1.75);
+                    this.scene.scale(0.25, 0.25, 0.25);
+                    this.primitives['cylinder'].display();
+                this.scene.popMatrix();
+                
+                //Wing
+                this.scene.pushMatrix();
+                    this.scene.scale(1.15, 1.5, 1);
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(0.25, 0.25, 1.5);
+                        this.primitives['hexagon'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 2, 1);
+                        this.primitives['hexagon'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.scene.rotate(Math.PI, 0, 0, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(-Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI, 0, 0, 1);
+                        this.scene.rotate(Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI, 0, 0, 1);
+                        this.scene.rotate(-Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, -1.75, 2.125);
+                        this.scene.scale(1, 1.75, 1);
+                        this.primitives['triangle'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.translate(-2, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(-Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(2*Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+
+                    this.scene.pushMatrix();
+                        this.scene.rotate(-2*Math.PI/3, 0, 0, 1);
+                        this.scene.translate(0, 0, 2.125);
+                        this.scene.scale(2, 0.1, 0.1);
+                        this.scene.rotate(Math.PI/2, 0, 1, 0);
+                        this.primitives['cylinder'].display();
+                    this.scene.popMatrix();
+                this.scene.popMatrix();
+            this.scene.popMatrix();
+        this.scene.popMatrix();
+
 
         //For real:        
-        this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture', 1, 1);
+        //this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture', 1, 1);
     }
 
     traverseGraph(idNode, idCurrentMaterial, idCurrentTexture, currentLenghtS, currentLengthT) {

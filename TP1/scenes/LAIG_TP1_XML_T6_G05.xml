@@ -170,7 +170,10 @@
         </primitive>
         <primitive id="torus">  
             <torus inner="0.1" outer="0.4" slices="20" loops="20" />
-        </primitive>                
+        </primitive> 
+        <primitive id="hexagon">
+                <torus inner="0.1" outer="1" slices="6" loops="4" />
+        </primitive>               
     </primitives>
 
 
