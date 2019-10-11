@@ -1256,6 +1256,35 @@ class MySceneGraph {
                 this.primitives['cylinder'].display();
             this.scene.popMatrix();
 
+            //Left Shot
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0, 0.1);
+                this.scene.rotate(-Math.PI/12, 0, 1, 0);
+               
+                //Shot
+                this.scene.pushMatrix();
+                  this.scene.rotate(-Math.PI/6, 0, 0, 1);
+                    this.scene.translate(1.25, 0, 0);
+                    this.scene.scale(3, 0.025, 0.025);
+                    this.scene.rotate(Math.PI/2, 0, 1, 0);
+                    this.primitives['cylinder'].display();
+                this.scene.popMatrix();
+            this.scene.popMatrix();
+
+            //Right Shot
+            this.scene.pushMatrix();
+                this.scene.translate(0, 0, -0.1);
+                this.scene.rotate(Math.PI/12, 0, 1, 0);
+
+                this.scene.pushMatrix();
+                    this.scene.rotate(-Math.PI/6, 0, 0, 1);
+                    this.scene.translate(1.25, 0, 0);
+                    this.scene.scale(3, 0.025, 0.025);
+                    this.scene.rotate(Math.PI/2, 0, 1, 0);
+                    this.primitives['cylinder'].display();
+                this.scene.popMatrix();
+            this.scene.popMatrix();
+
              //Wing
                 this.scene.pushMatrix();
                     this.scene.scale(1.15, 1.5, 1);
