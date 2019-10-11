@@ -1148,7 +1148,7 @@ class MySceneGraph {
         for(let i = 0; i < currentNode.primitiveIds.length; i++) {
             material.apply();
             if(texture !== undefined)
-                console.log(texture.bind(0));
+                texture.bind(0);
             this.primitives[currentNode.primitiveIds[i]].display();
         }
 
