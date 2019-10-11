@@ -1121,7 +1121,7 @@ class MySceneGraph {
         this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture', 1, 1);
     }
 
-    traverseGraph(idNode, idCurrentMaterial, idCurrentTexture, currentTextureLengthS, currentTextureLengthT) {
+    traverseGraph(idNode, idCurrentMaterial, idCurrentTexture, currentLenghtS, currentLengthT) {
         //Uses a depth first search to traverse the scene's graph
         let currentNode = this.components[idNode];
 
@@ -1130,8 +1130,11 @@ class MySceneGraph {
             idCurrentMaterial = currentNode.materialIds[0]; //0 FOR NOW
         
         //Updates the current texture's id
-        if(currentNode.textureId != 'inherit')   //ACRESCENTAR CASO DA TEXTURA SER NONE
+        if(currentNode.textureId != 'inherit') {
             idCurrentTexture = currentNode.textureId;
+            currentLenghtS = currentNode.textureLengthS;
+            currentLengthT = currentNode.textureLengthT;
+        }
 
         //Updates the current transformation Matrix
         this.scene.pushMatrix();
@@ -1144,25 +1147,20 @@ class MySceneGraph {
         const texture = this.textures[idCurrentTexture];
 
         for(let i = 0; i < currentNode.primitiveIds.length; i++) {
-            if(texture === undefined){
-                currentTextureLengthS = 1;
-                currentTextureLengthT = 1;
-                material.setTexture(null);
-            }
-            else {
-                if(idCurrentTexture !== "inherit"){
-                    currentTextureLengthS = currentNode.textureLengthS;
-                    currentTextureLengthT = currentNode.textureLengthT;
-                }
-                this.primitives[currentNode.primitiveIds[i]].updateTexCoords(currentTextureLengthS, currentTextureLengthT);
+            if(texture !== undefined){
                 material.setTexture(texture);
+                material.setTextureWrap('REPEAT', 'REPEAT');
+                this.primitives[currentNode.primitiveIds[i]].updateTexCoords(currentLenghtS, currentLengthT);
             }
+            else
+                material.setTexture(null);
+
             material.apply();
             this.primitives[currentNode.primitiveIds[i]].display();
         }
 
         for(let i = 0; i < currentNode.componentIds.length; i++) {
-            this.traverseGraph(currentNode.componentIds[i], idCurrentMaterial, idCurrentTexture, currentTextureLengthS, currentTextureLengthT);
+            this.traverseGraph(currentNode.componentIds[i], idCurrentMaterial, idCurrentTexture, currentLenghtS, currentLengthT);
         }
 
         this.scene.popMatrix();         
