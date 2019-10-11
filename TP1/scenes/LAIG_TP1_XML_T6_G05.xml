@@ -188,6 +188,7 @@
                 <componentref id="death_mountain" />
                 <componentref id="house" />
                 <componentref id="background" />
+                <componentref id="tie_fighter" />
             </children>
         </component> 
 
@@ -1623,5 +1624,382 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
+
+        <component id="tie_fighter">
+            <transformation>
+                <translate x="15" y="17.5" z="-10" />
+                <rotate axis="x" angle="10" />
+                <rotate axis="y" angle="-120" />
+            </transformation>
+            <materials>
+                <material id="wallMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="sphere" />
+                <componentref id="left_wing" />
+                <componentref id="right_wing" />
+                <componentref id="shots" />
+            </children>
+        </component>
+
+        <component id="left_wing"> 
+            <transformation/>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="wing" />
+            </children>
+        </component>
+    
+        <component id="right_wing"> 
+            <transformation>
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="wing" />
+            </children>
+        </component>
+                
+        <component id="shots"> 
+            <transformation/>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="left_shot" />
+                <componentref id="right_shot" />
+            </children>
+        </component>     
+
+        <component id="left_shot"> 
+            <transformation>
+                <translate x="0" y="0" z="0.1" />
+                <rotate axis="y" angle="-15" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="shot" />
+            </children>
+        </component>     
+
+        <component id="right_shot"> 
+            <transformation>
+                <translate x="0" y="0" z="-0.1" />
+                <rotate axis="y" angle="15" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="shot" />
+            </children>
+        </component> 
+
+        <component id="shot"> 
+            <transformation>
+                <rotate axis="z" angle="-30" />
+                <translate x="1.25" y="0" z="0" />
+                <scale x="3" y="0.025" z="0.025" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component> 
+
+        <component id="wing"> 
+            <transformation/>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="inner_joint" />
+                <componentref id="outer_joint" />
+                <componentref id="real_wing" />
+            </children>
+        </component>
+
+        <component id="inner_joint"> 
+            <transformation>
+                <translate x="0" y="0" z="0.75" />
+                <scale x="0.25" y="0.25" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="mountain" />
+            </children>
+        </component>
+
+        <component id="outer_joint"> 
+            <transformation>
+                <translate x="0" y="0" z="1.75" />
+                <scale x="0.25" y="0.25" z="0.25" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="real_wing"> 
+            <transformation>
+                <scale x="1.15" y="1.5" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="inner_hexagon" />
+                <componentref id="outer_hexagon" />
+                <componentref id="wing_triangle_1" />
+                <componentref id="wing_triangle_2" />
+                <componentref id="wing_triangle_3" />
+                <componentref id="wing_triangle_4" />
+                <componentref id="wing_triangle_5" />
+                <componentref id="wing_triangle_6" />
+                <componentref id="wing_cylinder_1" />
+                <componentref id="wing_cylinder_2" />
+                <componentref id="wing_cylinder_3" />
+                <componentref id="wing_cylinder_4" />
+                <componentref id="wing_cylinder_5" />
+                <componentref id="wing_cylinder_6" />
+            </children>
+        </component>
+
+        <component id="inner_hexagon"> 
+            <transformation>
+                <translate x="0" y="0" z="2.125" />
+                <scale x="0.25" y="0.25" z="1.5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="hexagon" />
+            </children>
+        </component>
+
+        <component id="outer_hexagon"> 
+            <transformation>
+                <translate x="0" y="0" z="2.125" />
+                <scale x="2" y="2" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="hexagon" />
+            </children>
+        </component>
+
+        <component id="wing_triangle_1"> 
+            <transformation>
+                <translate x="0" y="1.75" z="2.125" />
+                <scale x="1" y="1.75" z="1" />
+                <rotate axis="z" angle="180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="wing_triangle_2"> 
+            <transformation>
+                <translate x="0" y="-1.75" z="2.125" />
+                <scale x="1" y="1.75" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="wing_triangle_3"> 
+            <transformation>
+                <rotate axis="z" angle="60" />
+                <translate x="0" y="-1.75" z="2.125" />
+                <scale x="1" y="1.75" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="wing_triangle_4"> 
+            <transformation>
+                <rotate axis="z" angle="-60" />
+                <translate x="0" y="-1.75" z="2.125" />
+                <scale x="1" y="1.75" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="wing_triangle_5"> 
+            <transformation>
+                <rotate axis="z" angle="240" />
+                <translate x="0" y="-1.75" z="2.125" />
+                <scale x="1" y="1.75" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="wing_triangle_6"> 
+            <transformation>
+                <rotate axis="z" angle="120" />
+                <translate x="0" y="-1.75" z="2.125" />
+                <scale x="1" y="1.75" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="triangle" />
+            </children>
+        </component>
+
+        <component id="wing_cylinder_1"> 
+            <transformation>
+                <translate x="0" y="0" z="2.125" />
+                <scale x="2" y="0.1" z="0.1" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+        
+        <component id="wing_cylinder_2"> 
+            <transformation>
+                <translate x="-2" y="0" z="2.125" />
+                <scale x="2" y="0.1" z="0.1" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="wing_cylinder_3"> 
+            <transformation>
+                <rotate axis="z" angle="60" />
+                <translate x="0" y="0" z="2.125" />
+                <scale x="2" y="0.1" z="0.1" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="wing_cylinder_4"> 
+            <transformation>
+                <rotate axis="z" angle="-60" />
+                <translate x="0" y="0" z="2.125" />
+                <scale x="2" y="0.1" z="0.1" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="wing_cylinder_5"> 
+            <transformation>
+                <rotate axis="z" angle="120" />
+                <translate x="0" y="0" z="2.125" />
+                <scale x="2" y="0.1" z="0.1" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
+        <component id="wing_cylinder_6"> 
+            <transformation>
+                <rotate axis="z" angle="-120" />
+                <translate x="0" y="0" z="2.125" />
+                <scale x="2" y="0.1" z="0.1" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="cylinder" />
+            </children>
+        </component>
+
     </components>
 </lxs>
