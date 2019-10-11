@@ -230,6 +230,137 @@ class MySceneGraph {
     parseView(viewsNode) {
         this.onXMLMinorError("To do: Parse views and create cameras.");
 
+        //Get default view
+        let default_view = this.reader.getString(viewsNode, 'default');
+
+        let children = viewsNode.children;
+
+        this.views = [];
+        let numViews = 0;
+
+        // Any number of lights.
+        for (let i = 0; i < children.length; i++) {
+
+            // Storing views information
+            let global = [];
+            let specs = [];
+            let attributeNames = [];
+            let attributeTypes = [];
+
+            //Check type of light
+            if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+            else
+                attributeNames.push(...["from", "to"]);
+
+            // Get id of the current light.
+            let viewId = this.reader.getString(children[i], 'id');
+            if (viewId == null)
+                return "no ID defined for view";
+
+            // Checks for repeated IDs.
+            if (this.views[viewId] != null)
+                return "ID must be unique for each view (conflict: ID = " + viewId + ")";
+
+            // Get the 'near' component
+            let near = this.reader.getFloat(children[i], 'near');
+            if (!(near != null && !isNaN(near)))
+                return "unable to parse the 'near' component of the view for ID = " + viewId;
+               
+            // Get the 'far' component
+            let far = this.reader.getFloat(children[i], 'far');           
+            if (!(far != null && !isNaN(far)))
+                return "unable to parse the 'far' component of the view for ID = " + viewId;
+
+            global.push(children[i].nodeName);
+            global.push(near);
+            global.push(far);
+
+            let grandChildren = children[i].children;
+
+            // Specifications for the current view.
+            let nodeNames = [];
+            for (var j = 0; j < grandChildren.length; j++) {
+                nodeNames.push(grandChildren[j].nodeName);
+            }            
+
+            for (var j = 0; j < attributeNames.length; j++) {
+                var attributeIndex = nodeNames.indexOf(attributeNames[j]);
+
+                if (attributeIndex != -1) {
+                    let aux = this.parseCoordinates3D(grandChildren[attributeIndex], "position for ID" + viewId);
+
+                    if (!Array.isArray(aux))
+                        return aux;
+
+                    specs.push(aux);
+                }
+                else
+                    return "view " + attributeNames[i] + " undefined for ID = " + viewId;
+            }
+
+            // Get the missing attribute of the perspective view...
+            if(children[i].nodeName == "perspective") {
+                let angle = this.reader.getFloat(children[i], 'angle');
+                if(!(angle != null && !isNaN(angle)))
+                    return "unable to parse angle of the view for ID = " + viewId;
+
+                global.push(angle);
+            }
+                         
+            // ...Or get the additional attributes of the ortho view
+            if (children[i].nodeName == "ortho") {
+                let left = this.reader.getFloat(children[i], 'left');
+                if (!(left != null && !isNaN(left)))
+                    return "unable to parse 'left' component of the view for ID = " + viewId;
+                
+                let right = this.reader.getFloat(children[i], 'right');
+                if (!(right != null && !isNaN(right)))
+                    return "unable to parse 'right' component of the view for ID = " + viewId;
+
+                let top = this.reader.getFloat(children[i], 'top');
+                if (!(top != null && !isNaN(top)))
+                    return "unable to parse 'top' component of the view for ID = " + viewId;
+
+                let bottom = this.reader.getFloat(children[i], 'bottom');
+                if (!(bottom != null && !isNaN(bottom)))
+                    return "unable to parse 'bottom' component of the view for ID = " + viewId;
+
+                global.push(left);
+                global.push(right);
+                global.push(top);
+                global.push(bottom);
+
+                let upIndex = nodeNames.indexOf("up");
+
+                //Retrieves the view's 'up' component   ---ATENÇÃO, VER DEPOIS, É OPCIONAL---
+                let up = [];
+                if (upIndex != -1) {
+                    let aux = this.parseCoordinates3D(grandeChildren[upIndex], "up view fo ID " + viewId);
+                    if (!Array.isArray(aux))
+                        return aux;
+
+                    up = aux;
+                }
+                else
+                    return "up view undefiend for ID = " + viewId;
+
+                specs.push(up);
+            }
+            
+            global.push(...specs);
+            
+            this.views[viewId] = global;
+            numViews++;
+
+        }        
+
+        if (numViews == 0)
+            return "at least one view must be defined";
+
+        this.log("Parsed views ???");
         return null;
     }
 
