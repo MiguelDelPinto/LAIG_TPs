@@ -62,17 +62,6 @@ class MyTriangle extends CGFobject {
 			-nx, -ny, -nz,
 			-nx, -ny, -nz,
 		];
-
-		//REVIEW THE TEX COORDS LATER
-		this.texCoords = [
-			0, 1,
-			0.5, 0,
-			1, 1,
-
-			0, 1,
-			0.5, 0,
-			1, 1
-		];
 		
 		// length of the sides of the triangle
 		this.a = Math.sqrt(Math.pow(this.x2 - this.x1, 2) + Math.pow(this.y2 - this.y1, 2) + Math.pow(this.z2 - this.z1, 2));
@@ -82,6 +71,16 @@ class MyTriangle extends CGFobject {
 		// law of cosines
     	this.cos_alpha = (Math.pow(this.a,2) - Math.pow(this.b,2) + Math.pow(this.c,2))/(2*this.a*this.c);
     	this.sin_alpha = Math.sqrt(1 - Math.pow(this.cos_alpha, 2));
+
+		this.texCoords = [
+			0, 0,
+			this.a, 0,
+			this.c*this.cos_alpha, this.c*this.sin_alpha,
+
+			0, 0,
+			this.a, 0,
+			this.c*this.cos_alpha, this.c*this.sin_alpha
+		];
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
