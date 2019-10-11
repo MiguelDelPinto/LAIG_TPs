@@ -50,7 +50,9 @@ class MyCylinder extends CGFobject {
 
         this.vertices.push(0, 0, 0);
         this.normals.push(0, -1, 0);
-
+        
+        this.auxTexCoords = this.texCoords;
+        
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
@@ -62,4 +64,15 @@ class MyCylinder extends CGFobject {
         this.initBuffers();
         this.initNormalVizBuffers();
     }
+
+     updateTexCoords(length_s, length_t) {
+
+        for(let i = 0; i < auxTexCoords; i++){
+            texCoords[i] = auxTexCoords[i] / length_s;
+            i++;
+            texCoords[i] = auxTexCoords[i] / length_t;
+        }
+		
+		this.updateTexCoordsGLBuffers();
+	}
 }

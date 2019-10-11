@@ -52,7 +52,20 @@ class MyTorus extends CGFobject {
 			}
 		}	
 
+		this.auxTexCoords = this.texCoords;
+
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
     }
+
+     updateTexCoords(length_s, length_t) {
+
+        for(let i = 0; i < auxTexCoords; i++){
+            texCoords[i] = auxTexCoords[i] / length_s;
+            i++;
+            texCoords[i] = auxTexCoords[i] / length_t;
+        }
+		
+		this.updateTexCoordsGLBuffers();
+	}
 }

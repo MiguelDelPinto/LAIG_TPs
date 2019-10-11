@@ -97,5 +97,6 @@ class MyTriangle extends CGFobject {
 			this.a/length_s, 0,
 			this.c*this.cos_alpha/length_s, this.c*this.sin_alpha/length_t
 		];
+		this.updateTexCoordsGLBuffers();
 	}
 }
