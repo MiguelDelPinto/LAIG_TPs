@@ -906,7 +906,7 @@ class MySceneGraph {
                 return "there must be a valid ID (texture reference, none or inherit) for texture";
             
             let length_s = 0, length_t = 0;
-            if(textureId !== "none"){
+            if(textureId !== "none" && textureId !== "inherit"){
                 length_s = this.reader.getFloat(grandgrandChildren, 'length_s');
                 if(length_s === null)
                     return "there must be a value for length_s of the texture";
@@ -914,6 +914,10 @@ class MySceneGraph {
                 length_t = this.reader.getFloat(grandgrandChildren, 'length_t');
                 if(length_s === null)
                     return "there must be a value for length_t of the texture";
+            }
+            else{
+                if(grandgrandChildren.length > 1)
+                    return "texture with id="+textureId+" can't have more parameters";
             }
             component.textureLengthS = length_s;
             component.textureLengthT = length_t;
@@ -1114,10 +1118,10 @@ class MySceneGraph {
 */
 
         //For real:        
-        this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture');
+        this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture', 1, 1);
     }
 
-    traverseGraph(idNode, idCurrentMaterial, idCurrentTexture) {
+    traverseGraph(idNode, idCurrentMaterial, idCurrentTexture, currentTextureLengthS, currentTextureLengthT) {
         //Uses a depth first search to traverse the scene's graph
         let currentNode = this.components[idNode];
 
@@ -1138,22 +1142,27 @@ class MySceneGraph {
             console.log("Undefined material used in the "+idNode+" component");
         
         const texture = this.textures[idCurrentTexture];
-        const length_s = currentNode.textureLengthS;
-        const length_t = currentNode.textureLengthT;
-        
-
-        /*if(idCurrentTexture !== "none")
-            material.setTexture(this.textures[idCurrentTexture]);*/
 
         for(let i = 0; i < currentNode.primitiveIds.length; i++) {
+            if(texture === undefined){
+                currentTextureLengthS = 1;
+                currentTextureLengthT = 1;
+                material.setTexture(null);
+            }
+            else {
+                if(idCurrentTexture !== "inherit"){
+                    currentTextureLengthS = currentNode.textureLengthS;
+                    currentTextureLengthT = currentNode.textureLengthT;
+                }
+                this.primitives[currentNode.primitiveIds[i]].updateTexCoords(currentTextureLengthS, currentTextureLengthT);
+                material.setTexture(texture);
+            }
             material.apply();
-            if(texture !== undefined)
-                texture.bind(0);
             this.primitives[currentNode.primitiveIds[i]].display();
         }
 
         for(let i = 0; i < currentNode.componentIds.length; i++) {
-            this.traverseGraph(currentNode.componentIds[i], idCurrentMaterial, idCurrentTexture);
+            this.traverseGraph(currentNode.componentIds[i], idCurrentMaterial, idCurrentTexture, currentTextureLengthS, currentTextureLengthT);
         }
 
         this.scene.popMatrix();         

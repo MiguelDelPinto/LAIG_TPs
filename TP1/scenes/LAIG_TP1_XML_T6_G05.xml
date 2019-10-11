@@ -634,7 +634,7 @@
             <materials>
                 <material id="orangeHouse" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="background" length_s="2" length_t="1" />
             <children>
                 <componentref id="wall_front" />
                 <componentref id="wall_back" />
