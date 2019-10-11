@@ -23,7 +23,10 @@ class XMLscene extends CGFscene {
 
         this.sceneInited = false;
 
-        this.initCameras();
+        this.initDefaultCamera();
+
+        //FOR TESTING
+        this.current_camera_index = 0;
 
         this.enableTextures(true);
 
@@ -39,19 +42,11 @@ class XMLscene extends CGFscene {
     /**
      * Initializes the scene cameras.
      */
-    initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
-
-/*
-        // Views index.
-        let i = 0;
-
-        // Reads the views from the scene graph
-        for (let key in this.graph.views) {
-
-        }
-*/
+    initDefaultCamera() {
+        this.default_camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = this.default_camera;
     }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -97,6 +92,68 @@ class XMLscene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+
+    loadCameras() {
+        this.cameraNames = [];
+        this.cameras = [];
+
+        // Views index.
+        let camera_index = 0;
+        let default_index = 0;  //for later
+
+        // Reads the views from the scene graph
+        for (let key in this.graph.views) {
+            if (this.graph.views.hasOwnProperty(key)) {
+                
+                // Load a view from the scene graph
+                let current_view = this.graph.views[key];
+
+                // Variable where the current camera will be stored
+                let current_camera; //CHANGE TO CONST?
+
+                if(current_view[0] === "perspective") {
+                    current_camera = new CGFcamera(current_view[3],   //fov
+                                                   current_view[1],   //near
+                                                   current_view[2],   //far
+                                                   current_view[4],   //position
+                                                   current_view[5]);  //target
+                }
+                else if(current_view[0] === "ortho") {
+                    current_camera = new CGFcameraOrtho(current_view[3],   //left
+                                                        current_view[4],   //right
+                                                        current_view[6],   //bottom
+                                                        current_view[5],   //top 
+                                                        current_view[1],   //near
+                                                        current_view[2],   //far
+                                                        current_view[7],   //position
+                                                        current_view[8],   //target
+                                                        current_view[9]);  //up
+                }
+                console.log(camera_index);
+                console.log(current_camera);
+                console.log();
+                this.cameraNames.push(camera_index);    //Maybe change?
+                this.cameras.push(current_camera);
+                //this.cameras[camera_index] = current_camera;
+
+                camera_index++;
+            }
+        }
+
+        let current_camera = this.cameras[0];   // 0 for now, needs to be the default one
+
+        this.camera = current_camera || this.default_camera;
+        this.interface.setActiveCamera(this.camera);
+    }
+
+    updateCamera() {
+        let selected_camera = this.cameras[this.current_camera_index];
+
+        this.camera = selected_camera || this.default_camera;
+        this.interface.setActiveCamera(this.camera);
+        console.log("OLA");
+    }
+
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -108,6 +165,8 @@ class XMLscene extends CGFscene {
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
         this.initLights();
+        this.loadCameras();
+        this.interface.loadInterface();
 
         this.sceneInited = true;
     }
