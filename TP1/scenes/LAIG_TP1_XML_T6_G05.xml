@@ -167,7 +167,7 @@
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
         <primitive id="triangle">
-            <triangle x1="-1" y1="0" z1="0" x2="0" y2="1" z2="0" x3="1" y3="0" z3="0" />
+            <triangle x1="-1" y1="0" z1="0" x2="1" y2="0" z2="0" x3="0" y3="1" z3="0" />
         </primitive>
         <primitive id="cylinder">  
             <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
@@ -834,7 +834,7 @@
             <materials>
                 <material id="beigeHouse" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="wood" length_s="1" length_t="1.5" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -849,7 +849,7 @@
             <materials>
                 <material id="yellowRoof" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="wood" length_s="1" length_t="1.5" />
             <children>
                 <primitiveref id="triangle" />
             </children>
