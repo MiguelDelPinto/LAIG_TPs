@@ -57,7 +57,9 @@
         <texture id="brick" file="scenes/images/brick.jpg" />
         <texture id="black_smoke" file="scenes/images/black_smoke.jpg" /> 
         <texture id="blue_smoke" file="scenes/images/blue_smoke.jpg" />        
-        <texture id="orange_smoke" file="scenes/images/orange_smoke.jpg" />        
+        <texture id="orange_smoke" file="scenes/images/orange_smoke.jpg" />  
+        <texture id="fire" file="scenes/images/fire.jpg" />        
+        <texture id="meteor" file="scenes/images/meteor.jpg" />         
                
     </textures>
 
@@ -165,6 +167,7 @@
     <transformations>
         <transformation id="house_transform">
             <translate x="5" y="4" z="0" />
+            <scale x="1.3" y="1.3" z="1.3" />
         </transformation>
     </transformations>
 
@@ -195,7 +198,10 @@
         </primitive>         
         <primitive id="hexagon">
                 <torus inner="0.1" outer="1" slices="6" loops="4" />
-        </primitive>               
+        </primitive>  
+        <primitive id="explosion_beam">
+                <cylinder base="0.02" top="0.2" height="3" slices="10" stacks="10" />
+        </primitive>             
     </primitives>
 
 
@@ -257,6 +263,7 @@
             <children>
                 <primitiveref id="mountain" />
                 <componentref id="death_mountain_cloud" />
+                <componentref id="explosion" />
             </children>
         </component>
 
@@ -273,6 +280,131 @@
                 <primitiveref id="cloud" />
             </children>
         </component>
+
+        <component id="explosion">
+            <transformation>
+                <translate x="0" y="0" z="2.5"/>
+                <scale x="1" y="1" z="0.76"/>
+                <scale x="0.4" y="0.4" z="0.4" />                
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="meteor1" />
+                <componentref id="meteor2" />
+                <componentref id="meteor3" />
+                <componentref id="beam1" />
+                <componentref id="beam2" />
+                <componentref id="beam3" />
+                <componentref id="beam4" />                               
+            </children>
+        </component>  
+
+        <component id="meteor1">
+            <transformation>
+                <translate x="1" y="0" z="3" />            
+                <scale x="1.2" y="1.2" z="1.2"/>
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="meteor" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="sphere" />                           
+            </children>
+        </component> 
+
+        <component id="meteor2">
+            <transformation>
+                <translate x="0" y="1" z="1.4" />  
+                <scale x="0.3" y="0.3" z="0.3"/>                           
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="meteor" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="sphere" />                           
+            </children>
+        </component> 
+
+        <component id="meteor3">
+            <transformation>
+                <translate x="-1.2" y="-0.6" z="4" />              
+                <scale x="0.8" y="0.8" z="0.8"/>
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="meteor" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="sphere" />                           
+            </children>
+        </component>  
+
+        <component id="beam1">
+            <transformation>
+                <translate x="0.5" y="-0.2" z="-0.6" />     
+                <rotate axis="x" angle="10" />   
+                <rotate axis="y" angle="10" />                                                                                   
+                <scale x="0.6" y="0.6" z="0.6"/>
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="fire" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="explosion_beam" />                           
+            </children>
+        </component>    
+
+        <component id="beam2">
+            <transformation>
+                <translate x="0.6" y="0.5" z="-0.6" /> 
+                <rotate axis="y" angle="10" />           
+                <scale x="0.7" y="0.8" z="0.7"/>
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="fire" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="explosion_beam" />                           
+            </children>
+        </component> 
+
+        <component id="beam3">
+            <transformation>
+                <translate x="-0.4" y="-0.4" z="-1.2" />  
+                <rotate axis="y" angle="-10" />           
+                <scale x="1.0" y="1" z="1.3"/>
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="fire" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="explosion_beam" />                           
+            </children>
+        </component> 
+
+        <component id="beam4">
+            <transformation>
+                <translate x="0" y="0" z="-2" /> 
+                <rotate axis="x" angle="-20" />   
+                <rotate axis="y" angle="-3" />                                                                                         
+                <scale x="1" y="1" z="1"/>
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="fire" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="explosion_beam" />                           
+            </children>
+        </component>          
 
         <component id="house">
             <transformation>
