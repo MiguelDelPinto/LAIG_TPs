@@ -44,6 +44,12 @@ class MySceneGraph {
          */
         this.reader.open('scenes/' + filename, this);
 
+
+        /**
+         * Variable used to count the number of clicks in the M key
+         * It's used to change the material applied to the objects
+         */
+        this.clickM = 0;
     }
 
     /*
@@ -1020,9 +1026,9 @@ class MySceneGraph {
               
             if(grandgrandChildren.length == 0)
                 return "there must be at least one reference to a material";
-
+                
             for(var j = 0; j < grandgrandChildren.length; j++) {
-                var materialId = this.reader.getString(grandgrandChildren[0], 'id');
+                var materialId = this.reader.getString(grandgrandChildren[j], 'id');
                 component.materialIds.push(materialId);
             }                      
 
@@ -1245,13 +1251,14 @@ class MySceneGraph {
     traverseGraph(idNode, idCurrentMaterial, idCurrentTexture, currentLenghtS, currentLengthT) {
         //Uses a depth first search to traverse the scene's graph
         let currentNode = this.components[idNode];
-
+    
         //Updates the current material's id
-        if(currentNode.materialIds[0] != 'inherit')
-            idCurrentMaterial = currentNode.materialIds[0]; //0 FOR NOW
+        if(currentNode.materialIds[this.clickM % currentNode.materialIds.length] !== 'inherit')
+            idCurrentMaterial = currentNode.materialIds[(this.clickM) % (currentNode.materialIds.length)]; //0 FOR NOW
         
+
         //Updates the current texture's id
-        if(currentNode.textureId != 'inherit') {
+        if(currentNode.textureId !== 'inherit') {
             idCurrentTexture = currentNode.textureId;
             currentLenghtS = currentNode.textureLengthS;
             currentLengthT = currentNode.textureLengthT;
@@ -1285,5 +1292,12 @@ class MySceneGraph {
         }
 
         this.scene.popMatrix();         
+    }
+    
+    /**
+     * Increases clickM variable
+     */
+    increaseMCount(){
+        this.clickM++;
     }
 }

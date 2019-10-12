@@ -1203,6 +1203,7 @@
             </transformation>
             <materials>
                 <material id="beigeHouse" />
+                <material id="inherit" />
             </materials>
             <texture id="none" />
             <children>

@@ -207,4 +207,21 @@ class XMLscene extends CGFscene {
         this.popMatrix();
         // ---- END Background, camera and axis setup
     }
+
+    /**
+     * Update function that is called every frame
+     * @param {number} t Number of milisseconds since the loading of the scene 
+     */
+    update(t){
+        this.checkKeys();
+    }
+
+    /**
+     * Check if the key M was pressed 
+     */
+    checkKeys(){
+        if(this.interface.isKeyPressed('KeyM')){
+            this.graph.increaseMCount();
+        }
+    }
 }
