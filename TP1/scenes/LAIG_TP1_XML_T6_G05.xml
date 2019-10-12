@@ -54,6 +54,11 @@
         <texture id="roof" file="scenes/images/roof.jpg" />
         <texture id="ground" file="scenes/images/ground.jpg" />
         <texture id="background" file="scenes/images/background_plains.jpg" />
+        <texture id="brick" file="scenes/images/brick.jpg" />
+        <texture id="black_smoke" file="scenes/images/black_smoke.jpg" /> 
+        <texture id="blue_smoke" file="scenes/images/blue_smoke.jpg" />        
+        <texture id="orange_smoke" file="scenes/images/orange_smoke.jpg" />        
+               
     </textures>
 
     <materials>
@@ -148,6 +153,13 @@
                 <specular r="0.501" g="0.980" b="0.968" a="0.0" />
         </material>
 
+        <material id="grey" shininess="1">
+                <emission r="0" g="0" b="00" a="0.0" />
+                <ambient r="0.7" g="0.7" b="0.7" a="1.0" />
+                <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
+                <specular r="0.7" g="0.7" b="0.7" a="1.0" />
+        </material>        
+
     </materials>
 
     <transformations>
@@ -178,6 +190,9 @@
         <primitive id="torus">  
             <torus inner="0.1" outer="0.4" slices="20" loops="20" />
         </primitive> 
+        <primitive id="torus_thin">  
+            <torus inner="0.1" outer="1" slices="20" loops="20" />
+        </primitive>         
         <primitive id="hexagon">
                 <torus inner="0.1" outer="1" slices="6" loops="4" />
         </primitive>               
@@ -196,6 +211,7 @@
                 <componentref id="house" />
                 <componentref id="background" />
                 <componentref id="tie_fighter" />
+                <componentref id="portal_area" />
             </children>
         </component> 
 
@@ -2007,6 +2023,241 @@
                 <primitiveref id="cylinder" />
             </children>
         </component>
+                
+        <component id="portal_area">
+            <transformation>
+                <translate x="12" y="1" z="-3" />
+                <scale x="1" y="1" z="1" />
+                <rotate axis="x" angle="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="brick_walls" />
+<!--                <componentref id="wheatley" /> -->
+            </children>
+        </component>
+
+        <component id="brick_walls">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="brick" length_s="1" length_t="1" />
+            <children>
+                <componentref id="brick_wall1" />
+                <componentref id="brick_wall2" />
+            </children>
+        </component>
+
+        <component id="brick_wall1">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="brick_wall" />
+                <componentref id="blue_portal" />                 
+            </children>
+        </component>
+
+        <component id="brick_wall2">
+            <transformation>
+                <translate x="6" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="brick_wall" />
+                <componentref id="orange_portal" />                 
+            </children>
+        </component>
+
+        <component id="brick_wall">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <scale x="2" y="2" z="2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="front_brick_wall" />
+                <componentref id="back_brick_wall" />
+                <componentref id="left_brick_wall" />
+                <componentref id="right_brick_wall" />   
+                <componentref id="up_brick_wall" />       
+                <componentref id="bottom_brick_wall" />                                                      
+            </children>
+        </component>
+
+        <component id="front_brick_wall">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+                <scale x="2" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="back_brick_wall">
+            <transformation>
+                <translate x="0" y="0" z="-0.5" />
+                <rotate axis="y" angle="180" />
+                <scale x="2" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="left_brick_wall">
+            <transformation>
+                <translate x="1" y="0" z="-0.25" />
+                <rotate axis="y" angle="90" />
+                <scale x="0.5" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="right_brick_wall">
+            <transformation>
+                <translate x="-1" y="0" z="-0.25" />
+                <rotate axis="y" angle="-90" />                
+                <scale x="0.5" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>     
+
+        <component id="up_brick_wall">
+            <transformation>
+                <translate x="0" y="1" z="-0.25" />
+                <rotate axis="x" angle="-90" />
+                <rotate axis="z" angle="90" />                  
+                <scale x="0.5" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="bottom_brick_wall">
+            <transformation>
+                <translate x="0" y="-1" z="-0.25" />
+                <rotate axis="x" angle="90" />
+                <rotate axis="z" angle="90" />                  
+                <scale x="0.5" y="1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>  
+
+        <component id="blue_portal">
+            <transformation>
+                <translate x="0" y="0" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="blueRoof" />
+            </materials>
+            <texture id="blue_smoke" length_s="1" length_t="1" />
+            <children>
+                <componentref id="portal" />
+            </children>
+        </component>
+
+        <component id="orange_portal">
+            <transformation>
+                <translate x="0" y="0" z="0.1" />
+            </transformation>
+            <materials>
+                <material id="orangeHouse" />
+            </materials>
+            <texture id="orange_smoke" length_s="1" length_t="1" />
+            <children>
+                <componentref id="portal" />
+            </children>
+        </component>      
+
+        <component id="portal">
+            <transformation>
+                <translate x="0" y="0" z="0" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="portal_ring" />
+                <componentref id="portal_inside" />
+            </children>
+        </component>  
+
+        <component id="portal_ring">
+            <transformation>
+                <scale x="0.8" y="1.2" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="torus_thin" />
+            </children>
+        </component> 
+
+        <component id="portal_inside">
+            <transformation>
+                <scale x="0.8" y="1.2" z="0.05" />
+            </transformation>
+            <materials>
+                <material id="grey" />
+            </materials>
+            <texture id="black_smoke" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>                                           
+
 
     </components>
 </lxs>
