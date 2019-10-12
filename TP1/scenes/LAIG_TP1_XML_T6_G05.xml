@@ -60,7 +60,7 @@
         <texture id="orange_smoke" file="scenes/images/orange_smoke.jpg" />  
         <texture id="fire" file="scenes/images/fire.jpg" />        
         <texture id="meteor" file="scenes/images/meteor.jpg" />         
-               
+        <texture id="stripes" file="scenes/images/stripes.jpg" />
     </textures>
 
     <materials>
@@ -149,19 +149,32 @@
         </material>
 
         <material id="babyBlue" shininess="1">
-                <emission r="0" g="0" b="00" a="0.0" />
+                <emission r="0" g="0" b="0" a="0.0" />
                 <ambient r="0.501" g="0.980" b="0.968" a="0.0" />
                 <diffuse r="0.501" g="0.980" b="0.968" a="0.0" />
                 <specular r="0.501" g="0.980" b="0.968" a="0.0" />
         </material>
 
         <material id="grey" shininess="1">
-                <emission r="0" g="0" b="00" a="0.0" />
+                <emission r="0" g="0" b="0" a="0.0" />
                 <ambient r="0.7" g="0.7" b="0.7" a="1.0" />
                 <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
                 <specular r="0.7" g="0.7" b="0.7" a="1.0" />
         </material>        
+        
+        <material id="dark_grey" shininess="1">
+                <emission r="0" g="0" b="0" a="0" />
+                <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+                <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+                <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+        </material>
 
+        <material id="light_green" shininess="10">
+                <emission r="0.2" g="1.0" b="0.2" a="1.0" />
+                <ambient r="0.2" g="1.0" b="0.2" a="0.7" />
+                <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
+                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+        </material>
     </materials>
 
     <transformations>
@@ -1792,12 +1805,24 @@
             <texture id="none" />
             <children>
                 <primitiveref id="sphere" />
-                <componentref id="left_wing" />
-                <componentref id="right_wing" />
+                <componentref id="wings" />
                 <componentref id="shots" />
             </children>
         </component>
-
+        
+        <component id="wings">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="wallMaterial" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="left_wing" />
+                <componentref id="right_wing" />
+            </children>
+        </component>
+        
         <component id="left_wing"> 
             <transformation/>
             <materials>
@@ -1825,7 +1850,7 @@
         <component id="shots"> 
             <transformation/>
             <materials>
-                <material id="inherit" />
+                <material id="light_green" />
             </materials>
             <texture id="none" />
             <children>
@@ -1930,19 +1955,41 @@
             <children>
                 <componentref id="inner_hexagon" />
                 <componentref id="outer_hexagon" />
-                <componentref id="wing_triangle_1" />
-                <componentref id="wing_triangle_2" />
-                <componentref id="wing_triangle_3" />
-                <componentref id="wing_triangle_4" />
-                <componentref id="wing_triangle_5" />
-                <componentref id="wing_triangle_6" />
-                <componentref id="wing_cylinder_1" />
-                <componentref id="wing_cylinder_2" />
-                <componentref id="wing_cylinder_3" />
-                <componentref id="wing_cylinder_4" />
-                <componentref id="wing_cylinder_5" />
-                <componentref id="wing_cylinder_6" />
+                <componentref id="wing_triangles" />
+                <componentref id="wing_cylinders" />
             </children>
+        </component>
+
+        <component id="wing_triangles">
+                <transformation/>
+                <materials>
+                        <material id="dark_grey" />
+                </materials>               
+                <texture id="stripes" length_s="5" length_t="5"/>
+                <children>
+                        <componentref id="wing_triangle_1" />
+                        <componentref id="wing_triangle_2" />
+                        <componentref id="wing_triangle_3" />
+                        <componentref id="wing_triangle_4" />
+                        <componentref id="wing_triangle_5" />
+                        <componentref id="wing_triangle_6" />
+                </children>
+        </component>
+
+        <component id="wing_cylinders">
+                <transformation/>
+                <materials>
+                        <material id="inherit" />
+                </materials>               
+                <texture id="inherit" />
+                <children>
+                        <componentref id="wing_cylinder_1" />
+                        <componentref id="wing_cylinder_2" />
+                        <componentref id="wing_cylinder_3" />
+                        <componentref id="wing_cylinder_4" />
+                        <componentref id="wing_cylinder_5" />
+                        <componentref id="wing_cylinder_6" />
+                </children>
         </component>
 
         <component id="inner_hexagon"> 
@@ -1982,7 +2029,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -1996,7 +2043,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -2011,7 +2058,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -2026,7 +2073,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -2041,7 +2088,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="triangle" />
             </children>
@@ -2056,7 +2103,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="triangle" />
             </children>
