@@ -61,6 +61,7 @@
         <texture id="fire" file="scenes/images/fire.jpg" />        
         <texture id="meteor" file="scenes/images/meteor.jpg" />         
         <texture id="stripes" file="scenes/images/stripes.jpg" />
+        <texture id="tie_window" file="scenes/images/tie_cockpit_window.jpg" />
     </textures>
 
     <materials>
@@ -1801,9 +1802,9 @@
                 <rotate axis="y" angle="-120" />
             </transformation>
             <materials>
-                <material id="wallMaterial" />
+                <material id="whiteThread" />
             </materials>
-            <texture id="none" />
+            <texture id="tie_window" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="sphere" />
                 <componentref id="wings" />
