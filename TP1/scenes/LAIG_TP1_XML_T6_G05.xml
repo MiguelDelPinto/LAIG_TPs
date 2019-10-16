@@ -52,7 +52,6 @@
         <texture id="chimney" file="scenes/images/chimney.jpg" />
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="roof" file="scenes/images/roof.jpg" />
-        <texture id="ground" file="scenes/images/ground.jpg" />
         <texture id="background" file="scenes/images/background_plains.jpg" />
         <texture id="brick" file="scenes/images/brick.jpg" />
         <texture id="black_smoke" file="scenes/images/black_smoke.jpg" /> 
@@ -234,20 +233,6 @@
                 <componentref id="portal_area" />
             </children>
         </component> 
-
-        <!--<component id="ground">
-            <transformation>
-                <scale x="60" y="1" z="40" />
-                <rotate axis="x" angle="-90"/>
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="ground" length_s="1" length_t="1" />
-            <children>
-                <primitiveref id="rectangle" />
-            </children>
-        </component> -->
 
         <component id="background">
             <transformation>
