@@ -1293,6 +1293,20 @@ class MySceneGraph {
 
         this.scene.popMatrix();         
     }
+
+    /**
+     *  Returns the lights array
+     */
+    getLights(){
+        return this.lights;
+    }
+
+    /**
+     * Returns the views array
+     */
+    getViews(){
+        return this.views;
+    }
     
     /**
      * Increases clickM variable

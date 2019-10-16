@@ -27,8 +27,8 @@ class MyInterface extends CGFinterface {
         return true;
     }
 
-    loadInterface() {
-        //this.loadLightsOption();
+    loadInterface(graphLights) {
+        this.loadLightsOption(graphLights);
         this.loadCamerasOption();
     }
 
@@ -38,6 +38,24 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'current_camera_index', this.scene.cameraNames)
                      .name('Camera')
                      .onChange(this.scene.updateCamera.bind(this.scene));
+    }
+
+    loadLightsOption(graphLights) {
+        // Lights index.
+        let i = 0;
+        // Reads the lights from the scene graph.
+        for(let key in graphLights){
+            if(i >= 8)
+                break;
+            
+            if(graphLights.hasOwnProperty(key)){
+                this.gui.add(graphLights[key], '0')
+                .name('Ligth_'+(i+1))
+                .onChange(this.scene.updateLights.bind(this.scene));
+      
+                i++;
+            }
+        }
     }
 
     /**

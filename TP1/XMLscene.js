@@ -163,10 +163,10 @@ class XMLscene extends CGFscene {
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
 
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
-
         this.initLights();
         this.loadCameras();
-        this.interface.loadInterface();
+        const graphLights = this.graph.getLights();
+        this.interface.loadInterface(graphLights);
 
         this.sceneInited = true;
     }
@@ -187,6 +187,7 @@ class XMLscene extends CGFscene {
 
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
 
         this.pushMatrix();
         this.axis.display();
@@ -222,6 +223,31 @@ class XMLscene extends CGFscene {
     checkKeys(){
         if(this.interface.isKeyPressed('KeyM')){
             this.graph.increaseMCount();
+        }
+    }
+
+    updateLights(){
+        const graphLights = this.graph.getLights();
+
+        // Lights index.
+        let i = 0;
+
+        // Reads the lights from the scene graph.
+        for(let key in graphLights){
+            if(i >= 8)
+                break;
+            
+            if(graphLights.hasOwnProperty(key)){
+                let light = graphLights[key];
+                if(light[0])
+                    this.lights[i].enable();
+                else    
+                    this.lights[i].disable();
+
+                this.lights[i].update();
+
+                i++;
+            }
         }
     }
 }
