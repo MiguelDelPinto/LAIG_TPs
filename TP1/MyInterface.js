@@ -36,7 +36,8 @@ class MyInterface extends CGFinterface {
         const cameras = this.scene.cameras;
 
         this.gui.add(this.scene, 'current_camera_index', this.scene.cameraNames)
-                     .name('Camera');
+                     .name('Camera')
+                     .onChange(this.scene.updateCamera.bind(this.scene));
     }
 
     loadLightsOption(graphLights) {
@@ -51,8 +52,7 @@ class MyInterface extends CGFinterface {
             
             if(graphLights.hasOwnProperty(key)){
                 folder.add(graphLights[key], '0')
-                .name('Ligth_'+(i+1))
-                .onChange(this.scene.updateLights.bind(this.scene));
+                .name('Ligth_'+(i+1));
       
                 i++;
             }

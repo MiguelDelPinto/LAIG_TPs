@@ -312,7 +312,7 @@ class MySceneGraph {
                 let angle = this.reader.getFloat(children[i], 'angle');
                 if(!(angle != null && !isNaN(angle)))
                     return "unable to parse angle of the view for ID = " + viewId;
-
+                angle = this.degreeToRad(angle);
                 global.push(angle);
             }
                          
@@ -342,7 +342,7 @@ class MySceneGraph {
                 let upIndex = nodeNames.indexOf("up");
 
                 //Retrieves the view's 'up' component   ---ATENÇÃO, VER DEPOIS, É OPCIONAL---
-                let up = [];
+                let up = [0, 1, 0]; //Default up component
                 if (upIndex != -1) {
                     let aux = this.parseCoordinates3D(grandChildren[upIndex], "up view fo ID " + viewId);
                     if (!Array.isArray(aux))
@@ -350,8 +350,6 @@ class MySceneGraph {
 
                     up = aux;
                 }
-                else
-                    return "up view undefiend for ID = " + viewId;
 
                 specs.push(up);
             }

@@ -2,12 +2,12 @@
     <scene root="scene_component" axis_length="5"/>
 
     <views default="defaultCamera">
-        <perspective id="defaultCamera" near="0.1" far="500" angle="0.6">
+        <perspective id="defaultCamera" near="0.1" far="500" angle="40">
             <from x="-10" y="25" z="100" />
             <to x="0" y="16" z="0" />
         </perspective>
 
-        <perspective id="topDown" near="0.1" far="500" angle="0.6">
+        <perspective id="topDown" near="0.1" far="500" angle="30">
             <from x="0" y="150" z="20" />
             <to x="0" y="1" z="0" />
         </perspective>
