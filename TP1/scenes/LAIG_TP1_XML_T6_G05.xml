@@ -2036,9 +2036,9 @@
 
         <component id="tie_fighter_3">
             <transformation>
-                <translate x="-9" y="12.5" z="8.5" />
-                <rotate axis="y" angle="45" />
-                <rotate axis="x" angle="45" />
+                <translate x="6.5" y="24.5" z="-15" />
+                <rotate axis="x" angle="30" />
+                <rotate axis="y" angle="-135" />
             </transformation>
             <materials>
                 <material id="whiteThread" />
