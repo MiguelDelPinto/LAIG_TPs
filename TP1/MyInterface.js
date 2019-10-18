@@ -41,6 +41,8 @@ class MyInterface extends CGFinterface {
     }
 
     loadLightsOption(graphLights) {
+        var folder = this.gui.addFolder('Lights');
+
         // Lights index.
         let i = 0;
         // Reads the lights from the scene graph.
@@ -49,7 +51,7 @@ class MyInterface extends CGFinterface {
                 break;
             
             if(graphLights.hasOwnProperty(key)){
-                this.gui.add(graphLights[key], '0')
+                folder.add(graphLights[key], '0')
                 .name('Ligth_'+(i+1))
                 .onChange(this.scene.updateLights.bind(this.scene));
       
