@@ -187,17 +187,14 @@ class XMLscene extends CGFscene {
 
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
-
-
+        
         this.pushMatrix();
         this.axis.display();
 
-        for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            this.lights[i].enable();
-        }
 
         if (this.sceneInited) {
+            this.updateLights();
+            
             // Draw axis
             this.setDefaultAppearance();
 
@@ -228,7 +225,7 @@ class XMLscene extends CGFscene {
 
     updateLights(){
         const graphLights = this.graph.getLights();
-
+        console.log(graphLights);
         // Lights index.
         let i = 0;
 
@@ -239,6 +236,7 @@ class XMLscene extends CGFscene {
             
             if(graphLights.hasOwnProperty(key)){
                 let light = graphLights[key];
+                console.log(key+" - "+ graphLights[key]+": "+light[0]);
                 if(light[0])
                     this.lights[i].enable();
                 else    
@@ -248,6 +246,8 @@ class XMLscene extends CGFscene {
 
                 i++;
             }
+            else
+                console.log(key);
         }
     }
 }

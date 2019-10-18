@@ -315,8 +315,6 @@ class MySceneGraph {
 
                 global.push(angle);
             }
-
-            console.log("OLA");
                          
             // ...Or get the additional attributes of the ortho view
             if (children[i].nodeName == "ortho") {
