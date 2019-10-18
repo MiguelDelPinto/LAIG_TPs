@@ -61,6 +61,7 @@
         <texture id="meteor" file="scenes/images/meteor.jpg" />         
         <texture id="stripes" file="scenes/images/stripes.jpg" />
         <texture id="tie_window" file="scenes/images/tie_cockpit_window.jpg" />
+        <texture id="lava" file="scenes/images/lava.jpg" />
     </textures>
 
     <materials>
@@ -182,6 +183,34 @@
                 <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
                 <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
+
+        <material id="light_red" shininess="10">
+                <emission r="1.0" g="0.2" b="0.2" a="1.0" />
+                <ambient r="1.0" g="0.2" b="0.2" a="0.7" />
+                <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
+                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+        </material>
+
+        <material id="light_blue" shininess="10">
+                <emission r="0.2" g="0.2" b="1.0" a="1.0" />
+                <ambient r="0.2" g="0.2" b="1.0" a="0.7" />
+                <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
+                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+        </material>
+
+        <material id="light_purple" shininess="10">
+                <emission r="1.0" g="0.0" b="1.0" a="1.0" />
+                <ambient r="1.0" g="0.0" b="1.0" a="0.7" />
+                <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
+                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+        </material>
+
+        <material id="volcano_grey" shininess="10">
+                <emission r="0.0" g="0.0" b="0.0" a="0.0" />
+                <ambient r="0.1098" g="0.098" b="0.1098" a="0.5" />
+                <diffuse r="0.1098" g="0.098" b="0.1098" a="0.0" />
+                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+        </material>
     </materials>
 
     <transformations>
@@ -268,10 +297,67 @@
             <texture id="volcano" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="mountain" />
+                <componentref id="death_mountain_bottom" />
                 <componentref id="death_mountain_cloud" />
+                <componentref id="death_mountain_lava" />
                 <componentref id="explosion" />
             </children>
         </component>
+
+        <component id="death_mountain_bottom">
+            <transformation>
+                <translate x="0" y="0.025" z="0" />
+                <scale x="2" y="2" z="0.05" />             
+            </transformation>
+            <materials>
+                <material id="volcano_grey" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>
+
+        <component id="death_mountain_lava">
+            <transformation>
+                <translate x="0" y="0" z="1.5" />
+                <scale x="1" y="1" z="0.05" />             
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="lava" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="sphere" />
+                <componentref id="death_mountain_lava_border" />
+            </children>
+        </component>
+
+        <component id="death_mountain_lava_border">
+            <transformation>
+                <translate x="0" y="0" z="5" />
+                <scale x="2.1" y="2.1" z="50" />             
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="lava" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="torus" />
+            </children>
+        </component>
+
+        <!--<component id="portal_inside">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id="grey" />
+            </materials>
+            <texture id="black_smoke" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="sphere" />
+            </children>
+        </component>  -->
 
         <component id="death_mountain_cloud">
             <transformation>
@@ -1847,6 +1933,9 @@
             <transformation/>
             <materials>
                 <material id="light_green" />
+                <material id="light_red" />
+                <material id="light_blue" />
+                <material id="light_purple" />
             </materials>
             <texture id="none" />
             <children>
