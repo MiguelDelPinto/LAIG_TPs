@@ -3,8 +3,8 @@
 
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="0.6">
-            <from x="0" y="20" z="50" />
-            <to x="0" y="10" z="0" />
+            <from x="-10" y="25" z="100" />
+            <to x="0" y="16" z="0" />
         </perspective>
 
         <perspective id="topDown" near="0.1" far="500" angle="0.6">
