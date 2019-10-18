@@ -8,12 +8,12 @@
         </perspective>
 
         <perspective id="topDown" near="0.1" far="500" angle="0.6">
-            <from x="0" y="100" z="20" />
-            <to x="0" y="10" z="0" />
+            <from x="0" y="150" z="20" />
+            <to x="0" y="1" z="0" />
         </perspective>
 
-        <ortho id="testingView"  near="0.1" far="500" left="1" right="2" top="3" bottom="0" >
-            <from x="50" y="0" z="0" />
+        <ortho id="testingView"  near="0.1" far="500" left="-50" right="50" top="25" bottom="-25" >
+            <from x="0" y="100" z="400" />
             <to x="0" y="0" z="0" />
             <up x="0" y="1" z="0" /> <!-- opcional, default 0,1,0 -->
         </ortho>
