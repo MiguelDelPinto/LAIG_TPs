@@ -335,7 +335,7 @@
 
         <component id="death_mountain_lava_border">
             <transformation>
-                <translate x="0" y="0" z="5" />
+                <translate x="0" y="0" z="5.5" />
                 <scale x="2.1" y="2.1" z="50" />             
             </transformation>
             <materials>
