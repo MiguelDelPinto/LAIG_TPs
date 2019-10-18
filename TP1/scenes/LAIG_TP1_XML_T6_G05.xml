@@ -53,6 +53,10 @@
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="roof" file="scenes/images/roof.jpg" />
         <texture id="background" file="scenes/images/background_plains.jpg" />
+        <texture id="background_right" file="scenes/images/background_right.jpg" />
+        <texture id="background_left" file="scenes/images/background_left.jpg" />
+        <texture id="background_front" file="scenes/images/background_front.jpg" />
+        <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />        
         <texture id="brick" file="scenes/images/brick.jpg" />
         <texture id="black_smoke" file="scenes/images/black_smoke.jpg" /> 
         <texture id="blue_smoke" file="scenes/images/blue_smoke.jpg" />        
@@ -175,6 +179,20 @@
                 <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
                 <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
+
+        <material id="sky_blue" shininess="10">
+                <emission r="0" g="0" b="0" a="1.0" />
+                <ambient r="0.0941" g="0.308" b="0.647" a="0.07" />
+                <diffuse r="0.0941" g="0.308" b="0.647" a="0.0" />
+                <specular r="0.0941" g="0.308" b="0.647" a="0.0" />
+        </material> 
+
+        <material id="grass" shininess="10">
+                <emission r="0" g="0" b="0" a="1.0" />
+                <ambient r="0.956" g="0.980" b="0.796" a="0.07" />
+                <diffuse r="0.956" g="0.980" b="0.796" a="0.0" />
+                <specular r="0.956" g="0.980" b="0.796" a="0.0" />
+        </material>        
     </materials>
 
     <transformations>
@@ -225,19 +243,34 @@
                 <material id="defaultMaterial" />
             </materials>
             <texture id="defaultTexture" length_s="1" length_t="1"/>
+            <children>>
+                <componentref id="background" />
+                <componentref id="scene_objects" />
+            </children>
+        </component>
+
+        <component id="scene_objects">
+            <transformation>
+                <translate x="-5" y="-15" z="0" />
+                <scale x="2" y="2" z="2" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
             <children>
                 <componentref id="death_mountain" />
                 <componentref id="house" />
-                <componentref id="background" />
                 <componentref id="tie_fighter" />
                 <componentref id="portal_area" />
             </children>
-        </component> 
+        </component>
+         
 
         <component id="background">
             <transformation>
-                <translate x="0" y="10" z="-20" />
-                <scale x="100" y="30" z="1" />
+                <translate x="0" y="10" z="0" />
+                <scale x="1.2" y="1.2" z="1.2" />
                 <rotate axis="x" angle="0"/>
             </transformation>
             <materials>
@@ -245,9 +278,90 @@
             </materials>
             <texture id="background" length_s="1" length_t="1" />
             <children>
+                <!--<primitiveref id="rectangle" /> -->
+                <componentref id="background_right" />
+                <componentref id="background_left" />
+                <componentref id="background_front"/>
+                <componentref id="background_top" />
+                <componentref id="background_bottom" />
+            </children>
+        </component>
+
+
+        <component id="background_right">
+            <transformation>
+                <translate x="35" y="10" z="0" />
+                <scale x="1" y="30" z="70" />
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background_right" length_s="1" length_t="1" />
+            <children>
                 <primitiveref id="rectangle" />
             </children>
         </component>
+
+        <component id="background_left">
+            <transformation>
+                <translate x="-35" y="10" z="0" />
+                <scale x="1" y="30" z="70" />
+                <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background_left" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="background_front">
+            <transformation>
+                <translate x="0" y="10" z="-35" />
+                <scale x="70" y="30" z="1" />
+                <rotate axis="y" angle="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background_front" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component> 
+
+        <component id="background_top">
+            <transformation>
+                <translate x="0" y="40" z="0" />
+                <scale x="70" y="1" z="35" />
+                <rotate axis="x" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="sky_blue" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>   
+
+        <component id="background_bottom">
+            <transformation>
+                <translate x="0" y="-20" z="0" />
+                <scale x="70" y="1" z="35" />
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>                        
 
         <component id="death_mountain">
             <transformation>
@@ -2192,7 +2306,7 @@
                 
         <component id="portal_area">
             <transformation>
-                <translate x="12" y="1" z="-3" />
+                <translate x="12" y="2.5" z="-3" />
                 <scale x="1" y="1" z="1" />
                 <rotate axis="x" angle="0"/>
             </transformation>
