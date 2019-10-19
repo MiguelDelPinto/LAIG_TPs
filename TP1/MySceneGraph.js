@@ -237,7 +237,7 @@ class MySceneGraph {
         this.onXMLMinorError("To do: Parse views and create cameras.");
 
         //Get default view
-        let default_view = this.reader.getString(viewsNode, 'default');
+        this.default_view = this.reader.getString(viewsNode, 'default');
 
         let children = viewsNode.children;
 
@@ -280,6 +280,7 @@ class MySceneGraph {
             if (!(far != null && !isNaN(far)))
                 return "unable to parse the 'far' component of the view for ID = " + viewId;
 
+            global.push(viewId);
             global.push(children[i].nodeName);
             global.push(near);
             global.push(far);
@@ -410,7 +411,8 @@ class MySceneGraph {
      */
     parseLights(lightsNode) {
         var children = lightsNode.children;
-
+        
+        this.lightNames = [];
         this.lights = [];
         var numLights = 0;
 
@@ -449,8 +451,8 @@ class MySceneGraph {
             var aux = this.reader.getBoolean(children[i], 'enabled');
             if (!(aux != null && !isNaN(aux) && (aux == true || aux == false)))
                 this.onXMLMinorError("unable to parse value component of the 'enable light' field for ID = " + lightId + "; assuming 'value = 1'");
-
-            enableLight = aux || 1;
+            else
+                enableLight = aux;
 
             //Add enabled boolean and type name to light info
             global.push(enableLight);
@@ -509,6 +511,7 @@ class MySceneGraph {
                 global.push(...[angle, exponent, targetLight])
             }
 
+            this.lightNames.push(lightId);
             this.lights[lightId] = global;
             numLights++;
         }

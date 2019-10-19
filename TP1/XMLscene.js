@@ -25,8 +25,8 @@ class XMLscene extends CGFscene {
 
         this.initDefaultCamera();
 
-        //FOR TESTING
-        this.current_camera_index = 0;
+        // Just for initializing
+        this.current_camera_id = 0;
 
         this.enableTextures(true);
 
@@ -70,7 +70,7 @@ class XMLscene extends CGFscene {
                 if (light[1] == "spot") {
                     this.lights[i].setSpotCutOff(light[6]);
                     this.lights[i].setSpotExponent(light[7]);
-                    this.lights[i].setSpotDirection(light[8][0], light[8][1], light[8][2]);
+                    this.lights[i].setSpotDirection(light[8][0] - light[2][0], light[8][1] - light[2][1], light[8][2] - light[2][2]);
                 }
 
                 this.lights[i].setVisible(true);
@@ -97,57 +97,53 @@ class XMLscene extends CGFscene {
         this.cameraNames = [];
         this.cameras = [];
 
-        // Views index.
-        let camera_index = 0;
-        let default_index = 0;  //for later
+        // Sets the current camera's id to the default camera's id
+        this.current_camera_id = this.graph.default_view;
 
         // Reads the views from the scene graph
         for (let key in this.graph.views) {
             if (this.graph.views.hasOwnProperty(key)) {
                 
-                // Load a view from the scene graph
+                // Loads a view from the scene graph
                 let current_view = this.graph.views[key];
 
                 // Variable where the current camera will be stored
                 let current_camera; //CHANGE TO CONST?
 
-                if(current_view[0] === "perspective") {
-                    current_camera = new CGFcamera(current_view[3],   //fov
-                                                   current_view[1],   //near
-                                                   current_view[2],   //far
-                                                   current_view[4],   //position
-                                                   current_view[5]);  //target
+                if(current_view[1] === "perspective") {
+                    current_camera = new CGFcamera(current_view[4],   //fov
+                                                   current_view[2],   //near
+                                                   current_view[3],   //far
+                                                   current_view[5],   //position
+                                                   current_view[6]);  //target
                 }
-                else if(current_view[0] === "ortho") {
-                    current_camera = new CGFcameraOrtho(current_view[3],   //left
-                                                        current_view[4],   //right
-                                                        current_view[6],   //bottom
-                                                        current_view[5],   //top 
-                                                        current_view[1],   //near
-                                                        current_view[2],   //far
-                                                        current_view[7],   //position
-                                                        current_view[8],   //target
-                                                        current_view[9]);  //up
+                else if(current_view[1] === "ortho") {
+                    current_camera = new CGFcameraOrtho(current_view[4],   //left
+                                                        current_view[5],   //right
+                                                        current_view[7],   //bottom
+                                                        current_view[6],   //top 
+                                                        current_view[2],   //near
+                                                        current_view[3],   //far
+                                                        current_view[8],   //position
+                                                        current_view[9],   //target
+                                                        current_view[10]);  //up
                 }
-                console.log(camera_index);
-                console.log(current_camera);
-                console.log();
-                this.cameraNames.push(camera_index);    //Maybe change?
-                this.cameras.push(current_camera);
-                //this.cameras[camera_index] = current_camera;
 
-                camera_index++;
+                this.cameraNames.push(current_view[0]);
+                this.cameras[current_view[0]] = current_camera;
             }
         }
 
-        let current_camera = this.cameras[0];   // 0 for now, needs to be the default one
+        // Sets the current camera as the default camera parsed in the XML
+        let current_camera = this.cameras[this.current_camera_id];
 
+        // In case of a camera being corrupted, goes to the default camera
         this.camera = current_camera || this.default_camera;
         this.interface.setActiveCamera(this.camera);
     }
 
     updateCamera() {
-        let selected_camera = this.cameras[this.current_camera_index];
+        let selected_camera = this.cameras[this.current_camera_id];
 
         this.camera = selected_camera || this.default_camera;
         this.interface.setActiveCamera(this.camera);
