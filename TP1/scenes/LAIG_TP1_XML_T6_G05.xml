@@ -352,7 +352,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="background_right" length_s="1" length_t="1" />
+            <texture id="background_right" length_s="1" length_t="2" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -367,7 +367,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="background_left" length_s="1" length_t="1" />
+            <texture id="background_left" length_s="1" length_t="2" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -382,7 +382,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="background_front" length_s="1" length_t="1" />
+            <texture id="background_front" length_s="1" length_t="2" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -1019,7 +1019,7 @@
             <materials>
                 <material id="orangeHouse" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="wood" length_s="1" length_t="2" />
             <children>
                 <componentref id="wall_front" />
                 <componentref id="wall_back" />
@@ -1050,7 +1050,7 @@
             <materials>
                 <material id="grayRoof" />
             </materials>
-            <texture id="door" length_s="1" length_t="1"/>
+            <texture id="door" length_s="1" length_t="2"/>
             <children>
                 <componentref id="door" />
             </children>
@@ -1076,7 +1076,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="window" length_s="1" length_t="1"/>
+            <texture id="window" length_s="1" length_t="2"/>
             <children>
                 <componentref id="window" />
             </children>
@@ -1162,7 +1162,7 @@
             <materials>
                 <material id="grayRoof" />
             </materials>
-            <texture id="roof" length_s="1" length_t="1" />
+            <texture id="roof" length_s="1" length_t="2" />
             <children>
                 <componentref id="roof_front" />
                 <componentref id="roof_back" />
@@ -1256,7 +1256,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="wood" length_s="1" length_t="2" />
             <children>
                 <componentref id="roof_window_front" />
                 <componentref id="roof_window_right" />
@@ -1300,7 +1300,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="window" length_s="1" length_t="1"/>
+            <texture id="window" length_s="1" length_t="2"/>
             <children>
                 <componentref id="window" />
             </children>
@@ -1341,7 +1341,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="roof" length_s="1" length_t="1" />
+            <texture id="roof" length_s="1" length_t="2" />
             <children>
                 <componentref id="roof_window_roof_front" />
                 <componentref id="roof_window_roof_right" />
@@ -1902,7 +1902,7 @@
             <materials>
                 <material id="greenProtuberance" />
             </materials>
-            <texture id="wood" length_s="1" length_t="1" />
+            <texture id="wood" length_s="1" length_t="2" />
             <children>
                 <primitiveref id="rectangle" />
                 <componentref id="protuberance_window" />
@@ -1918,7 +1918,7 @@
             <materials>
                 <material id="grayRoof" />
             </materials>
-            <texture id="window" length_s="1" length_t="1" />
+            <texture id="window" length_s="1" length_t="2" />
             <children>
                 <componentref id="window" />
             </children>  
@@ -2499,7 +2499,7 @@
             <materials>
                 <material id="orangeHouse" />
             </materials>
-            <texture id="brick" length_s="1" length_t="1" />
+            <texture id="brick" length_s="1" length_t="2" />
             <children>
                 <componentref id="brick_wall1" />
                 <componentref id="brick_wall2" />

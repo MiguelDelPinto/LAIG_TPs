@@ -13,6 +13,9 @@ class MyRectangle extends CGFobject {
 		this.y1 = y1;
 		this.y2 = y2;
 
+		this.dx = this.x2 - this.x1;
+		this.dy = this.y2 - this.y1;
+
 		this.initBuffers();
 	}
 	
@@ -71,10 +74,10 @@ class MyRectangle extends CGFobject {
 
 	updateTexCoords(length_s, length_t) {
 		this.texCoords = [
-			0, 1/length_t,
-			1/length_s, 1/length_t,
+			0, this.dy/length_t,
+			this.dx/length_s, this.dy/length_t,
 			0, 0,
-			1/length_s, 0
+			this.dx/length_s, 0
 		];
 		
 		this.updateTexCoordsGLBuffers();

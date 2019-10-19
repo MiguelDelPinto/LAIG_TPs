@@ -221,7 +221,6 @@ class XMLscene extends CGFscene {
 
     updateLights(){
         const graphLights = this.graph.getLights();
-        console.log(graphLights);
         // Lights index.
         let i = 0;
 
@@ -232,7 +231,6 @@ class XMLscene extends CGFscene {
             
             if(graphLights.hasOwnProperty(key)){
                 let light = graphLights[key];
-                console.log(key+" - "+ graphLights[key]+": "+light[0]);
                 if(light[0])
                     this.lights[i].enable();
                 else    
