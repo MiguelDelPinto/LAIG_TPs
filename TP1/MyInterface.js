@@ -20,6 +20,10 @@ class MyInterface extends CGFinterface {
 
         this.gui = new dat.GUI();
 
+        // Adds the option to disable the axis
+        this.gui.add(this.scene, 'displayAxis')
+                .name('Display Axis');
+
         this.initKeys();
 
         return true;

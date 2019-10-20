@@ -10,6 +10,9 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
+        
+        // Variable for enabling/disabling the axis in the interface
+        this.displayAxis = true;
 
         this.interface = myinterface;
     }
@@ -25,7 +28,7 @@ class XMLscene extends CGFscene {
 
         this.initDefaultCamera();
 
-        // Just for initializing
+        // Variable for camera changing in the interface
         this.current_camera_id = 0;
 
         this.enableTextures(true);
@@ -204,10 +207,15 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
         
         this.pushMatrix();
-        this.axis.display();
+
+        // Enables/disables the axis according to the interface
+        if(this.displayAxis)
+            this.axis.display();
 
 
         if (this.sceneInited) {
+
+            // Updates the lights according to the interface
             this.updateLights();
             
             // Draw axis
