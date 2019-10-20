@@ -2,7 +2,7 @@
     <scene root="scene_component" axis_length="5"/>
 
     <views default="Full View">
-        <perspective id="Full View" near="0.1" far="500" angle="40">
+        <perspective id="Full View" near="0.1" far="500" angle="36">
             <from x="-10" y="25" z="100" />
             <to x="0" y="16" z="0" />
         </perspective>
@@ -94,7 +94,8 @@
         <texture id="background_right" file="scenes/images/background_right.jpg" />
         <texture id="background_left" file="scenes/images/background_left.jpg" />
         <texture id="background_front" file="scenes/images/background_front.jpg" />
-        <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />        
+        <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />   
+        <texture id="background_back" file="scenes/images/background_back.jpg" />                  
         <texture id="brick" file="scenes/images/brick.jpg" />
         <texture id="black_smoke" file="scenes/images/black_smoke.jpg" /> 
         <texture id="blue_smoke" file="scenes/images/blue_smoke.jpg" />        
@@ -359,6 +360,7 @@
                 <componentref id="background_front"/>
                 <componentref id="background_top" />
                 <componentref id="background_bottom" />
+                <componentref id="background_back" />
             </children>
         </component>
 
@@ -436,7 +438,22 @@
             <children>
                 <primitiveref id="rectangle" />
             </children>
-        </component>                        
+        </component>
+
+        <component id="background_back">
+            <transformation>
+                <translate x="0" y="10" z="35" />
+                <rotate axis="y" angle="-180"/>
+                <scale x="70" y="30" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background_back" length_s="1" length_t="2" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>                         
 
         <component id="death_mountain">
             <transformation>
