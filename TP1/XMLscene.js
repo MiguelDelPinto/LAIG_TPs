@@ -10,7 +10,8 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
-
+        
+        this.displayAxis = true;
         this.interface = myinterface;
     }
 
@@ -188,7 +189,8 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
         
         this.pushMatrix();
-        this.axis.display();
+        if(this.displayAxis)
+            this.axis.display();
 
 
         if (this.sceneInited) {
