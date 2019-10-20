@@ -15,7 +15,7 @@
         <ortho id="testingView"  near="0.1" far="500" left="-50" right="50" top="25" bottom="-25" >
             <from x="0" y="100" z="400" />
             <to x="0" y="0" z="0" />
-            <up x="0" y="1" z="0" /> <!-- opcional, default 0,1,0 -->
+            <up x="0" y="1" z="0" />
         </ortho>
     </views>
 
@@ -832,7 +832,7 @@
             <materials>
                 <material id="pinkHouse" />
             </materials>
-            <texture id="none" />
+            <texture id="none"/>
             <children>
                 <componentref id="balloon" />
             </children>

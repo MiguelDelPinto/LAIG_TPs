@@ -27,7 +27,8 @@ class MySceneGraph {
 
         this.nodes = [];
 
-        this.idRoot = null;                    // The id of the root element.
+        // Initizalizes the id of the roof element to null. Will be changed when parsing the XML
+        this.idRoot = null;                    
 
         this.axisCoords = [];
         this.axisCoords['x'] = [1, 0, 0];
@@ -234,9 +235,7 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseView(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
-
-        //Get default view
+        //Gets the default view's id
         this.default_view = this.reader.getString(viewsNode, 'default');
 
         let children = viewsNode.children;
@@ -244,16 +243,16 @@ class MySceneGraph {
         this.views = [];
         let numViews = 0;
 
-        // Any number of lights.
+        // Any number of views
         for (let i = 0; i < children.length; i++) {
 
-            // Storing views information
+            // Stores the views' information
             let global = [];
             let specs = [];
             let attributeNames = [];
             let attributeTypes = [];
 
-            //Check type of light
+            // Checks the type of view
             if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -261,24 +260,28 @@ class MySceneGraph {
             else
                 attributeNames.push(...["from", "to"]);
 
-            // Get id of the current light.
+            // Gets the id of the current view
             let viewId = this.reader.getString(children[i], 'id');
             if (viewId == null)
                 return "no ID defined for view";
 
-            // Checks for repeated IDs.
+            // Checks for repeated ids
             if (this.views[viewId] != null)
                 return "ID must be unique for each view (conflict: ID = " + viewId + ")";
 
-            // Get the 'near' component
+            // Gets the 'near' component
             let near = this.reader.getFloat(children[i], 'near');
             if (!(near != null && !isNaN(near)))
                 return "unable to parse the 'near' component of the view for ID = " + viewId;
                
-            // Get the 'far' component
+            // Gets the 'far' component
             let far = this.reader.getFloat(children[i], 'far');           
             if (!(far != null && !isNaN(far)))
                 return "unable to parse the 'far' component of the view for ID = " + viewId;
+
+            // Checks if the 'near' component is bigger than the 'far' component
+            if(near > far)
+                return "the near component is bigger than the far component of the view for ID = " + viewId;
 
             global.push(viewId);
             global.push(children[i].nodeName);
@@ -287,7 +290,7 @@ class MySceneGraph {
 
             let grandChildren = children[i].children;
 
-            // Specifications for the current view.
+            // Parses the specifications for the current view
             let nodeNames = [];
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
@@ -317,7 +320,7 @@ class MySceneGraph {
                 global.push(angle);
             }
                          
-            // ...Or get the additional attributes of the ortho view
+            // ...Or gets the additional attributes of the ortho view
             if (children[i].nodeName == "ortho") {
                 let left = this.reader.getFloat(children[i], 'left');
                 if (!(left != null && !isNaN(left)))
@@ -342,8 +345,8 @@ class MySceneGraph {
 
                 let upIndex = nodeNames.indexOf("up");
 
-                //Retrieves the view's 'up' component   ---ATENÇÃO, VER DEPOIS, É OPCIONAL---
-                let up = [0, 1, 0]; //Default up component
+                //Retrieves the view's 'up' component
+                let up = [0, 1, 0]; //Default up component, given that it's an optional parameter
                 if (upIndex != -1) {
                     let aux = this.parseCoordinates3D(grandChildren[upIndex], "up view fo ID " + viewId);
                     if (!Array.isArray(aux))
@@ -356,7 +359,8 @@ class MySceneGraph {
             }
             
             global.push(...specs);
-            
+
+            // Stores the view in a dictionary, with the key being its id
             this.views[viewId] = global;
             numViews++;
 
@@ -377,26 +381,37 @@ class MySceneGraph {
 
         var children = globalsNode.children;
 
+        // Storage of information
         this.ambient = [];
         this.background = [];
 
         var nodeNames = [];
 
+        // Gets all of the parameter names
         for (var i = 0; i < children.length; i++)
             nodeNames.push(children[i].nodeName);
 
+        // Checks if the ambient parameter is missing
         var ambientIndex = nodeNames.indexOf("ambient");
-        var backgroundIndex = nodeNames.indexOf("background");
+        if(ambientIndex == -1)
+            return "globals ambient parameter is undefined";
 
+        // Checks if the background parameter is missing
+        var backgroundIndex = nodeNames.indexOf("background");
+        if(backgroundIndex == -1)
+            return "globals ambient parameter is undefined";        
+
+        // Gets the color specifications for the ambient parameter and checks them
         var color = this.parseColor(children[ambientIndex], "ambient");
         if (!Array.isArray(color))
-            return color;
+            return "globals -> " + color;
         else
             this.ambient = color;
 
+        // Gets the color specifications for the background parameter and checks them
         color = this.parseColor(children[backgroundIndex], "background");
         if (!Array.isArray(color))
-            return color;
+            return "globals -> " + color;
         else
             this.background = color;
 
@@ -419,7 +434,7 @@ class MySceneGraph {
         var grandChildren = [];
         var nodeNames = [];
 
-        // Any number of lights.
+        // Any number of lights
         for (var i = 0; i < children.length; i++) {
 
             // Storing light information
@@ -427,7 +442,7 @@ class MySceneGraph {
             var attributeNames = [];
             var attributeTypes = [];
 
-            //Check type of light
+            // Checks the type of light
             if (children[i].nodeName != "omni" && children[i].nodeName != "spot") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -437,16 +452,16 @@ class MySceneGraph {
                 attributeTypes.push(...["position", "color", "color", "color", "attenuation"]);
             }
 
-            // Get id of the current light.
+            // Gets the id of the current light
             var lightId = this.reader.getString(children[i], 'id');
             if (lightId == null)
                 return "no ID defined for light";
 
-            // Checks for repeated IDs.
+            // Checks for repeated ids
             if (this.lights[lightId] != null)
                 return "ID must be unique for each light (conflict: ID = " + lightId + ")";
 
-            // Light enable/disable
+            // Get the light's 'enabled' component. If it's corrupted, then assumes it's enabled
             var enableLight = true;
             var aux = this.reader.getBoolean(children[i], 'enabled');
             if (!(aux != null && !isNaN(aux) && (aux == true || aux == false)))
@@ -460,7 +475,7 @@ class MySceneGraph {
 
             grandChildren = children[i].children;
 
-            // Specifications for the current light.
+            // Specifications for the current light
             nodeNames = [];
             for (var j = 0; j < grandChildren.length; j++) {
                 nodeNames.push(grandChildren[j].nodeName);
@@ -470,8 +485,9 @@ class MySceneGraph {
                 var attributeIndex = nodeNames.indexOf(attributeNames[j]);
 
                 if (attributeIndex != -1) {
-                    if (attributeTypes[j] == "position")
+                    if (attributeTypes[j] == "position") {
                         var aux = this.parseCoordinates4D(grandChildren[attributeIndex], "light position for ID" + lightId);
+                    }
                     else if (attributeTypes[j] == "attenuation") {
                         var constant = this.reader.getFloat(grandChildren[attributeIndex], 'constant');
                         var linear = this.reader.getFloat(grandChildren[attributeIndex], 'linear');
@@ -489,7 +505,7 @@ class MySceneGraph {
                     global.push(aux);
                 }
                 else
-                    return "light " + attributeNames[i] + " undefined for ID = " + lightId;
+                    return "light " + attributeNames[j] + " undefined for ID = " + lightId;
             }
 
             // Gets the additional attributes of the spot light
@@ -504,7 +520,7 @@ class MySceneGraph {
 
                 var targetIndex = nodeNames.indexOf("target");
 
-                // Retrieves the light target.
+                // Retrieves the light's target
                 var targetLight = [];
                 if (targetIndex != -1) {
                     var aux = this.parseCoordinates3D(grandChildren[targetIndex], "target light for ID " + lightId);
@@ -518,9 +534,13 @@ class MySceneGraph {
 
                 global.push(...[angle, exponent, targetLight])
             }
-
+            
+            // Stores the unique name of the light (id)
             this.lightNames.push(lightId);
+
+            // Stores the light in a dictionary, with the key being its id
             this.lights[lightId] = global;
+
             numLights++;
         }
 
@@ -549,22 +569,24 @@ class MySceneGraph {
                 continue;
             } 
 
-            // Get ID of the current texture.
+            // Gets the id of the current texture
             var textureId = this.reader.getString(children[i], 'id');
             if (textureId == null)
                 return "no ID defined for texture";   
 
-            // Checks for repeated IDs.
+            // Checks for repeated ids.
             if (this.textures[textureId] != null)
                 return "ID must be unique for each texture (conflict: ID = " + textureId + ")";
 
-            //Get file location of the current texture.   
+            // Gets the file location of the current texture   
             var file = this.reader.getString(children[i], 'file');
             if (file == null)
                 return "no file defined for texture with id " + textureId;
             
+            // Creates the texture
             var new_texture = new CGFtexture(this.scene, file);
 
+            // Checks if the file exists
             if(new_texture == null)
                 return "the file for the texture is incorrect";
 
@@ -587,7 +609,7 @@ class MySceneGraph {
         var grandChildren = [];
         var nodeNames = [];
 
-        // Any number of materials.
+        // Any number of materials
         for (var i = 0; i < children.length; i++) {
 
             if (children[i].nodeName != "material") {
@@ -595,28 +617,28 @@ class MySceneGraph {
                 continue;
             }
 
-            // Get id of the current material.
+            // Gets the id of the current material
             var materialID = this.reader.getString(children[i], 'id');
             if (materialID == null)
                 return "no ID defined for material";
 
-            // Checks for repeated IDs.
+            // Checks for repeated ids
             if (this.materials[materialID] != null)
                 return "ID must be unique for each material (conflict: ID = " + materialID + ")";
 
-            // Get shininess of the current material.
+            // Gets the shininess of the current material.
             let shininess = this.reader.getFloat(children[i], 'shininess');
             if (shininess == null)
                 return "no shininess defined for material";
 
-            // Get the material's components
+            // Gets the material's components
             grandChildren = children[i].children;
 
-            // ERROR CHECKING FOR THE MATERIAL_COMPONENTS ???
+            // Checks if the material has the correct number of components...
             if(grandChildren.length != 4)
                 return "material must have emission, ambient, diffuse and specular components";
     
-            //And parse them
+            // ...And parses them
             let emission = this.parseColor(grandChildren[0],  "material emission component for ID " + materialID); 
             if (!Array.isArray(emission))
                 return emission;
@@ -633,6 +655,7 @@ class MySceneGraph {
             if(!Array.isArray(specular))
                 return specular;
             
+            // Creates the new material
             var new_material = new CGFappearance(this.scene);
             new_material.setEmission(emission[0], emission[1], emission[2], emission[3]);
             new_material.setAmbient(ambient[0], ambient[1], ambient[2], ambient[3]);
@@ -657,7 +680,7 @@ class MySceneGraph {
 
         var grandChildren = [];
 
-        // Any number of transformations.
+        // Any number of transformations
         for (var i = 0; i < children.length; i++) {
 
             if (children[i].nodeName != "transformation") {
@@ -665,18 +688,19 @@ class MySceneGraph {
                 continue;
             }
 
-            // Get id of the current transformation.
+            // Gets the id of the current transformation
             var transformationID = this.reader.getString(children[i], 'id');
             if (transformationID == null)
                 return "no ID defined for transformation";
 
-            // Checks for repeated IDs.
+            // Checks for repeated ids
             if (this.transformations[transformationID] != null)
                 return "ID must be unique for each transformation (conflict: ID = " + transformationID + ")";
 
+            // Gets the specifications of the transformation
             grandChildren = children[i].children;
-            // Specifications for the current transformation.
 
+            // Specifications for the current transformation will be successively added to a matrix
             var transfMatrix = mat4.create();
 
             for (var j = 0; j < grandChildren.length; j++) {
@@ -717,6 +741,9 @@ class MySceneGraph {
         return null;
     }
 
+    /**
+     * Converts angles in degrees to radians
+     */
     degreeToRad(angle){
         return Math.PI*angle/180;
     }
@@ -732,7 +759,7 @@ class MySceneGraph {
 
         var grandChildren = [];
 
-        // Any number of primitives.
+        // Any number of primitives
         for (var i = 0; i < children.length; i++) {
 
             if (children[i].nodeName != "primitive") {
@@ -740,18 +767,19 @@ class MySceneGraph {
                 continue;
             }
 
-            // Get id of the current primitive.
+            // Gets the id of the current primitive
             var primitiveId = this.reader.getString(children[i], 'id');
             if (primitiveId == null)
                 return "no ID defined for texture";
 
-            // Checks for repeated IDs.
+            // Checks for repeated ids
             if (this.primitives[primitiveId] != null)
                 return "ID must be unique for each primitive (conflict: ID = " + primitiveId + ")";
 
+            // Gets the specifications of the primitive
             grandChildren = children[i].children;
 
-            // Validate the primitive type
+            // Validates the primitive type
             if (grandChildren.length != 1 ||
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
@@ -759,10 +787,10 @@ class MySceneGraph {
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere or torus)"
             }
 
-            // Specifications for the current primitive.
+            // Specifications for the current primitive
             var primitiveType = grandChildren[0].nodeName;
 
-            // Retrieves the primitive coordinates.
+            // Retrieves the primitive's coordinates
             if (primitiveType == 'rectangle') {
                 // x1
                 var x1 = this.reader.getFloat(grandChildren[0], 'x1');
@@ -788,7 +816,7 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = rect;
             }
-            else if (primitiveType == 'sphere') {  // ADDED ---> CHANGE !!!!!!!!!!!!!!!!
+            else if (primitiveType == 'sphere') {
                 // radius
                 var radius = this.reader.getFloat(grandChildren[0], 'radius');
                 if (!(radius != null && !isNaN(radius)))
@@ -808,7 +836,7 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = sph;
             }
-            else if (primitiveType == 'cylinder') {  // ADDED ---> CHANGE !!!!!!!!!!!!!!!!
+            else if (primitiveType == 'cylinder') {
                 // base
                 var base = this.reader.getFloat(grandChildren[0], 'base');
                 if (!(base != null && !isNaN(base)))
@@ -888,7 +916,7 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = rect;
             }
-            else if (primitiveType == 'torus') {  // ADDED ---> CHANGE !!!!!!!!!!!!!!!!
+            else if (primitiveType == 'torus') {
                 // inner
                 var inner = this.reader.getFloat(grandChildren[0], 'inner');
                 if (!(inner != null && !isNaN(inner)))
@@ -913,9 +941,6 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = torus;
             }
-            else {
-                console.warn("To do: Parse other primitives.");
-            }
         }
 
         this.log("Parsed primitives");
@@ -935,7 +960,7 @@ class MySceneGraph {
         var grandgrandChildren = [];
         var nodeNames = [];
 
-        // Any number of components.
+        // Any number of components
         for (var i = 0; i < children.length; i++) {
 
             if (children[i].nodeName != "component") {
@@ -943,15 +968,16 @@ class MySceneGraph {
                 continue;
             }
 
-            // Get id of the current component.
+            // Get id of the current component
             var componentID = this.reader.getString(children[i], 'id');
             if (componentID == null)
                 return "no ID defined for componentID";
 
-            // Checks for repeated IDs.
+            // Checks for repeated ids
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
+            // Creates an empty component using JavaScript Objects
             const component = new Object();
             component.materialIds = [];
             component.componentIds = [];
@@ -967,10 +993,22 @@ class MySceneGraph {
                 nodeNames.push(grandChildren[j].nodeName);
             }
 
+            // Gets the index of the transformation component and checks if it exists
             var transformationIndex = nodeNames.indexOf("transformation");
+            if(transformationIndex == -1)
+                return "transformation parameter is undefined for component with ID " + component.id;
+
             var materialsIndex = nodeNames.indexOf("materials");
+            if(materialsIndex == -1)
+                return "materials parameter is undefined for component with ID " + component.id;
+                            
             var textureIndex = nodeNames.indexOf("texture");
+            if(textureIndex == -1)
+                return "texture parameter is undefined for component with ID " + component.id;
+                            
             var childrenIndex = nodeNames.indexOf("children");
+            if(childrenIndex == -1)
+                return "children parameter is undefined for component with ID " + component.id;            
 
             // Transformations
             var transfMatrix;
@@ -982,9 +1020,9 @@ class MySceneGraph {
             
                 var transformationID = this.reader.getString(grandgrandChildren[0], 'id');
                 if(transformationID == null)
-                    return "no ID defined for component transformationID";
+                    return "no ID defined for component with ID " + component.id;
 
-                // Checks if the transformation exists.
+                // Checks if the transformation exists
                 if (this.transformations[transformationID] == null && transformationID != "inherit")
                     return "transformation with ID " + transformationID + " must exist ";
 
@@ -996,14 +1034,14 @@ class MySceneGraph {
                 for (var j = 0; j < grandgrandChildren.length; j++) {
                     switch (grandgrandChildren[j].nodeName) {
                         case 'translate':
-                            var coordinates = this.parseCoordinates3D(grandgrandChildren[j], "translate transformation for ID " + transformationID);
+                            var coordinates = this.parseCoordinates3D(grandgrandChildren[j], "translate transformation for component with ID " + component.id);
                             if (!Array.isArray(coordinates))
                                 return coordinates;
 
                             transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                             break;
                         case 'scale':         
-                            var coordinates = this.parseCoordinates3D(grandgrandChildren[j], "scale transformation for ID " + transformationID);
+                            var coordinates = this.parseCoordinates3D(grandgrandChildren[j], "scale transformation for component with ID " + component.id);
                             if(!Array.isArray(coordinates))
                                 return coordinates;
 
@@ -1011,17 +1049,19 @@ class MySceneGraph {
                             break;
                         case 'rotate':
                             //Axis coordinates
-                            var coordinates = this.parseAxis(grandgrandChildren[j], "rotate transformation for ID " + transformationID);
+                            var coordinates = this.parseAxis(grandgrandChildren[j], "rotate transformation for component with ID " + component.id);
                             if(!Array.isArray(coordinates))
                                 return coordinates;
 
                             // angle
-                            var angle = this.parseAngle(grandgrandChildren[j], "rotate transformation for ID " + transformationID);
+                            var angle = this.parseAngle(grandgrandChildren[j], "rotate transformation for component with ID " + component.id);
                             if(isNaN(angle))
                                 return angle;
 
                             transfMatrix = mat4.rotate(transfMatrix, transfMatrix, this.degreeToRad(angle), coordinates);
                             break;
+                        default:
+                            return grandgrandChildren[j].nodeName + " is not a valid transformation for component with ID " + component.id;
                     }
                 }
             }
@@ -1031,19 +1071,29 @@ class MySceneGraph {
             // Materials
             grandgrandChildren = grandChildren[materialsIndex].children;
               
+            // Checks if there is at least one material
             if(grandgrandChildren.length == 0)
                 return "there must be at least one reference to a material";
-                
+              
+            // Gets the id of each material    
             for(var j = 0; j < grandgrandChildren.length; j++) {
-                var materialId = this.reader.getString(grandgrandChildren[j], 'id');
+                
+                // Checks if the id component exists
+                if(!this.reader.hasAttribute(grandgrandChildren[j], "id"))
+                    return "there is no ID parameter on the material for component with ID " + component.id;
+                
+                // Stores it
+                var materialId = this.reader.getString(grandgrandChildren[j], 'id');                
                 component.materialIds.push(materialId);
             }                      
 
             // Texture
             var textureNode = 0;
-            grandgrandChildren = grandChildren[textureIndex];             
-            if(grandgrandChildren.length == 0)
-                return "there must be at least one reference to a component or primitive";
+            grandgrandChildren = grandChildren[textureIndex];   
+
+            // Checks if the texture has an ID           
+            if(!this.reader.hasAttribute(grandgrandChildren, "id"))
+                return "there is no ID parameter on the texture for component with ID " + component.id;
 
             const textureId = this.reader.getString(grandgrandChildren, 'id');
             if(textureId !== null)
@@ -1051,7 +1101,7 @@ class MySceneGraph {
             else 
                 return "there must be a valid ID (texture reference, none or inherit) for texture";
             
-            let length_s = 0, length_t = 0;
+            let length_s = 1, length_t = 1;
             if(textureId !== "none" && textureId !== "inherit"){
                 length_s = this.reader.getFloat(grandgrandChildren, 'length_s');
                 if(length_s === null)
@@ -1062,14 +1112,14 @@ class MySceneGraph {
                     return "there must be a value for length_t of the texture";
             }
             else{
-                if(grandgrandChildren.length > 1)
-                    return "texture with id="+textureId+" can't have more parameters";
+                if(this.reader.hasAttribute(grandgrandChildren, "length_s") || this.reader.hasAttribute(grandgrandChildren, "length_t"))
+                    this.onXMLMinorError("texture for component with ID " + component.id + " does not need to have length_s/length_t");
             }
             component.textureLengthS = length_s;
             component.textureLengthT = length_t;
 
             // Children
-            grandgrandChildren = grandChildren[childrenIndex].children;      //MAYBE CHANGE NAME TO 'childrenReferences' ?
+            grandgrandChildren = grandChildren[childrenIndex].children;
 
             if(grandgrandChildren.length == 0)
                 return "there must be at least one reference to a component or primitive";
@@ -1077,10 +1127,20 @@ class MySceneGraph {
             for(var j = 0; j < grandgrandChildren.length; j++) {
                 switch (grandgrandChildren[j].nodeName) {
                     case 'componentref':
+
+                        // Checks if the id parameter exists
+                        if(!this.reader.hasAttribute(grandgrandChildren[j], "id"))
+                            return "there is no ID on a children of component with ID " + component.id;
+
                         var childrenComponentId = this.reader.getString(grandgrandChildren[j], 'id');
                         component.componentIds.push(childrenComponentId);
                         break;
-                    case 'primitiveref':         
+                    case 'primitiveref':   
+
+                        // Checks if the id parameter exists
+                        if(!this.reader.hasAttribute(grandgrandChildren[j], "id"))
+                            return "there is no ID on a children of component with ID " + component.id;
+                          
                         var childrenPrimitiveId = this.reader.getString(grandgrandChildren[j], 'id');
                         component.primitiveIds.push(childrenPrimitiveId);
                         break;
@@ -1250,29 +1310,33 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-        //To do: Create display loop for transversing the scene graph
-        
+
         this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture', 1, 1);
     }
 
+    /**
+     * Uses a depth first search to traverse the scene graph and display it
+     */
     traverseGraph(idNode, idCurrentMaterial, idCurrentTexture, currentLenghtS, currentLengthT) {
-        //Uses a depth first search to traverse the scene's graph
+        
         let currentNode = this.components[idNode];
     
-        //Updates the current material's id
+        // Updates the current material's id
         if(currentNode.materialIds[this.clickM % currentNode.materialIds.length] !== 'inherit')
             idCurrentMaterial = currentNode.materialIds[(this.clickM) % (currentNode.materialIds.length)]; //0 FOR NOW
         
 
-        //Updates the current texture's id
+        // Updates the current texture's id
         if(currentNode.textureId !== 'inherit') {
             idCurrentTexture = currentNode.textureId;
             currentLenghtS = currentNode.textureLengthS;
             currentLengthT = currentNode.textureLengthT;
         }
 
-        //Updates the current transformation Matrix
+        // Pushes the matrix so that changes don't affect other components unwillingly
         this.scene.pushMatrix();
+
+        // Updates the current transformation Matrix
         this.scene.multMatrix(currentNode.transformationMatrix);
         
         const material = this.materials[idCurrentMaterial];
@@ -1281,12 +1345,16 @@ class MySceneGraph {
         
         const texture = this.textures[idCurrentTexture];
 
+        // Traverses the primitives and displays them
         for(let i = 0; i < currentNode.primitiveIds.length; i++) {
+            
+            // If the texture is differente from 'none', applies it...
             if(texture !== undefined){
                 material.setTexture(texture);
                 material.setTextureWrap('REPEAT', 'REPEAT');
                 this.primitives[currentNode.primitiveIds[i]].updateTexCoords(currentLenghtS, currentLengthT);
             }
+            // ..Otherwise, sets it to null
             else
                 material.setTexture(null);
 

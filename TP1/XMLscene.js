@@ -40,7 +40,8 @@ class XMLscene extends CGFscene {
     }
 
     /**
-     * Initializes the scene cameras.
+     * Initializes WebGL's default camera.
+     * Will only be used if the default camera in the XML is not working
      */
     initDefaultCamera() {
         this.default_camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
@@ -89,6 +90,9 @@ class XMLscene extends CGFscene {
         }
     }
 
+    /**
+     * Sets the default appearance for the scene
+     */
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -96,6 +100,10 @@ class XMLscene extends CGFscene {
         this.setShininess(10.0);
     }
 
+    /**
+     * Loads the cameras defined in the XML
+     * Only after the default camera is created
+     */
     loadCameras() {
         this.cameraNames = [];
         this.cameras = [];
@@ -111,7 +119,7 @@ class XMLscene extends CGFscene {
                 let current_view = this.graph.views[key];
 
                 // Variable where the current camera will be stored
-                let current_camera; //CHANGE TO CONST?
+                let current_camera;
 
                 if(current_view[1] === "perspective") {
                     current_camera = new CGFcamera(current_view[4],   //fov
@@ -132,7 +140,10 @@ class XMLscene extends CGFscene {
                                                         current_view[10]);  //up
                 }
 
+                // stores the unique name of the camera (id)
                 this.cameraNames.push(current_view[0]);
+
+                // stores the camera in a dictionary, where the key is its id
                 this.cameras[current_view[0]] = current_camera;
             }
         }
@@ -145,12 +156,17 @@ class XMLscene extends CGFscene {
         this.interface.setActiveCamera(this.camera);
     }
 
+    /**
+     * Updates the camera when a new one is selected on the interface
+     */
     updateCamera() {
+        // Uses the interface variable, current_camera_id, to know which camera to choose
         let selected_camera = this.cameras[this.current_camera_id];
 
+        // If it isn't working, chooses the default camera
         this.camera = selected_camera || this.default_camera;
+
         this.interface.setActiveCamera(this.camera);
-        console.log("OLA");
     }
 
     /** Handler called when the graph is finally loaded. 
@@ -202,6 +218,7 @@ class XMLscene extends CGFscene {
         }
 
         this.popMatrix();
+        
         // ---- END Background, camera and axis setup
     }
 
@@ -214,7 +231,7 @@ class XMLscene extends CGFscene {
     }
 
     /**
-     * Check if the key M was pressed 
+     * Checks if the 'M' key was pressed 
      */
     checkKeys(){
         if(this.interface.isKeyPressed('KeyM')){
@@ -222,6 +239,9 @@ class XMLscene extends CGFscene {
         }
     }
 
+    /**
+     * Updates the lights when they are enabled/disabled in the interface 
+     */
     updateLights(){
         const graphLights = this.graph.getLights();
         // Lights index.

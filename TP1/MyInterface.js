@@ -20,33 +20,41 @@ class MyInterface extends CGFinterface {
 
         this.gui = new dat.GUI();
 
-        // add a group of controls (and open/expand by defult)
-
         this.initKeys();
 
         return true;
     }
 
+    /**
+     *  Loads the entire interface: cameras and lights
+     */
     loadInterface(graphLights) {
         this.loadLightsOption(graphLights);
         this.loadCamerasOption();
     }
 
+    /**
+     * Loads all of the camera options to interface
+     */
     loadCamerasOption() {
         const cameras = this.scene.cameras;
 
         this.gui.add(this.scene, 'current_camera_id', this.scene.cameraNames)
                      .name('Camera')
-                     .onChange(this.scene.updateCamera.bind(this.scene));
-    }
+                     .onChange(this.scene.updateCamera.bind(this.scene));   // calls updateCamera() of XMLscene
+    }                                                                       // when a new camera is chosen
 
+    /**
+     * Loads all of the light options to interface
+     */
     loadLightsOption(graphLights) {
         var folder = this.gui.addFolder('Lights');
         var names = this.scene.graph.lightNames;
         
-        // Lights index.
+        // Lights index
         let i = 0;
-        // Reads the lights from the scene graph.
+
+        // Reads the lights from the scene graph
         for(let key in graphLights){
             if(i >= 8)
                 break;
@@ -61,7 +69,7 @@ class MyInterface extends CGFinterface {
     }
 
     /**
-     * initKeys
+     * Initializes the keys
      */
     initKeys() {
         this.scene.gui=this;
@@ -69,14 +77,23 @@ class MyInterface extends CGFinterface {
         this.activeKeys={};
     }
 
+    /**
+     * Processes a key being pressed
+     */
     processKeyDown(event) {
         this.activeKeys[event.code]=true;
     };
 
+    /**
+     * Processes a key being released
+     */
     processKeyUp(event) {
         this.activeKeys[event.code]=false;
     };
 
+    /**
+     * Checks if a key is currently pressed
+     */
     isKeyPressed(keyCode) {
         return this.activeKeys[keyCode] || false;
     }
