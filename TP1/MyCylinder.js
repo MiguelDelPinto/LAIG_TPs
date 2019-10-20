@@ -20,38 +20,50 @@ class MyCylinder extends CGFobject {
         this.normals = [];
         this.texCoords = [];
 
-        var ang = 0;
-        var alphaAng = 2*Math.PI/this.slices;
-        var stackHeight = this.height/this.stacks;
-        var currentHeight = 0;
-        var currentRadius = 0;
+        // Auxiliar variable that represents the alpha angle in each point
+        let ang = 0;
 
-        for(var stack = 0; stack <= this.stacks; stack++){
-            ang = 0;
+        // Calculates the increment for the alpha angle (around the z axis)
+        let alphaAng = 2*Math.PI/this.slices;
+
+        // Calculates the stack height
+        let stackHeight = this.height/this.stacks;
+
+        // Stack height in each stack 
+        let currentHeight = 0;
+
+        // Useful when we have different radius in the base and the top 
+        let currentRadius = 0;
+
+        for(let stack = 0; stack <= this.stacks; stack++){
+            ang = 0; //Resets the ang variable
+
+            // Calculates the height and radius of each stack
             currentHeight = stackHeight*stack;
             currentRadius = this.base + currentHeight*(this.top-this.base)/this.height;
 
-            for(var slice = 0; slice <= this.slices; slice++){
+            for(let slice = 0; slice <= this.slices; slice++){
+                // Adds the vertices, the normals and the texture coordinates
                 this.vertices.push(-Math.sin(ang)*currentRadius, Math.cos(ang)*currentRadius,  currentHeight);
                 this.normals.push(-Math.sin(ang), Math.cos(ang), 0);
                 this.texCoords.push(slice/this.slices, 1-stack/this.stacks);
+
+                // Increments the ang variable by the alpha angle
                 ang+=alphaAng;   
             }
         }
-
+        
+        // Adds indices to MyCylinder  
         for(let stack = 0; stack < this.stacks; stack++){
             for(let slice = 0; slice < this.slices; slice++){   
-                var index = (stack * (this.slices + 1)) + slice;
-
+                let index = (stack * (this.slices + 1)) + slice;
+                
+                // The first triangle has the bottom left vertex and the both top vertices 
                 this.indices.push(index, index + this.slices + 2, index + this.slices + 1);
+                // The second triangle has the both bottom vertices and the top right vertex 
                 this.indices.push(index, index + 1, index + this.slices + 2);
             }
         }
-
-        this.vertices.push(0, 0, 0);
-        this.normals.push(0, -1, 0);
-        
-        this.auxTexCoords = this.texCoords;
         
         this.primitiveType = this.scene.gl.TRIANGLES;
         this.initGLBuffers();
