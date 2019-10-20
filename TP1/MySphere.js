@@ -22,25 +22,32 @@ class MySphere extends CGFobject {
         this.normals = [];
         this.texCoords = [];
 
-        let phi = 2*Math.PI/this.slices;    //0 to 360 degrees
-        let theta = 2*Math.PI/this.stacks;    //0 to 180 degrees  
+        let phi_increment = 2*Math.PI/this.slices;
+        let theta_increment = Math.PI/(2*this.stacks);
+
+        let theta_offset = Math.PI/2;
         
-        for(let stack = 0; stack <= this.stacks; stack++) {
+        for(let stack = 0; stack <= 2*this.stacks; stack++) {
+            let theta = theta_offset - theta_increment * stack; // goes from 90 degrees to -90 degrees
+
             for(let slice = 0; slice <= this.slices; slice++) {
+                let phi = phi_increment * slice; //goes from 0 degrees to 360 degrees
                 
-                let x = Math.cos(theta * slice) * Math.cos(phi * stack);
-                let y = Math.cos(theta * slice) * Math.sin(phi * stack);
-                let z = Math.sin(theta * slice);
+                let x = Math.cos(theta) * Math.cos(phi);
+                let y = Math.cos(theta) * Math.sin(phi);
+                let z = Math.sin(theta);
 
                 this.vertices.push(this.radius * x, this.radius * y, this.radius * z);
+                
                 this.normals.push(x, y, z);
-                this.texCoords.push(1 - (slice / this.slices), 1 - (stack / this.stacks));
-              
-                if(stack != this.stacks && slice != this.slices) {
-                    var index = (stack * (this.slices + 1)) + slice;
 
-                    this.indices.push(index, index + this.slices + 2, index + this.slices + 1);
-                    this.indices.push(index, index + 1, index + this.slices + 2);
+                this.texCoords.push(slice / this.slices, 1 - stack / (2 * this.stacks));
+              
+                if(stack != 2*this.stacks && slice != this.slices) {
+                    let index = stack * (this.slices + 1) + slice;
+
+                    this.indices.push(index + 1, index, index + this.slices + 1);
+                    this.indices.push(index + this.slices + 2, index + 1, index + this.slices + 1);
                 }
             }
         }   

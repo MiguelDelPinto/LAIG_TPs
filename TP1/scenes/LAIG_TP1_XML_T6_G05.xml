@@ -2074,9 +2074,22 @@
             </materials>
             <texture id="tie_window" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="sphere" />
                 <componentref id="wings" />
                 <componentref id="shots" />
+                <componentref id="cockpit" />                
+            </children>
+        </component>
+
+        <component id="cockpit">
+            <transformation>
+                <rotate axis="y" angle="187.5" />            
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="sphere" />
             </children>
         </component>
         
