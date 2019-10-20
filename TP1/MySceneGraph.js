@@ -1031,6 +1031,8 @@ class MySceneGraph {
             else{
                 transfMatrix = mat4.create();
 
+                let mix_count = 0;
+
                 for (var j = 0; j < grandgrandChildren.length; j++) {
                     switch (grandgrandChildren[j].nodeName) {
                         case 'translate':
@@ -1059,6 +1061,12 @@ class MySceneGraph {
                                 return angle;
 
                             transfMatrix = mat4.rotate(transfMatrix, transfMatrix, this.degreeToRad(angle), coordinates);
+                            break;
+                        case 'transformationref':
+                            if(mix_count === 0)
+                                this.onXMLMinorError("References to transformations are being mixed with explicit transformations on the component with ID " + component.id + ". They will be ignored.");
+
+                            mix_count++;
                             break;
                         default:
                             return grandgrandChildren[j].nodeName + " is not a valid transformation for component with ID " + component.id;

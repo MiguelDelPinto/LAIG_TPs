@@ -654,7 +654,7 @@
 
         <component id="house">
             <transformation>
-                <transformationref id="house_transform" />
+                <transformationref id="house_transform" />       
             </transformation>
             <materials>
                 <material id="wallMaterial" />
