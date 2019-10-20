@@ -433,8 +433,8 @@ class MySceneGraph {
                 continue;
             }
             else {
-                attributeNames.push(...["location", "ambient", "diffuse", "specular"]);
-                attributeTypes.push(...["position", "color", "color", "color"]);
+                attributeNames.push(...["location", "ambient", "diffuse", "specular", "attenuation"]);
+                attributeTypes.push(...["position", "color", "color", "color", "attenuation"]);
             }
 
             // Get id of the current light.
@@ -472,6 +472,14 @@ class MySceneGraph {
                 if (attributeIndex != -1) {
                     if (attributeTypes[j] == "position")
                         var aux = this.parseCoordinates4D(grandChildren[attributeIndex], "light position for ID" + lightId);
+                    else if (attributeTypes[j] == "attenuation") {
+                        var constant = this.reader.getFloat(grandChildren[attributeIndex], 'constant');
+                        var linear = this.reader.getFloat(grandChildren[attributeIndex], 'linear');
+                        var quadratic = this.reader.getFloat(grandChildren[attributeIndex], 'quadratic');
+                        
+                        var aux = [];
+                        aux.push(...[constant, linear, quadratic]);
+                    }
                     else
                         var aux = this.parseColor(grandChildren[attributeIndex], attributeNames[j] + " illumination for ID" + lightId);
 
