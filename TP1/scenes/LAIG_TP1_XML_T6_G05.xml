@@ -1,22 +1,42 @@
 <lxs>
     <scene root="scene_component" axis_length="5"/>
 
-    <views default="FullView">
-        <perspective id="FullView" near="0.1" far="500" angle="40">
+    <views default="Full_View">
+        <perspective id="Full_View" near="0.1" far="500" angle="40">
             <from x="-10" y="25" z="100" />
             <to x="0" y="16" z="0" />
         </perspective>
 
-        <perspective id="TopDown" near="0.1" far="500" angle="30">
+        <perspective id="Top_Down_View" near="0.1" far="500" angle="30">
             <from x="0" y="150" z="20" />
             <to x="0" y="1" z="0" />
         </perspective>
 
-        <ortho id="testingView"  near="0.1" far="500" left="-50" right="50" top="25" bottom="-25" >
+        <ortho id="Postcard_View"  near="0.1" far="500" left="-50" right="50" top="25" bottom="-25" >
             <from x="0" y="100" z="400" />
             <to x="0" y="0" z="0" />
             <up x="0" y="1" z="0" /> <!-- opcional, default 0,1,0 -->
         </ortho>
+
+        <perspective id="House_View" near="0.1" far="200" angle="90">
+            <from x="5" y="10" z="20" />
+            <to x="5" y="8" z="4" />
+        </perspective>
+
+        <perspective id="Death_Mountain_View" near="0.1" far="200" angle="90">
+            <from x="-20" y="5" z="20" />
+            <to x="-20" y="2.5" z="-9" />
+        </perspective>
+
+        <perspective id="Portal_View" near="0.1" far="200" angle="60">
+            <from x="12" y="-7" z="15" />
+            <to x="12" y="-7" z="-6" />
+        </perspective>
+
+        <perspective id="TIE_Fighter View" near="0.1" far="200" angle="60">
+            <from x="11" y="17.5" z="5" />
+            <to x="22.5" y="17.5" z="-15" />
+        </perspective>
     </views>
 
     <globals>
