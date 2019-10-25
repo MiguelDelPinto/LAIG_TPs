@@ -367,8 +367,8 @@
 
         <component id="background_right">
             <transformation>
-                <translate x="35" y="10" z="0" />
-                <scale x="1" y="30" z="70" />
+                <translate x="60" y="30" z="0" />
+                <scale x="1" y="50" z="120" />
                 <rotate axis="y" angle="-90"/>
             </transformation>
             <materials>
@@ -382,8 +382,8 @@
 
         <component id="background_left">
             <transformation>
-                <translate x="-35" y="10" z="0" />
-                <scale x="1" y="30" z="70" />
+                <translate x="-60" y="30" z="0" />
+                <scale x="1" y="50" z="120" />
                 <rotate axis="y" angle="90"/>
             </transformation>
             <materials>
@@ -397,8 +397,8 @@
 
         <component id="background_front">
             <transformation>
-                <translate x="0" y="10" z="-35" />
-                <scale x="70" y="30" z="1" />
+                <translate x="0" y="30" z="-60" />
+                <scale x="120" y="50" z="1" />
                 <rotate axis="y" angle="0"/>
             </transformation>
             <materials>
@@ -412,8 +412,8 @@
 
         <component id="background_top">
             <transformation>
-                <translate x="0" y="40" z="0" />
-                <scale x="70" y="1" z="35" />
+                <translate x="0" y="60" z="0" />
+                <scale x="120" y="1" z="60" />
                 <rotate axis="x" angle="90"/>
             </transformation>
             <materials>
@@ -428,7 +428,7 @@
         <component id="background_bottom">
             <transformation>
                 <translate x="0" y="-20" z="0" />
-                <scale x="70" y="1" z="35" />
+                <scale x="120" y="1" z="60" />
                 <rotate axis="x" angle="-90"/>
             </transformation>
             <materials>
@@ -442,9 +442,9 @@
 
         <component id="background_back">
             <transformation>
-                <translate x="0" y="10" z="35" />
+                <translate x="0" y="30" z="60" />
                 <rotate axis="y" angle="-180"/>
-                <scale x="70" y="30" z="1" />
+                <scale x="120" y="50" z="1" />
             </transformation>
             <materials>
                 <material id="inherit" />
