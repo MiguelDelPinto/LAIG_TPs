@@ -35,6 +35,8 @@ class MyCylinder extends CGFobject {
         // Useful when we have different radius in the base and the top 
         let currentRadius = 0;
 
+        let nz = Math.atan(stackHeight/this.base); 
+
         for(let stack = 0; stack <= this.stacks; stack++){
             ang = 0; //Resets the ang variable
 
@@ -45,7 +47,7 @@ class MyCylinder extends CGFobject {
             for(let slice = 0; slice <= this.slices; slice++){
                 // Adds the vertices, the normals and the texture coordinates
                 this.vertices.push(-Math.sin(ang)*currentRadius, Math.cos(ang)*currentRadius,  currentHeight);
-                this.normals.push(-Math.sin(ang), Math.cos(ang), 0);
+                this.normals.push(-Math.sin(ang), Math.cos(ang), nz);
                 this.texCoords.push(slice/this.slices, 1-stack/this.stacks);
 
                 // Increments the ang variable by the alpha angle
