@@ -214,10 +214,6 @@ class XMLscene extends CGFscene {
 
 
         if (this.sceneInited) {
-
-            // Updates the lights according to the interface
-            this.updateLights();
-            
             // Draw axis
             this.setDefaultAppearance();
 

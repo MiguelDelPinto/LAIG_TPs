@@ -65,7 +65,8 @@ class MyInterface extends CGFinterface {
             
             if(graphLights.hasOwnProperty(key)){
                 folder.add(graphLights[key], '0')
-                .name(names[i]);
+                .name(names[i])
+                .onChange(this.scene.updateLights.bind(this.scene));
       
                 i++;
             }
