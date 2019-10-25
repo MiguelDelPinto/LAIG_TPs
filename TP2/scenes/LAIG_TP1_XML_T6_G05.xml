@@ -278,6 +278,9 @@
         </transformation>
     </transformations>
 
+    <animations>
+    </animations>
+
     <primitives>
         <primitive id="mountain">
             <cylinder base="2" top="1" height="2" slices="15" stacks="15" />

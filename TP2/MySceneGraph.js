@@ -8,8 +8,9 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var ANIMATIONS_INDEX = 7;
+var PRIMITIVES_INDEX = 8;
+var COMPONENTS_INDEX = 9;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -176,6 +177,18 @@ class MySceneGraph {
 
             //Parse transformations block
             if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+        
+        // <animations>
+        if((index = nodeNames.indexOf("animations")) == -1)
+            return "tag <animations> missing";
+        else{
+            if(index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+            
+            //Parse animations block
+            if((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -749,6 +762,77 @@ class MySceneGraph {
     }
 
     /**
+     * Parses the <animations> block.
+     * @param {animations block element} animationsNode 
+     */
+    parseAnimations(animationsNode){
+        var children = animationsNode.children;
+        if(children.length === 0) //<animations> block is empty
+            return null;
+        
+        this.animations = [];
+        var grandChildren = [];
+        var grandgrandChildren = [];
+
+        //Any number of animations
+        for(var i = 0; i < children.length; i++){
+            if(children[i].nodeName != "animation"){
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+            
+            // Gets the id of the current animation
+            var animationId = this.reader.getString(children[i], 'id');
+            if (animationId == null)
+                return "no ID defined for animation";
+
+            // Checks for repeated ids
+            if (this.animations[animationId] != null)
+                return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
+
+            // Gets the keyframes of the animation
+            grandChildren = children[i].children;
+
+            if(grandChildren.length === 0)
+                return "animation must have at least one keyframe defined";
+
+            for(var j = 0; j < grandChildren.length; j++){
+                grandgrandChildren = grandChildren[j];
+                let keyframeInstant = this.reader.getFloat(grandChildren[j], 'instant');
+
+                if(grandgrandChildren.length !== 3)
+                    return "keyframe at instant "+keyframeInstant+" of animation "+animationId+" must have translate, rotate and scale defined";
+                
+                //Parse translate coordinates
+                if(grandgrandChildren[0].nodeName != "translate")
+                    return "translate has to be the first transformation of the keyframe";
+                let translateCoordinates = parseCoordinates3D(grandgrandChildren[0], "translate transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
+                if(!Array.isArray(translateCoordinates))
+                    return translateCoordinates;
+                  
+                //Parse rotate angles
+                if(grandgrandChildren[1].nodeName != "rotate")
+                    return "rotate has to be the second transformation of the keyframe";
+                let rotateAngles = parseAngles3D(grandgrandChildren[1], "rotate transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
+                if(!Array.isArray(rotateAngles))
+                    return rotateAngles;
+
+                //Parse scale coordinates
+                if(grandgrandChildren[2].nodeName != "scale")
+                    return "scale has to be the third transformation of the keyframe";
+                let scaleCoordinates = parseCoordinates3D(grandgrandChildren[2], "scale transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
+                if(!Array.isArray(scaleCoordinates))
+                    return scaleCoordinates;   
+            }
+        }
+        
+        //TODO CRIAR KEYFRAMES E ANIMAÇÕES
+
+        this.log("Parsed animations");
+        return null;
+    }
+
+    /**
      * Parses the <primitives> block.
      * @param {primitives block element} primitivesNode
      */
@@ -770,7 +854,7 @@ class MySceneGraph {
             // Gets the id of the current primitive
             var primitiveId = this.reader.getString(children[i], 'id');
             if (primitiveId == null)
-                return "no ID defined for texture";
+                return "no ID defined for primitive";
 
             // Checks for repeated ids
             if (this.primitives[primitiveId] != null)
@@ -1163,6 +1247,33 @@ class MySceneGraph {
         return null;
     }
 
+      /**
+     * Parse the angles from a node with ID = id
+     * @param {block element} node
+     * @param {message to be displayed in case of error} messageError
+     */
+    parseAngles3D(node, messageError) {
+        let angles = [];
+
+        // x
+        let x = this.reader.getFloat(node, 'angle_x');
+        if (!(x != null && !isNaN(x)))
+            return "unable to parse x-angle of the " + messageError;
+
+        // y
+        let y = this.reader.getFloat(node, 'angle_y');
+        if (!(y != null && !isNaN(y)))
+            return "unable to parse y-angle of the " + messageError;
+
+        // z
+        let z = this.reader.getFloat(node, 'angle_z');
+        if (!(z != null && !isNaN(z)))
+            return "unable to parse z-angle of the " + messageError;
+
+        angles.push(...[x, y, z]);
+
+        return angles;
+    }
 
     /**
      * Parse the coordinates from a node with ID = id
