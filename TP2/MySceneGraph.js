@@ -795,9 +795,11 @@ class MySceneGraph {
 
             if(grandChildren.length === 0)
                 return "animation must have at least one keyframe defined";
+            
+            let keyframes = [];
 
             for(var j = 0; j < grandChildren.length; j++){
-                grandgrandChildren = grandChildren[j];
+                grandgrandChildren = grandChildren[j].children;
                 let keyframeInstant = this.reader.getFloat(grandChildren[j], 'instant');
 
                 if(grandgrandChildren.length !== 3)
@@ -806,24 +808,28 @@ class MySceneGraph {
                 //Parse translate coordinates
                 if(grandgrandChildren[0].nodeName != "translate")
                     return "translate has to be the first transformation of the keyframe";
-                let translateCoordinates = parseCoordinates3D(grandgrandChildren[0], "translate transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
+                let translateCoordinates = this.parseCoordinates3D(grandgrandChildren[0], "translate transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
                 if(!Array.isArray(translateCoordinates))
                     return translateCoordinates;
                   
                 //Parse rotate angles
                 if(grandgrandChildren[1].nodeName != "rotate")
                     return "rotate has to be the second transformation of the keyframe";
-                let rotateAngles = parseAngles3D(grandgrandChildren[1], "rotate transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
+                let rotateAngles = this.parseAngles3D(grandgrandChildren[1], "rotate transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
                 if(!Array.isArray(rotateAngles))
                     return rotateAngles;
 
                 //Parse scale coordinates
                 if(grandgrandChildren[2].nodeName != "scale")
                     return "scale has to be the third transformation of the keyframe";
-                let scaleCoordinates = parseCoordinates3D(grandgrandChildren[2], "scale transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
+                let scaleCoordinates = this.parseCoordinates3D(grandgrandChildren[2], "scale transformation for the keyframe at instant "+keyframeInstant+" of the animation with the ID "+ animationId);
                 if(!Array.isArray(scaleCoordinates))
                     return scaleCoordinates;   
+
+                keyframes.push({keyframeInstant, translateCoordinates, rotateAngles, scaleCoordinates});
             }
+
+            this.animations.push(new KeyframeAnimation(0));
         }
         
         //TODO CRIAR KEYFRAMES E ANIMAÇÕES
