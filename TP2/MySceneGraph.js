@@ -826,10 +826,15 @@ class MySceneGraph {
                 if(!Array.isArray(scaleCoordinates))
                     return scaleCoordinates;   
 
-                keyframes.push({keyframeInstant, translateCoordinates, rotateAngles, scaleCoordinates});
+                keyframes.push({
+                    'keyframeInstant': keyframeInstant, 
+                    'translateCoordinates': translateCoordinates, 
+                    'rotateAngles': rotateAngles, 
+                    'scaleCoordinates': scaleCoordinates
+                });
             }
 
-            this.animations.push(new KeyframeAnimation(0));
+            this.animations.push(new KeyframeAnimation(keyframes));
         }
         
         //TODO CRIAR KEYFRAMES E ANIMAÇÕES

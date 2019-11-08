@@ -2,16 +2,17 @@
 * Abstract Class Animation
 */
 class Animation {
-    constructor(time){
+    constructor(){
         if(this.constructor === Animation){
             throw new TypeError('Abstract class "Animation" cannot be instantiated directly.');
         }
 
-        this.initialTime = time;
-        this.timeElapsed = 0;
+        this.elapsedTime = 0;
     }
 
-    update(t) {}
+    update(t) { //t = time between two updates
+        this.elapsedTime += t;
+    }
 
     apply(scene){}
 }
