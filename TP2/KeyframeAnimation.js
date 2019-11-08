@@ -29,7 +29,6 @@ class KeyframeAnimation extends Animation {
     }
 
     update(t) { //t = time between two updates
-        
         super.update(t);
 
         if(this.finishAnimation)
@@ -43,18 +42,15 @@ class KeyframeAnimation extends Animation {
             }
         }
 
-        if(this.secondKeyframe >= this.keyframes.length)
+        if(this.secondKeyframe >= this.keyframes.length){
             this.finishAnimation = true;
+            return;
+        }
         
         this.createMatrix();
     }
 
     apply(scene){
-        if(this.finishAnimation) {
-            console.log("ACABEI");
-            return;
-        }
-            
         //Apply matrix to scene
         scene.multMatrix(this.matrix);
     }

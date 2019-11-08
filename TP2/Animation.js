@@ -12,6 +12,7 @@ class Animation {
 
     update(t) { //t = time between two updates
         this.elapsedTime += t;
+        console.log(this.elapsedTime);
     }
 
     apply(scene){}

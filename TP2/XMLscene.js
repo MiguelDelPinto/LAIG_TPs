@@ -233,7 +233,7 @@ class XMLscene extends CGFscene {
     update(t){
         if(this.sceneInited){
             //Updates the time variables
-            this.lastTime = this.lastTime || 0;
+            this.lastTime = this.lastTime || t;
             this.deltaTime = t - this.lastTime;
             this.lastTime = t;
             
