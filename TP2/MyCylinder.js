@@ -1,6 +1,12 @@
 /**
 * MyCylinder
 * @constructor
+* @param scene - Reference to MyScene object
+* @param base_radius - Radius of the base
+* @param top_radius - Radius of the top
+* @param height - Height of the cylinder
+* @param slice - Number of slices
+* @param staks - Number of stacks
 */
 class MyCylinder extends CGFobject {
     constructor(scene, base_radius, top_radius, height, slices, stacks) {
