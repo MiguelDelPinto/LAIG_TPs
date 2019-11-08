@@ -1093,6 +1093,12 @@ class MySceneGraph {
             if(transformationIndex == -1)
                 return "transformation parameter is undefined for component with ID " + component.id;
 
+            var animationIndex = nodeNames.indefOf("transformation");
+            if(animationIndex != -1) {
+                if(animationIndex != transformationIndex + 1)
+                    return "animationref parameter must be declared immediately after the transformation parameter, for component with ID " + component.id;
+            }
+
             var materialsIndex = nodeNames.indexOf("materials");
             if(materialsIndex == -1)
                 return "materials parameter is undefined for component with ID " + component.id;
@@ -1169,6 +1175,25 @@ class MySceneGraph {
                 }
             }
             component.transformationMatrix = transfMatrix;
+
+            // Animation (optional - RIGHT AFTER TRANSFORMATIONS)
+            component.animationId = null;
+            if(animationIndex != 1) {
+                grandgrandChildren = grandChildren[animationIndex].children;
+
+                // Checks if the texture has an ID           
+                if(!this.reader.hasAttribute(grandgrandChildren, "id"))
+                    return "there is no ID parameter on the animation reference for component with ID " + component.id;
+
+                const animationId = this.reader.getString(grandgrandChildren, 'id');
+                if(animationId !== null)
+                    component.animationId = animationId;
+                else 
+                    return "there must be a valid ID for the animation on the component with ID " + component.id;    
+
+                component.animationId = animationId;
+            }
+            
 
 
             // Materials
