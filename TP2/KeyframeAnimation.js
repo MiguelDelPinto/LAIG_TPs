@@ -24,13 +24,16 @@ class KeyframeAnimation extends Animation {
             'rotateAngles': [0, 0, 0],
             'scaleCoordinates': [1, 1, 1]
         });
+       
+        this.createMatrix();
     }
 
     update(t) { //t = time between two updates
-        if(this.finishAnimation)
-            return;
         
         super.update(t);
+
+        if(this.finishAnimation)
+            return;
 
         for(let i = this.secondKeyframe; i < this.keyframes.length; i++){
             if(this.elapsedTime > this.keyframes[i].keyframeInstant){
@@ -47,11 +50,13 @@ class KeyframeAnimation extends Animation {
     }
 
     apply(scene){
-        if(this.finishAnimation)
+        if(this.finishAnimation) {
+            console.log("ACABEI");
             return;
+        }
             
-        //Aply matrix to scene
-        scene.multMatrix(matrix);
+        //Apply matrix to scene
+        scene.multMatrix(this.matrix);
     }
 
     createMatrix(){

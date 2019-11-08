@@ -713,6 +713,7 @@
             <transformation>
                 <transformationref id="house_transform" />       
             </transformation>
+            <animationref id="house_going_up" />
             <materials>
                 <material id="wallMaterial" />
             </materials>

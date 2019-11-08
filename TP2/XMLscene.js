@@ -231,7 +231,15 @@ class XMLscene extends CGFscene {
      * @param {number} t Number of milisseconds since the loading of the scene 
      */
     update(t){
-        this.checkKeys();
+        if(this.sceneInited){
+            //Updates the time variables
+            this.lastTime = this.lastTime || 0;
+            this.deltaTime = t - this.lastTime;
+            this.lastTime = t;
+            
+            this.checkKeys();
+            this.graph.updateAnimations(this.deltaTime);
+        }
     }
 
     /**

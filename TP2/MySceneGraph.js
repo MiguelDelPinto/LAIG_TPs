@@ -834,10 +834,8 @@ class MySceneGraph {
                 });
             }
 
-            this.animations.push(new KeyframeAnimation(keyframes));
+            this.animations[animationId] = new KeyframeAnimation(keyframes);
         }
-        
-        //TODO CRIAR KEYFRAMES E ANIMAÇÕES
 
         this.log("Parsed animations");
         return null;
@@ -1093,7 +1091,7 @@ class MySceneGraph {
             if(transformationIndex == -1)
                 return "transformation parameter is undefined for component with ID " + component.id;
 
-            var animationIndex = nodeNames.indefOf("transformation");
+            var animationIndex = nodeNames.indexOf("animationref");
             if(animationIndex != -1) {
                 if(animationIndex != transformationIndex + 1)
                     return "animationref parameter must be declared immediately after the transformation parameter, for component with ID " + component.id;
@@ -1178,8 +1176,9 @@ class MySceneGraph {
 
             // Animation (optional - RIGHT AFTER TRANSFORMATIONS)
             component.animationId = null;
-            if(animationIndex != 1) {
-                grandgrandChildren = grandChildren[animationIndex].children;
+            if(animationIndex != -1) {
+                console.log("EXISTE ANIMACAO");
+                grandgrandChildren = grandChildren[animationIndex];
 
                 // Checks if the texture has an ID           
                 if(!this.reader.hasAttribute(grandgrandChildren, "id"))
@@ -1492,7 +1491,13 @@ class MySceneGraph {
         this.scene.pushMatrix();
 
         // Updates the current transformation Matrix
+        if(currentNode.animationId) {
+            const animation = this.animations[currentNode.animationId];
+            animation.apply(this.scene);
+        }
+        
         this.scene.multMatrix(currentNode.transformationMatrix);
+    
         
         const material = this.materials[idCurrentMaterial];
         if(material === undefined)
@@ -1543,5 +1548,14 @@ class MySceneGraph {
      */
     increaseMCount(){
         this.clickM++;
+    }
+
+    /**
+     * Updates the animations
+     */
+    updateAnimations(t) {
+        this.animations.forEach(function(element){
+            element.update(t);
+        });
     }
 }
