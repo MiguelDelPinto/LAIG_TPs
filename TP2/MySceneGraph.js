@@ -1554,8 +1554,15 @@ class MySceneGraph {
      * Updates the animations
      */
     updateAnimations(t) {
-        this.animations.forEach(function(element){
-            element.update(t);
-        });
+
+        console.log(t);
+        console.log(t/1000.0);
+        console.log("ola");
+        
+        for(let key in this.animations) {
+            if(this.animations.hasOwnProperty(key)) {
+                this.animations[key].update(t/1000.0);
+            }
+        }
     }
 }
