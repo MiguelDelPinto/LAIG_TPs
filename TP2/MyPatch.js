@@ -6,37 +6,41 @@
  * @param degreeV - Surface degree in the V direction
  */
 class MyPatch extends CGFobject {
-	constructor(scene, id, degreeU, degreeV) {
+	constructor(scene, id, npointsU, npointsV, npartsU, npartsV, controlPoints) {
 		super(scene);
-		this.degreeU = degreeU;
-		this.degreeV = degreeV;
 
-		this.initBuffers();
+		this.npointsU = npointsU;
+		this.npointsV = npointsV;
+		this.npartsU = npartsU;
+		this.npartsV = npartsV;
+		
+		this.controlPoints = controlPoints;
+
+		this.generate();
 	}
 	
-	initBuffers() {
-		this.vertices = [];
+	// TODO add patch in parse primitives where control points are pushed in a single vector
+	generate() {
 
-		//Counter-clockwise reference of vertices
-		this.indices = [];
+		let controlVertexes = [];
+		for(let i = 0; i < this.npointsU; i++) {
 
-		//Facing Y positive
-		this.normals = [];
-		
-		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
+			let uPoint = [];
+			for(let j = 0; j < this.npointsV; j++) {
 
-		this.texCoords = [];
+				uPoint.push(this.controlPoints[i*nPointsV + j]);
+			}
 
-		this.primitiveType = this.scene.gl.TRIANGLES;
-		this.initGLBuffers();
+			controlVertexes.push(uPoint);
+		}
+
+		let nurbsSurface = new CGFNurbsSurface(this.npointsU-1, this.npointsV-1, controlVertexes); // -1?
+
+		this.nurbsObject = newCGFNurbsObject(this.scene, this.npartsU-1, this.npartsV-1, nurbsSurface); // -1?
+	}
+
+	display() {
+		this.nurbsObject.display();
 	}
 
 	/**
