@@ -1490,13 +1490,14 @@ class MySceneGraph {
         // Pushes the matrix so that changes don't affect other components unwillingly
         this.scene.pushMatrix();
 
+        this.scene.multMatrix(currentNode.transformationMatrix);
+        
         // Updates the current transformation Matrix
         if(currentNode.animationId) {
             const animation = this.animations[currentNode.animationId];
             animation.apply(this.scene);
         }
         
-        this.scene.multMatrix(currentNode.transformationMatrix);
     
         
         const material = this.materials[idCurrentMaterial];

@@ -15,6 +15,7 @@ class XMLscene extends CGFscene {
         this.displayAxis = true;
 
         this.interface = myinterface;
+        this.securityCamera = new MySecurityCamera(this);
     }
 
     /**
