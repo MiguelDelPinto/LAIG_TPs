@@ -17,8 +17,16 @@ class MySecurityCamera {
             "shaders/securityCamera.frag"
         );
         
+        this.timeFactor = 0;
+
         this.shader.setUniformsValues({timeFactor: 0});
         this.shader.setUniformsValues({texture: 0});
+    }
+
+    update(t){
+        this.timeFactor += t;
+        let shaderValue = this.timeFactor*0.0015;
+        this.shader.setUniformsValues({timeFactor: shaderValue});
     }
 
     display(){

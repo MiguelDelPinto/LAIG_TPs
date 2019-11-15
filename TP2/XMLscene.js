@@ -274,6 +274,7 @@ class XMLscene extends CGFscene {
             
             this.checkKeys();
             this.graph.updateAnimations(this.deltaTime);
+            this.securityCamera.update(this.deltaTime);
         }
     }
 
