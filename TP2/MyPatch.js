@@ -34,9 +34,9 @@ class MyPatch extends CGFobject {
 			controlVertexes.push(uPoint);
 		}
 
-		let nurbsSurface = new CGFNurbsSurface(this.npointsU-1, this.npointsV-1, controlVertexes); // -1?
+		let nurbsSurface = new CGFNurbsSurface(this.npointsU-1, this.npointsV-1, controlVertexes);
 
-		this.nurbsObject = newCGFNurbsObject(this.scene, this.npartsU-1, this.npartsV-1, nurbsSurface); // -1?
+		this.nurbsObject = new CGFNurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
 	}
 
 	display() {

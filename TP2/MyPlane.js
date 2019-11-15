@@ -6,37 +6,35 @@
  * @param divisionsV - Number of divisions in the V direction
  */
 class MyPlane extends CGFobject {
-	constructor(scene, id, divisionsU, divisionsV) {
+	constructor(scene, id, npartsU, npartsV) {
 		super(scene);
-		this.divisionsU = divisionsU;
-		this.divisionsV = divisionsV;
 
-		this.initBuffers();
+		this.npartsU = npartsU;
+		this.npartsV = npartsV;
+
+		this.generate();
 	}
 	
-	initBuffers() {
-		this.vertices = [];
+	generate() {
+		let controlVertexes = 
+		[
+			[
+				[-0.5, 0, 0.5, 1],
+				[-0.5, 0, -0.5, 1]
+			],
+			[
+				[0.5, 0, 0.5, 1],
+				[0.5, 0, -0.5, 1]
+			]
+		]
 
-		//Counter-clockwise reference of vertices
-		this.indices = [];
+		let nurbsSurface = new CGFNurbsSurface(1, 1, controlVertexes);
 
-		//Facing Y positive
-		this.normals = [];
-		
-		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
+		this.nurbsObject = new CGFNurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
+	}
 
-		this.texCoords = [];
-
-		this.primitiveType = this.scene.gl.TRIANGLES;
-		this.initGLBuffers();
+	display() {
+		this.nurbsObject.display();
 	}
 
 	/**
