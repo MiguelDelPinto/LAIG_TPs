@@ -883,7 +883,7 @@ class MySceneGraph {
             // Specifications for the current primitive
             var primitiveType = grandChildren[0].nodeName;
 
-            // Retrieves the primitive's coordinates
+            // RECTANGLE
             if (primitiveType == 'rectangle') {
                 // x1
                 var x1 = this.reader.getFloat(grandChildren[0], 'x1');
@@ -909,6 +909,8 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = rect;
             }
+
+            // SPHERE
             else if (primitiveType == 'sphere') {
                 // radius
                 var radius = this.reader.getFloat(grandChildren[0], 'radius');
@@ -929,6 +931,8 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = sph;
             }
+
+            // CYLINDER
             else if (primitiveType == 'cylinder') {
                 // base
                 var base = this.reader.getFloat(grandChildren[0], 'base');
@@ -959,6 +963,8 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = cylinder;
             }
+
+            //TRIANGLE
             else if (primitiveType == 'triangle') {
                 // x1
                 var x1 = this.reader.getFloat(grandChildren[0], 'x1');
@@ -1009,6 +1015,8 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = rect;
             }
+
+            //TORUS
             else if (primitiveType == 'torus') {
                 // inner
                 var inner = this.reader.getFloat(grandChildren[0], 'inner');
@@ -1033,6 +1041,127 @@ class MySceneGraph {
                 var torus = new MyTorus(this.scene, inner, outer, slices, loops);   
 
                 this.primitives[primitiveId] = torus;
+            }
+
+            // PATCH
+            else if (primitiveType == 'patch') {
+
+                // checks if patch has the right number of components (4: npointsU, npointsV, npartsU, npartsV)
+                if(grandChildren[0].length != 4)
+                    return "patch primitive must have exactly 4 components, at ID = " + primitiveId;
+
+                // npointsU
+                let npointsU = this.reader.getInteger(grandChildren[0], 'npointsU');
+                if (!(npointsU != null && !isNaN(slices)))
+                    return "unable to parse npointsU for primitive with ID = " + primitiveId;
+
+                // npointsV
+                let npointsV = this.reader.getInteger(grandChildren[0], 'npointsV');
+                if (!(npointsV != null && !isNaN(slices)))
+                    return "unable to parse npointsV for primitive with ID = " + primitiveId;
+                    
+                // npartsU
+                let npartsU = this.reader.getInteger(grandChildren[0], 'npartsU');
+                if (!(npartsU != null && !isNaN(slices)))
+                    return "unable to parse npartsU for primitive with ID = " + primitiveId;
+                    
+                // npartsV
+                let npartsV = this.reader.getInteger(grandChildren[0], 'npartsV');
+                if (!(npartsV != null && !isNaN(slices)))
+                    return "unable to parse npartsV for primitive with ID = " + primitiveId;  
+
+                // control points
+                let grandgrandChildren = grandChildren[0].children;
+                if(grandgrandChildren.length < npointsU*npointsV)
+                    return "patch primitive must have exactly " + npointsU*npointsV + " control points, at ID = " + primitiveId;
+                
+                let controlPoints = [];
+                for(let i = 0; i < grandgrandChildren.length; i ++) {
+                    if(grandgrandChildren[i].length < npointsU*npointsV)
+                        return "control point number " + i + " must have exactly 3 parameteres: xx, yy and zz, at primitive with ID = " + primitiveId;
+
+                    let xx = this.reader.getFloat(grandgrandChildren[i], 'xx');
+                    if(!(xx != null && !isNaN(xx)))
+                        return "unable to parsse xx of control point number " + i + " at primitive with ID = " + primitiveId;
+                        
+                    let yy = this.reader.getFloat(grandgrandChildren[i], 'yy');
+                    if(!(yy != null && !isNaN(yy)))
+                        return "unable to parsse yy of control point number " + i + " at primitive with ID = " + primitiveId; 
+
+                    let zz = this.reader.getFloat(grandgrandChildren[i], 'zz');
+                    if(!(zz != null && !isNaN(zz)))
+                        return "unable to parsse zz of control point number " + i + " at primitive with ID = " + primitiveId; 
+                    
+                    controlPoints.push(x); controlPoints.push(y); controlPoints.push(z);
+                }
+
+                let patch = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
+
+                this.primitives[primitiveId] = patch;             
+            }
+
+            // PLANE
+            else if (primitiveType == 'plane') {
+
+                // checks if plane has the right number of components (2: npartsU, npartsV)
+                if(grandChildren[0].length != 2)
+                    return "patch primitive must have exactly 2 components, at ID = " + primitiveId;
+
+                // npartsU
+                let npartsU = this.reader.getInteger(grandChildren[0], 'npartsU');
+                if (!(npartsU != null && !isNaN(slices)))
+                    return "unable to parse npartsU for primitive with ID = " + primitiveId;
+                    
+                // npartsV
+                let npartsV = this.reader.getInteger(grandChildren[0], 'npartsV');
+                if (!(npartsV != null && !isNaN(slices)))
+                    return "unable to parse npartsV for primitive with ID = " + primitiveId;  
+                    
+                let plane = new MyPlane(this.scene, npartsU, npartsV);
+                
+                this.primitives[primitiveId] = plane;
+            }
+
+            // CYLINDER2
+            else if (primitiveType == "cylinder2") {
+
+                // checks if cylinder2 has the right number of components (5: base, top, height, slices, stacks)
+                if(grandChildren[0].length != 5)
+                    return "patch primitive must have exactly 5 components, at ID = " + primitiveId;
+
+                // base
+                let base = this.reader.getFloat(grandChildren[0], 'base');
+                if (!(base != null && !isNaN(base)))
+                    return "unable to parse base of the primitive coordinates for ID = " + primitiveId;
+                
+                // top
+                let top = this.reader.getFloat(grandChildren[0], 'top');
+                if (!(top != null && !isNaN(top)))
+                    return "unable to parse top of the primitive coordinates for ID = " + primitiveId;
+                
+                // height  
+                let height = this.reader.getFloat(grandChildren[0], 'height');
+                if (!(height != null && !isNaN(height)))
+                    return "unable to parse height of the primitive coordinates for ID = " + primitiveId;
+
+                // slices
+                let slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if (!(slices != null && !isNaN(slices)))
+                    return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+
+                // stacks
+                let stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if (!(stacks != null && !isNaN(stacks)))
+                    return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
+
+                let cylinder2 = new MyCylinder2(this.scene, base, top, height, slices, stacks);   
+
+                this.primitives[primitiveId] = cylinder2;                
+            }
+
+            // UNKNOWN
+            else {
+                this.onXMLMinorError("unknow primitive type '" + primitiveType + "' at primitive with ID = " + primitiveId);
             }
         }
 

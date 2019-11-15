@@ -6,7 +6,7 @@
  * @param degreeV - Surface degree in the V direction
  */
 class MyPatch extends CGFobject {
-	constructor(scene, id, npointsU, npointsV, npartsU, npartsV, controlPoints) {
+	constructor(scene, npointsU, npointsV, npartsU, npartsV, controlPoints) {
 		super(scene);
 
 		this.npointsU = npointsU;
