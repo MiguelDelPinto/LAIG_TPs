@@ -15,7 +15,6 @@ class XMLscene extends CGFscene {
         this.displayAxis = true;
 
         this.interface = myinterface;
-        this.securityCamera = new MySecurityCamera(this);
     }
 
     /**
@@ -40,6 +39,10 @@ class XMLscene extends CGFscene {
         this.gl.depthFunc(this.gl.LEQUAL);
 
         this.axis = new CGFaxis(this);
+
+        this.textureRTT = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
+        this.securityCamera = new MySecurityCamera(this, this.textureRTT);
+    
         this.setUpdatePeriod(25); 
     }
 
@@ -173,6 +176,19 @@ class XMLscene extends CGFscene {
         this.interface.setActiveCamera(this.camera);
     }
 
+    /**
+     * Updates the RTT camera when a new one is selected on the interface
+     */
+    updateRTTCamera() {
+        // Uses the interface variable, current_camera_id, to know which camera to choose
+        let selected_camera = this.cameras[this.current_camera_id];
+
+        // If it isn't working, chooses the default camera
+        this.camera = selected_camera || this.default_camera;
+
+        this.interface.setActiveCamera(this.camera);
+    }
+
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -191,10 +207,14 @@ class XMLscene extends CGFscene {
     }
 
     /**
-     * Displays the scene.
+     * Renders the scene.
      */
-    display() {
+    render(isRTT) {
         // ---- BEGIN Background, camera and axis setup
+        if(isRTT)
+            this.updateRTTCamera();
+        else
+            this.updateCamera();
 
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
@@ -213,18 +233,32 @@ class XMLscene extends CGFscene {
         if(this.displayAxis)
             this.axis.display();
 
+        // Draw axis
+        this.setDefaultAppearance();
 
-        if (this.sceneInited) {
-            // Draw axis
-            this.setDefaultAppearance();
-
-            // Displays the scene (MySceneGraph function).
-            this.graph.displayScene();
-        }
+        // Displays the scene (MySceneGraph function).
+        this.graph.displayScene();
 
         this.popMatrix();
         
         // ---- END Background, camera and axis setup
+    }
+
+    /**
+     * Displays the scene
+     */
+    display(){
+        if (this.sceneInited) {
+            //this.textureRTT.attachToFrameBuffer();
+            //this.render(true);
+
+            //this.textureRTT.detachFromFrameBuffer();
+            this.render(false);
+
+            this.gl.disable(this.gl.DEPTH_TEST);
+            this.securityCamera.display();
+            this.gl.enable(this.gl.DEPTH_TEST);
+        }
     }
 
     /**
