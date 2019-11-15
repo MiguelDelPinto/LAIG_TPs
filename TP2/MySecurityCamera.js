@@ -6,7 +6,7 @@ class MySecurityCamera {
         this.scene = scene;
         this.textureRTT = textureRTT;
 
-        this.rectangle = new MyRectangle(this.scene, -1, 0.5, 1, -0.5, -1);
+        this.rectangle = new MyRectangle(this.scene, -1, 0.5, 1, -1, -0.5);
         this.initShaders();
     }
 
