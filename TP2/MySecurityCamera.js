@@ -18,6 +18,7 @@ class MySecurityCamera {
         );
         
         this.shader.setUniformsValues({timeFactor: 0});
+        this.shader.setUniformsValues({texture: 0});
     }
 
     display(){

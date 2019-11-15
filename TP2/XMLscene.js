@@ -249,10 +249,10 @@ class XMLscene extends CGFscene {
      */
     display(){
         if (this.sceneInited) {
-            //this.textureRTT.attachToFrameBuffer();
-            //this.render(true);
+            this.textureRTT.attachToFrameBuffer();
+            this.render(true);
 
-            //this.textureRTT.detachFromFrameBuffer();
+            this.textureRTT.detachFromFrameBuffer();
             this.render(false);
 
             this.gl.disable(this.gl.DEPTH_TEST);
