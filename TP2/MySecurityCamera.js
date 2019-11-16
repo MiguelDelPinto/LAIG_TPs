@@ -21,12 +21,17 @@ class MySecurityCamera {
 
         this.shader.setUniformsValues({timeFactor: 0});
         this.shader.setUniformsValues({texture: 0});
+        this.shader.setUniformsValues({scaleFactor: 10.0});
     }
 
     update(t){
         this.timeFactor += t;
         let shaderValue = this.timeFactor*0.0015;
         this.shader.setUniformsValues({timeFactor: shaderValue});
+    }
+
+    updateScaleFactor(newScaleFactor){
+        this.shader.setUniformsValues({scaleFactor: newScaleFactor});
     }
 
     display(){

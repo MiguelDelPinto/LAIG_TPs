@@ -7,6 +7,7 @@ uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
 uniform float timeFactor;
+uniform float scaleFactor;
 uniform sampler2D texture;
 
 varying vec2 vTextureCoord;

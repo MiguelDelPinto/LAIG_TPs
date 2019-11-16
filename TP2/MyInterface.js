@@ -35,6 +35,7 @@ class MyInterface extends CGFinterface {
     loadInterface(graphLights) {
         this.loadLightsOption(graphLights);
         this.loadCamerasOption();
+        this.loadSecurityCameraOptions();
     }
 
     /**
@@ -46,10 +47,22 @@ class MyInterface extends CGFinterface {
                      .name('Camera')
                      .onChange(this.scene.updateCamera.bind(this.scene));   // calls updateCamera() of XMLscene
                                                                             // when a new camera is chosen
-        this.gui.add(this.scene, 'current_rtt_camera_id', this.scene.cameraNames)
-                     .name('Security Camera')
-                     .onChange(this.scene.updateRTTCamera.bind(this.scene));
     }                                                                       
+
+    /**
+     * Load all of the security camera options to interface
+     */
+    loadSecurityCameraOptions(){
+        var folder = this.gui.addFolder('Security Camera');
+        
+        folder.add(this.scene, 'current_rtt_camera_id', this.scene.cameraNames)
+                   .name('Security Camera')
+                   .onChange(this.scene.updateRTTCamera.bind(this.scene));
+
+        folder.add(this.scene, 'scaleFactor', 5.0, 15.0)
+                   .name('Scale Factor')
+                   .onChange(this.scene.updateScaleFactor.bind(this.scene));
+    }
 
     /**
      * Loads all of the light options to interface

@@ -45,6 +45,9 @@ class XMLscene extends CGFscene {
 
         this.textureRTT = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
         this.securityCamera = new MySecurityCamera(this, this.textureRTT);
+
+        //Scale factor used in the security camera
+        this.scaleFactor = 10.0;
     
         this.setUpdatePeriod(25); 
     }
@@ -318,5 +321,12 @@ class XMLscene extends CGFscene {
             else
                 console.log(key);
         }
+    }
+
+    /**
+     * Updates the security camera scale factor
+     */
+    updateScaleFactor(){
+        this.securityCamera.updateScaleFactor(this.scaleFactor);
     }
 }

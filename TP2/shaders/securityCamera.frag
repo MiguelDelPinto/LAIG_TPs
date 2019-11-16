@@ -3,6 +3,7 @@ precision highp float;
 #endif
 
 uniform float timeFactor;
+uniform float scaleFactor;
 uniform sampler2D texture;
 
 varying vec2 vTextureCoord;
@@ -19,7 +20,7 @@ float getRadialValue(){
 }
 
 vec4 addHorizontalLines(vec4 color) {
-	if(mod(vTextureCoord.y*10.0+timeFactor, 2.0) > 1.0)
+	if(mod(vTextureCoord.y*scaleFactor+timeFactor, 2.0) > 1.0)
 		color = vec4(color.rgb*1.5, 1.0);
 
 	return color;
