@@ -41,12 +41,15 @@ class MyInterface extends CGFinterface {
      * Loads all of the camera options to interface
      */
     loadCamerasOption() {
-        const cameras = this.scene.cameras;
 
         this.gui.add(this.scene, 'current_camera_id', this.scene.cameraNames)
                      .name('Camera')
                      .onChange(this.scene.updateCamera.bind(this.scene));   // calls updateCamera() of XMLscene
-    }                                                                       // when a new camera is chosen
+                                                                            // when a new camera is chosen
+        this.gui.add(this.scene, 'current_rtt_camera_id', this.scene.cameraNames)
+                     .name('Security Camera')
+                     .onChange(this.scene.updateRTTCamera.bind(this.scene));
+    }                                                                       
 
     /**
      * Loads all of the light options to interface

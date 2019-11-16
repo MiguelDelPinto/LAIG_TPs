@@ -31,6 +31,9 @@ class XMLscene extends CGFscene {
         // Variable for camera changing in the interface
         this.current_camera_id = 0;
 
+        //Variable for security camera changing in the interface
+        this.current_rtt_camera_id = 0;
+
         this.enableTextures(true);
 
         this.gl.clearDepth(100.0);
@@ -117,6 +120,7 @@ class XMLscene extends CGFscene {
 
         // Sets the current camera's id to the default camera's id
         this.current_camera_id = this.graph.default_view;
+        this.current_rtt_camera_id = this.graph.default_view;
 
         // Reads the views from the scene graph
         for (let key in this.graph.views) {
@@ -180,8 +184,8 @@ class XMLscene extends CGFscene {
      * Updates the RTT camera when a new one is selected on the interface
      */
     updateRTTCamera() {
-        // Uses the interface variable, current_camera_id, to know which camera to choose
-        let selected_camera = this.cameras[this.current_camera_id];
+        // Uses the interface variable, current_rtt_camera_id, to know which camera to choose
+        let selected_camera = this.cameras[this.current_rtt_camera_id];
 
         // If it isn't working, chooses the default camera
         this.camera = selected_camera || this.default_camera;
