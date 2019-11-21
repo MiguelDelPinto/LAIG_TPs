@@ -120,6 +120,7 @@ class XMLscene extends CGFscene {
     loadCameras() {
         this.cameraNames = [];
         this.cameras = [];
+        this.rttCameras = [];
 
         // Sets the current camera's id to the default camera's id
         this.current_camera_id = this.graph.default_view;
@@ -133,10 +134,16 @@ class XMLscene extends CGFscene {
                 let current_view = this.graph.views[key];
 
                 // Variable where the current camera will be stored
-                let current_camera;
+                let current_camera, rtt_current_camera;
 
                 if(current_view[1] === "perspective") {
                     current_camera = new CGFcamera(current_view[4],   //fov
+                                                   current_view[2],   //near
+                                                   current_view[3],   //far
+                                                   current_view[5],   //position
+                                                   current_view[6]);  //target
+
+                    rtt_current_camera = new CGFcamera(current_view[4],   //fov
                                                    current_view[2],   //near
                                                    current_view[3],   //far
                                                    current_view[5],   //position
@@ -152,13 +159,25 @@ class XMLscene extends CGFscene {
                                                         current_view[8],   //position
                                                         current_view[9],   //target
                                                         current_view[10]);  //up
+
+                    rtt_current_camera = new CGFcameraOrtho(current_view[4],   //left
+                                                        current_view[5],   //right
+                                                        current_view[7],   //bottom
+                                                        current_view[6],   //top 
+                                                        current_view[2],   //near
+                                                        current_view[3],   //far
+                                                        current_view[8],   //position
+                                                        current_view[9],   //target
+                                                        current_view[10]);  //up
                 }
 
                 // stores the unique name of the camera (id)
                 this.cameraNames.push(current_view[0]);
+                this.rttCameras.push(current_view[0]);
 
                 // stores the camera in a dictionary, where the key is its id
                 this.cameras[current_view[0]] = current_camera;
+                this.rttCameras[current_view[0]] = rtt_current_camera;
             }
         }
 
@@ -188,7 +207,7 @@ class XMLscene extends CGFscene {
      */
     updateRTTCamera() {
         // Uses the interface variable, current_rtt_camera_id, to know which camera to choose
-        let selected_camera = this.cameras[this.current_rtt_camera_id];
+        let selected_camera = this.rttCameras[this.current_rtt_camera_id];
 
         // If it isn't working, chooses the default camera
         this.camera = selected_camera || this.default_camera;
