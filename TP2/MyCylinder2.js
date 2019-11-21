@@ -58,8 +58,31 @@ class MyCylinder2 extends CGFobject {
 			]
 		];
 
-		let nurbsSurface = new CGFnurbsSurface(1, 9, this.controlPoints);
+		let nurbsSurface = new CGFnurbsSurface(1, 8, control_points);
+		
+		/*
+		ANOTHE OPTION: 2 sides
+		let control_points = [
+			[   
+				[-this.base, 0, 0, 1],
+				[-this.base, this.base*4/3, 0, 1],
+				[this.base, this.base*4/3, 0, 1],
+				[this.base, 0, 0, 1]
+			],
+
+			[   
+				[-this.top, 0, this.height, 1],
+				[-this.top, this.top*4/3, this.height, 1],
+				[this.top, this.top*4/3, this.height, 1],
+				[this.top, 0, this.height, 1]
+			]
+		]
+
+		let nurbsSurface = new CGFnurbsSurface(1, 3, control_points);
+		*/
+
 		this.nurbsObject = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
+
 	}
 
 	display() {

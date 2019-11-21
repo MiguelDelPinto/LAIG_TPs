@@ -876,7 +876,8 @@ class MySceneGraph {
             if (grandChildren.length != 1 ||
                 (grandChildren[0].nodeName != 'rectangle' && grandChildren[0].nodeName != 'triangle' &&
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
-                    grandChildren[0].nodeName != 'torus')) {
+                    grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'cylinder2' && 
+                    grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'plane')) {
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere or torus)"
             }
 
@@ -1047,8 +1048,8 @@ class MySceneGraph {
             else if (primitiveType == 'patch') {
 
                 // checks if patch has the right number of components (4: npointsU, npointsV, npartsU, npartsV)
-                if(grandChildren[0].length != 4)
-                    return "patch primitive must have exactly 4 components, at ID = " + primitiveId;
+                //if(grandChildren[0].length != 4)
+                //    return "patch primitive must have exactly 4 components, at ID = " + primitiveId;
 
                 // npointsU
                 let npointsU = this.reader.getInteger(grandChildren[0], 'npointsU');
@@ -1104,8 +1105,8 @@ class MySceneGraph {
             else if (primitiveType == 'plane') {
 
                 // checks if plane has the right number of components (2: npartsU, npartsV)
-                if(grandChildren[0].length != 2)
-                    return "patch primitive must have exactly 2 components, at ID = " + primitiveId;
+                //if(grandChildren[0].length != 2)
+                //    return "patch primitive must have exactly 2 components, at ID = " + primitiveId;
 
                 // npartsU
                 let npartsU = this.reader.getInteger(grandChildren[0], 'npartsU');
@@ -1126,8 +1127,8 @@ class MySceneGraph {
             else if (primitiveType == "cylinder2") {
 
                 // checks if cylinder2 has the right number of components (5: base, top, height, slices, stacks)
-                if(grandChildren[0].length != 5)
-                    return "patch primitive must have exactly 5 components, at ID = " + primitiveId;
+                //if(grandChildren[0].length != 5)
+                //    return "patch primitive must have exactly 5 components, at ID = " + primitiveId;
 
                 // base
                 let base = this.reader.getFloat(grandChildren[0], 'base');
@@ -1593,7 +1594,7 @@ class MySceneGraph {
      * Displays the scene, processing each node, starting in the root node.
      */
     displayScene() {
-
+        
         this.traverseGraph(this.idRoot, 'demoMaterial', 'demoTexture', 1, 1);
     }
 
