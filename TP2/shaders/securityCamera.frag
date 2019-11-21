@@ -13,10 +13,7 @@ float getRadialValue(){
 	float x = 0.5-abs(vTextureCoord.x-0.5);
 	float y = 0.5-abs(vTextureCoord.y-0.5);
 
-	//Creating a vec2 with the 2 values
-	vec2 radial_coords = vec2(x, y);
-
-	return length(radial_coords); //Returns the sqrt(x^2+y^2)
+	return (x+y)/2.0; 
 }
 
 vec4 addHorizontalLines(vec4 color) {

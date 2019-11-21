@@ -56,13 +56,9 @@ class MyInterface extends CGFinterface {
         var folder = this.gui.addFolder('Security Camera');
         
         folder.add(this.scene, 'current_rtt_camera_id', this.scene.cameraNames)
-                   .name('Security Camera')
-                   .onChange(this.scene.updateRTTCamera.bind(this.scene));
-
+                   .name('Security Camera');
         folder.add(this.scene, 'scaleFactor', 5.0, 15.0)
-                   .name('Scale Factor')
-                   .onChange(this.scene.updateScaleFactor.bind(this.scene));
-    }
+                   .name('Scale Factor'); }
 
     /**
      * Loads all of the light options to interface
