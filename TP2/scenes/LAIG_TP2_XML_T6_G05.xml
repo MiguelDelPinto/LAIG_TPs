@@ -316,6 +316,72 @@
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
+        <animation id="shoot_right">
+            <keyframe instant="0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+             <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+             <keyframe instant="10.5">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+             <keyframe instant="11.5">
+                <translate x="250.0" y="-3.8595" z="14.4889" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="20.0">
+                <translate x="250.0" y="-3.8595" z="14.4889" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+        </animation>
+        <animation id="shoot_left">
+            <keyframe instant="0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+             <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+             <keyframe instant="10.5">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.5">
+                <translate x="250.0" y="-3.8595" z="14.4889" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="20.0">
+                <translate x="250.0" y="-3.8595" z="14.4889" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+        </animation>
+        <animation id="lava">
+            <keyframe instant="0.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="1000.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="2250" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
     </animations>
 
     <primitives>
@@ -569,6 +635,7 @@
                 <translate x="0" y="0" z="1.5" />
                 <scale x="1" y="1" z="0.05" />             
             </transformation>
+            <animationref id="lava" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -584,6 +651,7 @@
                 <translate x="0" y="0" z="5.5" />
                 <scale x="2.1" y="2.1" z="50" />             
             </transformation>
+            <animationref id="lava" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -592,18 +660,6 @@
                 <primitiveref id="torus" />
             </children>
         </component>
-
-        <!--<component id="portal_inside">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="grey" />
-            </materials>
-            <texture id="black_smoke" length_s="1" length_t="1" />
-            <children>
-                <primitiveref id="sphere" />
-            </children>
-        </component>  -->
 
         <component id="death_mountain_cloud">
             <transformation>
@@ -2263,6 +2319,7 @@
                 <translate x="0" y="0" z="0.1" />
                 <rotate axis="y" angle="-15" />
             </transformation>
+            <animationref id="shoot_left" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2277,6 +2334,7 @@
                 <translate x="0" y="0" z="-0.1" />
                 <rotate axis="y" angle="15" />
             </transformation>
+            <animationref id="shoot_right" />
             <materials>
                 <material id="inherit" />
             </materials>
