@@ -28,15 +28,15 @@ class MyPatch extends CGFobject {
 			let uPoint = [];
 			for(let j = 0; j < this.npointsV; j++) {
 
-				uPoint.push(this.controlPoints[i*nPointsV + j]);
+				uPoint.push(this.controlPoints[i*this.nPointsV + j]);
 			}
 
 			controlVertexes.push(uPoint);
 		}
 
-		let nurbsSurface = new CGFNurbsSurface(this.npointsU-1, this.npointsV-1, controlVertexes);
+		let nurbsSurface = new CGFnurbsSurface(this.npointsU-1, this.npointsV-1, controlVertexes);
 
-		this.nurbsObject = new CGFNurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
+		this.nurbsObject = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
 	}
 
 	display() {
