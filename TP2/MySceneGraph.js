@@ -1094,7 +1094,7 @@ class MySceneGraph {
                         return "unable to parsse zz of control point number " + i + " at primitive with ID = " + primitiveId; 
                     
                     let point = [];
-                    point.push(...[xx, yy, zz]);
+                    point.push(...[xx, yy, zz, 1]);
                     controlPoints.push(point);
                 }
 
