@@ -348,10 +348,26 @@
         </primitive>  
         <primitive id="explosion_beam">
             <cylinder base="0.02" top="0.2" height="3" slices="10" stacks="10" />
-        </primitive>   
+        </primitive> 
+        <!-- FOR TESTING -->  
         <primitive id="test_cylinder">
             <cylinder2 base="1" top="1" height="2" slices="25" stacks="25" />
-        </primitive>        
+        </primitive>    
+        <primitive id="test_plane">
+            <plane npartsU="8" npartsV="5" />
+        </primitive>   
+        <primitive id="patch_cylinder">
+            <patch npointsU="2" npointsV="4" npartsU="15" npartsV="15">
+                <controlpoint xx="-1" yy="0" zz="0" />
+                <controlpoint xx="-1" yy="1.333" zz="0" />
+                <controlpoint xx="1" yy="1.333" zz="0" />
+                <controlpoint xx="1" yy="0" zz="0" />
+                <controlpoint xx="-1" yy="0" zz="1" />
+                <controlpoint xx="-1" yy="1.333" zz="1" />
+                <controlpoint xx="1" yy="1.333" zz="1" />
+                <controlpoint xx="1" yy="0" zz="1" />
+            </patch>
+        </primitive> 
     </primitives>
 
 
@@ -397,7 +413,7 @@
             </materials>
             <texture id="none" />
             <children>>
-                <primitiveref id="test_cylinder" />
+                <primitiveref id="patch_cylinder" />
             </children>
         </component>
          
