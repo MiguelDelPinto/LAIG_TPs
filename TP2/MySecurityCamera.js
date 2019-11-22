@@ -7,6 +7,7 @@ class MySecurityCamera {
         this.textureRTT = textureRTT;
 
         this.rectangle = new MyRectangle(this.scene, -1, 0.5, 1, -1, -0.5);
+       
         this.initShaders();
     }
 
@@ -18,6 +19,7 @@ class MySecurityCamera {
         );
         
         this.timeFactor = 0;
+        this.speed = 15.0;
 
         this.shader.setUniformsValues({timeFactor: 0});
         this.shader.setUniformsValues({texture: 0});
@@ -26,12 +28,17 @@ class MySecurityCamera {
 
     update(t){
         this.timeFactor += t;
-        let shaderValue = this.timeFactor*0.0015;
+        const speedFactor = this.speed*0.0001;
+        let shaderValue = this.timeFactor*speedFactor;
         this.shader.setUniformsValues({timeFactor: shaderValue});
     }
 
     updateScaleFactor(newScaleFactor){
         this.shader.setUniformsValues({scaleFactor: newScaleFactor});
+    }
+
+    updateSpeed(newSpeed){
+        this.speed = newSpeed;
     }
 
     display(){

@@ -58,7 +58,12 @@ class MyInterface extends CGFinterface {
         folder.add(this.scene, 'current_rtt_camera_id', this.scene.cameraNames)
                    .name('Security Camera');
         folder.add(this.scene, 'scaleFactor', 5.0, 15.0)
-                   .name('Scale Factor'); }
+                   .name('Scale Factor')
+                   .onChange(this.scene.updateScaleFactor.bind(this.scene)); 
+        folder.add(this.scene, 'speed', 10.0, 50.0)
+                   .name('Speed')
+                   .onChange(this.scene.updateSpeed.bind(this.scene));
+    }
 
     /**
      * Loads all of the light options to interface

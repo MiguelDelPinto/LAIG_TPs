@@ -48,7 +48,10 @@ class XMLscene extends CGFscene {
 
         //Scale factor used in the security camera
         this.scaleFactor = 10.0;
-    
+        
+        //Speed used in the security camera
+        this.speed = 15.0;
+
         this.setUpdatePeriod(25); 
     }
 
@@ -347,5 +350,12 @@ class XMLscene extends CGFscene {
      */
     updateScaleFactor(){
         this.securityCamera.updateScaleFactor(this.scaleFactor);
+    }
+
+    /**
+     * Updates the security camera speed
+     */
+    updateSpeed(){
+        this.securityCamera.updateSpeed(this.speed);
     }
 }
