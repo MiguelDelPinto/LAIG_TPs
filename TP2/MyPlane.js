@@ -26,11 +26,11 @@ class MyPlane extends CGFobject {
 				[0.5, 0, 0.5, 1],
 				[0.5, 0, -0.5, 1]
 			]
-		]
+		];
 
-		let nurbsSurface = new CGFNurbsSurface(1, 1, controlVertexes);
+		let nurbsSurface = new CGFnurbsSurface(1, 1, controlVertexes);
 
-		this.nurbsObject = new CGFNurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
+		this.nurbsObject = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
 	}
 
 	display() {

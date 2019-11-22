@@ -1093,7 +1093,7 @@ class MySceneGraph {
                     if(!(zz != null && !isNaN(zz)))
                         return "unable to parsse zz of control point number " + i + " at primitive with ID = " + primitiveId; 
                     
-                    controlPoints.push(x); controlPoints.push(y); controlPoints.push(z);
+                    controlPoints.push(xx); controlPoints.push(yy); controlPoints.push(zz);
                 }
 
                 let patch = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
@@ -1401,6 +1401,8 @@ class MySceneGraph {
                         var childrenPrimitiveId = this.reader.getString(grandgrandChildren[j], 'id');
                         component.primitiveIds.push(childrenPrimitiveId);
                         break;
+                    default:
+                        this.onXMLMinorError("unknown node on component with ID " + component.id);
                 }            
             }
 
