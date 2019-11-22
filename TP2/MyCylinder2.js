@@ -62,7 +62,8 @@ class MyCylinder2 extends CGFobject {
 		
 		/*
 		ANOTHE OPTION: 2 sides
-		let control_points = [
+		let control_points = 
+		[
 			[   
 				[-this.base, 0, 0, 1],
 				[-this.base, this.base*4/3, 0, 1],

@@ -1093,7 +1093,9 @@ class MySceneGraph {
                     if(!(zz != null && !isNaN(zz)))
                         return "unable to parsse zz of control point number " + i + " at primitive with ID = " + primitiveId; 
                     
-                    controlPoints.push(xx); controlPoints.push(yy); controlPoints.push(zz);
+                    let point = [];
+                    point.push(...[xx, yy, zz, 1]);
+                    controlPoints.push(point);
                 }
 
                 let patch = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, controlPoints);
