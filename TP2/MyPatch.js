@@ -28,7 +28,7 @@ class MyPatch extends CGFobject {
 			let uPoint = [];
 			for(let j = 0; j < this.npointsV; j++) {
 
-				uPoint.push(this.controlPoints[i*this.nPointsV + j]);
+				uPoint.push(this.controlPoints[i*this.npointsV + j]);
 			}
 
 			controlVertexes.push(uPoint);
