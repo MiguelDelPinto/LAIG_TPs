@@ -18,32 +18,75 @@ class MyCylinder2 extends CGFobject {
         this.slices = slices;
         this.stacks = stacks;
 
-        this.initBuffers();
+        this.generate();
     }
     	
-	initBuffers() {
-		this.vertices = [];
+	generate() {
+		let smooth_curve = Math.sqrt(2)/2;
 
-		//Counter-clockwise reference of vertices
-		this.indices = [];
+		let control_points = 
+		[
+			[
+				[0, -this.base, 0, 1],
+				[-this.base, -this.base, 0, smooth_curve],
 
-		//Facing Y positive
-		this.normals = [];
+				[-this.base, 0, 0, 1],
+				[-this.base, this.base, 0, smooth_curve],
+
+				[0, this.base, 0, 1],
+				[this.base, this.base, 0, smooth_curve],
+
+				[this.base, 0, 0, 1],
+				[this.base, -this.base, 0, smooth_curve],
+
+				[0, -this.base, 0, 1],
+			],
+			[
+				[0, -this.top, this.height, 1],
+				[-this.top, -this.top, this.height, smooth_curve],
+
+				[-this.top, 0, this.height, 1],
+				[-this.top, this.top, this.height, smooth_curve],
+
+				[0, this.top, this.height, 1],
+				[this.top, this.top, this.height, smooth_curve],
+
+				[this.top, 0, this.height, 1],
+				[this.top, -this.top, this.height, smooth_curve],
+
+				[0, -this.top, this.height, 1],
+			]
+		];
+
+		let nurbsSurface = new CGFnurbsSurface(1, 8, control_points);
 		
 		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
+		ANOTHE OPTION: 2 sides
+		let control_points = [
+			[   
+				[-this.base, 0, 0, 1],
+				[-this.base, this.base*4/3, 0, 1],
+				[this.base, this.base*4/3, 0, 1],
+				[this.base, 0, 0, 1]
+			],
 
-		this.texCoords = [];
+			[   
+				[-this.top, 0, this.height, 1],
+				[-this.top, this.top*4/3, this.height, 1],
+				[this.top, this.top*4/3, this.height, 1],
+				[this.top, 0, this.height, 1]
+			]
+		]
 
-		this.primitiveType = this.scene.gl.TRIANGLES;
-		this.initGLBuffers();
+		let nurbsSurface = new CGFnurbsSurface(1, 3, control_points);
+		*/
+
+		this.nurbsObject = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
+
+	}
+
+	display() {
+		this.nurbsObject.display();
 	}
 
 	/**

@@ -344,11 +344,14 @@
             <torus inner="0.1" outer="1" slices="20" loops="20" />
         </primitive>         
         <primitive id="hexagon">
-                <torus inner="0.1" outer="1" slices="6" loops="4" />
+            <torus inner="0.1" outer="1" slices="6" loops="4" />
         </primitive>  
         <primitive id="explosion_beam">
-                <cylinder base="0.02" top="0.2" height="3" slices="10" stacks="10" />
-        </primitive>             
+            <cylinder base="0.02" top="0.2" height="3" slices="10" stacks="10" />
+        </primitive>   
+        <primitive id="test_cylinder">
+            <cylinder2 base="1" top="1" height="2" slices="25" stacks="25" />
+        </primitive>        
     </primitives>
 
 
@@ -379,6 +382,22 @@
                 <componentref id="house" />
                 <componentref id="tie_fighters" />
                 <componentref id="portal_area" />
+                <componentref id="testing" />   <!-- REMOVE THIS-->
+            </children>
+        </component>
+
+        <!-- REMOVE THIS-->
+        <component id="testing">
+            <transformation>
+                <translate x="0" y="10" z="5" />
+                <scale x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="light_blue" />
+            </materials>
+            <texture id="none" />
+            <children>>
+                <primitiveref id="test_cylinder" />
             </children>
         </component>
          
@@ -615,7 +634,7 @@
             </materials>
             <texture id="meteor" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="sphere" />                           
+                <primitiveref id="sphere" /> 
             </children>
         </component> 
 
