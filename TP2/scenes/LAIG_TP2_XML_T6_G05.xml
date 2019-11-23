@@ -390,6 +390,18 @@
                 <scale x="1" y="1" z="1" />
             </keyframe>
         </animation>
+        <animation id="crater_appears">
+             <keyframe instant="0.0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="0" y="0.51" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
         <animation id="meteors_height">
             <keyframe instant="0.0">
                 <translate x="0" y="0" z="-5" />
@@ -802,27 +814,6 @@
         <primitive id="explosion_beam">
             <cylinder base="0.02" top="0.2" height="3" slices="10" stacks="10" />
         </primitive>
-        <primitive id="heart">
-            <patch npointsU="2" npointsV="7" npartsU="50" npartsV="50">
-                <controlpoint xx="5" yy="-5" zz="1" />
-                <controlpoint xx="-5" yy="2" zz="1" />
-                <controlpoint xx="-2" yy="5" zz="1" />
-                <controlpoint xx="0" yy="2" zz="1" />
-                <controlpoint xx="2" yy="5" zz="1" />
-                <controlpoint xx="5" yy="2" zz="1" />
-                <controlpoint xx="-5" yy="-5" zz="1" />
-                <controlpoint xx="5" yy="-5" zz="-1" />
-                <controlpoint xx="-5" yy="2" zz="-1" />
-                <controlpoint xx="-2" yy="5" zz="-1" />
-                <controlpoint xx="0" yy="2" zz="-1" />
-                <controlpoint xx="2" yy="5" zz="-1" />
-                <controlpoint xx="5" yy="2" zz="-1" />
-                <controlpoint xx="-5" yy="-5" zz="-1" />
-            </patch>
-        </primitive>
-        <primitive id="flag">
-            <plane npartsU="15" npartsV="15" />
-        </primitive>
         <primitive id="flag_patch">
             <patch npointsU="4" npointsV="2" npartsU="15" npartsV="2">
                 <controlpoint xx="-1" yy="-1" zz="0" />
@@ -1071,9 +1062,7 @@
                 <scale x="0.4" y="0.35" z="1" />
             </transformation>
             <!--
-            <animations>
-                <animationref id="flag_animation" />
-            </animations>
+            <animationref id="flag_animation" />
             -->
             <materials>
                 <material id="grey" />
@@ -1091,9 +1080,7 @@
                 <scale x="0.4" y="0.35" z="1" />
             </transformation>
             <!--
-            <animations>
-                <animationref id="flag_animation" />
-            </animations>
+            <animationref id="flag_animation" />
             -->
             <materials>
                 <material id="grey" />
@@ -1119,9 +1106,10 @@
 
         <component id="crater_small">
             <transformation>
-                <translate x="1.2" y="0.51" z="-30" />
+                <translate x="1.2" y="-1.01" z="-30" />
                 <scale x="3" y="3" z="3" />
             </transformation>
+            <animationref id="crater_appears" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -1133,9 +1121,10 @@
 
         <component id="crater_medium">
             <transformation>
-                <translate x="-16.5" y="0.51" z="14" />
+                <translate x="-16.5" y="-2.5" z="14" />
                 <scale x="6" y="6" z="6" />
             </transformation>
+            <animationref id="crater_appears" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -1147,9 +1136,10 @@
 
         <component id="crater_big">
             <transformation>
-                <translate x="27.5" y="0.51" z="24" />
+                <translate x="27.5" y="0" z="24" />
                 <scale x="8" y="1" z="8" />
             </transformation>
+            <animationref id="crater_appears" />
             <materials>
                 <material id="inherit" />
             </materials>
