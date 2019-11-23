@@ -8,6 +8,7 @@ uniform mat4 uNMatrix;
 
 uniform float timeFactor;
 uniform float scaleFactor;
+uniform float colorFactor;
 uniform sampler2D texture;
 
 varying vec2 vTextureCoord;
