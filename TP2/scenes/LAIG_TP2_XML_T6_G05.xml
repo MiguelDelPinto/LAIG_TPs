@@ -633,6 +633,125 @@
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
+        <animation id="tie_fighter_2_move">
+            <keyframe instant="0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="-30" angle_z="-15" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="2">
+                <translate x="10" y="-7.5" z="17.5" />
+                <rotate angle_x="0" angle_y="15" angle_z="5" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="3">
+                <translate x="15" y="-7.5" z="15" />
+                <rotate angle_x="0" angle_y="45" angle_z="5" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="4.5">
+                <translate x="13.5" y="-5" z="0" />
+                <rotate angle_x="0" angle_y="150" angle_z="15" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="5.5">
+                <translate x="10" y="-2.5" z="-4.0" />
+                <rotate angle_x="0" angle_y="170" angle_z="5" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="6.5">
+                <translate x="5" y="0.0" z="-2.5" />
+                <rotate angle_x="0" angle_y="200" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="7.5">
+                <translate x="-5" y="0.0" z="10.0" />
+                <rotate angle_x="0" angle_y="170" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+           <keyframe instant="8.5">
+                <translate x="-15" y="0.0" z="15" />
+                <rotate angle_x="0" angle_y="130" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+             <keyframe instant="9.5">
+                <translate x="-10" y="0.0" z="-5" />
+                <rotate angle_x="0" angle_y="50" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+           <keyframe instant="10.5">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="15" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="500.0" y="150.0" z="0" />
+                <rotate angle_x="0" angle_y="360" angle_z="30" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="tie_fighter_3_move">
+            <keyframe instant="1">
+                <translate x="5" y="0" z="0" />
+                <rotate angle_x="0" angle_y="30" angle_z="30" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="2">
+                <translate x="15" y="10" z="-7.5" />
+                <rotate angle_x="0" angle_y="30" angle_z="90" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="3">
+                <translate x="10" y="20" z="-5" />
+                <rotate angle_x="0" angle_y="30" angle_z="150" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="4">
+                <translate x="5" y="15" z="-5" />
+                <rotate angle_x="0" angle_y="30" angle_z="230" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="5">
+                <translate x="-5" y="5" z="-2.5" />
+                <rotate angle_x="0" angle_y="30" angle_z="280" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="6">
+                <translate x="0" y="0" z="-5" />
+                <rotate angle_x="0" angle_y="30" angle_z="320" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="7">
+                <translate x="5" y="5" z="-5" />
+                <rotate angle_x="0" angle_y="30" angle_z="450" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="8">
+                <translate x="0" y="10" z="0" />
+                <rotate angle_x="0" angle_y="30" angle_z="540" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="9">
+                <translate x="-7.5" y="5" z="5" />
+                <rotate angle_x="0" angle_y="30" angle_z="630" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="10">
+                <translate x="-2.5" y="5" z="0" />
+                <rotate angle_x="0" angle_y="30" angle_z="720" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="10.5">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="30" angle_z="730" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15.0">
+                <translate x="500.0" y="300.0" z="0" />
+                <rotate angle_x="0" angle_y="30" angle_z="750" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
     </animations>
 
     <primitives>
@@ -2604,6 +2723,7 @@
                 <rotate axis="x" angle="25" />
                 <rotate axis="y" angle="-45" />
             </transformation>
+            <animationref id="tie_fighter_2_move" />
             <materials>
                 <material id="whiteThread" />
             </materials>
@@ -2619,6 +2739,7 @@
                 <rotate axis="x" angle="30" />
                 <rotate axis="y" angle="-135" />
             </transformation>
+            <animationref id="tie_fighter_3_move" />
             <materials>
                 <material id="whiteThread" />
             </materials>
