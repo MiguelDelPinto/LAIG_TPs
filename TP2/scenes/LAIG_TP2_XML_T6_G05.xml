@@ -106,7 +106,8 @@
         <texture id="tie_window" file="scenes/images/tie_cockpit_window.jpg" />
         <texture id="lava" file="scenes/images/lava.jpg" />
         <texture id="black_flag" file="scenes/images/black_flag.jpg" /> 
-        <texture id="triforce_flag" file="scenes/images/triforce_flag.jpeg" />        
+        <texture id="triforce_flag" file="scenes/images/triforce_flag.jpeg" />     
+        <texture id="crater" file="scenes/images/crater.jpg" />          
     </textures>
 
     <materials>
@@ -855,7 +856,7 @@
         <primitive id="test_cylinder">
             <cylinder2 base="1" top="1" height="2" slices="25" stacks="25" />
         </primitive>
-        <primitive id="test_plane">
+        <primitive id="plane">
             <plane npartsU="8" npartsV="5" />
         </primitive>
         <primitive id="patch_cylinder">
@@ -901,6 +902,7 @@
                 <componentref id="tie_fighters" />
                 <componentref id="portal_area" />
                 <componentref id="flag" />
+                <componentref id="craters" />
             </children>
         </component>
 
@@ -1101,6 +1103,63 @@
                 <primitiveref id="flag_patch" />
             </children>
         </component>
+
+        <component id="craters">
+            <transformation/>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="crater" length_s="1" length_t="1" />
+            <children>
+                <componentref id="crater_small" />            
+                <componentref id="crater_medium" />
+                <componentref id="crater_big" />
+            </children>
+        </component>
+
+        <component id="crater_small">
+            <transformation>
+                <translate x="1.2" y="0.51" z="-30" />
+                <scale x="3" y="3" z="3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="plane" />
+            </children>
+        </component>
+
+        <component id="crater_medium">
+            <transformation>
+                <translate x="-16.5" y="0.51" z="14" />
+                <scale x="6" y="6" z="6" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="plane" />
+            </children>
+        </component>
+
+        <component id="crater_big">
+            <transformation>
+                <translate x="27.5" y="0.51" z="24" />
+                <scale x="8" y="1" z="8" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="plane" />
+            </children>
+        </component>
+        
+        
 
         <component id="death_mountain">
             <transformation>
