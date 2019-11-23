@@ -878,7 +878,7 @@ class MySceneGraph {
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
                     grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'cylinder2' && 
                     grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'plane')) {
-                return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere or torus)"
+                return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere, torus, plane, patch or cylinder2) at primitive with ID " + primitiveId;
             }
 
             // Specifications for the current primitive
