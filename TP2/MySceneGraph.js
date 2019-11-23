@@ -1309,7 +1309,6 @@ class MySceneGraph {
             // Animation (optional - RIGHT AFTER TRANSFORMATIONS)
             component.animationId = null;
             if(animationIndex != -1) {
-                console.log("EXISTE ANIMACAO");
                 grandgrandChildren = grandChildren[animationIndex];
 
                 // Checks if the texture has an ID           

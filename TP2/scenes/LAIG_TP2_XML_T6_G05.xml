@@ -382,6 +382,99 @@
                 <scale x="1" y="1" z="1" />
             </keyframe>
         </animation>
+        <animation id="meteors_height">
+            <keyframe instant="0.0">
+                <translate x="0" y="0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0" y="0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0" y="0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.7">
+                <translate x="0" y="0" z="5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.1">
+                <translate x="0" y="0" z="10" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.3">
+                <translate x="0" y="0" z="10" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.9">
+                <translate x="0" y="0" z="5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="0" y="0" z="-11" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="meteor1_length">
+            <keyframe instant="0.0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="15" y="-15" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="meteor2_length">
+            <keyframe instant="0.0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="15" y="35" z="2.5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="meteor3_length">
+            <keyframe instant="0.0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="-5" y="-15" z="-2.2" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
     </animations>
 
     <primitives>
@@ -464,25 +557,8 @@
                 <componentref id="house" />
                 <componentref id="tie_fighters" />
                 <componentref id="portal_area" />
-                <componentref id="testing" />   <!-- REMOVE THIS-->
             </children>
         </component>
-
-        <!-- REMOVE THIS-->
-        <component id="testing">
-            <transformation>
-                <translate x="0" y="10" z="5" />
-                <scale x="5" y="5" z="5" />
-            </transformation>
-            <materials>
-                <material id="light_blue" />
-            </materials>
-            <texture id="none" />
-            <children>>
-                <primitiveref id="patch_cylinder" />
-            </children>
-        </component>
-         
 
         <component id="background">
             <transformation>
@@ -686,21 +762,45 @@
             </materials>
             <texture id="inherit" />
             <children>
+                <componentref id="meteors" />  
+                <componentref id="beams" />                           
+            </children>
+        </component>  
+
+        <component id="meteors">
+            <transformation />
+            <animationref id="meteors_height" />
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children> 
                 <componentref id="meteor1" />
                 <componentref id="meteor2" />
                 <componentref id="meteor3" />
+            </children>
+        </component>
+
+        <component id="beams">
+            <transformation />
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
                 <componentref id="beam1" />
                 <componentref id="beam2" />
                 <componentref id="beam3" />
-                <componentref id="beam4" />                               
+                <componentref id="beam4" /> 
             </children>
-        </component>  
+        </component>
 
         <component id="meteor1">
             <transformation>
                 <translate x="1" y="0" z="3" />            
                 <scale x="1.2" y="1.2" z="1.2"/>
             </transformation>
+            <animationref id="meteor1_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
@@ -715,6 +815,7 @@
                 <translate x="0" y="1" z="1.4" />  
                 <scale x="0.3" y="0.3" z="0.3"/>                           
             </transformation>
+            <animationref id="meteor2_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
@@ -729,6 +830,7 @@
                 <translate x="-1.2" y="-0.6" z="4" />              
                 <scale x="0.8" y="0.8" z="0.8"/>
             </transformation>
+            <animationref id="meteor3_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
