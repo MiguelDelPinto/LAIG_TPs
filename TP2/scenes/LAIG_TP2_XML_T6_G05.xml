@@ -12,7 +12,7 @@
             <to x="0" y="1" z="0" />
         </perspective>
 
-        <ortho id="Postcard"  near="0.1" far="500" left="-70" right="70" top="60" bottom="-18" >
+        <ortho id="Postcard" near="0.1" far="500" left="-70" right="70" top="60" bottom="-18">
             <from x="0" y="100" z="400" />
             <to x="0" y="0" z="0" />
             <up x="0" y="1" z="0" />
@@ -50,15 +50,15 @@
             <ambient r="0" g="0" b="0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <attenuation constant="1.0" linear="0" quadratic="0.0" />  
+            <attenuation constant="1.0" linear="0" quadratic="0.0" />
         </omni>
 
-        <omni id="Sun" enabled="1" >
+        <omni id="Sun" enabled="1">
             <location x="100" y="100" z="-100" w="1.0" />
             <ambient r="0.25" g="0.25" b="0.25" a="0.25" />
             <diffuse r="0.25" g="0.25" b="0.25" a="0.25" />
             <specular r="0.25" g="0.25" b="0.25" a="0.25" />
-            <attenuation constant="0.7" linear="0" quadratic="0.0" />  
+            <attenuation constant="0.7" linear="0" quadratic="0.0" />
         </omni>
 
         <spot id="Blue Portal" enabled="0" angle="30" exponent="10">
@@ -67,7 +67,7 @@
             <ambient r="0" g="0" b="0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <attenuation constant="0" linear="0.2" quadratic="0" />  
+            <attenuation constant="0" linear="0.2" quadratic="0" />
         </spot>
 
         <spot id="Red Portal" enabled="0" angle="30" exponent="10">
@@ -76,8 +76,8 @@
             <ambient r="0" g="0" b="0" a="1.0" />
             <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
             <specular r="1.0" g="1.0" b="1.0" a="1.0" />
-            <attenuation constant="0" linear="0.2" quadratic="0" />  
-        </spot>        
+            <attenuation constant="0" linear="0.2" quadratic="0" />
+        </spot>
 
     </lights>
 
@@ -94,17 +94,18 @@
         <texture id="background_right" file="scenes/images/background_right.jpg" />
         <texture id="background_left" file="scenes/images/background_left.jpg" />
         <texture id="background_front" file="scenes/images/background_front.jpg" />
-        <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />   
-        <texture id="background_back" file="scenes/images/background_back.jpg" />                  
+        <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />
+        <texture id="background_back" file="scenes/images/background_back.jpg" />
         <texture id="brick" file="scenes/images/brick.jpg" />
-        <texture id="black_smoke" file="scenes/images/black_smoke.jpg" /> 
-        <texture id="blue_smoke" file="scenes/images/blue_smoke.jpg" />        
-        <texture id="orange_smoke" file="scenes/images/orange_smoke.jpg" />  
-        <texture id="fire" file="scenes/images/fire.jpg" />        
-        <texture id="meteor" file="scenes/images/meteor.jpg" />         
+        <texture id="black_smoke" file="scenes/images/black_smoke.jpg" />
+        <texture id="blue_smoke" file="scenes/images/blue_smoke.jpg" />
+        <texture id="orange_smoke" file="scenes/images/orange_smoke.jpg" />
+        <texture id="fire" file="scenes/images/fire.jpg" />
+        <texture id="meteor" file="scenes/images/meteor.jpg" />
         <texture id="stripes" file="scenes/images/stripes.jpg" />
         <texture id="tie_window" file="scenes/images/tie_cockpit_window.jpg" />
         <texture id="lava" file="scenes/images/lava.jpg" />
+        <texture id="black_flag" file="scenes/images/black_flag.jpg" />        
     </textures>
 
     <materials>
@@ -144,130 +145,130 @@
         </material>
 
         <material id="orangeHouse" shininess="1">
-             <emission r="0.4" g="0.2" b="0.0" a="0.0" />
-             <ambient r="0.4" g="0.2" b="0.0" a="0.0" />
-             <diffuse r="0.4" g="0.2" b="0.0" a="0.0" />
-             <specular r="0.4" g="0.2" b="0.0" a="0.0" />
+            <emission r="0.4" g="0.2" b="0.0" a="0.0" />
+            <ambient r="0.4" g="0.2" b="0.0" a="0.0" />
+            <diffuse r="0.4" g="0.2" b="0.0" a="0.0" />
+            <specular r="0.4" g="0.2" b="0.0" a="0.0" />
         </material>
 
         <material id="beigeHouse" shininess="1">
-                <emission r="0.5" g="0.4" b="0.3" a="0.0" />
-                <ambient r="0.5" g="0.4" b="0.3" a="0.0" />
-                <diffuse r="0.5" g="0.4" b="0.3" a="0.0" />
-                <specular r="0.5" g="0.4" b="0.3" a="0.0" />
+            <emission r="0.5" g="0.4" b="0.3" a="0.0" />
+            <ambient r="0.5" g="0.4" b="0.3" a="0.0" />
+            <diffuse r="0.5" g="0.4" b="0.3" a="0.0" />
+            <specular r="0.5" g="0.4" b="0.3" a="0.0" />
         </material>
 
         <material id="pinkHouse" shininess="1">
-                <emission r="0.25" g="0.125" b="0.25" a="0.0" />
-                <ambient r="0.25" g="0.125" b="0.25" a="0.0" />
-                <diffuse r="0.25" g="0.125" b="0.25" a="0.0" />
-                <specular r="0.25" g="0.125" b="0.25" a="0.0" />
+            <emission r="0.25" g="0.125" b="0.25" a="0.0" />
+            <ambient r="0.25" g="0.125" b="0.25" a="0.0" />
+            <diffuse r="0.25" g="0.125" b="0.25" a="0.0" />
+            <specular r="0.25" g="0.125" b="0.25" a="0.0" />
         </material>
 
         <material id="brownChimney" shininess="1">
-                <emission r="0.15" g="0.1" b="0.05" a="0.0" />
-                <ambient r="0.15" g="0.1" b="0.05" a="0.0" />
-                <diffuse r="0.15" g="0.1" b="0.05" a="0.0" />
-                <specular r="0.15" g="0.1" b="0.05" a="0.0" />
+            <emission r="0.15" g="0.1" b="0.05" a="0.0" />
+            <ambient r="0.15" g="0.1" b="0.05" a="0.0" />
+            <diffuse r="0.15" g="0.1" b="0.05" a="0.0" />
+            <specular r="0.15" g="0.1" b="0.05" a="0.0" />
         </material>
 
         <material id="greenProtuberance" shininess="1">
-                <emission r="0.0" g="0.0" b="0.0" a="1.0" />
-                <ambient r="0.89" g="1.0" b="0.61" a="1.0" />
-                <diffuse r="0.89" g="1.0" b="0.61" a="1.0" />
-                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.89" g="1.0" b="0.61" a="1.0" />
+            <diffuse r="0.89" g="1.0" b="0.61" a="1.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
 
         <material id="yellowRoof" shininess="1">
-                <emission r="0.4" g="0.3" b="0.0" a="0.0" />
-                <ambient r="0.4" g="0.3" b="0.0" a="0.0" />
-                <diffuse r="0.4" g="0.3" b="0.0" a="0.0" />
-                <specular r="0.4" g="0.3" b="0.0" a="0.0" />
+            <emission r="0.4" g="0.3" b="0.0" a="0.0" />
+            <ambient r="0.4" g="0.3" b="0.0" a="0.0" />
+            <diffuse r="0.4" g="0.3" b="0.0" a="0.0" />
+            <specular r="0.4" g="0.3" b="0.0" a="0.0" />
         </material>
 
         <material id="whiteThread" shininess="1">
-                <emission r="0.6" g="0.6" b="0.6" a="0.0" />
-                <ambient r="1" g="1" b="1" a="1" />
-                <diffuse r="1" g="1" b="1" a="0.0" />
-                <specular r="1" g="1" b="1" a="0.0" />
+            <emission r="0.6" g="0.6" b="0.6" a="0.0" />
+            <ambient r="1" g="1" b="1" a="1" />
+            <diffuse r="1" g="1" b="1" a="0.0" />
+            <specular r="1" g="1" b="1" a="0.0" />
         </material>
 
         <material id="red" shininess="1">
-                <emission r="0" g="0" b="0" a="0.0" />
-                <ambient r="1" g="0" b="0" a="0.0" />
-                <diffuse r="1" g="0" b="0" a="0.0" />
-                <specular r="1" g="0" b="0" a="0.0" />
+            <emission r="0" g="0" b="0" a="0.0" />
+            <ambient r="1" g="0" b="0" a="0.0" />
+            <diffuse r="1" g="0" b="0" a="0.0" />
+            <specular r="1" g="0" b="0" a="0.0" />
         </material>
 
         <material id="babyBlue" shininess="1">
-                <emission r="0" g="0" b="0" a="0.0" />
-                <ambient r="0.501" g="0.980" b="0.968" a="0.0" />
-                <diffuse r="0.501" g="0.980" b="0.968" a="0.0" />
-                <specular r="0.501" g="0.980" b="0.968" a="0.0" />
+            <emission r="0" g="0" b="0" a="0.0" />
+            <ambient r="0.501" g="0.980" b="0.968" a="0.0" />
+            <diffuse r="0.501" g="0.980" b="0.968" a="0.0" />
+            <specular r="0.501" g="0.980" b="0.968" a="0.0" />
         </material>
 
         <material id="grey" shininess="1">
-                <emission r="0" g="0" b="0" a="0.0" />
-                <ambient r="0.7" g="0.7" b="0.7" a="1.0" />
-                <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
-                <specular r="0.7" g="0.7" b="0.7" a="1.0" />
-        </material>        
-        
+            <emission r="0" g="0" b="0" a="0.0" />
+            <ambient r="0.7" g="0.7" b="0.7" a="1.0" />
+            <diffuse r="0.7" g="0.7" b="0.7" a="1.0" />
+            <specular r="0.7" g="0.7" b="0.7" a="1.0" />
+        </material>
+
         <material id="dark_grey" shininess="1">
-                <emission r="0" g="0" b="0" a="0" />
-                <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
-                <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
-                <specular r="0.3" g="0.3" b="0.3" a="1.0" />
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0.1" g="0.1" b="0.1" a="1.0" />
+            <diffuse r="0.3" g="0.3" b="0.3" a="1.0" />
+            <specular r="0.3" g="0.3" b="0.3" a="1.0" />
         </material>
 
         <material id="light_green" shininess="10">
-                <emission r="0.2" g="1.0" b="0.2" a="1.0" />
-                <ambient r="0.2" g="1.0" b="0.2" a="0.7" />
-                <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
-                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <emission r="0.2" g="1.0" b="0.2" a="1.0" />
+            <ambient r="0.2" g="1.0" b="0.2" a="0.7" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
 
         <material id="light_red" shininess="10">
-                <emission r="1.0" g="0.2" b="0.2" a="1.0" />
-                <ambient r="1.0" g="0.2" b="0.2" a="0.7" />
-                <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
-                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <emission r="1.0" g="0.2" b="0.2" a="1.0" />
+            <ambient r="1.0" g="0.2" b="0.2" a="0.7" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
 
         <material id="light_blue" shininess="10">
-                <emission r="0.2" g="0.2" b="1.0" a="1.0" />
-                <ambient r="0.2" g="0.2" b="1.0" a="0.7" />
-                <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
-                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <emission r="0.2" g="0.2" b="1.0" a="1.0" />
+            <ambient r="0.2" g="0.2" b="1.0" a="0.7" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
 
         <material id="light_purple" shininess="10">
-                <emission r="1.0" g="0.0" b="1.0" a="1.0" />
-                <ambient r="1.0" g="0.0" b="1.0" a="0.7" />
-                <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
-                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <emission r="1.0" g="0.0" b="1.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="1.0" a="0.7" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="0.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
 
         <material id="volcano_grey" shininess="10">
-                <emission r="0.0" g="0.0" b="0.0" a="0.0" />
-                <ambient r="0.1098" g="0.098" b="0.1098" a="0.5" />
-                <diffuse r="0.1098" g="0.098" b="0.1098" a="0.0" />
-                <specular r="0.0" g="0.0" b="0.0" a="0.0" />
+            <emission r="0.0" g="0.0" b="0.0" a="0.0" />
+            <ambient r="0.1098" g="0.098" b="0.1098" a="0.5" />
+            <diffuse r="0.1098" g="0.098" b="0.1098" a="0.0" />
+            <specular r="0.0" g="0.0" b="0.0" a="0.0" />
         </material>
-        
+
         <material id="sky_blue" shininess="10">
-                <emission r="0" g="0" b="0" a="1.0" />
-                <ambient r="0.0941" g="0.308" b="0.647" a="0.07" />
-                <diffuse r="0.0941" g="0.308" b="0.647" a="0.0" />
-                <specular r="0.0941" g="0.308" b="0.647" a="0.0" />
-        </material> 
+            <emission r="0" g="0" b="0" a="1.0" />
+            <ambient r="0.0941" g="0.308" b="0.647" a="0.07" />
+            <diffuse r="0.0941" g="0.308" b="0.647" a="0.0" />
+            <specular r="0.0941" g="0.308" b="0.647" a="0.0" />
+        </material>
 
         <material id="grass" shininess="10">
-                <emission r="0" g="0" b="0" a="1.0" />
-                <ambient r="0.956" g="0.980" b="0.796" a="0.07" />
-                <diffuse r="0.956" g="0.980" b="0.796" a="0.0" />
-                <specular r="0.956" g="0.980" b="0.796" a="0.0" />
-        </material> 
+            <emission r="0" g="0" b="0" a="1.0" />
+            <ambient r="0.956" g="0.980" b="0.796" a="0.07" />
+            <diffuse r="0.956" g="0.980" b="0.796" a="0.0" />
+            <specular r="0.956" g="0.980" b="0.796" a="0.0" />
+        </material>
     </materials>
 
     <transformations>
@@ -316,6 +317,280 @@
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
+        <animation id="shoot_right">
+            <keyframe instant="0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+            <keyframe instant="10.5">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.5">
+                <translate x="250.0" y="-3.8595" z="14.4889" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="20.0">
+                <translate x="250.0" y="-3.8595" z="14.4889" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+        </animation>
+        <animation id="shoot_left">
+            <keyframe instant="0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+            <keyframe instant="10.5">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.5">
+                <translate x="250.0" y="-3.8595" z="14.4889" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="20.0">
+                <translate x="250.0" y="-3.8595" z="14.4889" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0000001" y="0.0000001" z="0.0000001" />
+            </keyframe>
+        </animation>
+        <animation id="lava">
+            <keyframe instant="0.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="1000.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="2250" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="meteors_height">
+            <keyframe instant="0.0">
+                <translate x="0" y="0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0" y="0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0" y="0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.7">
+                <translate x="0" y="0" z="5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.1">
+                <translate x="0" y="0" z="10" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.3">
+                <translate x="0" y="0" z="10" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.9">
+                <translate x="0" y="0" z="5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="0" y="0" z="-11" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="meteor1_length">
+            <keyframe instant="0.0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="15" y="-15" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="meteor2_length">
+            <keyframe instant="0.0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="15" y="35" z="5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="meteor3_length">
+            <keyframe instant="0.0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="-5" y="-15" z="-1.5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="beams_height">
+            <keyframe instant="0.0">
+                <translate x="0.0" y="0.0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0.0" y="0.0" z="-5" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.7">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.3">
+                <translate x="0.0" y="0.0" z="5.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+        </animation>
+        <animation id="beam1_length">
+            <keyframe instant="0.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.3">
+                <translate x="1.0" y="-3.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="beam2_length">
+            <keyframe instant="0.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.3">
+                <translate x="2.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="beam3_length">
+            <keyframe instant="0.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.3">
+                <translate x="-1.5" y="0.5" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="beam4_length">
+            <keyframe instant="0.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="10.0">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="10.1">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+            <keyframe instant="11.3">
+                <translate x="0.0" y="3.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
     </animations>
 
     <primitives>
@@ -331,49 +606,69 @@
         <primitive id="triangle">
             <triangle x1="-1" y1="0" z1="0" x2="1" y2="0" z2="0" x3="0" y3="1" z3="0" />
         </primitive>
-        <primitive id="cylinder">  
+        <primitive id="cylinder">
             <cylinder base="1" top="1" height="1" slices="25" stacks="25" />
         </primitive>
-        <primitive id="sphere">  
+        <primitive id="sphere">
             <sphere radius="1" slices="20" stacks="20" />
         </primitive>
-        <primitive id="torus">  
+        <primitive id="torus">
             <torus inner="0.1" outer="0.4" slices="20" loops="20" />
-        </primitive> 
-        <primitive id="torus_thin">  
+        </primitive>
+        <primitive id="torus_thin">
             <torus inner="0.1" outer="1" slices="20" loops="20" />
-        </primitive>         
+        </primitive>
         <primitive id="hexagon">
             <torus inner="0.1" outer="1" slices="6" loops="4" />
-        </primitive>  
+        </primitive>
         <primitive id="explosion_beam">
             <cylinder base="0.02" top="0.2" height="3" slices="10" stacks="10" />
-        </primitive> 
+        </primitive>
         <primitive id="heart">
-            <patch npointsU="2" npointsV="7" npartsU="50" npartsV="50" >
+            <patch npointsU="2" npointsV="7" npartsU="50" npartsV="50">
                 <controlpoint xx="5" yy="-5" zz="1" />
                 <controlpoint xx="-5" yy="2" zz="1" />
                 <controlpoint xx="-2" yy="5" zz="1" />
                 <controlpoint xx="0" yy="2" zz="1" />
                 <controlpoint xx="2" yy="5" zz="1" />
                 <controlpoint xx="5" yy="2" zz="1" />
-                <controlpoint xx="-5" yy="-5" zz="1" />  
+                <controlpoint xx="-5" yy="-5" zz="1" />
                 <controlpoint xx="5" yy="-5" zz="-1" />
                 <controlpoint xx="-5" yy="2" zz="-1" />
                 <controlpoint xx="-2" yy="5" zz="-1" />
                 <controlpoint xx="0" yy="2" zz="-1" />
                 <controlpoint xx="2" yy="5" zz="-1" />
                 <controlpoint xx="5" yy="2" zz="-1" />
-                <controlpoint xx="-5" yy="-5" zz="-1" />                  
+                <controlpoint xx="-5" yy="-5" zz="-1" />
             </patch>
-        </primitive>      
-        <!-- FOR TESTING -->  
+        </primitive>
+        <primitive id="flag">
+            <plane npartsU="15" npartsV="15" />
+        </primitive>
+        <primitive id="flag_pole">
+            <cylinder2 base="0.02" top="0.02" height="2.5" slices="10" stacks="4" />
+        </primitive>
+        <primitive id="flag_pole_top">
+            <sphere radius="0.045" slices="20" stacks="20" />
+        </primitive>
+
+        <!-- FOR TESTING -->
+        <primitive id="flag_patch">
+            <patch npointsU="3" npointsV="2" npartsU="15" npartsV="2">
+                <controlpoint xx="-1" yy="1.75" zz="0" />
+                <controlpoint xx="-1" yy="2.25" zz="0" />
+                <controlpoint xx="0" yy="1.25" zz="0" />
+                <controlpoint xx="0" yy="2.75" zz="0" />
+                <controlpoint xx="1" yy="1.75" zz="0" />
+                <controlpoint xx="1" yy="2.25" zz="0" />
+            </patch>
+        </primitive>
         <primitive id="test_cylinder">
             <cylinder2 base="1" top="1" height="2" slices="25" stacks="25" />
-        </primitive>    
+        </primitive>
         <primitive id="test_plane">
             <plane npartsU="8" npartsV="5" />
-        </primitive>   
+        </primitive>
         <primitive id="patch_cylinder">
             <patch npointsU="2" npointsV="4" npartsU="15" npartsV="15">
                 <controlpoint xx="-1" yy="0" zz="0" />
@@ -385,7 +680,7 @@
                 <controlpoint xx="1" yy="1.333" zz="1" />
                 <controlpoint xx="1" yy="0" zz="1" />
             </patch>
-        </primitive> 
+        </primitive>
     </primitives>
 
 
@@ -416,25 +711,9 @@
                 <componentref id="house" />
                 <componentref id="tie_fighters" />
                 <componentref id="portal_area" />
-                <componentref id="testing" />   <!-- REMOVE THIS-->
+                <componentref id="flag" />
             </children>
         </component>
-
-        <!-- REMOVE THIS-->
-        <component id="testing">
-            <transformation>
-                <translate x="0" y="10" z="5" />
-                <scale x="5" y="5" z="5" />
-            </transformation>
-            <materials>
-                <material id="light_blue" />
-            </materials>
-            <texture id="none" />
-            <children>>
-                <primitiveref id="heart" />
-            </children>
-        </component>
-         
 
         <component id="background">
             <transformation>
@@ -501,7 +780,7 @@
             <children>
                 <primitiveref id="rectangle" />
             </children>
-        </component> 
+        </component>
 
         <component id="background_top">
             <transformation>
@@ -516,7 +795,7 @@
             <children>
                 <primitiveref id="rectangle" />
             </children>
-        </component>   
+        </component>
 
         <component id="background_bottom">
             <transformation>
@@ -546,7 +825,94 @@
             <children>
                 <primitiveref id="rectangle" />
             </children>
-        </component>                         
+        </component>
+
+        <component id="flag">
+            <transformation>
+                <translate x="17" y="0" z="-9" />
+                <rotate axis="y" angle="-10" />
+                <scale x="3" y="3" z="3" />
+            </transformation>
+            <materials>
+                <material id="grayRoof" />
+            </materials>
+            <texture id="wood" length_s="1" length_t="1" />
+            <children>
+                <componentref id="flag_pole" />
+                <componentref id="flag_fabric_front" />
+                <componentref id="flag_fabric_back" />
+                <componentref id="flag_pole_top" />
+            </children>
+        </component>
+
+        <component id="flag_pole">
+            <transformation>
+                <translate x="-0.6" y="0" z="0" />
+                <rotate axis="x" angle="-90" />
+                <scale x="2" y="2" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="flag_pole" />
+            </children>
+        </component>
+
+        <component id="flag_pole_top">
+            <transformation>
+                <translate x="-0.6" y="2.5" z="0" />
+                <scale x="1.3" y="1.3" z="1.3" />
+            </transformation>
+            <materials>
+                <material id="dark_grey" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="flag_pole_top" />
+            </children>
+        </component>
+
+        <component id="flag_fabric_front">
+            <transformation>
+                <translate x="0.05" y="2" z="0.01" />
+                <rotate axis="x" angle="90" />
+                <scale x="1.3" y="1" z="0.7" />
+            </transformation>
+            <!--
+            <animations>
+                <animationref id="flag_animation" />
+            </animations>
+            -->
+            <materials>
+                <material id="grey" />
+            </materials>
+            <texture id="black_flag" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="flag" />
+            </children>
+        </component>
+
+        <component id="flag_fabric_back">
+            <transformation>
+                <translate x="0.05" y="2" z="0.01" />
+                <rotate axis="x" angle="-90" />
+                <scale x="1.3" y="1" z="0.7" />
+            </transformation>
+            <!--
+            <animations>
+                <animationref id="flag_animation" />
+            </animations>
+            -->
+            <materials>
+                <material id="grey" />
+            </materials>
+            <texture id="black_flag" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="flag" />
+            </children>
+        </component>
 
         <component id="death_mountain">
             <transformation>
@@ -571,7 +937,7 @@
         <component id="death_mountain_bottom">
             <transformation>
                 <translate x="0" y="0.025" z="0" />
-                <scale x="2" y="2" z="0.05" />             
+                <scale x="2" y="2" z="0.05" />
             </transformation>
             <materials>
                 <material id="volcano_grey" />
@@ -585,8 +951,9 @@
         <component id="death_mountain_lava">
             <transformation>
                 <translate x="0" y="0" z="1.5" />
-                <scale x="1" y="1" z="0.05" />             
+                <scale x="1" y="1" z="0.05" />
             </transformation>
+            <animationref id="lava" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -600,8 +967,9 @@
         <component id="death_mountain_lava_border">
             <transformation>
                 <translate x="0" y="0" z="5.5" />
-                <scale x="2.1" y="2.1" z="50" />             
+                <scale x="2.1" y="2.1" z="50" />
             </transformation>
+            <animationref id="lava" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -610,18 +978,6 @@
                 <primitiveref id="torus" />
             </children>
         </component>
-
-        <!--<component id="portal_inside">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="grey" />
-            </materials>
-            <texture id="black_smoke" length_s="1" length_t="1" />
-            <children>
-                <primitiveref id="sphere" />
-            </children>
-        </component>  -->
 
         <component id="death_mountain_cloud">
             <transformation>
@@ -641,8 +997,21 @@
             <transformation>
                 <translate x="0" y="0" z="2.5"/>
                 <scale x="1" y="1" z="0.76"/>
-                <scale x="0.4" y="0.4" z="0.4" />                
+                <scale x="0.4" y="0.4" z="0.4" />
             </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="meteors" />
+                <componentref id="beams" />
+            </children>
+        </component>
+
+        <component id="meteors">
+            <transformation />
+            <animationref id="meteors_height" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -651,120 +1020,138 @@
                 <componentref id="meteor1" />
                 <componentref id="meteor2" />
                 <componentref id="meteor3" />
+            </children>
+        </component>
+
+        <component id="beams">
+            <transformation />
+            <animationref id="beams_height" />
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
                 <componentref id="beam1" />
                 <componentref id="beam2" />
                 <componentref id="beam3" />
-                <componentref id="beam4" />                               
+                <componentref id="beam4" />
             </children>
-        </component>  
+        </component>
 
         <component id="meteor1">
             <transformation>
-                <translate x="1" y="0" z="3" />            
+                <translate x="1" y="0" z="3" />
                 <scale x="1.2" y="1.2" z="1.2"/>
             </transformation>
+            <animationref id="meteor1_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
             <texture id="meteor" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="sphere" /> 
+                <primitiveref id="sphere" />
             </children>
-        </component> 
+        </component>
 
         <component id="meteor2">
             <transformation>
-                <translate x="0" y="1" z="1.4" />  
-                <scale x="0.3" y="0.3" z="0.3"/>                           
+                <translate x="0" y="1" z="1.4" />
+                <scale x="0.3" y="0.3" z="0.3"/>
             </transformation>
+            <animationref id="meteor2_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
             <texture id="meteor" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="sphere" />                           
+                <primitiveref id="sphere" />
             </children>
-        </component> 
+        </component>
 
         <component id="meteor3">
             <transformation>
-                <translate x="-1.2" y="-0.6" z="4" />              
+                <translate x="-1.2" y="-0.6" z="4" />
                 <scale x="0.8" y="0.8" z="0.8"/>
             </transformation>
+            <animationref id="meteor3_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
             <texture id="meteor" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="sphere" />                           
+                <primitiveref id="sphere" />
             </children>
-        </component>  
+        </component>
 
         <component id="beam1">
             <transformation>
-                <translate x="0.5" y="-0.2" z="-0.6" />     
-                <rotate axis="x" angle="10" />   
-                <rotate axis="y" angle="10" />                                                                                   
+                <translate x="0.5" y="-0.2" z="-0.6" />
+                <rotate axis="x" angle="10" />
+                <rotate axis="y" angle="10" />
                 <scale x="0.6" y="0.6" z="0.6"/>
             </transformation>
+            <animationref id="beam1_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
             <texture id="fire" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="explosion_beam" />                           
+                <primitiveref id="explosion_beam" />
             </children>
-        </component>    
+        </component>
 
         <component id="beam2">
             <transformation>
-                <translate x="0.6" y="0.5" z="-0.6" /> 
-                <rotate axis="y" angle="10" />           
+                <translate x="0.6" y="0.5" z="-0.6" />
+                <rotate axis="y" angle="10" />
                 <scale x="0.7" y="0.8" z="0.7"/>
             </transformation>
+            <animationref id="beam2_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
             <texture id="fire" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="explosion_beam" />                           
+                <primitiveref id="explosion_beam" />
             </children>
-        </component> 
+        </component>
 
         <component id="beam3">
             <transformation>
-                <translate x="-0.4" y="-0.4" z="-1.2" />  
-                <rotate axis="y" angle="-10" />           
+                <translate x="-0.4" y="-0.4" z="-1.2" />
+                <rotate axis="y" angle="-10" />
                 <scale x="1.0" y="1" z="1.3"/>
             </transformation>
+            <animationref id="beam3_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
             <texture id="fire" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="explosion_beam" />                           
+                <primitiveref id="explosion_beam" />
             </children>
-        </component> 
+        </component>
 
         <component id="beam4">
             <transformation>
-                <translate x="0" y="0" z="-2" /> 
-                <rotate axis="x" angle="-20" />   
-                <rotate axis="y" angle="-3" />                                                                                         
+                <translate x="0" y="0" z="-2" />
+                <rotate axis="x" angle="-20" />
+                <rotate axis="y" angle="-3" />
                 <scale x="1" y="1" z="1"/>
             </transformation>
+            <animationref id="beam4_length" />
             <materials>
                 <material id="grayRoof" />
             </materials>
             <texture id="fire" length_s="1" length_t="1" />
             <children>
-                <primitiveref id="explosion_beam" />                           
+                <primitiveref id="explosion_beam" />
             </children>
-        </component>          
+        </component>
 
         <component id="house">
             <transformation>
-                <transformationref id="house_transform" />       
+                <transformationref id="house_transform" />
             </transformation>
             <animationref id="house_going_up" />
             <materials>
@@ -802,14 +1189,14 @@
                 <componentref id="balloon10" />
                 <componentref id="balloon11" />
                 <componentref id="balloon12" />
-                <componentref id="balloon13" />    
+                <componentref id="balloon13" />
                 <componentref id="thread1" />
                 <componentref id="thread2" />
                 <componentref id="thread3" />
                 <componentref id="thread4" />
                 <componentref id="thread5" />
                 <componentref id="thread6" />
-                <componentref id="thread7" />            
+                <componentref id="thread7" />
             </children>
         </component>
 
@@ -1023,7 +1410,7 @@
             <children>
                 <componentref id="balloon_thread" />
             </children>
-        </component>        
+        </component>
 
         <component id="thread4">
             <transformation>
@@ -1082,7 +1469,7 @@
             <children>
                 <componentref id="balloon_thread" />
             </children>
-        </component>        
+        </component>
 
         <component id="balloon">
             <transformation>
@@ -1097,7 +1484,7 @@
                 <componentref id="balloon_head" />
                 <componentref id="balloon_knot" />
             </children>
-        </component>       
+        </component>
 
         <component id="balloon_head">
             <transformation>
@@ -1140,7 +1527,7 @@
             <children>
                 <primitiveref id="cylinder" />
             </children>
-        </component>                        
+        </component>
 
         <component id="walls">
             <transformation>
@@ -1159,7 +1546,7 @@
             </children>
         </component>
 
-        <component id="wall_front" >
+        <component id="wall_front">
             <transformation>
                 <translate x="0" y="0" z="1" />
             </transformation>
@@ -1174,7 +1561,7 @@
             </children>
         </component>
 
-        <component id="front_door" >
+        <component id="front_door">
             <transformation>
                 <translate x="0.2" y="-0.05" z="0.01" />
             </transformation>
@@ -1186,8 +1573,8 @@
                 <componentref id="door" />
             </children>
         </component>
-        
-        <component id="door" >
+
+        <component id="door">
             <transformation>
                 <scale x="0.8" y="0.75" z="1" />
             </transformation>
@@ -1199,7 +1586,7 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-        
+
         <component id="front_window">
             <transformation>
                 <translate x="-0.9" y="0.2" z="0.01" />
@@ -1304,7 +1691,7 @@
                 <componentref id="chimney" />
             </children>
         </component>
-        
+
         <component id="roof_front">
             <transformation>
                 <translate x="0" y="0.425" z="0.5" />
@@ -1396,7 +1783,7 @@
             </children>
         </component>
 
-         <component id="roof_window_front">
+        <component id="roof_window_front">
             <transformation>
                 <translate x="0" y="0" z="0.75" />
             </transformation>
@@ -1437,7 +1824,7 @@
             </children>
         </component>
 
-         <component id="roof_window_right">
+        <component id="roof_window_right">
             <transformation>
                 <translate x="0.25" y="0" z="0.425" />
                 <scale x="30.5" y="0.175" z="0.65" />
@@ -1452,7 +1839,7 @@
             </children>
         </component>
 
-         <component id="roof_window_left">
+        <component id="roof_window_left">
             <transformation>
                 <translate x="-0.25" y="0" z="0.425" />
                 <scale x="0.5" y="0.175" z="0.65" />
@@ -1467,7 +1854,7 @@
             </children>
         </component>
 
-         <component id="roof_window_roof">
+        <component id="roof_window_roof">
             <transformation />
             <materials>
                 <material id="inherit" />
@@ -2052,7 +2439,7 @@
             <texture id="window" length_s="1" length_t="2" />
             <children>
                 <componentref id="window" />
-            </children>  
+            </children>
         </component>
 
         <component id="protuberance_right">
@@ -2066,7 +2453,7 @@
             <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
-           </children>
+            </children>
         </component>
 
         <component id="protuberance_left">
@@ -2080,7 +2467,7 @@
             <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
-           </children>
+            </children>
         </component>
 
         <component id="floor">
@@ -2197,7 +2584,7 @@
                 <componentref id="tie_fighter" />
             </children>
         </component>
-                
+
         <component id="tie_fighter">
             <transformation/>
             <materials>
@@ -2207,13 +2594,13 @@
             <children>
                 <componentref id="wings" />
                 <componentref id="shots" />
-                <componentref id="cockpit" />                
+                <componentref id="cockpit" />
             </children>
         </component>
 
         <component id="cockpit">
             <transformation>
-                <rotate axis="y" angle="187.5" />            
+                <rotate axis="y" angle="187.5" />
             </transformation>
             <materials>
                 <material id="inherit" />
@@ -2223,7 +2610,7 @@
                 <primitiveref id="sphere" />
             </children>
         </component>
-        
+
         <component id="wings">
             <transformation>
             </transformation>
@@ -2236,8 +2623,8 @@
                 <componentref id="right_wing" />
             </children>
         </component>
-        
-        <component id="left_wing"> 
+
+        <component id="left_wing">
             <transformation/>
             <materials>
                 <material id="inherit" />
@@ -2247,8 +2634,8 @@
                 <componentref id="wing" />
             </children>
         </component>
-    
-        <component id="right_wing"> 
+
+        <component id="right_wing">
             <transformation>
                 <rotate axis="y" angle="180" />
             </transformation>
@@ -2260,8 +2647,8 @@
                 <componentref id="wing" />
             </children>
         </component>
-                
-        <component id="shots"> 
+
+        <component id="shots">
             <transformation/>
             <materials>
                 <material id="light_green" />
@@ -2274,13 +2661,14 @@
                 <componentref id="left_shot" />
                 <componentref id="right_shot" />
             </children>
-        </component>     
+        </component>
 
-        <component id="left_shot"> 
+        <component id="left_shot">
             <transformation>
                 <translate x="0" y="0" z="0.1" />
                 <rotate axis="y" angle="-15" />
             </transformation>
+            <animationref id="shoot_left" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2288,13 +2676,14 @@
             <children>
                 <componentref id="shot" />
             </children>
-        </component>     
+        </component>
 
-        <component id="right_shot"> 
+        <component id="right_shot">
             <transformation>
                 <translate x="0" y="0" z="-0.1" />
                 <rotate axis="y" angle="15" />
             </transformation>
+            <animationref id="shoot_right" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -2302,9 +2691,9 @@
             <children>
                 <componentref id="shot" />
             </children>
-        </component> 
+        </component>
 
-        <component id="shot"> 
+        <component id="shot">
             <transformation>
                 <rotate axis="z" angle="-30" />
                 <translate x="1.25" y="0" z="0" />
@@ -2318,9 +2707,9 @@
             <children>
                 <primitiveref id="cylinder" />
             </children>
-        </component> 
+        </component>
 
-        <component id="wing"> 
+        <component id="wing">
             <transformation/>
             <materials>
                 <material id="inherit" />
@@ -2333,7 +2722,7 @@
             </children>
         </component>
 
-        <component id="inner_joint"> 
+        <component id="inner_joint">
             <transformation>
                 <translate x="0" y="0" z="0.75" />
                 <scale x="0.25" y="0.25" z="0.5" />
@@ -2347,7 +2736,7 @@
             </children>
         </component>
 
-        <component id="outer_joint"> 
+        <component id="outer_joint">
             <transformation>
                 <translate x="0" y="0" z="1.75" />
                 <scale x="0.25" y="0.25" z="0.25" />
@@ -2361,7 +2750,7 @@
             </children>
         </component>
 
-        <component id="real_wing"> 
+        <component id="real_wing">
             <transformation>
                 <scale x="1.15" y="1.5" z="1" />
             </transformation>
@@ -2378,38 +2767,38 @@
         </component>
 
         <component id="wing_triangles">
-                <transformation/>
-                <materials>
-                        <material id="dark_grey" />
-                </materials>               
-                <texture id="stripes" length_s="5" length_t="5"/>
-                <children>
-                        <componentref id="wing_triangle_1" />
-                        <componentref id="wing_triangle_2" />
-                        <componentref id="wing_triangle_3" />
-                        <componentref id="wing_triangle_4" />
-                        <componentref id="wing_triangle_5" />
-                        <componentref id="wing_triangle_6" />
-                </children>
+            <transformation/>
+            <materials>
+                <material id="dark_grey" />
+            </materials>
+            <texture id="stripes" length_s="5" length_t="5"/>
+            <children>
+                <componentref id="wing_triangle_1" />
+                <componentref id="wing_triangle_2" />
+                <componentref id="wing_triangle_3" />
+                <componentref id="wing_triangle_4" />
+                <componentref id="wing_triangle_5" />
+                <componentref id="wing_triangle_6" />
+            </children>
         </component>
 
         <component id="wing_cylinders">
-                <transformation/>
-                <materials>
-                        <material id="inherit" />
-                </materials>               
-                <texture id="inherit" />
-                <children>
-                        <componentref id="wing_cylinder_1" />
-                        <componentref id="wing_cylinder_2" />
-                        <componentref id="wing_cylinder_3" />
-                        <componentref id="wing_cylinder_4" />
-                        <componentref id="wing_cylinder_5" />
-                        <componentref id="wing_cylinder_6" />
-                </children>
+            <transformation/>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <componentref id="wing_cylinder_1" />
+                <componentref id="wing_cylinder_2" />
+                <componentref id="wing_cylinder_3" />
+                <componentref id="wing_cylinder_4" />
+                <componentref id="wing_cylinder_5" />
+                <componentref id="wing_cylinder_6" />
+            </children>
         </component>
 
-        <component id="inner_hexagon"> 
+        <component id="inner_hexagon">
             <transformation>
                 <translate x="0" y="0" z="2.125" />
                 <scale x="0.25" y="0.25" z="1.5" />
@@ -2423,7 +2812,7 @@
             </children>
         </component>
 
-        <component id="outer_hexagon"> 
+        <component id="outer_hexagon">
             <transformation>
                 <translate x="0" y="0" z="2.125" />
                 <scale x="2" y="2" z="1" />
@@ -2437,7 +2826,7 @@
             </children>
         </component>
 
-        <component id="wing_triangle_1"> 
+        <component id="wing_triangle_1">
             <transformation>
                 <translate x="0" y="1.75" z="2.125" />
                 <scale x="1" y="1.75" z="1" />
@@ -2452,7 +2841,7 @@
             </children>
         </component>
 
-        <component id="wing_triangle_2"> 
+        <component id="wing_triangle_2">
             <transformation>
                 <translate x="0" y="-1.75" z="2.125" />
                 <scale x="1" y="1.75" z="1" />
@@ -2466,7 +2855,7 @@
             </children>
         </component>
 
-        <component id="wing_triangle_3"> 
+        <component id="wing_triangle_3">
             <transformation>
                 <rotate axis="z" angle="60" />
                 <translate x="0" y="-1.75" z="2.125" />
@@ -2481,7 +2870,7 @@
             </children>
         </component>
 
-        <component id="wing_triangle_4"> 
+        <component id="wing_triangle_4">
             <transformation>
                 <rotate axis="z" angle="-60" />
                 <translate x="0" y="-1.75" z="2.125" />
@@ -2496,7 +2885,7 @@
             </children>
         </component>
 
-        <component id="wing_triangle_5"> 
+        <component id="wing_triangle_5">
             <transformation>
                 <rotate axis="z" angle="240" />
                 <translate x="0" y="-1.75" z="2.125" />
@@ -2511,7 +2900,7 @@
             </children>
         </component>
 
-        <component id="wing_triangle_6"> 
+        <component id="wing_triangle_6">
             <transformation>
                 <rotate axis="z" angle="120" />
                 <translate x="0" y="-1.75" z="2.125" />
@@ -2526,7 +2915,7 @@
             </children>
         </component>
 
-        <component id="wing_cylinder_1"> 
+        <component id="wing_cylinder_1">
             <transformation>
                 <translate x="0" y="0" z="2.125" />
                 <scale x="2" y="0.1" z="0.1" />
@@ -2540,8 +2929,8 @@
                 <primitiveref id="cylinder" />
             </children>
         </component>
-        
-        <component id="wing_cylinder_2"> 
+
+        <component id="wing_cylinder_2">
             <transformation>
                 <translate x="-2" y="0" z="2.125" />
                 <scale x="2" y="0.1" z="0.1" />
@@ -2556,7 +2945,7 @@
             </children>
         </component>
 
-        <component id="wing_cylinder_3"> 
+        <component id="wing_cylinder_3">
             <transformation>
                 <rotate axis="z" angle="60" />
                 <translate x="0" y="0" z="2.125" />
@@ -2572,7 +2961,7 @@
             </children>
         </component>
 
-        <component id="wing_cylinder_4"> 
+        <component id="wing_cylinder_4">
             <transformation>
                 <rotate axis="z" angle="-60" />
                 <translate x="0" y="0" z="2.125" />
@@ -2588,7 +2977,7 @@
             </children>
         </component>
 
-        <component id="wing_cylinder_5"> 
+        <component id="wing_cylinder_5">
             <transformation>
                 <rotate axis="z" angle="120" />
                 <translate x="0" y="0" z="2.125" />
@@ -2604,7 +2993,7 @@
             </children>
         </component>
 
-        <component id="wing_cylinder_6"> 
+        <component id="wing_cylinder_6">
             <transformation>
                 <rotate axis="z" angle="-120" />
                 <translate x="0" y="0" z="2.125" />
@@ -2619,7 +3008,7 @@
                 <primitiveref id="cylinder" />
             </children>
         </component>
-                
+
         <component id="portal_area">
             <transformation>
                 <translate x="12" y="2.5" z="-3" />
@@ -2632,7 +3021,7 @@
             <texture id="inherit" />
             <children>
                 <componentref id="brick_walls" />
-<!--                <componentref id="wheatley" /> -->
+                <!--                <componentref id="wheatley" /> -->
             </children>
         </component>
 
@@ -2661,7 +3050,7 @@
             <texture id="inherit" />
             <children>
                 <componentref id="brick_wall" />
-                <componentref id="blue_portal" />                 
+                <componentref id="blue_portal" />
             </children>
         </component>
 
@@ -2676,7 +3065,7 @@
             <texture id="inherit" />
             <children>
                 <componentref id="brick_wall" />
-                <componentref id="orange_portal" />                 
+                <componentref id="orange_portal" />
             </children>
         </component>
 
@@ -2693,9 +3082,9 @@
                 <componentref id="front_brick_wall" />
                 <componentref id="back_brick_wall" />
                 <componentref id="left_brick_wall" />
-                <componentref id="right_brick_wall" />   
-                <componentref id="up_brick_wall" />       
-                <componentref id="bottom_brick_wall" />                                                      
+                <componentref id="right_brick_wall" />
+                <componentref id="up_brick_wall" />
+                <componentref id="bottom_brick_wall" />
             </children>
         </component>
 
@@ -2746,7 +3135,7 @@
         <component id="right_brick_wall">
             <transformation>
                 <translate x="-1" y="0" z="-0.25" />
-                <rotate axis="y" angle="-90" />                
+                <rotate axis="y" angle="-90" />
                 <scale x="0.5" y="1" z="1" />
             </transformation>
             <materials>
@@ -2756,13 +3145,13 @@
             <children>
                 <primitiveref id="rectangle" />
             </children>
-        </component>     
+        </component>
 
         <component id="up_brick_wall">
             <transformation>
                 <translate x="0" y="1" z="-0.25" />
                 <rotate axis="x" angle="-90" />
-                <rotate axis="z" angle="90" />                  
+                <rotate axis="z" angle="90" />
                 <scale x="0.5" y="1" z="1" />
             </transformation>
             <materials>
@@ -2778,7 +3167,7 @@
             <transformation>
                 <translate x="0" y="-1" z="-0.25" />
                 <rotate axis="x" angle="90" />
-                <rotate axis="z" angle="90" />                  
+                <rotate axis="z" angle="90" />
                 <scale x="0.5" y="1" z="1" />
             </transformation>
             <materials>
@@ -2788,7 +3177,7 @@
             <children>
                 <primitiveref id="rectangle" />
             </children>
-        </component>  
+        </component>
 
         <component id="blue_portal">
             <transformation>
@@ -2814,7 +3203,7 @@
             <children>
                 <componentref id="portal" />
             </children>
-        </component>      
+        </component>
 
         <component id="portal">
             <transformation>
@@ -2828,7 +3217,7 @@
                 <componentref id="portal_ring" />
                 <componentref id="portal_inside" />
             </children>
-        </component>  
+        </component>
 
         <component id="portal_ring">
             <transformation>
@@ -2841,7 +3230,7 @@
             <children>
                 <primitiveref id="torus_thin" />
             </children>
-        </component> 
+        </component>
 
         <component id="portal_inside">
             <transformation>
@@ -2854,7 +3243,7 @@
             <children>
                 <primitiveref id="sphere" />
             </children>
-        </component>                                           
+        </component>
 
 
     </components>

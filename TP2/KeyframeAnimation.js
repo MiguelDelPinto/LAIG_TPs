@@ -44,6 +44,7 @@ class KeyframeAnimation extends Animation {
 
         if(this.secondKeyframe >= this.keyframes.length){
             this.finishAnimation = true;
+            this.createFinalMatrix();
             return;
         }
         
@@ -79,7 +80,36 @@ class KeyframeAnimation extends Animation {
         const scaleCoordinates = [
             firstKeyframe.scaleCoordinates[0] + time*(secondKeyframe.scaleCoordinates[0] - firstKeyframe.scaleCoordinates[0]),
             firstKeyframe.scaleCoordinates[1] + time*(secondKeyframe.scaleCoordinates[1] - firstKeyframe.scaleCoordinates[1]),
-            firstKeyframe.scaleCoordinates[2] + time*(secondKeyframe.scaleCoordinates[2] - firstKeyframe.scaleCoordinates[2]),
+            firstKeyframe.scaleCoordinates[2] + time*(secondKeyframe.scaleCoordinates[2] - firstKeyframe.scaleCoordinates[2])
+        ];
+
+        this.matrix = mat4.translate(this.matrix, this.matrix, translateCoordinates);
+        this.matrix = mat4.rotate(this.matrix, this.matrix, this.degreeToRad(rotateAngles[0]), [1, 0, 0]);
+        this.matrix = mat4.rotate(this.matrix, this.matrix, this.degreeToRad(rotateAngles[1]), [0, 1, 0]);
+        this.matrix = mat4.rotate(this.matrix, this.matrix, this.degreeToRad(rotateAngles[2]), [0, 0, 1]);
+        this.matrix = mat4.scale(this.matrix, this.matrix, scaleCoordinates);
+    }
+
+    createFinalMatrix(){
+        this.matrix = mat4.create(); 
+        const keyframe = this.keyframes[this.keyframes.length-1];
+
+        const translateCoordinates = [ 
+            keyframe.translateCoordinates[0], 
+            keyframe.translateCoordinates[1], 
+            keyframe.translateCoordinates[2]
+        ];
+
+        const rotateAngles = [
+            keyframe.rotateAngles[0],
+            keyframe.rotateAngles[1],
+            keyframe.rotateAngles[2]
+        ];
+        
+        const scaleCoordinates = [
+            keyframe.scaleCoordinates[0],
+            keyframe.scaleCoordinates[1],
+            keyframe.scaleCoordinates[2]
         ];
 
         this.matrix = mat4.translate(this.matrix, this.matrix, translateCoordinates);
