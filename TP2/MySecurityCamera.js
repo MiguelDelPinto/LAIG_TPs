@@ -23,12 +23,13 @@ class MySecurityCamera {
 
         this.shader.setUniformsValues({timeFactor: 0});
         this.shader.setUniformsValues({texture: 0});
-        this.shader.setUniformsValues({scaleFactor: 10.0});
+        this.shader.setUniformsValues({scaleFactor: 100.0});
+        this.shader.setUniformsValues({colorFactor: 1.5});
     }
 
     update(t){
         this.timeFactor += t;
-        const speedFactor = this.speed*0.0001;
+        const speedFactor = this.speed*0.001;
         let shaderValue = this.timeFactor*speedFactor;
         this.shader.setUniformsValues({timeFactor: shaderValue});
     }
@@ -39,6 +40,10 @@ class MySecurityCamera {
 
     updateSpeed(newSpeed){
         this.speed = newSpeed;
+    }
+
+    updateColorFactor(newColorFactor){
+        this.shader.setUniformsValues({colorFactor: newColorFactor})
     }
 
     display(){

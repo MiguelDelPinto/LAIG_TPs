@@ -47,10 +47,13 @@ class XMLscene extends CGFscene {
         this.securityCamera = new MySecurityCamera(this, this.textureRTT);
 
         //Scale factor used in the security camera
-        this.scaleFactor = 10.0;
+        this.scaleFactor = 100.0;
         
         //Speed used in the security camera
-        this.speed = 15.0;
+        this.speed = 5.0;
+
+        //Color factor used in the security camera
+        this.colorFactor = 1.5;
 
         this.setUpdatePeriod(25); 
     }
@@ -357,5 +360,12 @@ class XMLscene extends CGFscene {
      */
     updateSpeed(){
         this.securityCamera.updateSpeed(this.speed);
+    }
+
+    /**
+     * Updates the security camera color factor
+     */
+    updateColorFactor(){
+        this.securityCamera.updateColorFactor(this.colorFactor);
     }
 }
