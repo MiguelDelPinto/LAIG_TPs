@@ -1047,10 +1047,6 @@ class MySceneGraph {
             // PATCH
             else if (primitiveType == 'patch') {
 
-                // checks if patch has the right number of components (4: npointsU, npointsV, npartsU, npartsV)
-                //if(grandChildren[0].length != 4)
-                //    return "patch primitive must have exactly 4 components, at ID = " + primitiveId;
-
                 // npointsU
                 let npointsU = this.reader.getInteger(grandChildren[0], 'npointsU');
                 if (!(npointsU != null && !isNaN(slices)))
@@ -1094,7 +1090,11 @@ class MySceneGraph {
                         return "unable to parsse zz of control point number " + i + " at primitive with ID = " + primitiveId; 
                     
                     let point = [];
+
+                    // Creates a point with 4 coordinates
                     point.push(...[xx, yy, zz, 1]);
+
+                    // And pushes all of them in a row, to a single vector
                     controlPoints.push(point);
                 }
 
@@ -1105,10 +1105,6 @@ class MySceneGraph {
 
             // PLANE
             else if (primitiveType == 'plane') {
-
-                // checks if plane has the right number of components (2: npartsU, npartsV)
-                //if(grandChildren[0].length != 2)
-                //    return "patch primitive must have exactly 2 components, at ID = " + primitiveId;
 
                 // npartsU
                 let npartsU = this.reader.getInteger(grandChildren[0], 'npartsU');
@@ -1127,10 +1123,6 @@ class MySceneGraph {
 
             // CYLINDER2
             else if (primitiveType == "cylinder2") {
-
-                // checks if cylinder2 has the right number of components (5: base, top, height, slices, stacks)
-                //if(grandChildren[0].length != 5)
-                //    return "patch primitive must have exactly 5 components, at ID = " + primitiveId;
 
                 // base
                 let base = this.reader.getFloat(grandChildren[0], 'base');
@@ -1223,20 +1215,24 @@ class MySceneGraph {
             if(transformationIndex == -1)
                 return "transformation parameter is undefined for component with ID " + component.id;
 
+            // Gets the index of the animation component and, if it exists, checks if it's right after the transformations
             var animationIndex = nodeNames.indexOf("animationref");
             if(animationIndex != -1) {
                 if(animationIndex != transformationIndex + 1)
                     return "animationref parameter must be declared immediately after the transformation parameter, for component with ID " + component.id;
             }
 
+            // Gets the index of the materials component and checks if it exists
             var materialsIndex = nodeNames.indexOf("materials");
             if(materialsIndex == -1)
                 return "materials parameter is undefined for component with ID " + component.id;
-                            
+
+            // Gets the index of the texture component and checks if it exists                       
             var textureIndex = nodeNames.indexOf("texture");
             if(textureIndex == -1)
                 return "texture parameter is undefined for component with ID " + component.id;
-                            
+
+            // Gets the index of the children component and checks if it exists                
             var childrenIndex = nodeNames.indexOf("children");
             if(childrenIndex == -1)
                 return "children parameter is undefined for component with ID " + component.id;            
@@ -1306,7 +1302,7 @@ class MySceneGraph {
             }
             component.transformationMatrix = transfMatrix;
 
-            // Animation (optional - RIGHT AFTER TRANSFORMATIONS)
+            // Animation (optional - right after transformations)
             component.animationId = null;
             if(animationIndex != -1) {
                 grandgrandChildren = grandChildren[animationIndex];

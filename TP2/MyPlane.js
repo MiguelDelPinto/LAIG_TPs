@@ -2,8 +2,8 @@
  * MyPlane
  * @constructor
  * @param scene - Reference to MyScene object
- * @param divisionsU - Number of divisions in the U direction
- * @param divisionsV - Number of divisions in the V direction
+ * @param npartsU - Number of divisions in the U direction
+ * @param npartsV - Number of divisions in the V direction
  */
 class MyPlane extends CGFobject {
 	constructor(scene, npartsU, npartsV) {
@@ -16,6 +16,10 @@ class MyPlane extends CGFobject {
 	}
 	
 	generate() {
+
+		// Creates the control points so that the plane is in the XZ plane,
+		// with its surface pointing in the positive Y direction
+		// and has size 1x1
 		let controlVertexes = 
 		[
 			[
@@ -28,8 +32,10 @@ class MyPlane extends CGFobject {
 			]
 		];
 
+		// Creates a NURBS surface
 		let nurbsSurface = new CGFnurbsSurface(1, 1, controlVertexes);
 
+		// And finally, creates a NURBS object, using the nurbs surface
 		this.nurbsObject = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
 	}
 

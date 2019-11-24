@@ -11,6 +11,7 @@ class MySecurityCamera {
         this.initShaders();
     }
 
+    // Initializes the shaders for the security camera
     initShaders(){
         this.shader = new CGFshader(
             this.scene.gl,

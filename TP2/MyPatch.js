@@ -2,8 +2,11 @@
  * MyPatch
  * @constructor
  * @param scene - Reference to MyScene object
- * @param degreeU - Surface degree in the U direction
- * @param degreeV - Surface degree in the V direction
+ * @param npointsU - Number of points in the U direction (that is, the degree in U plus one)
+ * @param npointsV - Number of points in the V direction (that is, the degree in V plus one)
+ * @param npartsU - Number of divisions in the U direction
+ * @param npartsV - Number of divisions in the V direction
+ * @param controlPoints - Control points for the NURBS surface, all in a row
  */
 class MyPatch extends CGFobject {
 	constructor(scene, npointsU, npointsV, npartsU, npartsV, controlPoints) {
@@ -19,9 +22,10 @@ class MyPatch extends CGFobject {
 		this.generate();
 	}
 	
-	// TODO add patch in parse primitives where control points are pushed in a single vector
 	generate() {
 
+		// This class receives the control points all in a row, in single vector, so it
+		// needs to assemble them correctly, thaking in count the degrees of U and V
 		let controlVertexes = [];
 		for(let i = 0; i < this.npointsU; i++) {
 
@@ -34,8 +38,10 @@ class MyPatch extends CGFobject {
 			controlVertexes.push(uPoint);
 		}
 
+		// Creates a NURBS surface
 		let nurbsSurface = new CGFnurbsSurface(this.npointsU-1, this.npointsV-1, controlVertexes);
 
+		// And finally, creates a NURBS object, using the nurbs surface
 		this.nurbsObject = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
 	}
 

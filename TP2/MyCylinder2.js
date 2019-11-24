@@ -23,6 +23,8 @@ class MyCylinder2 extends CGFobject {
     	
 	generate() {		
 
+		// Generates the control points for the first half-cylinder, calculated with
+		// De Casteljau's algorithm
 		let control_points_1 = 
 		[
 				[-this.base, 0, 0, 1],
@@ -36,6 +38,8 @@ class MyCylinder2 extends CGFobject {
 				[this.top, 0, this.height, 1]
 		]
 
+		// Generates the control points for the second half-cylinder, calculated with
+		// De Casteljau's algorithm
 		let control_points_2 =
         [
                 [this.base, 0, 0, 1],
@@ -49,11 +53,16 @@ class MyCylinder2 extends CGFobject {
                 [-this.top, 0, this.height, 1]
         ];
 
+		// Creates the first half-cylinder
 		this.patch1 = new MyPatch(this.scene, 2, 4, this.slices, this.stacks, control_points_1);
+
+		// Created the second half-cylinder
 		this.patch2 = new MyPatch(this.scene, 2, 4, this.slices, this.stacks, control_points_2);
 
 		/*
-		ALTERNATIVE WAY:
+		An alternative way of creating this primitive, by using only one surface
+		and changing the value of the 'w' coordinate in the corners, so that
+		if forms a perfect circle:
 		
 		let smooth_curve = Math.sqrt(2)/2;
 
