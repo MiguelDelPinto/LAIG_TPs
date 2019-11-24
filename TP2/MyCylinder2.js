@@ -21,7 +21,40 @@ class MyCylinder2 extends CGFobject {
         this.generate();
     }
     	
-	generate() {
+	generate() {		
+
+		let control_points_1 = 
+		[
+				[-this.base, 0, 0, 1],
+				[-this.base, this.base*4/3, 0, 1],
+				[this.base, this.base*4/3, 0, 1],
+				[this.base, 0, 0, 1],
+
+				[-this.top, 0, this.height, 1],
+				[-this.top, this.top*4/3, this.height, 1],
+				[this.top, this.top*4/3, this.height, 1],
+				[this.top, 0, this.height, 1]
+		]
+
+		let control_points_2 =
+        [
+                [this.base, 0, 0, 1],
+                [this.base, -this.base*4/3, 0, 1],
+                [-this.base, -this.base*4/3, 0, 1],
+				[-this.base, 0, 0, 1],
+				
+                [this.top, 0, this.height, 1],
+                [this.top, -this.top*4/3, this.height, 1],
+                [-this.top, -this.top*4/3, this.height, 1],
+                [-this.top, 0, this.height, 1]
+        ];
+
+		this.patch1 = new MyPatch(this.scene, 2, 4, this.slices, this.stacks, control_points_1);
+		this.patch2 = new MyPatch(this.scene, 2, 4, this.slices, this.stacks, control_points_2);
+
+		/*
+		ALTERNATIVE WAY:
+		
 		let smooth_curve = Math.sqrt(2)/2;
 
 		let control_points = 
@@ -57,37 +90,16 @@ class MyCylinder2 extends CGFobject {
 				[0, -this.top, this.height, 1],
 			]
 		];
-
-		let nurbsSurface = new CGFnurbsSurface(1, 8, control_points);
 		
-		/*
-		ANOTHE OPTION: 2 sides
-		let control_points = 
-		[
-			[   
-				[-this.base, 0, 0, 1],
-				[-this.base, this.base*4/3, 0, 1],
-				[this.base, this.base*4/3, 0, 1],
-				[this.base, 0, 0, 1]
-			],
-
-			[   
-				[-this.top, 0, this.height, 1],
-				[-this.top, this.top*4/3, this.height, 1],
-				[this.top, this.top*4/3, this.height, 1],
-				[this.top, 0, this.height, 1]
-			]
-		]
-
-		let nurbsSurface = new CGFnurbsSurface(1, 3, control_points);
-		*/
-
+		let nurbsSurface = new CGFnurbsSurface(1, 8, control_points);
 		this.nurbsObject = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
+		*/
 
 	}
 
 	display() {
-		this.nurbsObject.display();
+		this.patch1.display();
+		this.patch2.display();
 	}
 
 	/**
