@@ -1328,9 +1328,6 @@
                 <translate x="-0.2" y="1.9" z="0.01" />
                 <scale x="0.4" y="0.35" z="1" />
             </transformation>
-            <!--
-            <animationref id="flag_animation" />
-            -->
             <materials>
                 <material id="grey" />
             </materials>
@@ -1346,13 +1343,10 @@
                 <rotate axis="y" angle="180" />
                 <scale x="0.4" y="0.35" z="1" />
             </transformation>
-            <!--
-            <animationref id="flag_animation" />
-            -->
             <materials>
                 <material id="grey" />
             </materials>
-            <texture id="triforce_flag" length_s="1" length_t="1" />
+            <texture id="black_flag" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="flag_patch" />
             </children>
