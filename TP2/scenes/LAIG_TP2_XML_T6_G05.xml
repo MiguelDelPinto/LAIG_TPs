@@ -106,7 +106,8 @@
         <texture id="tie_window" file="scenes/images/tie_cockpit_window.jpg" />
         <texture id="lava" file="scenes/images/lava.jpg" />
         <texture id="black_flag" file="scenes/images/black_flag.jpg" /> 
-        <texture id="triforce_flag" file="scenes/images/triforce_flag.jpeg" />        
+        <texture id="triforce_flag" file="scenes/images/triforce_flag.jpeg" />     
+        <texture id="crater" file="scenes/images/crater.jpg" />          
     </textures>
 
     <materials>
@@ -386,6 +387,18 @@
             <keyframe instant="1000.0">
                 <translate x="0.0" y="0.0" z="0.0" />
                 <rotate angle_x="0" angle_y="0" angle_z="2250" />
+                <scale x="1" y="1" z="1" />
+            </keyframe>
+        </animation>
+        <animation id="crater_appears">
+             <keyframe instant="0.0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0" y="0" z="0" />
+            </keyframe>
+            <keyframe instant="13">
+                <translate x="0" y="0.51" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
         </animation>
@@ -801,27 +814,6 @@
         <primitive id="explosion_beam">
             <cylinder base="0.02" top="0.2" height="3" slices="10" stacks="10" />
         </primitive>
-        <primitive id="heart">
-            <patch npointsU="2" npointsV="7" npartsU="50" npartsV="50">
-                <controlpoint xx="5" yy="-5" zz="1" />
-                <controlpoint xx="-5" yy="2" zz="1" />
-                <controlpoint xx="-2" yy="5" zz="1" />
-                <controlpoint xx="0" yy="2" zz="1" />
-                <controlpoint xx="2" yy="5" zz="1" />
-                <controlpoint xx="5" yy="2" zz="1" />
-                <controlpoint xx="-5" yy="-5" zz="1" />
-                <controlpoint xx="5" yy="-5" zz="-1" />
-                <controlpoint xx="-5" yy="2" zz="-1" />
-                <controlpoint xx="-2" yy="5" zz="-1" />
-                <controlpoint xx="0" yy="2" zz="-1" />
-                <controlpoint xx="2" yy="5" zz="-1" />
-                <controlpoint xx="5" yy="2" zz="-1" />
-                <controlpoint xx="-5" yy="-5" zz="-1" />
-            </patch>
-        </primitive>
-        <primitive id="flag">
-            <plane npartsU="15" npartsV="15" />
-        </primitive>
         <primitive id="flag_patch">
             <patch npointsU="4" npointsV="2" npartsU="15" npartsV="2">
                 <controlpoint xx="-1" yy="-1" zz="0" />
@@ -855,7 +847,7 @@
         <primitive id="test_cylinder">
             <cylinder2 base="1" top="1" height="2" slices="25" stacks="25" />
         </primitive>
-        <primitive id="test_plane">
+        <primitive id="plane">
             <plane npartsU="8" npartsV="5" />
         </primitive>
         <primitive id="patch_cylinder">
@@ -901,6 +893,7 @@
                 <componentref id="tie_fighters" />
                 <componentref id="portal_area" />
                 <componentref id="flag" />
+                <componentref id="craters" />
             </children>
         </component>
 
@@ -1069,9 +1062,7 @@
                 <scale x="0.4" y="0.35" z="1" />
             </transformation>
             <!--
-            <animations>
-                <animationref id="flag_animation" />
-            </animations>
+            <animationref id="flag_animation" />
             -->
             <materials>
                 <material id="grey" />
@@ -1089,9 +1080,7 @@
                 <scale x="0.4" y="0.35" z="1" />
             </transformation>
             <!--
-            <animations>
-                <animationref id="flag_animation" />
-            </animations>
+            <animationref id="flag_animation" />
             -->
             <materials>
                 <material id="grey" />
@@ -1101,6 +1090,66 @@
                 <primitiveref id="flag_patch" />
             </children>
         </component>
+
+        <component id="craters">
+            <transformation/>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="crater" length_s="1" length_t="1" />
+            <children>
+                <componentref id="crater_small" />            
+                <componentref id="crater_medium" />
+                <componentref id="crater_big" />
+            </children>
+        </component>
+
+        <component id="crater_small">
+            <transformation>
+                <translate x="1.2" y="-1.01" z="-30" />
+                <scale x="3" y="3" z="3" />
+            </transformation>
+            <animationref id="crater_appears" />
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="plane" />
+            </children>
+        </component>
+
+        <component id="crater_medium">
+            <transformation>
+                <translate x="-16.5" y="-2.5" z="14" />
+                <scale x="6" y="6" z="6" />
+            </transformation>
+            <animationref id="crater_appears" />
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="plane" />
+            </children>
+        </component>
+
+        <component id="crater_big">
+            <transformation>
+                <translate x="27.5" y="0" z="24" />
+                <scale x="8" y="1" z="8" />
+            </transformation>
+            <animationref id="crater_appears" />
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="plane" />
+            </children>
+        </component>
+        
+        
 
         <component id="death_mountain">
             <transformation>
