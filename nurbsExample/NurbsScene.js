@@ -39,18 +39,28 @@ class NurbsScene extends CGFscene
 		this.surfaces = [];
 		
 
-		this.makeSurface(1, // degree on U: 2 control vertexes U
+		this.makeSurface(3, // degree on U: 2 control vertexes U
 						 1, // degree on V: 2 control vertexes on V
 						[	// U = 0
 							[ // V = 0..1;
-								 [-2.0, -2.0, 0.0, 1 ],
-								 [-2.0,  2.0, 0.0, 1 ]
+								 [-1.0, -1.0, 1, 0 ],
+								 [-1.0,  1.0, 1, 0 ]
 								
 							],
 							// U = 1
 							[ // V = 0..1
-								 [ 2.0, -2.0, 0.0, 1 ],
-								 [ 2.0,  2.0, 0.0, 1 ]							 
+								 [ 1.0, -1.0, -0.5, 0 ],
+								 [ 1.0,  1.0, -0.5, 0 ]							 
+							],
+							// U = 2
+							[
+								[2.0, 1.0, -0.2, 0 ],
+								[2.0, 1.0, -0.2, 0 ]
+							],
+							// U = 3
+							[
+								[2.5, 0.5, -0.2, 0 ],
+								[2.5, 0.5, -0.2, 0 ]
 							]
 						], // translation of surface 
 						[-7.5,0,0]);
