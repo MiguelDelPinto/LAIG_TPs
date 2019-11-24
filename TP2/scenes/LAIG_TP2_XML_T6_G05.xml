@@ -857,6 +857,34 @@
                 <controlpoint xx="1.5" yy="-1" zz="2.1" />        
             </patch>
         </primitive>
+        <primitive id="lava_pool">
+            <patch npointsU="5" npointsV="4" npartsU="15" npartsV="2">
+                <controlpoint xx="-2" yy="0" zz="-1.5" />
+                <controlpoint xx="-2" yy="-0.1" zz="-0.5" />
+                <controlpoint xx="-2" yy="-0.05" zz="0.5" />
+                <controlpoint xx="-2" yy="0" zz="1.5" />
+
+                <controlpoint xx="-1" yy="0" zz="-1.5" />
+                <controlpoint xx="-1" yy="-0.3" zz="-0.5" />
+				<controlpoint xx="-1" yy="-0.4" zz="0.5" />
+                <controlpoint xx="-1" yy="0" zz="1.5" />
+                
+                <controlpoint xx="0" yy="0" zz="-1.5" />
+                <controlpoint xx="0" yy="-0.7" zz="-0.5" />
+                <controlpoint xx="0" yy="-0.8" zz="0.5" />
+                <controlpoint xx="0" yy="0" zz="1.5" />      
+
+                <controlpoint xx="1" yy="0" zz="-1.5" />
+                <controlpoint xx="1" yy="-0.3" zz="-0.5" />
+                <controlpoint xx="1" yy="-0.2" zz="0.5" />
+                <controlpoint xx="1" yy="0" zz="1.5" />        
+
+                <controlpoint xx="2" yy="0" zz="-1.5" />
+                <controlpoint xx="2" yy="-0.2" zz="-0.5" />
+                <controlpoint xx="2" yy="0" zz="0.5" />
+                <controlpoint xx="2" yy="0" zz="1.5" />  
+            </patch>
+        </primitive>
         <primitive id="flag_pole">
             <cylinder2 base="0.02" top="0.02" height="2.5" slices="10" stacks="4" />
         </primitive>
@@ -1158,6 +1186,24 @@
             <texture id="lava" length_s="1" length_t="1" />
             <children>
                 <primitiveref id="lava" />
+                <componentref id="lava_pool"/>
+            </children>
+        </component>
+
+        <component id="lava_pool">
+            <transformation>
+                <translate x="0" y="-1.25" z="2" />
+                <rotate axis="x" angle="60" />
+                <rotate axis="z" angle="-180" />
+                <rotate axis="y" angle="-180" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="inherit" />
+            <children>
+                <primitiveref id="lava_pool"/>
             </children>
         </component>
 
