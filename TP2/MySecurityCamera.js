@@ -52,6 +52,7 @@ class MySecurityCamera {
         
             this.rectangle.display();
 
+            this.textureRTT.unbind(0);
         this.scene.setActiveShader(this.scene.defaultShader);
     }
 }
