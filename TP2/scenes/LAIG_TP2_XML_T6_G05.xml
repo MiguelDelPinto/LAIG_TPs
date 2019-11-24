@@ -911,6 +911,34 @@
                 <controlpoint xx="2" yy="0" zz="1.5" />  
             </patch>
         </primitive>
+        <primitive id="hill">
+            <patch npointsU="5" npointsV="4" npartsU="15" npartsV="2">
+                <controlpoint xx="-2" yy="0" zz="-1.5" />
+                <controlpoint xx="-2" yy="-0.1" zz="-0.5" />
+                <controlpoint xx="-2" yy="-0.05" zz="0.5" />
+                <controlpoint xx="-2" yy="0" zz="1.5" />
+
+                <controlpoint xx="-1" yy="0" zz="-1.5" />
+                <controlpoint xx="-1" yy="-0.9" zz="-0.5" />
+				<controlpoint xx="-1" yy="-0.8" zz="0.5" />
+                <controlpoint xx="-1" yy="0" zz="1.5" />
+                
+                <controlpoint xx="0" yy="0" zz="-1.5" />
+                <controlpoint xx="0" yy="-1.4" zz="-0.5" />
+                <controlpoint xx="0" yy="-1.5" zz="0.5" />
+                <controlpoint xx="0" yy="0" zz="1.5" />      
+
+                <controlpoint xx="1" yy="0" zz="-1.5" />
+                <controlpoint xx="1" yy="-0.8" zz="-0.5" />
+                <controlpoint xx="1" yy="-0.9" zz="0.5" />
+                <controlpoint xx="1" yy="0" zz="1.5" />        
+
+                <controlpoint xx="2" yy="0" zz="-1.5" />
+                <controlpoint xx="2" yy="-0.2" zz="-0.5" />
+                <controlpoint xx="2" yy="0" zz="0.5" />
+                <controlpoint xx="2" yy="0" zz="1.5" />  
+            </patch>
+        </primitive>        
         <primitive id="flag_pole">
             <cylinder2 base="0.02" top="0.02" height="2.5" slices="10" stacks="4" />
         </primitive>
@@ -1000,6 +1028,16 @@
                 <componentref id="background_top" />
                 <componentref id="background_bottom" />
                 <componentref id="background_back" />
+                <componentref id="hill1" />
+                <componentref id="hill2" />
+                <componentref id="hill3" />
+                <componentref id="hill4" />
+                <componentref id="hill5" />
+                <componentref id="hill6" />
+                <componentref id="hill7" />
+                <componentref id="hill8" />
+                <componentref id="hill9" />
+                <componentref id="hill10" />              
             </children>
         </component>
 
@@ -1078,6 +1116,150 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
+
+        <component id="hill1">
+            <transformation>
+                <translate x="40" y="-20.5" z="-30" />
+                <scale x="9" y="9" z="10" />
+                <rotate axis="x" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="lava_pool" />
+            </children>
+        </component>
+        <component id="hill2">
+            <transformation>
+                <translate x="20" y="-21.5" z="-40" />
+                <scale x="11" y="14" z="10" />
+                <rotate axis="x" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="lava_pool" />
+            </children>
+        </component>
+        <component id="hill3">
+            <transformation>
+                <translate x="-40" y="-21" z="-26" />
+                <scale x="9" y="9" z="10" />
+                <rotate axis="x" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="lava_pool" />
+            </children>
+        </component>
+        <component id="hill4">
+            <transformation>
+                <translate x="-25" y="-21" z="-36" />
+                <scale x="9" y="9" z="10" />
+                <rotate axis="x" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="lava_pool" />
+            </children>
+        </component>
+        <component id="hill5">
+            <transformation>
+                <translate x="-40" y="-20" z="-55" />
+                <scale x="9" y="9" z="10" />
+                <rotate axis="x" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="hill" />
+            </children>
+        </component>   
+        <component id="hill6">
+            <transformation>
+                <translate x="43" y="-20.6" z="-55" />
+                <scale x="9" y="9" z="10" />
+                <rotate axis="x" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="hill" />
+            </children>
+        </component>    
+        <component id="hill7">
+            <transformation>
+                <translate x="50" y="-20.6" z="20" />
+                <scale x="10" y="5" z="6" />
+                <rotate axis="x" angle="180"/>
+                <rotate axis="y" angle="90"/>                
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="hill" />
+            </children>
+        </component>     
+        <component id="hill8">
+            <transformation>
+                <translate x="-43" y="-21" z="40" />
+                <scale x="6" y="6" z="7" />
+                <rotate axis="x" angle="180"/>
+                <rotate axis="y" angle="-15" />
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="hill" />
+            </children>
+        </component>     
+        <component id="hill9">
+            <transformation>
+                <translate x="-47" y="-21.6" z="7" />
+                <scale x="13" y="8" z="8" />
+                <rotate axis="x" angle="180"/>
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="hill" />
+            </children>
+        </component>     
+        <component id="hill10">
+            <transformation>
+                <translate x="-47" y="-20.6" z="25" />
+                <scale x="6" y="6" z="9" />
+                <rotate axis="x" angle="180"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="lava_pool" />
+            </children>
+        </component>     
 
         <component id="background_back">
             <transformation>
