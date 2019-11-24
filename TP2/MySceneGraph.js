@@ -834,6 +834,8 @@ class MySceneGraph {
                 });
             }
 
+
+            keyframes.sort(); 
             this.animations[animationId] = new KeyframeAnimation(keyframes);
         }
 
