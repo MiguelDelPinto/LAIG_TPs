@@ -2,8 +2,8 @@
     <scene root="scene_component" axis_length="5"/>
 
     <views default="Full View">
-        <perspective id="Full View" near="0.1" far="500" angle="36">
-            <from x="-10" y="25" z="100" />
+        <perspective id="Full View" near="0.1" far="500" angle="38">
+            <from x="-5" y="30" z="150" />
             <to x="0" y="16" z="0" />
         </perspective>
 
@@ -456,7 +456,7 @@
                 <scale x="1" y="1" z="1" />
             </keyframe>
             <keyframe instant="13">
-                <translate x="15" y="-15" z="0" />
+                <translate x="5" y="-10" z="0" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1" y="1" z="1" />
             </keyframe>
@@ -1403,7 +1403,7 @@
 
         <component id="crater_big">
             <transformation>
-                <translate x="27.5" y="0" z="24" />
+                <translate x="5.7" y="0" z="13" />
                 <scale x="8" y="1" z="8" />
             </transformation>
             <animationref id="crater_appears" />
