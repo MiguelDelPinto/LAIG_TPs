@@ -14,5 +14,8 @@ class Animation {
         this.elapsedTime += t;
     }
 
-    apply(scene){}
+    apply(scene){
+        //Apply matrix to scene
+        scene.multMatrix(this.matrix);
+    }
 }

@@ -42,7 +42,7 @@ main=function()
     myInterface.setActiveCamera(myScene.camera);
 
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
-	// or use "demo.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
+	// or use "LAIG_TP2_XML_T6_G05.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
     var filename=getUrlVars()['file'] || "LAIG_TP2_XML_T6_G05.xml";
 

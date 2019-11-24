@@ -50,12 +50,7 @@ class KeyframeAnimation extends Animation {
         
         this.createMatrix();
     }
-
-    apply(scene){
-        //Apply matrix to scene
-        scene.multMatrix(this.matrix);
-    }
-
+    
     createMatrix(){
         this.matrix = mat4.create(); 
         const firstKeyframe = this.keyframes[this.firstKeyframe];

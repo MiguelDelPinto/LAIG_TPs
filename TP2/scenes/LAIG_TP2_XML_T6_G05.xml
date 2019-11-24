@@ -781,6 +781,40 @@
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
+        <animation id="oozing_lava">
+            <keyframe instant="0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.0" y="0.0" z="0.0" />
+            </keyframe>
+            <keyframe instant="10">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="lava_pool">
+            <keyframe instant="0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.65" y="1.0" z="0.0" />
+            </keyframe>
+            <keyframe instant="10">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="0.65" y="1.0" z="0.0" />
+            </keyframe>
+            <keyframe instant="20">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="100">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1.75" y="1.75" z="1.75" />
+            </keyframe>
+        </animation>
     </animations>
 
     <primitives>
@@ -1229,6 +1263,7 @@
                 <rotate axis="z" angle="180" />
                 <rotate axis="y" angle="180" />
             </transformation>
+            <animationref id="oozing_lava" />
             <materials>
                 <material id="inherit" />
             </materials>
@@ -1247,6 +1282,7 @@
                 <rotate axis="y" angle="-180" />
                 <rotate axis="x" angle="-90" />
             </transformation>
+            <animationref id="lava_pool" />
             <materials>
                 <material id="inherit" />
             </materials>

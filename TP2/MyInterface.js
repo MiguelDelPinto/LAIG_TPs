@@ -36,6 +36,7 @@ class MyInterface extends CGFinterface {
         this.loadLightsOption(graphLights);
         this.loadCamerasOption();
         this.loadSecurityCameraOptions();
+        this.loadMusicOptions();
     }
 
     /**
@@ -91,6 +92,14 @@ class MyInterface extends CGFinterface {
                 i++;
             }
         }
+    }
+
+    loadMusicOptions(){
+        var folder = this.gui.addFolder('Music');
+
+        folder.add(this.scene, 'musicVolume', 0.0, 1.0)
+                     .name('Volume')
+                     .onChange(this.scene.updateVolume.bind(this.scene));   // calls updateCamera() of XMLscene
     }
 
     /**

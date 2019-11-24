@@ -10,6 +10,8 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
+
+        this.initMusic();
         
         // Variable for enabling/disabling the axis in the interface
         this.displayAxis = true;
@@ -107,6 +109,17 @@ class XMLscene extends CGFscene {
                 i++;
             }
         }
+    }
+    
+    /**
+     * Initializes the music from 'The Legend of Zelda: Ocarina of Time'
+     */
+    initMusic(){
+        this.music = new Audio('audio/zeldaOoT.mp3');
+        this.music.loop = true;
+        this.music.autoplay = true;
+        this.music.volume = 1;
+        this.musicVolume = this.music.volume;
     }
 
     /**
@@ -297,8 +310,9 @@ class XMLscene extends CGFscene {
      * Update function that is called every frame
      * @param {number} t Number of milisseconds since the loading of the scene 
      */
-    update(t){
+    update(t){   
         if(this.sceneInited){
+
             //Updates the time variables
             this.lastTime = this.lastTime || t;
             this.deltaTime = t - this.lastTime;
@@ -367,5 +381,12 @@ class XMLscene extends CGFscene {
      */
     updateColorFactor(){
         this.securityCamera.updateColorFactor(this.colorFactor);
+    }
+
+    /**
+     * Updates the music volume
+     */
+    updateVolume(){
+        this.music.volume = this.musicVolume;
     }
 }
