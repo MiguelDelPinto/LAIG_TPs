@@ -834,7 +834,8 @@ class MySceneGraph {
                 });
             }
 
-
+            // Sorts the keyframes, so that none is missed when a keyframe that happens sooner is inserted after
+            // one that happens later
             keyframes.sort(); 
             this.animations[animationId] = new KeyframeAnimation(keyframes);
         }
