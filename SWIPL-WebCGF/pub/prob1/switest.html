@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>SWI Prolog HTTP Server Test</title>
+	</head>
+	<body>
+		<h1>SWI HTTP Test</h1>
+		
+		<div id="content">
+			<div id="params">
+				<input type="text" id="board" value="[[1,1,1],[0,0,0],[2,2,2]]"/>
+				<br/>
+				<input type="text" id="player" value="1"/>
+				<br/>
+				<input type="text" id="play" value="1-1"/>
+				<br/>
+				<button type="button" id="search" onClick="makeRequest();" >Send</button>
+			</div>
+			<div id="reply"></div>
+		</div>
+		
+		<script type="text/javascript">
+			function postGameRequest(requestString, onSuccess, onError)
+			{
+				var request = new XMLHttpRequest();
+				request.open('POST', '../../game', true);
+
+				request.onload = onSuccess || function(data){console.log("Request successful. Reply: " + data.target.response);};
+				request.onerror = onError || function(){console.log("Error waiting for response");};
+
+				request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+				request.send('requestString='+encodeURIComponent(requestString));			
+			}
+		
+			function makeRequest()
+			{
+				// Get Parameter Values
+				var v_board = document.querySelector("#board").value;
+				var v_player = document.querySelector("#player").value;
+				var v_play = document.querySelector("#play").value;
+				
+				// Compose Request String
+				var requestString = "[play," + v_player + "," + v_board + "," + v_play + "]";
+				postGameRequest(requestString, handleReply);
+				
+			}
+			
+			//Handle the JSON Reply
+			function handleReply(data){
+				response=JSON.parse(data.target.response);
+				document.querySelector("#reply").innerHTML=response.message;		// Access message and show
+				document.querySelector("#board").value=response.newBoard;			// Access new Board
+				document.querySelector("#player").value=response.newPlayer;			// Access new Player
+			}
+			
+		</script>
+		
+	</body>
+</html>
