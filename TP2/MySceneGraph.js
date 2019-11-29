@@ -836,7 +836,7 @@ class MySceneGraph {
 
             // Sorts the keyframes, so that none is missed when a keyframe that happens sooner is inserted after
             // one that happens later
-            keyframes.sort(); 
+            keyframes.sort((kf1, kf2) => (kf1.keyframeInstant >= kf2.keyframeInstant) ? 1 : -1); 
             this.animations[animationId] = new KeyframeAnimation(keyframes);
         }
 
