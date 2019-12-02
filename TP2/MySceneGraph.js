@@ -1052,22 +1052,22 @@ class MySceneGraph {
 
                 // npointsU
                 let npointsU = this.reader.getInteger(grandChildren[0], 'npointsU');
-                if (!(npointsU != null && !isNaN(slices)))
+                if (!(npointsU != null && !isNaN(npointsU)))
                     return "unable to parse npointsU for primitive with ID = " + primitiveId;
 
                 // npointsV
                 let npointsV = this.reader.getInteger(grandChildren[0], 'npointsV');
-                if (!(npointsV != null && !isNaN(slices)))
+                if (!(npointsV != null && !isNaN(npointsV)))
                     return "unable to parse npointsV for primitive with ID = " + primitiveId;
                     
                 // npartsU
                 let npartsU = this.reader.getInteger(grandChildren[0], 'npartsU');
-                if (!(npartsU != null && !isNaN(slices)))
+                if (!(npartsU != null && !isNaN(npartsU)))
                     return "unable to parse npartsU for primitive with ID = " + primitiveId;
                     
                 // npartsV
                 let npartsV = this.reader.getInteger(grandChildren[0], 'npartsV');
-                if (!(npartsV != null && !isNaN(slices)))
+                if (!(npartsV != null && !isNaN(npartsV)))
                     return "unable to parse npartsV for primitive with ID = " + primitiveId;  
 
                 // control points
