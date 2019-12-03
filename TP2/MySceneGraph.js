@@ -1111,12 +1111,12 @@ class MySceneGraph {
 
                 // npartsU
                 let npartsU = this.reader.getInteger(grandChildren[0], 'npartsU');
-                if (!(npartsU != null && !isNaN(slices)))
+                if (!(npartsU != null && !isNaN(npartsU)))
                     return "unable to parse npartsU for primitive with ID = " + primitiveId;
                     
                 // npartsV
                 let npartsV = this.reader.getInteger(grandChildren[0], 'npartsV');
-                if (!(npartsV != null && !isNaN(slices)))
+                if (!(npartsV != null && !isNaN(npartsV)))
                     return "unable to parse npartsV for primitive with ID = " + primitiveId;  
                     
                 let plane = new MyPlane(this.scene, npartsU, npartsV);
