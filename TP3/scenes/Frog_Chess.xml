@@ -50,6 +50,7 @@
         <texture id="background_front" file="scenes/images/background_front.jpg" />
         <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />
         <texture id="background_back" file="scenes/images/background_back.jpg" />      
+        <texture id="table_wood" file="scenes/images/wood.jpg"/>
     </textures>
 
     <materials>
@@ -268,13 +269,16 @@
         </component>
 
         <component id="table">
-            <transformation />
+            <transformation>
+                <translate x="0" y="-6" z="0" />
+            </transformation>
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="table_wood" length_s="2" length_t="2" />
             <children>
-
+                <componentref id="top_table" />
+                <componentref id="table_legs" />
             </children>
         </component>
 
@@ -283,7 +287,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_top" />
                 <componentref id="table_bottom" />
@@ -303,7 +307,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -317,7 +321,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -330,7 +334,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_side" />
             </children>
@@ -344,7 +348,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_side" />
             </children>
@@ -358,7 +362,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_side" />
             </children>
@@ -372,7 +376,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_side" />
             </children>
@@ -385,7 +389,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -396,7 +400,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_front_right_leg" />
                 <componentref id="table_front_left_leg" />
@@ -412,7 +416,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg" />
             </children>
@@ -425,7 +429,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg" />
             </children>
@@ -438,7 +442,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg" />
             </children>
@@ -451,7 +455,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg" />
             </children>
@@ -462,7 +466,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg_front" />
                 <componentref id="table_leg_back" />
@@ -479,7 +483,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg_big_rectangle" />
             </children>
@@ -493,7 +497,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg_big_rectangle" />
             </children>
@@ -507,7 +511,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg_big_rectangle" />
             </children>
@@ -521,7 +525,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <componentref id="table_leg_big_rectangle" />
             </children>
@@ -536,7 +540,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
@@ -549,7 +553,7 @@
             <materials>
                 <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="inherit" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
