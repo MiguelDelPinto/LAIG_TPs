@@ -980,7 +980,7 @@
                 <material id="defaultMaterial" />
             </materials>
             <texture id="defaultTexture" length_s="1" length_t="1"/>
-            <children>>
+            <children>
                 <componentref id="background" />
                 <componentref id="scene_objects" />
             </children>
