@@ -151,6 +151,7 @@
             <texture id="defaultTexture" length_s="1" length_t="1"/>
             <children>>
                 <componentref id="background" />
+                <componentref id="table" />
                 <!--<componentref id="scene_objects" />-->
             </children>
         </component>
@@ -261,6 +262,294 @@
                 <material id="inherit" />
             </materials>
             <texture id="background_back" length_s="1" length_t="2" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="table">
+            <transformation />
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+
+            </children>
+        </component>
+
+        <component id="top_table">
+            <transformation />
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_top" />
+                <componentref id="table_bottom" />
+                <componentref id="table_front_side" />
+                <componentref id="table_back_side" />
+                <componentref id="table_left_side" />
+                <componentref id="table_right_side" />
+            </children>
+        </component>
+
+        <component id="table_top">
+            <transformation>
+                <translate x="0" y="0.5" z="0" />
+                <scale x="18" y="1" z="9" />
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="table_bottom">
+            <transformation>
+                <scale x="18" y="1" z="9" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="table_front_side">
+            <transformation>
+                <translate x="0" y="0.25" z="9" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_side" />
+            </children>
+        </component>
+
+        <component id="table_back_side">
+            <transformation>
+                <translate x="0" y="0.25" z="-9" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_side" />
+            </children>
+        </component>
+
+        <component id="table_right_side">
+            <transformation>
+                <translate x="9" y="0.25" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_side" />
+            </children>
+        </component>
+
+        <component id="table_left_side">
+            <transformation>
+                <translate x="-9" y="0.25" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_side" />
+            </children>
+        </component>
+
+        <component id="table_side">
+            <transformation>
+                <scale x="18" y="0.25" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="table_legs">
+            <transformation/>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_front_right_leg" />
+                <componentref id="table_front_left_leg" />
+                <componentref id="table_back_right_leg" />
+                <componentref id="table_back_left_leg" />
+            </children>
+        </component>
+
+        <component id="table_front_right_leg">
+            <transformation>
+                <translate x="8" y="0" z="8" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg" />
+            </children>
+        </component>
+
+        <component id="table_front_left_leg">
+            <transformation>
+                <translate x="-8" y="0" z="8" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg" />
+            </children>
+        </component>
+
+        <component id="table_back_right_leg">
+            <transformation>
+                <translate x="8" y="0" z="-8" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg" />
+            </children>
+        </component>
+
+        <component id="table_back_left_leg">
+            <transformation>
+                <translate x="-8" y="0" z="-8" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg" />
+            </children>
+        </component>
+
+        <component id="table_leg">
+            <transformation/>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg_front" />
+                <componentref id="table_leg_back" />
+                <componentref id="table_leg_left" />
+                <componentref id="table_leg_right" />
+                <componentref id="table_leg_bottom" />
+            </children>
+        </component>
+
+        <component id="table_leg_front">
+            <transformation>
+                <translate x="0" y="-4" z="0.5" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg_big_rectangle" />
+            </children>
+        </component>
+
+        <component id="table_leg_back">
+            <transformation>
+                <translate x="0" y="-4" z="-0.5" />
+                <rotate axis="y" angle="180" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg_big_rectangle" />
+            </children>
+        </component>
+
+        <component id="table_leg_right">
+            <transformation>
+                <translate x="0.5" y="-4" z="0" />
+                <rotate axis="y" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg_big_rectangle" />
+            </children>
+        </component>
+        
+        <component id="table_leg_left">
+            <transformation>
+                <translate x="-0.5" y="-4" z="0" />
+                <rotate axis="y" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="table_leg_big_rectangle" />
+            </children>
+        </component>
+
+        <component id="table_leg_bottom">
+            <transformation>
+                <scale x="1" y="1" z="0.5" />
+                <translate x="0" y="-8" z="0" />
+                <rotate axis="x" angle="90" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <component id="table_leg_big_rectangle">
+            <transformation>
+                <scale x="1" y="4" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="none" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
