@@ -1,6 +1,10 @@
 <lxs>
     <scene root="scene_component" axis_length="5"/>
 
+
+    <!--                -->
+    <!--     Views      -->
+    <!--                -->
     <views default="Full View">
         <perspective id="Full View" near="0.1" far="500" angle="38">
             <from x="-5" y="30" z="150" />
@@ -24,6 +28,10 @@
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
     </globals>
 
+
+    <!--                -->
+    <!--     Lights     -->
+    <!--                -->
     <lights>
         <omni id="Extra" enabled="1">
             <location x="6" y="5" z="16" w="1.0" />
@@ -42,6 +50,10 @@
         </omni>
     </lights>
 
+
+    <!--                -->
+    <!--    Textures    -->
+    <!--                -->
     <textures>
         <texture id="defaultTexture" file="scenes/images/vidral.jpg" />
         <texture id="background" file="scenes/images/background_plains.jpg" />
@@ -51,8 +63,13 @@
         <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />
         <texture id="background_back" file="scenes/images/background_back.jpg" />      
         <texture id="table_wood" file="scenes/images/wood.jpg"/>
+        <texture id="leaf" file="scenes/images/leaf.jpg" />
     </textures>
 
+
+    <!--                -->
+    <!--    Materials   -->
+    <!--                -->
     <materials>
         <material id="defaultMaterial" shininess="5">
             <emission r="1.0" g="1.0" b="1.0" a="0.0" />
@@ -83,6 +100,10 @@
         </material>
     </materials>
 
+
+    <!--                     -->
+    <!--   Transformations   -->
+    <!--                     -->
     <transformations>
         <transformation id="house_transform">
             <translate x="5" y="10" z="4" />
@@ -91,6 +112,10 @@
         </transformation>
     </transformations>
 
+
+    <!--                -->
+    <!--   Animations   -->
+    <!--                -->
     <animations>
         <animation id="house_going_up">
             <keyframe instant="1">
@@ -136,14 +161,26 @@
         </animation>
     </animations>
 
+
+    <!--                -->
+    <!--   Primitives   -->
+    <!--                -->
     <primitives>
         <primitive id="rectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive> 
+        <primitive id="lilypad">
+            <sphere radius="1" slices="20" stacks="20" />
+        </primitive>
     </primitives>
 
 
+    <!--                -->
+    <!--   Components   -->
+    <!--                -->
     <components>
+
+        <!-- Root -->
         <component id="scene_component">
             <transformation/>
             <materials>
@@ -153,10 +190,11 @@
             <children>>
                 <componentref id="background" />
                 <componentref id="table" />
-                <!--<componentref id="scene_objects" />-->
+                <componentref id="board" />
             </children>
         </component>
 
+        <!-- Background -->
         <component id="background">
             <transformation>
                 <translate x="0" y="10" z="0" />
@@ -176,8 +214,6 @@
                 <componentref id="background_back" />             
             </children>
         </component>
-
-
         <component id="background_right">
             <transformation>
                 <translate x="60" y="30" z="0" />
@@ -192,7 +228,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="background_left">
             <transformation>
                 <translate x="-60" y="30" z="0" />
@@ -207,7 +242,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="background_front">
             <transformation>
                 <translate x="0" y="30" z="-60" />
@@ -222,7 +256,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="background_top">
             <transformation>
                 <translate x="0" y="60" z="0" />
@@ -237,7 +270,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="background_bottom">
             <transformation>
                 <translate x="0" y="-20" z="0" />
@@ -252,7 +284,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="background_back">
             <transformation>
                 <translate x="0" y="30" z="60" />
@@ -268,6 +299,7 @@
             </children>
         </component>
 
+        <!-- Table -->
         <component id="table">
             <transformation>
                 <translate x="0" y="-6" z="0" />
@@ -281,7 +313,6 @@
                 <componentref id="table_legs" />
             </children>
         </component>
-
         <component id="top_table">
             <transformation />
             <materials>
@@ -297,7 +328,6 @@
                 <componentref id="table_right_side" />
             </children>
         </component>
-
         <component id="table_top">
             <transformation>
                 <translate x="0" y="0.5" z="0" />
@@ -312,7 +342,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="table_bottom">
             <transformation>
                 <scale x="18" y="1" z="9" />
@@ -326,7 +355,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="table_front_side">
             <transformation>
                 <translate x="0" y="0.25" z="9" />
@@ -339,7 +367,6 @@
                 <componentref id="table_side" />
             </children>
         </component>
-
         <component id="table_back_side">
             <transformation>
                 <translate x="0" y="0.25" z="-9" />
@@ -353,7 +380,6 @@
                 <componentref id="table_side" />
             </children>
         </component>
-
         <component id="table_right_side">
             <transformation>
                 <translate x="9" y="0.25" z="0" />
@@ -367,7 +393,6 @@
                 <componentref id="table_side" />
             </children>
         </component>
-
         <component id="table_left_side">
             <transformation>
                 <translate x="-9" y="0.25" z="0" />
@@ -381,7 +406,6 @@
                 <componentref id="table_side" />
             </children>
         </component>
-
         <component id="table_side">
             <transformation>
                 <scale x="18" y="0.25" z="1" />
@@ -394,7 +418,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="table_legs">
             <transformation/>
             <materials>
@@ -408,7 +431,6 @@
                 <componentref id="table_back_left_leg" />
             </children>
         </component>
-
         <component id="table_front_right_leg">
             <transformation>
                 <translate x="8" y="0" z="8" />
@@ -421,7 +443,6 @@
                 <componentref id="table_leg" />
             </children>
         </component>
-
         <component id="table_front_left_leg">
             <transformation>
                 <translate x="-8" y="0" z="8" />
@@ -434,7 +455,6 @@
                 <componentref id="table_leg" />
             </children>
         </component>
-
         <component id="table_back_right_leg">
             <transformation>
                 <translate x="8" y="0" z="-8" />
@@ -447,7 +467,6 @@
                 <componentref id="table_leg" />
             </children>
         </component>
-
         <component id="table_back_left_leg">
             <transformation>
                 <translate x="-8" y="0" z="-8" />
@@ -460,7 +479,6 @@
                 <componentref id="table_leg" />
             </children>
         </component>
-
         <component id="table_leg">
             <transformation/>
             <materials>
@@ -475,7 +493,6 @@
                 <componentref id="table_leg_bottom" />
             </children>
         </component>
-
         <component id="table_leg_front">
             <transformation>
                 <translate x="0" y="-4" z="0.5" />
@@ -488,7 +505,6 @@
                 <componentref id="table_leg_big_rectangle" />
             </children>
         </component>
-
         <component id="table_leg_back">
             <transformation>
                 <translate x="0" y="-4" z="-0.5" />
@@ -502,7 +518,6 @@
                 <componentref id="table_leg_big_rectangle" />
             </children>
         </component>
-
         <component id="table_leg_right">
             <transformation>
                 <translate x="0.5" y="-4" z="0" />
@@ -516,7 +531,6 @@
                 <componentref id="table_leg_big_rectangle" />
             </children>
         </component>
-        
         <component id="table_leg_left">
             <transformation>
                 <translate x="-0.5" y="-4" z="0" />
@@ -530,7 +544,6 @@
                 <componentref id="table_leg_big_rectangle" />
             </children>
         </component>
-
         <component id="table_leg_bottom">
             <transformation>
                 <scale x="1" y="1" z="0.5" />
@@ -545,7 +558,6 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-
         <component id="table_leg_big_rectangle">
             <transformation>
                 <scale x="1" y="4" z="1" />
@@ -558,5 +570,38 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
+
+        <!-- Board -->
+        <component id="board">
+            <transformation>
+                <translate x="0" y="-5" z="0" />
+                <scale x="3" y="3" z="3" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="table_wood" length_s="2" length_t="2" />
+            <children>
+                <componentref id="lilypad" />                                             
+            </children>
+        </component> 
+
+
+
+
+
+        <!-- Other -->
+        <component id="lilypad">
+            <transformation>
+                <scale x="1" y="0.1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="leaf" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="lilypad" />
+            </children>
+        </component>                
     </components>
 </lxs>
