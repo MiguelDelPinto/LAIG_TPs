@@ -10,13 +10,17 @@ class MyBoard extends CGFobject {
 
         // Generates the tiles
         this.generateTiles();
+
+        // Generates the borders of the board
+        //this.generatedBorders();
+
     }
 
     generateTiles() {
         this.tiles = [];
 
         // Cycles from row 'a' (char code 97) to 'h' (char code 103), that is, 8 total rows
-        for(let row = 97; row <= 103; row++) {
+        for(let row = 97; row <= 104; row++) {
 
             // Cycles from collumn 1 to 8
             for(let col = 1; col <= 8; col++) {
@@ -27,33 +31,41 @@ class MyBoard extends CGFobject {
                 }   
                 // Otherwise, just a normal tile             
                 else  {
-                    this.tiles.push(new MyWaterTile(this.scene, "tile_" + String.fromCharCode(row) + col));                    
+                    this.tiles.push(new MyTile(this.scene, "tile_" + String.fromCharCode(row) + col));                    
                 }
 
             }
         }
-        
-        this.primitiveType = this.scene.gl.TRIANGLES;
-        this.initGLBuffers();
+    }
+
+    generateBorders() {
+        this.border_side = new MyRectangle(this.scene, 'border_side');
     }
 
     display() {
-        
-        // Cycles through the 8 rows
-        for(let row = 0; row < 8; row++) {
 
-            // Cycles through the 8 collumns
-            for(let col = 0; col < 8; col++) {
+        this.scene.pushMatrix();
 
-                // Calculates the index for tile selection
-                let index = row*8 + col;
+            this.scene.scale(0.5, 1, 0.5);
 
-                // Displays the current tile
-                this.scene.pushMatrix();
-                    this.tiles[index].display();
-                this.scene.popMatrix();
+            // Cycles through the 8 rows
+            for(let row = 0; row < 8; row++) {
+
+                // Cycles through the 8 collumns
+                for(let col = 0; col < 8; col++) {
+
+                    // Calculates the index for tile selection
+                    let index = row*8 + col;
+
+                    // Displays the current tile
+                    this.scene.pushMatrix();
+                        this.scene.translate(-3.5 + row, 0, -3.5 + col);
+                        this.tiles[index].display();
+                    this.scene.popMatrix();
+                }
             }
-        }
+
+        this.scene.popMatrix();
     }
 
     updateTexCoords(length_s, length_t) {}
