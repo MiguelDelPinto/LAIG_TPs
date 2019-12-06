@@ -57,7 +57,10 @@ class XMLscene extends CGFscene {
         //Color factor used in the security camera
         this.colorFactor = 1.5;
 
-        this.setUpdatePeriod(25); 
+        this.setUpdatePeriod(25);
+
+        
+        this.frog = new MyFrog(this, 'frog');
     }
 
     /**
@@ -277,9 +280,11 @@ class XMLscene extends CGFscene {
         // Enables/disables the axis according to the interface
         if(this.displayAxis)
             this.axis.display();
-  
+        
         // Draw axis
         this.setDefaultAppearance();
+
+        this.frog.display();
 
         // Displays the scene (MySceneGraph function).
         this.graph.displayScene();

@@ -29,6 +29,9 @@ serialInclude(['../lib/CGF.js',
                 'MyTile.js',
                 'MyWaterTile.js',
                 'MyBoard.js',
+                'MyFrog.js',
+                'CGFOBJModel.js',
+                'CGFResourceReader.js',
 
 main=function()
 {
