@@ -58,9 +58,6 @@ class XMLscene extends CGFscene {
         this.colorFactor = 1.5;
 
         this.setUpdatePeriod(25);
-
-        
-        this.frog = new MyFrog(this, 'frog');
     }
 
     /**
@@ -283,8 +280,6 @@ class XMLscene extends CGFscene {
         
         // Draw axis
         this.setDefaultAppearance();
-
-        this.frog.display();
 
         // Displays the scene (MySceneGraph function).
         this.graph.displayScene();
