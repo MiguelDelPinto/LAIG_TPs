@@ -56,5 +56,5 @@ class MyBoard extends CGFobject {
         }
     }
 
-     updateTexCoords(length_s, length_t) {}
+    updateTexCoords(length_s, length_t) {}
 }
