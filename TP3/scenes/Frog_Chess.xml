@@ -172,6 +172,9 @@
         <primitive id="lilypad">
             <sphere radius="1" slices="20" stacks="20" />
         </primitive>
+        <primitive id="board">
+            <board />
+        </primitive>
     </primitives>
 
 
@@ -582,7 +585,7 @@
             </materials>
             <texture id="table_wood" length_s="2" length_t="2" />
             <children>
-                <componentref id="lilypad" />                                             
+                <primitiveref id="board" />                                             
             </children>
         </component> 
 
