@@ -11,19 +11,10 @@ class MyTile extends CGFobject {
 
         this.material = new CGFappearance(scene);
         this.material.loadTexture('scenes/images/tile.jpg');
-
-        this.initBuffers();
-    }
-
-    initBuffers() {
-        this.primitiveType = this.scene.gl.TRIANGLES;
-        this.initGLBuffers();
     }
 
     display(){
         this.material.apply();
         this.plane.display();
     }
-
-    updateTexCoords(length_s, length_t) {}
 }

@@ -277,7 +277,7 @@ class XMLscene extends CGFscene {
         // Enables/disables the axis according to the interface
         if(this.displayAxis)
             this.axis.display();
-
+  
         // Draw axis
         this.setDefaultAppearance();
 
