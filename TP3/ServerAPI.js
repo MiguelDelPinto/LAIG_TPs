@@ -1,3 +1,4 @@
+// Gest the data from a prolog request, listening on the server port
 function getPrologRequest(requestString, onSuccess, onError, port)
 {
     var requestPort = port || 8081
@@ -11,16 +12,26 @@ function getPrologRequest(requestString, onSuccess, onError, port)
     request.send();
 }
 
-function makeRequest()
-{
-    // Get Parameter Values
-    var requestString = document.querySelector("#query_field").value;				
-    
-    // Make Request
-    getPrologRequest(requestString, handleReply);
+// Makes a request, and specificis how to handle the reply
+function makeRequest(request, handleReply) {			
+    getPrologRequest(request, handleReply);
 }
 
-//Handle the Reply
-function handleReply(data){
-    document.querySelector("#query_result").innerHTML=data.target.response;
+// Handle the Reply
+function printReply(data) {
+    console.log(data.target.response);
+}
+
+// Checks if a game mode is valid
+function checkValidGamemode(gamemode) {
+    request = "valid_game_mode(" + gamemode + ")";
+
+    makeRequest(request, printReply);   // TODO change handler
+} 
+
+// Closes connection
+function closeServer() {
+    request = "quit";
+    
+    makeRequest(request, printReply);
 }
