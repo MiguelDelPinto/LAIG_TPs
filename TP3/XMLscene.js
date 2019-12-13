@@ -45,8 +45,8 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
 
-        this.textureRTT = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
-        this.securityCamera = new MySecurityCamera(this, this.textureRTT);
+        //this.textureRTT = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
+        //this.securityCamera = new MySecurityCamera(this, this.textureRTT);
 
         //Scale factor used in the security camera
         this.scaleFactor = 100.0;
@@ -310,16 +310,16 @@ class XMLscene extends CGFscene {
     display(){
         if (this.sceneInited) {
             this.logPicking();
-            this.clearPickRegistration();
-            this.textureRTT.attachToFrameBuffer();
-            this.render(true);
+            /*this.textureRTT.attachToFrameBuffer();
+            this.render(true);*/
 
-            this.textureRTT.detachFromFrameBuffer();
+            this.clearPickRegistration();
+            //this.textureRTT.detachFromFrameBuffer();
             this.render(false);
 
-            this.gl.disable(this.gl.DEPTH_TEST);
+            /*this.gl.disable(this.gl.DEPTH_TEST);
             this.securityCamera.display();
-            this.gl.enable(this.gl.DEPTH_TEST);
+            this.gl.enable(this.gl.DEPTH_TEST);*/
         }
     }
 
@@ -337,7 +337,7 @@ class XMLscene extends CGFscene {
             
             this.checkKeys();
             this.graph.updateAnimations(this.deltaTime);
-            this.securityCamera.update(this.deltaTime);
+            //this.securityCamera.update(this.deltaTime);
         }
     }
 

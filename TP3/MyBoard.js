@@ -43,7 +43,6 @@ class MyBoard extends CGFobject {
     }
 
     display() {
-
         this.scene.pushMatrix();
 
             this.scene.scale(0.5, 1, 0.5);
@@ -60,6 +59,7 @@ class MyBoard extends CGFobject {
                     // Displays the current tile
                     this.scene.pushMatrix();
                         this.scene.translate(-3.5 + row, 0, -3.5 + col);
+                        this.scene.registerForPick(row*8+col+1, this.tiles[index]);
                         this.tiles[index].display();
                     this.scene.popMatrix();
                 }
