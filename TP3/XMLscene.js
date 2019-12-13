@@ -292,7 +292,8 @@ class XMLscene extends CGFscene {
     logPicking() {
 		if (this.pickMode == false) {
 			if (this.pickResults != null && this.pickResults.length > 0) {
-				for (var i = 0; i < this.pickResults.length; i++) {
+                console.log(this.pickResults);
+                for (var i = 0; i < this.pickResults.length; i++) {
 					var obj = this.pickResults[i][0];
 					if (obj) {
 						var customId = this.pickResults[i][1];

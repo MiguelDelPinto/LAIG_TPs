@@ -287,7 +287,7 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>
-        <component id="background_back" pickable="1">
+        <component id="background_back">
             <transformation>
                 <translate x="0" y="30" z="60" />
                 <rotate axis="y" angle="-180"/>

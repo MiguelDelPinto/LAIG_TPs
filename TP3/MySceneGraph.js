@@ -1206,12 +1206,12 @@ class MySceneGraph {
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
             // Get pickable property of the current component
-            let pickable = this.reader.getBoolean(children[i], 'pickable', false);
+            /*/let pickable = this.reader.getBoolean(children[i], 'pickable', false);
 
             if(pickable === null){
                 this.onXMLMinorError("pickable property for component with ID " + componentID + " isn't defined");
                 pickable = false;
-            }
+            }*/
 
             // Creates an empty component using JavaScript Objects
             const component = new Object();
@@ -1220,7 +1220,7 @@ class MySceneGraph {
             component.primitiveIds = [];
 
             component.id = componentID;
-            component.pickable = pickable;
+            //component.pickable = pickable;
 
             //Stores transformation(s), material(s), texture and reference(s) to components/primitives
             grandChildren = children[i].children;
@@ -1682,8 +1682,9 @@ class MySceneGraph {
 
             material.apply();
 
-            if(currentNode.pickable)
+            /*if(currentNode.pickable){
                 this.scene.registerForPick(this.hashCode(currentNode.id+'_'+currentNode.primitiveIds[i]), this.primitives[currentNode.primitiveIds[i]]);
+            }*/
 
             this.primitives[currentNode.primitiveIds[i]].display();
         }
