@@ -12,7 +12,7 @@ class MyBoard extends CGFobject {
         this.generateTiles();
 
         // Generates the borders of the board
-        //this.generatedBorders();
+        this.generateBorders();
 
     }
 
@@ -39,7 +39,8 @@ class MyBoard extends CGFobject {
     }
 
     generateBorders() {
-        this.border_side = new MyRectangle(this.scene, 'border_side');
+        this.border_side = new MyRectangle(this.scene, 'border_side', -4, -0.5, 4, 0);
+        this.border_bottom = new MyRectangle(this.scene, 'border_bottom', -4, -4, 4, 4);
     }
 
     display() {
@@ -64,6 +65,13 @@ class MyBoard extends CGFobject {
                     this.scene.popMatrix();
                 }
             }
+
+            // Displays the borders
+            this.scene.pushMatrix();
+                //this.scene.rotate(Math.PI/2, 1, 0, 0);             
+                this.border_side.display();
+            this.scene.popMatrix();
+            
 
         this.scene.popMatrix();
     }
