@@ -1,0 +1,338 @@
+<lxs>
+    <scene root="scene_component" axis_length="5"/>
+
+
+    <!--                -->
+    <!--     Views      -->
+    <!--                -->
+    <views default="Full View">
+        <perspective id="Full View" near="0.1" far="500" angle="38">
+            <from x="0" y="15" z="10" />
+            <to x="0" y="-5" z="0" />
+        </perspective>
+
+        <perspective id="Top Down" near="0.1" far="500" angle="30">
+            <from x="0" y="150" z="20" />
+            <to x="0" y="1" z="0" />
+        </perspective>
+
+        <ortho id="Postcard" near="0.1" far="500" left="-70" right="70" top="60" bottom="-18">
+            <from x="0" y="100" z="400" />
+            <to x="0" y="0" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+    </views>
+
+    <globals>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </globals>
+
+
+    <!--                -->
+    <!--     Lights     -->
+    <!--                -->
+    <lights>
+        <omni id="Extra" enabled="1">
+            <location x="6" y="5" z="16" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1.0" linear="0" quadratic="0.0" />
+        </omni>
+
+        <omni id="Sun" enabled="1">
+            <location x="100" y="100" z="-100" w="1.0" />
+            <ambient r="0.25" g="0.25" b="0.25" a="0.25" />
+            <diffuse r="0.25" g="0.25" b="0.25" a="0.25" />
+            <specular r="0.25" g="0.25" b="0.25" a="0.25" />
+            <attenuation constant="0.7" linear="0" quadratic="0.0" />
+        </omni>
+    </lights>
+
+
+    <!--                -->
+    <!--    Textures    -->
+    <!--                -->
+    <textures>
+        <texture id="defaultTexture" file="scenes/images/vidral.jpg" />
+        <texture id="background" file="scenes/images/background_plains.jpg" />
+        <texture id="background_right" file="scenes/images/background_right.jpg" />
+        <texture id="background_left" file="scenes/images/background_left.jpg" />
+        <texture id="background_front" file="scenes/images/background_front.jpg" />
+        <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />
+        <texture id="background_back" file="scenes/images/background_back.jpg" />      
+        <texture id="table_wood" file="scenes/images/wood.jpg"/>
+        <texture id="leaf" file="scenes/images/leaf.jpg" />
+        <texture id="rock" file="scenes/images/rock.jpg" />
+    </textures>
+
+
+    <!--                -->
+    <!--    Materials   -->
+    <!--                -->
+    <materials>
+        <material id="defaultMaterial" shininess="5">
+            <emission r="1.0" g="1.0" b="1.0" a="0.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="0.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="0.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="0.0" />
+        </material>
+
+        <material id="backgroundMaterial" shininess="1">
+            <emission r="0" g="0" b="0" a="0" />
+            <ambient r="0.8" g="0.8" b="0.8" a="1.0" />
+            <diffuse r="0.8" g="0.8" b="0.8" a="1.0" />
+            <specular r="0" g="0" b="0" a="0" />
+        </material>
+
+        <material id="sky_blue" shininess="10">
+            <emission r="0" g="0" b="0" a="1.0" />
+            <ambient r="0.0941" g="0.308" b="0.647" a="0.07" />
+            <diffuse r="0.0941" g="0.308" b="0.647" a="0.0" />
+            <specular r="0.0941" g="0.308" b="0.647" a="0.0" />
+        </material>
+
+        <material id="grass" shininess="10">
+            <emission r="0" g="0" b="0" a="1.0" />
+            <ambient r="0.956" g="0.980" b="0.796" a="0.07" />
+            <diffuse r="0.956" g="0.980" b="0.796" a="0.0" />
+            <specular r="0.956" g="0.980" b="0.796" a="0.0" />
+        </material>
+    </materials>
+
+
+    <!--                     -->
+    <!--   Transformations   -->
+    <!--                     -->
+    <transformations>
+        <transformation id="house_transform">
+            <translate x="5" y="10" z="4" />
+            <scale x="1.4" y="1.4" z="1.4" />
+            <rotate axis="y" angle="10" />
+        </transformation>
+    </transformations>
+
+
+    <!--                -->
+    <!--   Animations   -->
+    <!--                -->
+    <animations>
+        <animation id="house_going_up">
+            <keyframe instant="1">
+                <translate x="0.3" y="0.2" z="-0.3" />
+                <rotate angle_x="3" angle_y="10" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="3">
+                <translate x="-0.2" y="-0.4" z="0.2" />
+                <rotate angle_x="0" angle_y="-10" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="5">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="10">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="-30" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="15">
+                <translate x="0.0" y="0.0" z="0.0" />
+                <rotate angle_x="0" angle_y="30" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="20">
+                <translate x="0.0" y="10.0" z="0.0" />
+                <rotate angle_x="0" angle_y="-30" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="30">
+                <translate x="0.0" y="10.0" z="0.0" />
+                <rotate angle_x="0" angle_y="30" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="40">
+                <translate x="0.0" y="10.0" z="0.0" />
+                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+    </animations>
+
+
+    <!--                -->
+    <!--   Primitives   -->
+    <!--                -->
+    <primitives>
+        <primitive id="rectangle">
+            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+        </primitive> 
+        <primitive id="lilypad">
+            <sphere radius="1" slices="20" stacks="20" />
+        </primitive>
+        <primitive id="lake">
+            <lake />
+        </primitive>
+    </primitives>
+
+
+    <!--                -->
+    <!--   Components   -->
+    <!--                -->
+    <components>
+
+        <!-- Root -->
+        <component id="scene_component">
+            <transformation/>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1" length_t="1"/>
+            <children>>
+                <componentref id="background" />
+                <componentref id="lake" />
+            </children>
+        </component>
+
+        <!-- Background -->
+        <component id="background">
+            <transformation>
+                <translate x="0" y="10" z="0" />
+                <scale x="1.2" y="1.2" z="1.2" />
+                <rotate axis="x" angle="0"/>
+            </transformation>
+            <materials>
+                <material id="backgroundMaterial" />
+            </materials>
+            <texture id="background" length_s="1" length_t="1" />
+            <children>
+                <componentref id="background_right" />
+                <componentref id="background_left" />
+                <componentref id="background_front"/>
+                <componentref id="background_top" />
+                <componentref id="background_bottom" />
+                <componentref id="background_back" />             
+            </children>
+        </component>
+        <component id="background_right">
+            <transformation>
+                <translate x="60" y="30" z="0" />
+                <scale x="1" y="50" z="120" />
+                <rotate axis="y" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background_right" length_s="1" length_t="2" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+        <component id="background_left">
+            <transformation>
+                <translate x="-60" y="30" z="0" />
+                <scale x="1" y="50" z="120" />
+                <rotate axis="y" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background_left" length_s="1" length_t="2" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+        <component id="background_front">
+            <transformation>
+                <translate x="0" y="30" z="-60" />
+                <scale x="120" y="50" z="1" />
+                <rotate axis="y" angle="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background_front" length_s="1" length_t="2" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+        <component id="background_top">
+            <transformation>
+                <translate x="0" y="60" z="0" />
+                <scale x="120" y="1" z="60" />
+                <rotate axis="x" angle="90"/>
+            </transformation>
+            <materials>
+                <material id="sky_blue" />
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+        <component id="background_bottom">
+            <transformation>
+                <translate x="0" y="-20" z="0" />
+                <scale x="120" y="1" z="60" />
+                <rotate axis="x" angle="-90"/>
+            </transformation>
+            <materials>
+                <material id="grass" />
+            </materials>
+            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+        <component id="background_back">
+            <transformation>
+                <translate x="0" y="30" z="60" />
+                <rotate axis="y" angle="-180"/>
+                <scale x="120" y="50" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background_back" length_s="1" length_t="2" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+
+        <!-- Lake -->
+        <component id="lake">
+            <transformation>
+                <translate x="0" y="-14" z="0" />
+                <scale x="5" y="5" z="5" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="rock" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="lake" />                                             
+            </children>
+        </component> 
+
+
+
+
+
+        <!-- Other -->
+        <component id="lilypad">
+            <transformation>
+                <scale x="1" y="0.1" z="1" />
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="leaf" length_s="1" length_t="1" />
+            <children>
+                <primitiveref id="lilypad" />
+            </children>
+        </component>                
+    </components>
+</lxs>
