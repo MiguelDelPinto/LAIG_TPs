@@ -2,15 +2,15 @@
  * MyLakeTile
  */
 class MyLakeTile extends CGFobject {   
-    constructor(scene, id, rock) {
+    constructor(scene, id, tileObj) {
         super(scene);
  
         this.id = id;
         
-        this.rock = rock;
+        this.tileObj = tileObj;
     }
 
     display(){
-        this.rock.display();
+        this.tileObj.display();
     }
 }

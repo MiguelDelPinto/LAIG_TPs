@@ -1735,4 +1735,17 @@ class MySceneGraph {
             }
         }
     }
+
+    /**
+     * Updates every object
+     */
+    update(t){
+        for(let key in this.primitives){
+            if(this.primitives.hasOwnProperty(key)){
+                if(typeof this.primitives[key].update === 'function'){
+                    this.primitives[key].update(t); 
+                }
+            }
+        }
+    }
 }

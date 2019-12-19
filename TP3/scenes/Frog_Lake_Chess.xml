@@ -60,7 +60,6 @@
         <texture id="background_right" file="scenes/images/background_right.jpg" />
         <texture id="background_left" file="scenes/images/background_left.jpg" />
         <texture id="background_front" file="scenes/images/background_front.jpg" />
-        <texture id="background_bottom" file="scenes/images/background_bottom.jpg" />
         <texture id="background_back" file="scenes/images/background_back.jpg" />      
         <texture id="table_wood" file="scenes/images/wood.jpg"/>
         <texture id="leaf" file="scenes/images/leaf.jpg" />
@@ -213,7 +212,6 @@
                 <componentref id="background_left" />
                 <componentref id="background_front"/>
                 <componentref id="background_top" />
-                <componentref id="background_bottom" />
                 <componentref id="background_back" />             
             </children>
         </component>
@@ -269,20 +267,6 @@
                 <material id="sky_blue" />
             </materials>
             <texture id="none" />
-            <children>
-                <primitiveref id="rectangle" />
-            </children>
-        </component>
-        <component id="background_bottom">
-            <transformation>
-                <translate x="0" y="-20" z="0" />
-                <scale x="120" y="1" z="60" />
-                <rotate axis="x" angle="-90"/>
-            </transformation>
-            <materials>
-                <material id="grass" />
-            </materials>
-            <texture id="background_bottom" length_s="0.25" length_t="0.25" />
             <children>
                 <primitiveref id="rectangle" />
             </children>
