@@ -38,6 +38,7 @@ serialInclude(['../lib/CGF.js',
                 'MyLakeWaterTile.js',
                 'MyLilyPad.js',
                 'MyLakeWater.js',
+                'JumpAnimation.js',
 
 main=function()
 {
