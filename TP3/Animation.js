@@ -18,4 +18,14 @@ class Animation {
         //Apply matrix to scene
         scene.multMatrix(this.matrix);
     }
+
+    getElapsedTime(){
+        return this.elapsedTime;
+    }
+
+    // Resets the animation time
+    resetsTime(){
+        this.elapsedTime = 0;
+    }
+
 }

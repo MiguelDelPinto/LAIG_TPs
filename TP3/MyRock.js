@@ -19,7 +19,10 @@ class MyRock extends CGFobject {
     }
 
     display(){
-        this.material.apply();
-        this.rock.display();
+        this.scene.pushMatrix();
+            this.scene.translate(0, -0.25, 0);
+            this.material.apply();
+            this.rock.display();
+        this.scene.popMatrix();
     }
 }

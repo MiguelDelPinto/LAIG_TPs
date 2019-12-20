@@ -8,6 +8,9 @@ class MyLake extends CGFobject {
 
         this.water = new MyLakeWater(this.scene);
         this.frog = new MyFrog(this.scene, 'lake_frog');
+        this.frogAnimation = new JumpAnimation(x => {
+            return 2 - 8*Math.pow(x - 0.5, 2);
+        }, 1000, [4, 4], [4, 6]);
 
         // Generates the tiles
         this.generateTiles();
@@ -46,7 +49,8 @@ class MyLake extends CGFobject {
             this.scene.popMatrix();
 
             this.scene.pushMatrix();
-                this.scene.translate(-0.8, 0.5, -0.65);
+                this.frogAnimation.apply(this.scene); 
+                this.scene.translate(-0.8, 0.15, -0.65);
                 this.scene.scale(0.4, 0.4, 0.4); 
                 this.frog.display();   
             this.scene.popMatrix();
@@ -76,6 +80,11 @@ class MyLake extends CGFobject {
 
     update(t){
         this.water.update(t);
+        this.frogAnimation.update(t);
+        if(this.frogAnimation.getElapsedTime() > this.frogAnimation.getTotalTime()){
+            this.frogAnimation.resetsTime();
+            this.frogAnimation.finishAnimation = false;
+        }
     }
 
     updateTexCoords(length_s, length_t) {}
