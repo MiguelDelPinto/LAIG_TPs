@@ -7,6 +7,7 @@ class MyLake extends CGFobject {
         this.scene = scene;
 
         this.water = new MyLakeWater(this.scene);
+        this.frog = new MyFrog(this.scene, 'lake_frog');
 
         // Generates the tiles
         this.generateTiles();
@@ -44,8 +45,14 @@ class MyLake extends CGFobject {
                 this.water.display();
             this.scene.popMatrix();
 
-            this.scene.scale(1.5, 1.5, 1.5);
+            this.scene.pushMatrix();
+                this.scene.translate(-0.8, 0.5, -0.65);
+                this.scene.scale(0.4, 0.4, 0.4); 
+                this.frog.display();   
+            this.scene.popMatrix();
 
+            this.scene.scale(1.5, 1.5, 1.5);
+ 
             // Cycles through the 8 rows
             for(let row = 0; row < 8; row++) {
 

@@ -23,7 +23,7 @@ void main() {
 	float radial_value = getRadialValue();
 
 	//Getting color from textureRTT
-	vec4 color = texture2D(texture, vTextureCoord+vec2(timeFactor*0.00001,timeFactor*0.00001));
+	vec4 color = texture2D(texture, vTextureCoord+vec2(timeFactor*0.0000025,timeFactor*0.0000025));
 
 	//Adding radial color
 	color = vec4(color.rgb*radial_value, 1.0);
