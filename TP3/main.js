@@ -32,6 +32,12 @@ serialInclude(['../lib/CGF.js',
                 'MyFrog.js',
                 'CGFOBJModel.js',
                 'CGFResourceReader.js',
+                'MyLake.js',
+                'MyLakeTile.js',
+                'MyRock.js',
+                'MyLakeWaterTile.js',
+                'MyLilyPad.js',
+                'MyLakeWater.js',
 
 main=function()
 {
