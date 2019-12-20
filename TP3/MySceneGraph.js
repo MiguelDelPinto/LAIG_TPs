@@ -881,7 +881,7 @@ class MySceneGraph {
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
                     grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'cylinder2' && 
                     grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'plane' &&
-                    grandChildren[0].nodeName != 'board')) {
+                    grandChildren[0].nodeName != 'board' && grandChildren[0].nodeName != 'lake')) {
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere, torus, plane, patch, cylinder2 or board) at primitive with ID " + primitiveId;
             }
 
@@ -1165,6 +1165,13 @@ class MySceneGraph {
                 this.primitives[primitiveId] = board;
             }
 
+            //LAKE
+            else if (primitiveType == "lake"){
+                let lake = new MyLake(this.scene);
+
+                this.primitives[primitiveId] = lake;
+            }
+
             // UNKNOWN
             else {
                 this.onXMLMinorError("unknow primitive type '" + primitiveType + "' at primitive with ID = " + primitiveId);
@@ -1205,6 +1212,14 @@ class MySceneGraph {
             if (this.components[componentID] != null)
                 return "ID must be unique for each component (conflict: ID = " + componentID + ")";
 
+            // Get pickable property of the current component
+            /*/let pickable = this.reader.getBoolean(children[i], 'pickable', false);
+
+            if(pickable === null){
+                this.onXMLMinorError("pickable property for component with ID " + componentID + " isn't defined");
+                pickable = false;
+            }*/
+
             // Creates an empty component using JavaScript Objects
             const component = new Object();
             component.materialIds = [];
@@ -1212,6 +1227,7 @@ class MySceneGraph {
             component.primitiveIds = [];
 
             component.id = componentID;
+            //component.pickable = pickable;
 
             //Stores transformation(s), material(s), texture and reference(s) to components/primitives
             grandChildren = children[i].children;
@@ -1608,12 +1624,25 @@ class MySceneGraph {
     }
 
     /**
+     * Auxiliar function that generates an integer hash from a string: used to generate the picking ids
+     * @param {string} s 
+     */
+    hashCode(s) {
+        let h;
+        for(let i = 0; i < s.length; i++) {
+            h = Math.imul(31, h) + s.charCodeAt(i) | 0;
+        }
+
+        return h;
+    }
+
+    /**
      * Uses a depth first search to traverse the scene graph and display it
      */
     traverseGraph(idNode, idCurrentMaterial, idCurrentTexture, currentLenghtS, currentLengthT) {
         
         let currentNode = this.components[idNode];
-    
+
         // Updates the current material's id
         if(currentNode.materialIds[this.clickM % currentNode.materialIds.length] !== 'inherit')
             idCurrentMaterial = currentNode.materialIds[(this.clickM) % (currentNode.materialIds.length)]; //0 FOR NOW
@@ -1659,6 +1688,11 @@ class MySceneGraph {
                 material.setTexture(null);
 
             material.apply();
+
+            /*if(currentNode.pickable){
+                this.scene.registerForPick(this.hashCode(currentNode.id+'_'+currentNode.primitiveIds[i]), this.primitives[currentNode.primitiveIds[i]]);
+            }*/
+
             this.primitives[currentNode.primitiveIds[i]].display();
         }
 
@@ -1698,6 +1732,19 @@ class MySceneGraph {
         for(let key in this.animations) {
             if(this.animations.hasOwnProperty(key)) {
                 this.animations[key].update(t/1000.0);
+            }
+        }
+    }
+
+    /**
+     * Updates every object
+     */
+    update(t){
+        for(let key in this.primitives){
+            if(this.primitives.hasOwnProperty(key)){
+                if(typeof this.primitives[key].update === 'function'){
+                    this.primitives[key].update(t); 
+                }
             }
         }
     }
