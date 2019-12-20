@@ -14,6 +14,9 @@ class MyBoard extends CGFobject {
         // Generates the borders of the board
         this.generateBorders();
 
+        // Generates the pieces
+        this.generatePieces();
+
     }
 
     generateTiles() {
@@ -41,6 +44,22 @@ class MyBoard extends CGFobject {
     generateBorders() {
         this.border_side = new MyRectangle(this.scene, 'border_side', -4, -0.5, 4, 0);
         this.border_bottom = new MyRectangle(this.scene, 'border_bottom', -4, -4, 4, 4);
+    }
+
+    generatePieces() {
+        // Array that stores the pieces in the board
+        this.pieces = [];
+
+        for(let row = 1; row <= 8; row++) {
+
+            let row_of_pieces = [];
+            for(let col = 1; col <= 8; col++) {
+
+                row_of_pieces.push("empty");
+            }
+
+            this.pieces.push(row_of_pieces);
+        }
     }
 
     display() {

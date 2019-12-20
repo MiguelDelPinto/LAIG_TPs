@@ -1,9 +1,9 @@
-// ------------------- SERVER COMMUNICATION ---------------------------
+// -------------- SERVER COMMUNICATION -----------------
 
 // Gets the data from a prolog request, listening on the server port
 function getPrologRequest(requestString, onSuccess, onError, port)
 {
-    var requestPort = port || 8081
+    var requestPort = port || 8083
     var request = new XMLHttpRequest();
     request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
 
@@ -26,17 +26,17 @@ function printReply(data) {
 
 
 
-// ------------------- PROLOG FUNCTIONS ---------------------------
+// -------------- PROLOG FUNCTIONS ----------------
 
 // Checks if a game mode is valid
-function checkValidGamemode(gamemode, callback) {
+function serverCheckValidGamemode(gamemode, callback) {
     let request = "valid_game_mode(" + gamemode + ")";
 
     makeRequest(request, callback);
 } 
 
 // Generates fill positions
-function validFillPositions(board, callback) {
+function serverValidFillPositions(board, callback) {
     let request = "valid_fill_positions(" 
                 + JSON.stringify(board).replace(/"+/g, '') 
                 + ")";
@@ -45,7 +45,7 @@ function validFillPositions(board, callback) {
 }
 
 // Chooses a fill position for the cpu
-function cpuFillChoose(board, callback) {
+function serverCpuFillChoose(board, callback) {
     let request = "cpu_fill_choose(" 
                 + JSON.stringify(board).replace(/"+/g, '') 
                 + ")";
@@ -54,9 +54,10 @@ function cpuFillChoose(board, callback) {
 }
 
 // Checks/Generates a valid fill position
-function validJumpPosition(board, startPosition, callback) {
+function serverValidJumpPosition(board, startPosition, callback) {
     let request = "valid_jump_position(" 
                 + JSON.stringify(board).replace(/"+/g, '')
+                + ","
                 + JSON.stringify(startPosition).replace(/"+/g, '')
                 + ")";
 
@@ -64,7 +65,7 @@ function validJumpPosition(board, startPosition, callback) {
 }
 
 // Removes the outer frogs from the board
-function removeOuterFrogs(board, callback) {
+function serverRemoveOuterFrogs(board, callback) {
     let request = "remove_outer_frogs("
                 + JSON.stringify(board).replace(/"+/g, '')
                 + ")";
@@ -73,9 +74,10 @@ function removeOuterFrogs(board, callback) {
 }
 
 // Makes a move
-function makeMove(move, board, callback) {
+function serverMakeMove(move, board, callback) {
     let request = "move("
                 + JSON.stringify(move).replace(/"+/g, '')
+                + ","
                 + JSON.stringify(board).replace(/"+/g, '')
                 + ")";
 
@@ -83,7 +85,7 @@ function makeMove(move, board, callback) {
 }
 
 // Checks if the game's over
-function checkGameOver(board, lastPlayer, callback) {
+function serverCheckGameOver(board, lastPlayer, callback) {
     let request = "gameOver("
                 + JSON.stringify(board).replace(/"+/g, '')
                 + lastPlayer
@@ -93,7 +95,7 @@ function checkGameOver(board, lastPlayer, callback) {
 } 
 
 // Chooses the best move
-function chooseBestMove(board, player, level, callback) {
+function serverChooseBestMove(board, player, level, callback) {
     let request = "chooseMove("
                 + JSON.stringify(board).replace(/"+/g, '')
                 + player
@@ -112,7 +114,7 @@ function closeServer() {
 
 
 
-// ------------------- TESTING ---------------------------
+// -------------- TESTING ----------------
 
 function test_server() {
 
@@ -140,6 +142,7 @@ function test_server() {
         ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
     ];
     
-    //validFillPositions(board2, printReply);
-    removeOuterFrogs(board2, printReply);
+    serverValidFillPositions(board, printReply);
+    //serverRemoveOuterFrogs(board2, printReply);
+    serverCpuFillChoose(board, printReply);
 }

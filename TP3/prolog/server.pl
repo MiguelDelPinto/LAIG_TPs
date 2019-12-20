@@ -12,7 +12,7 @@
 
 % Made by Luis Reis (ei12085@fe.up.pt) for LAIG course at FEUP.
 
-port(8080).
+port(8083).
 
 % Server Entry Point
 server :-

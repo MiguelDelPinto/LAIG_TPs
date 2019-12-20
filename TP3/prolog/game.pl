@@ -1,4 +1,5 @@
 :- use_module(library(lists)).
+:- use_module(library(random)).
 :- include('display.pl').
 :- include('input.pl').
 :- include('board.pl').
