@@ -39,11 +39,8 @@ serialInclude(['../lib/CGF.js',
                 'MyLakeWaterTile.js',
                 'MyLilyPad.js',
                 'MyLakeWater.js',
-<<<<<<< HEAD
                 'FrogChess.js',
-=======
                 'JumpAnimation.js',
->>>>>>> 46e5da09cad4df0d88e8b054adf7d631b554dc16
 
 main=function()
 {
