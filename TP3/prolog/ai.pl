@@ -22,7 +22,7 @@ choose_move(Board, Player, 1, Move) :-
 
 choose_move(Board, Player, 2, Move) :-
     valid_moves(Board, Player, ListOfMoves),
-    sort(0, @>=, ListOfMoves, [Move|_]), !.
+    get_long_move(ListOfMoves, Move), !.
 
 choose_move(Board, Player, 3, Move) :-
     valid_moves(Board, Player, ListOfMoves),
@@ -31,6 +31,28 @@ choose_move(Board, Player, 3, Move) :-
 choose_move(Board, Player, 4, Move) :-
     valid_moves(Board, Player, ListOfMoves),
     minimax(Board, Player, ListOfMoves, Move), !.
+
+
+/**
+ * Get Long Move
+ * get_long_move(+ListOfMoves, -Move)
+ * Gets the longest move of the list
+ *
+ * ListOfMoves -> List with all the valid moves
+ * Move -> The longest move
+ */
+ get_long_move([LastMove|[]], LastMove) :- !.
+
+ get_long_move([FirstMove|OtherMoves], Move) :-
+    get_long_move(OtherMoves, NewMove),
+    length(FirstMove, FirstLength),
+    length(NewMove, NewLength),
+    (
+        NewLength > FirstLength,
+        Move = NewMove;
+
+        Move = FirstMove
+    ), !.
 
 
 /**
