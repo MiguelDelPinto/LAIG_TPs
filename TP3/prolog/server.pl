@@ -12,7 +12,7 @@
 
 % Made by Luis Reis (ei12085@fe.up.pt) for LAIG course at FEUP.
 
-port(8081).
+port(8080).
 
 % Server Entry Point
 server :-
@@ -105,11 +105,59 @@ print_header_line(_).
 :-include('game.pl').
 
 parse_input(handshake, handshake).
-parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
 
-test(_,[],N) :- N =< 0.
-test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).
+% Generating valid fill positions
+parse_input(valid_fill_positions(Board), Pos):-
+	valid_fill_positions(Board, Pos);
+	Pos = [].
 
-%parse_input(move...)
+% Choosing a fill position for the cpu
+parse_input(cpu_fill_choose(Board), Pos):-
+	cpu_fill_choose(Board, Pos);
+	Pos = [].
+
+% Generating possible jump positions
+parse_input(valid_jump_position(Board, StartPosition), EndPosition):-
+	valid_jump_position(Board, StartPosition, EndPosition);
+	EndPosition = [].
+
+% Generating all valid jump positions
+parse_input(frog_can_jump(Board, StartPosition), EndPosition):-
+	frog_can_jump(Board, StartPosition, EndPosition);
+	EndPosition = [].
+
+% Performs a move
+parse_input(move(Move, InputBoard), OutputBoard):-
+	move(Move, InputBoard, OutputBoard).
+
+% Checks if the game's over
+parse_input(game_over(Board, LastPlayer), Winner):-
+	game_over(Board, LastPlayer, Winner);
+	Winner = 0.
+
+% Removes frogs in the outer lines and collumns
+parse_input(remove_outer_frogs(InBoard), OutBoard):-
+	remove_outer_frogs(InBoard, OutBoard).
+
+% Assigns a value to a board
+parse_input(value(Board, Player), Value):-
+	value(Board, Player, Value).
+
+% Checks if a game mode is valid
+parse_input(valid_game_mode(Mode), Res):-
+	(valid_game_mode(Mode), Res = true;
+	Res = false).
+
+% Sets a froggo
+parse_input(set_position(Board, Position, NewValue), NewBoard):-
+	set_position(Board, Position, NewValue, NewBoard).
+
+% Chooses the best madaf***ng move
+parse_input(choose_move(Board, Player, Level), Move):-
+	choose_move(Board, Player, Level, Move).
+
+
+
+
 	

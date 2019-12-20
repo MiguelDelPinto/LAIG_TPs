@@ -133,8 +133,11 @@ player_fill_choose(Board, Pos) :-
  * Pos -> Position choosed by the cpu 
  */
 cpu_fill_choose(Board, Pos) :-
-    setof(X, (valid_fill_position(Board, X), get_position(Board, X, empty)), Positions),
+    valid_fill_positions(Board, Positions),
     random_member(Pos, Positions).
+
+valid_fill_positions(Board, Positions) :-
+    setof(X, (valid_fill_position(Board, X), get_position(Board, X, empty)), Positions).
 
 /**
  * Valid jump

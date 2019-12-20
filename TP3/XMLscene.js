@@ -118,7 +118,7 @@ class XMLscene extends CGFscene {
         this.music = new Audio('audio/zeldaOoT.mp3');
         this.music.loop = true;
         this.music.autoplay = true;
-        this.music.volume = 1;
+        this.music.volume = 0;
         this.musicVolume = this.music.volume;
     }
 
