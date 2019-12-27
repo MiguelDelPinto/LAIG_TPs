@@ -1,13 +1,13 @@
 /**
 * MyLake
 */
-class MyLake extends CGFobject {
+class MyLake extends MyBoard {
     constructor(scene) {
         super(scene);
         this.scene = scene;
 
         this.water = new MyLakeWater(this.scene);
-        this.frog = new MyFrog(this.scene, 'lake_frog');
+        //this.frog = new MyFrog(this.scene, 'lake_frog');
         this.frogAnimation = new JumpAnimation(x => {
             return 2 - 8*Math.pow(x - 0.5, 2);
         }, 1000, [4, 4], [4, 6]);
@@ -48,37 +48,31 @@ class MyLake extends CGFobject {
                 this.water.display();
             this.scene.popMatrix();
 
-            this.scene.pushMatrix();
+            /*this.scene.pushMatrix();
                 this.frogAnimation.apply(this.scene); 
                 this.scene.translate(-0.8, 0.15, -0.65);
                 this.scene.scale(0.4, 0.4, 0.4); 
                 this.frog.display();   
-            this.scene.popMatrix();
+            this.scene.popMatrix();*/
 
             this.scene.scale(1.5, 1.5, 1.5);
- 
-            // Cycles through the 8 rows
-            for(let row = 0; row < 8; row++) {
-
-                // Cycles through the 8 collumns
-                for(let col = 0; col < 8; col++) {
-
-                    // Calculates the index for tile selection
-                    let index = row*8 + col;
-
-                    // Displays the current tile
-                    this.scene.pushMatrix();
-                        this.scene.translate(-3.5 + row, 0, -3.5 + col);
-                        this.scene.registerForPick(row*8+col+1, this.tiles[index]);
-                        this.tiles[index].display();
-                    this.scene.popMatrix();
-                }
-            }
+            
+            super.display();
 
         this.scene.popMatrix();
     }
 
-    update(t){
+    displayBorders(){} //In the lake, the board doesn't have borders 
+
+    pieceTransformation(row, column){
+        this.scene.translate(-3.5 + row, 0.08, -3.45 + column);
+        this.scene.scale(0.25, 0.25, 0.25);
+    }
+
+    update(t){ //Animations
+        /**
+         * TODO Change Animation: only needed when a move occurs  
+         */ 
         this.water.update(t);
         this.frogAnimation.update(t);
         if(this.frogAnimation.getElapsedTime() > this.frogAnimation.getTotalTime()){
