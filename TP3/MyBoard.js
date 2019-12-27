@@ -57,8 +57,6 @@ class MyBoard extends CGFobject {
         // Array that stores the pieces in the board
         this.pieces = [];
 
-        console.log(this.pieces);
-
         for(let row = 1; row <= 8; row++) {
 
             let row_of_pieces = [];
@@ -69,8 +67,6 @@ class MyBoard extends CGFobject {
 
             this.pieces.push(row_of_pieces);
         }
-
-        console.log(this.pieces);
     }
 
     generatePieceMaterials(){
@@ -88,6 +84,7 @@ class MyBoard extends CGFobject {
     }
 
     display() {
+        console.log(this.pieces);
         //Display Board
         this.scene.pushMatrix();
             this.scene.scale(0.5, 1, 0.5);
@@ -171,8 +168,6 @@ class MyBoard extends CGFobject {
     }
 
     displayPiece(row, column){     
-        this.scene.registerForPick(100+row*8+column+1, this.piece);
-
         this.pieceTransformation(row, column);
 
         switch(this.pieces[row][column]){
@@ -190,6 +185,7 @@ class MyBoard extends CGFobject {
                 return;
         }
 
+        this.scene.registerForPick(100+row*8+column+1, this.piece);
         this.piece.display();
     }
     
@@ -207,7 +203,7 @@ class MyBoard extends CGFobject {
     }
 
     setPiecePosition(position, color){
-        this.pieces[position[0]+1][position[1]+1] = color;
+        this.pieces[position[0]][position[1]] = color;
     }
 
     updateTexCoords(length_s, length_t) {}

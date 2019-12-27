@@ -59,12 +59,7 @@ class XMLscene extends CGFscene {
 
         this.setUpdatePeriod(25);
 
-
-// ----------------------------- TESTING ---------------------------------
-
-        this.frogchess = new FrogChess(this);
-
-        this.frogchess.chooseFillPosition();
+        this.initGame = false;
     }
 
     /**
@@ -290,6 +285,7 @@ class XMLscene extends CGFscene {
 
         // Displays the scene (MySceneGraph function).
         this.graph.displayScene();
+        this.frogchess.display();
 
         this.popMatrix();
         
@@ -337,6 +333,10 @@ class XMLscene extends CGFscene {
      */
     update(t){   
         if(this.sceneInited){
+            if(!this.initGame){
+                this.frogchess = new FrogChess(this);
+                this.initGame = true;
+            }
 
             //Updates the time variables
             this.lastTime = this.lastTime || t;
