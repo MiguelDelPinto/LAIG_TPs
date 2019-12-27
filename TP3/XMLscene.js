@@ -63,6 +63,8 @@ class XMLscene extends CGFscene {
 // ----------------------------- TESTING ---------------------------------
 
         this.frogchess = new FrogChess(this);
+
+        this.frogchess.chooseFillPosition();
     }
 
     /**

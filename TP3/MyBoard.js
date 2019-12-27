@@ -8,6 +8,8 @@ class MyBoard extends CGFobject {
         super(scene);
         this.scene = scene;
 
+        this.loaded = false;
+
         // Generates the tiles
         this.generateTiles();
 
@@ -16,6 +18,8 @@ class MyBoard extends CGFobject {
 
         // Generates the pieces
         this.generatePieces(piece);
+
+        this.loaded = true;
     }
 
     generateTiles() {
@@ -54,6 +58,8 @@ class MyBoard extends CGFobject {
         // Array that stores the pieces in the board
         this.pieces = [];
 
+        console.log(this.pieces);
+
         for(let row = 1; row <= 8; row++) {
 
             let row_of_pieces = [];
@@ -64,6 +70,8 @@ class MyBoard extends CGFobject {
 
             this.pieces.push(row_of_pieces);
         }
+
+        console.log(this.pieces);
     }
 
     generatePieceMaterials(){

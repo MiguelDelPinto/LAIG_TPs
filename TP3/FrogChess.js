@@ -33,21 +33,12 @@ class FrogChess extends CGFobject {
 
     // Choosing a fill position, in the beginning of the game
     chooseFillPosition() {
-        if(!this.serverCall){
-            serverCpuFillChoose(this.board.pieces, this.handlePosition);
-            this.serverCall = true;
-        }        
-        
-        if(this.next_position === []){
-            this.fillingBoard = false;
-            return;
-        }
-        
-        if(this.next_position === undefined)
-            return;
 
-        this.board.setPiecePosition(this.next_position, this.getPlayerColor());
-        this.serverCall = false;
+        if(!this.serverCall){
+            this.serverCall = true;
+            serverCpuFillChoose(this.board.pieces, data => this.handleFillPosition(data));    // O segundo argumento é assim para poder chamar o this.board a partir do handler (senão dava undefined)
+        }        
+
     }
 
     // Generates possible fill positions
@@ -73,6 +64,25 @@ class FrogChess extends CGFobject {
 
 
     // ---------- REQUEST HANDLERS -----------
+
+    // Handles a newly generated fill position [x, y] from the request
+    handleFillPosition(data) {
+        let position = JSON.parse(data.target.response);
+
+        if(position === undefined) {
+            console.log("ERROR: choosing fill position");
+            return;
+        }
+
+        if(position === []) {
+            console.log("INVALID: no valid fill positions left");
+            return;
+        }
+
+        this.board.setPiecePosition(position, this.getPlayerColor());
+
+        this.serverCall = false;
+    }
     
     // Parses a position [x, y] from the request
     handlePosition(data) {
@@ -96,6 +106,10 @@ class FrogChess extends CGFobject {
     }
 
     update(t){
+
+        if(!this.board.loaded)
+            return;
+
         if(this.fillingBoard){
             switch(this.gameMode){
                 case 1: //Players are both human
