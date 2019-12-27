@@ -46,7 +46,6 @@ class MyBoard extends CGFobject {
 
     generateBorders() {
         this.border_side = new MyRectangle(this.scene, 'border_side', -4, -0.5, 4, 0);
-        this.border_bottom = new MyRectangle(this.scene, 'border_bottom', -4, -4, 4, 4);
     }
 
     generatePieces(piece) {
@@ -173,8 +172,8 @@ class MyBoard extends CGFobject {
 
     displayPiece(row, column){     
         this.scene.registerForPick(100+row*8+column+1, this.piece);
-        this.scene.translate(-3.5 + row, 0, -3.4 + column);
-        this.scene.scale(0.45, 0.45, 0.45);
+
+        this.pieceTransformation(row, column);
 
         switch(this.pieces[row][column]){
             case "yellow":
@@ -192,6 +191,11 @@ class MyBoard extends CGFobject {
         }
 
         this.piece.display();
+    }
+    
+    pieceTransformation(row, column){
+        this.scene.translate(-3.5 + row, 0, -3.4 + column);
+        this.scene.scale(0.45, 0.45, 0.45);
     }
 
     getPieces(){
