@@ -4,7 +4,7 @@
 * @param scene - Reference to MyScene object
 */
 class MyBoard extends CGFobject {
-    constructor(scene) {
+    constructor(scene, piece) {
         super(scene);
         this.scene = scene;
 
@@ -15,8 +15,7 @@ class MyBoard extends CGFobject {
         this.generateBorders();
 
         // Generates the pieces
-        this.generatePieces();
-
+        this.generatePieces(piece);
     }
 
     generateTiles() {
@@ -46,7 +45,12 @@ class MyBoard extends CGFobject {
         this.border_bottom = new MyRectangle(this.scene, 'border_bottom', -4, -4, 4, 4);
     }
 
-    generatePieces() {
+    generatePieces(piece) {
+
+        this.piece = piece || new MyFrog(this.scene, 'frogPiece');
+        
+        this.generatePieceMaterials();
+
         // Array that stores the pieces in the board
         this.pieces = [];
 
@@ -62,37 +66,136 @@ class MyBoard extends CGFobject {
         }
     }
 
-    display() {
-        this.scene.pushMatrix();
+    generatePieceMaterials(){
+        this.yellowMaterial = new CGFappearance(this.scene);
+        this.yellowMaterial.setAmbient(0.5, 0.5, 0.125, 1);
+        this.yellowMaterial.setDiffuse(0.5, 0.5, 0.125, 1);
+        this.yellowMaterial.setSpecular(0.1, 0.1, 0.025, 0.1);
+        this.yellowMaterial.setShininess(1.0);
+           
+        this.blueMaterial = new CGFappearance(this.scene);
+        this.blueMaterial.setAmbient(0.125, 0.5, 0.5, 1);
+        this.blueMaterial.setDiffuse(0.125, 0.5, 0.5, 1);
+        this.blueMaterial.setSpecular(0.025, 0.1, 0.1, 0.1);
+        this.blueMaterial.setShininess(1.0);
+    }
 
+    display() {
+        //Display Board
+        this.scene.pushMatrix();
             this.scene.scale(0.5, 1, 0.5);
 
-            // Cycles through the 8 rows
-            for(let row = 0; row < 8; row++) {
+            this.displayTiles();
 
-                // Cycles through the 8 collumns
-                for(let col = 0; col < 8; col++) {
+            this.displayBorders();
 
-                    // Calculates the index for tile selection
-                    let index = row*8 + col;
-
-                    // Displays the current tile
-                    this.scene.pushMatrix();
-                        this.scene.translate(-3.5 + row, 0, -3.5 + col);
-                        this.scene.registerForPick(row*8+col+1, this.tiles[index]);
-                        this.tiles[index].display();
-                    this.scene.popMatrix();
-                }
-            }
-
-            // Displays the borders
-            this.scene.pushMatrix();
-                //this.scene.rotate(Math.PI/2, 1, 0, 0);             
-                this.border_side.display();
-            this.scene.popMatrix();
-            
+            this.displayPieces();
 
         this.scene.popMatrix();
+    }
+
+    displayTiles(){
+        // Cycles through the 8 rows
+        for(let row = 0; row < 8; row++) {
+
+            // Cycles through the 8 collumns
+            for(let col = 0; col < 8; col++) {
+
+                // Calculates the index for tile selection
+                let index = row*8 + col;
+
+                // Displays the current tile
+                this.scene.pushMatrix();
+                    this.scene.translate(-3.5 + row, 0, -3.5 + col);
+                    this.scene.registerForPick(row*8+col+1, this.tiles[index]);
+                    this.tiles[index].display();
+                this.scene.popMatrix();
+            }
+        }
+    }
+
+    displayBorders(){
+        // Displays the borders
+        this.scene.pushMatrix();   
+            this.scene.pushMatrix();
+                this.scene.translate(5.15, -0.16, -4);
+                this.scene.scale(2.2875, 0.04, 1);
+                this.border_side.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(-5.15, -0.16, 4);
+                this.scene.scale(2.2875, 0.04, 1);
+                this.scene.rotate(Math.PI, 0, 1, 0);
+                this.border_side.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(-4, -0.16, -5.15);
+                this.scene.rotate(Math.PI/2, 0, 1, 0);
+                this.scene.scale(2.2875, 0.04, 1);
+                this.border_side.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
+                this.scene.translate(4, -0.16, 5.15);
+                this.scene.rotate(-Math.PI/2, 0, 1, 0);
+                this.scene.scale(2.2875, 0.04, 1);
+                this.border_side.display();
+            this.scene.popMatrix();
+        this.scene.popMatrix();
+    }
+
+    displayPieces(){
+        for(let row = 0; row < 8; row++) {
+
+            // Cycles through the 8 collumns
+            for(let col = 0; col < 8; col++) {
+
+                // Calculates the index for piece selection
+                //let index = row*8 + col;
+
+                // Displays the current 
+                this.scene.pushMatrix();
+                    this.displayPiece(row, col);    
+                this.scene.popMatrix();
+            }
+        }
+    }
+
+    displayPiece(row, column){     
+        this.scene.registerForPick(100+row*8+column+1, this.piece);
+        this.scene.translate(-3.5 + row, 0, -3.4 + column);
+        this.scene.scale(0.45, 0.45, 0.45);
+
+        switch(this.pieces[row][column]){
+            case "yellow":
+                this.yellowMaterial.apply();
+                break;
+            case "blue":
+                this.blueMaterial.apply();
+
+                this.scene.translate(0, 0, -0.4);
+                this.scene.rotate(Math.PI, 0, 1, 0);
+                
+                break;
+            default:
+                return;
+        }
+
+        this.piece.display();
+    }
+
+    getPieces(){
+        return this.pieces;
+    }
+
+    setPieces(pieces){
+        this.pieces = pieces; 
+    }
+
+    setPiecePosition(position, color){
+        this.pieces[position[0]+1][position[1]+1] = color;
     }
 
     updateTexCoords(length_s, length_t) {}

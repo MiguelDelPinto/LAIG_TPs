@@ -63,24 +63,6 @@ class XMLscene extends CGFscene {
 // ----------------------------- TESTING ---------------------------------
 
         this.frogchess = new FrogChess(this);
-        
-        this.frogchess.chooseFillPosition();
-
-        this.frogchess.getFillPositions();
-
-        this.frogchess.board.pieces =  
-        [
-            ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"],
-            ["empty", "blue", "yellow", "yellow", "blue", "blue", "yellow", "empty"],
-            ["empty", "blue", "blue", "blue", "yellow", "yellow", "yellow", "empty"],
-            ["empty", "blue", "blue", "yellow", "blue", "yellow", "yellow", "empty"],
-            ["empty", "blue", "blue", "yellow", "blue", "yellow", "yellow", "empty"],
-            ["empty", "yellow", "yellow", "blue", "yellow", "blue", "blue", "empty"],
-            ["empty", "blue", "yellow", "blue", "yellow", "blue", "yellow", "empty"],
-            ["empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"]
-        ];
-
-        this.frogchess.getJumpPositions([0,0]);
     }
 
     /**
@@ -363,6 +345,8 @@ class XMLscene extends CGFscene {
             this.graph.updateAnimations(this.deltaTime);
             this.graph.update(this.deltaTime);
             //this.securityCamera.update(this.deltaTime);
+
+            this.frogchess.update(t);
         }
     }
 
