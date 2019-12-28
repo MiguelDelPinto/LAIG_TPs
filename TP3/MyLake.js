@@ -2,8 +2,8 @@
 * MyLake
 */
 class MyLake extends MyBoard {
-    constructor(scene) {
-        super(scene);
+    constructor(scene, piece, transformationMatrix) {
+        super(scene, piece, transformationMatrix);
         this.scene = scene;
 
         this.water = new MyLakeWater(this.scene);
@@ -44,8 +44,12 @@ class MyLake extends MyBoard {
     display() {
         this.scene.pushMatrix();
             this.scene.pushMatrix();
-                this.scene.scale(29, 1, 29);
-                this.water.display();
+                this.scene.multMatrix(this.transformationMatrix);
+                
+                this.scene.pushMatrix();
+                    this.scene.scale(29, 1, 29);
+                    this.water.display();
+                this.scene.popMatrix();
             this.scene.popMatrix();
 
             /*this.scene.pushMatrix();
@@ -55,7 +59,8 @@ class MyLake extends MyBoard {
                 this.frog.display();   
             this.scene.popMatrix();*/
 
-            this.scene.scale(1.5, 1.5, 1.5);
+            this.scene.translate(0, 14, 0);
+            this.scene.scale(2, 2, 2);
             
             super.display();
 

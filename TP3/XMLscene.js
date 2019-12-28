@@ -334,7 +334,7 @@ class XMLscene extends CGFscene {
     update(t){   
         if(this.sceneInited){
             if(!this.initGame){
-                this.frogchess = new FrogChess(this);
+                this.frogchess = new FrogChess(this, this.graph.board);
                 this.initGame = true;
             }
 

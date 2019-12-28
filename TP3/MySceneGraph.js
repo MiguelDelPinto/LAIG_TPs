@@ -10,7 +10,8 @@ var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
 var ANIMATIONS_INDEX = 7;
 var PRIMITIVES_INDEX = 8;
-var COMPONENTS_INDEX = 9;
+var BOARD_INDEX = 9;
+var COMPONENTS_INDEX = 10;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -201,6 +202,18 @@ class MySceneGraph {
 
             //Parse primitives block
             if ((error = this.parsePrimitives(nodes[index])) != null)
+                return error;
+        }
+
+        // <board>
+        if((index = nodeNames.indexOf("board")) == -1)
+            return "tag <board> missing";
+        else{
+            if (index != BOARD_INDEX)
+            this.onXMLMinorError("tag <board> out of order");
+
+            //Parse board block
+            if ((error = this.parseBoard(nodes[index])) != null)
                 return error;
         }
 
@@ -1183,9 +1196,113 @@ class MySceneGraph {
     }
 
     /**
-   * Parses the <components> block.
-   * @param {components block element} componentsNode
-   */
+     * Parses the <board> block
+     * @param {board block element} boardNode 
+     */
+    parseBoard(boardNode){
+        
+        //Stores transformation(s), material(s), texture and reference(s) to components/primitives
+        let children = boardNode.children;
+
+        let nodeNames = [];
+        for (let j = 0; j < children.length; j++) {
+            nodeNames.push(children[j].nodeName);
+        }
+
+        // Gets the index of the board transformation and checks if it exists
+        var transformationIndex = nodeNames.indexOf("transformation");
+        if(transformationIndex == -1)
+            return "transformation parameter is undefined for board";
+
+        // Gets the index of the board primitiveref and checks if it exists                
+        var primitiveIndex = nodeNames.indexOf("primitiveref");
+        if(primitiveIndex == -1)
+            return "primitiveref parameter is undefined for board";            
+
+        // Transformations
+        let transfMatrix;
+        let grandChildren = children[transformationIndex].children;
+              
+        if(grandChildren.length == 1 && grandChildren[0].nodeName == "transformationref"){
+            if(grandChildren.length > 1)
+                return "board can only have one transformationref in its transformation";
+        
+            var transformationID = this.reader.getString(grandChildren[0], 'id');
+            if(transformationID == null)
+                return "no ID defined for board";
+
+            // Checks if the transformation exists
+            if (this.transformations[transformationID] == null && transformationID != "inherit")
+                return "transformation with ID " + transformationID + " must exist ";
+
+            transfMatrix = this.transformations[transformationID];
+        }
+        else{
+            transfMatrix = mat4.create();
+
+            let mix_count = 0;
+
+            for (let j = 0; j < grandChildren.length; j++) {
+                switch (grandChildren[j].nodeName) {
+                    case 'translate':
+                        var coordinates = this.parseCoordinates3D(grandChildren[j], "translate transformation for board");
+                        if (!Array.isArray(coordinates))
+                            return coordinates;
+
+                        transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
+                        break;
+                    case 'scale':         
+                        var coordinates = this.parseCoordinates3D(grandChildren[j], "scale transformation for board");
+                        if(!Array.isArray(coordinates))
+                            return coordinates;
+
+                        transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);   
+                        break;
+                    case 'rotate':
+                        //Axis coordinates
+                        var coordinates = this.parseAxis(grandChildren[j], "rotate transformation for board");
+                        if(!Array.isArray(coordinates))
+                            return coordinates;
+
+                        // angle
+                        var angle = this.parseAngle(grandChildren[j], "rotate transformation for board");
+                        if(isNaN(angle))
+                            return angle;
+
+                        transfMatrix = mat4.rotate(transfMatrix, transfMatrix, this.degreeToRad(angle), coordinates);
+                        break;
+                    case 'transformationref':
+                        if(mix_count === 0)
+                            this.onXMLMinorError("References to transformations are being mixed with explicit transformations on the board. They will be ignored.");
+
+                        mix_count++;
+                        break;
+                    default:
+                        return grandChildren[j].nodeName + " is not a valid transformation for board";
+                }
+            }
+        }
+
+        // Primitiveref
+        grandChildren = children[primitiveIndex];
+
+        // Checks if the id parameter exists
+        if(!this.reader.hasAttribute(grandChildren, "id"))
+            return "there is no ID on the primitiveref of the board";
+            
+        var primitiveId = this.reader.getString(grandChildren, 'id');
+        let board = this.primitives[primitiveId];
+
+        board.setTransformationMatrix(transfMatrix);
+
+        //Adding the board
+        this.board = board;
+    }
+
+    /**
+     * Parses the <components> block.
+     * @param {components block element} componentsNode
+     */
     parseComponents(componentsNode) {   
         var children = componentsNode.children;
 

@@ -4,9 +4,11 @@
 * @param scene - Reference to MyScene object
 */
 class MyBoard extends CGFobject {
-    constructor(scene, piece) {
+    constructor(scene, piece, transformationMatrix) {
         super(scene);
         this.scene = scene;
+
+        this.transformationMatrix = transformationMatrix || mat4.create();
 
         this.loaded = false;
 
@@ -84,17 +86,20 @@ class MyBoard extends CGFobject {
     }
 
     display() {
-        console.log(this.pieces);
         //Display Board
         this.scene.pushMatrix();
-            this.scene.scale(0.5, 1, 0.5);
+            this.scene.multMatrix(this.transformationMatrix);
 
-            this.displayTiles();
+            this.scene.pushMatrix();
+                this.scene.scale(0.5, 1, 0.5);
+            
+                this.displayTiles();
 
-            this.displayBorders();
+                this.displayBorders();
 
-            this.displayPieces();
+                this.displayPieces();
 
+            this.scene.popMatrix();
         this.scene.popMatrix();
     }
 
@@ -204,6 +209,10 @@ class MyBoard extends CGFobject {
 
     setPiecePosition(position, color){
         this.pieces[position[0]][position[1]] = color;
+    }
+
+    setTransformationMatrix(transformationMatrix){
+        this.transformationMatrix = transformationMatrix;
     }
 
     updateTexCoords(length_s, length_t) {}

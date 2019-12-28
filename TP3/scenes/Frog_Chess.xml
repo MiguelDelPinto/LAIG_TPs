@@ -169,14 +169,21 @@
         <primitive id="rectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive> 
-        <primitive id="lilypad">
-            <sphere radius="1" slices="20" stacks="20" />
-        </primitive>
         <primitive id="board">
             <board />
         </primitive>
     </primitives>
 
+    <!--           -->
+    <!--   Board   -->
+    <!--           -->
+    <board> <!--Special component for the game board--> 
+        <transformation>
+            <translate x="0" y="-5" z="0" />
+            <scale x="3" y="3" z="3" />
+        </transformation>
+        <primitiveref id="board" />         
+    </board>
 
     <!--                -->
     <!--   Components   -->
@@ -193,7 +200,6 @@
             <children>>
                 <componentref id="background" />
                 <componentref id="table" />
-                <componentref id="board" />
             </children>
         </component>
 
@@ -572,39 +578,6 @@
             <children>
                 <primitiveref id="rectangle" />
             </children>
-        </component>
-
-        <!-- Board -->
-        <component id="board">
-            <transformation>
-                <translate x="0" y="-5" z="0" />
-                <scale x="3" y="3" z="3" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="table_wood" length_s="2" length_t="2" />
-            <children>
-                <primitiveref id="board" />                                             
-            </children>
-        </component> 
-
-
-
-
-
-        <!-- Other -->
-        <component id="lilypad">
-            <transformation>
-                <scale x="1" y="0.1" z="1" />
-            </transformation>
-            <materials>
-                <material id="inherit" />
-            </materials>
-            <texture id="leaf" length_s="1" length_t="1" />
-            <children>
-                <primitiveref id="lilypad" />
-            </children>
-        </component>                
+        </component>           
     </components>
 </lxs>
