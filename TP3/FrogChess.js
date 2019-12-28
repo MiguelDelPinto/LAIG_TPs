@@ -14,12 +14,13 @@ class FrogChess extends CGFobject {
         
         this.player = 1; //First Player is the player 1
         
-        this.gameMode = gameMode || 1;
+        this.gameMode = gameMode || 2;
 
         this.fillingBoard = true; //In the beggining of the game, players have to fill the board with frogs
 
         //If serverCall is true, there was a call to the server and no other call will be made 
         this.serverCall = false;
+        this.isPicking = false;
     }
 
     getPlayerColor(){
@@ -106,6 +107,7 @@ class FrogChess extends CGFobject {
         this.board.highlightTiles(positions);
 
         this.serverCall = false;
+        this.isPicking = true;
     }
     
     
@@ -130,33 +132,63 @@ class FrogChess extends CGFobject {
         console.log(board);
     }
 
+    pickResults() {
+		if (this.scene.pickMode == false) {
+			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
+
+                for (var i = 0; i < this.scene.pickResults.length; i++) {
+					var obj = this.scene.pickResults[i][0];
+					if (obj) {
+                        if(this.fillingBoard && this.isPicking){
+                            const index = this.scene.pickResults[i][1] - 1;
+                            console.log("Picked object: " + obj + ", with pick id " + index);	
+                            
+                            this.board.setPiecePosition([Math.trunc(index / 8), index % 8], this.getPlayerColor());
+                            this.isPicking = false;	
+                            this.nextPlayer();				 
+                            this.board.playDownTiles();                  
+                        }else{
+
+                        }
+                    }
+				}
+				this.scene.pickResults.splice(0, this.scene.pickResults.length);
+			}
+		}
+	}
+
     update(t){
 
         if(!this.board.loaded)
             return;
 
         if(this.fillingBoard){
-            switch(this.gameMode){
-                case 1: //Players are both human
-                    this.getFillPositions();
-                    break;
-                case 2: //Player 1 -> human; Player 2 -> CPU
-                    if(player == 1){
+            if(!this.isPicking){
+                switch(this.gameMode){
+                    case 1: //Players are both human
                         this.getFillPositions();
-                    }else{
+                        break;
+                    case 2: //Player 1 -> human; Player 2 -> CPU
+                        if(this.player == 1){
+                            this.getFillPositions();
+                        }else{
+                            this.chooseFillPosition();
+                        }
+                        break;
+                    case 3: //Players are both CPU
                         this.chooseFillPosition();
-                    }
-                    break;
-                case 3: //Players are both CPU
-                    this.chooseFillPosition();
-                    break;
-                default: 
-                    return;
+                        break;
+                    default: 
+                        return;
+                }
             }
         }
     }
 
     display() {
+        this.pickResults();
+        this.scene.clearPickRegistration();
+
         this.board.display();
     }
 }

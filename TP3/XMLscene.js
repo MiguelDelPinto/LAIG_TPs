@@ -313,11 +313,8 @@ class XMLscene extends CGFscene {
      */
     display(){
         if (this.sceneInited) {
-            this.logPicking();
             /*this.textureRTT.attachToFrameBuffer();
             this.render(true);*/
-
-            this.clearPickRegistration();
             //this.textureRTT.detachFromFrameBuffer();
             this.render(false);
 

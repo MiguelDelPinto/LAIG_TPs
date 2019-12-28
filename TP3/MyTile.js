@@ -40,6 +40,10 @@ class MyTile extends CGFobject {
         this.plane.display();
     }
 
+    isHighlighted(){
+        return this.highlighted;
+    }
+
     highlight(){
         this.highlighted = true;
     }

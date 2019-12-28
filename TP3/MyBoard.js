@@ -116,8 +116,13 @@ class MyBoard extends CGFobject {
                 // Displays the current tile
                 this.scene.pushMatrix();
                     this.scene.translate(-3.5 + row, 0, -3.5 + col);
-                    this.scene.registerForPick(row*8+col+1, this.tiles[index]);
+                    if(this.tiles[index].isHighlighted()){
+                        this.scene.registerForPick(index+1, this.tiles[index]);
+                    }
+                    
                     this.tiles[index].display();
+                    
+                    this.scene.clearPickRegistration();
                 this.scene.popMatrix();
             }
         }
@@ -190,7 +195,7 @@ class MyBoard extends CGFobject {
                 return;
         }
 
-        this.scene.registerForPick(100+row*8+column+1, this.piece);
+        //this.scene.registerForPick(100+row*8+column+1, this.piece);
         this.piece.display();
     }
     
@@ -218,6 +223,12 @@ class MyBoard extends CGFobject {
     highlightTiles(positions){
         positions.forEach(position => {
             this.tiles[position[0]*8 + position[1]].highlight();
+        });
+    }
+
+    playDownTiles(){
+        this.tiles.forEach(tile => {
+            tile.playDown();
         });
     }
 
