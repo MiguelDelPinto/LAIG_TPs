@@ -41,6 +41,7 @@ serialInclude(['../lib/CGF.js',
                 'MyLakeWater.js',
                 'FrogChess.js',
                 'JumpAnimation.js',
+                'MyPiece.js',
 
 main=function()
 {

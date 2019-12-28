@@ -2,7 +2,7 @@
 * Class JumpAnimation
 */
 class JumpAnimation extends Animation {
-    constructor(func, totalTime, initPosition, finalPosition){
+    constructor(func, totalTime){
         super();
 
         this.func = func;
@@ -16,14 +16,9 @@ class JumpAnimation extends Animation {
     update(t) { //t = time between two updates
         super.update(t);
 
-        if(this.finishAnimation)
-            return;
-
         // Determines if the animation has ended
         if(this.elapsedTime > this.totalTime){
-            this.finishAnimation = true;
-            this.createFinalMatrix();
-            return;
+            this.elapsedTime -= this.totalTime; 
         }
         
         this.createMatrix();

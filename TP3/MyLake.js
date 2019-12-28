@@ -8,9 +8,6 @@ class MyLake extends MyBoard {
 
         this.water = new MyLakeWater(this.scene);
         //this.frog = new MyFrog(this.scene, 'lake_frog');
-        this.frogAnimation = new JumpAnimation(x => {
-            return 2 - 8*Math.pow(x - 0.5, 2);
-        }, 1000, [4, 4], [4, 6]);
 
         // Generates the tiles
         this.generateTiles();
@@ -52,13 +49,6 @@ class MyLake extends MyBoard {
                 this.scene.popMatrix();
             this.scene.popMatrix();
 
-            /*this.scene.pushMatrix();
-                this.frogAnimation.apply(this.scene); 
-                this.scene.translate(-0.8, 0.15, -0.65);
-                this.scene.scale(0.4, 0.4, 0.4); 
-                this.frog.display();   
-            this.scene.popMatrix();*/
-
             this.scene.translate(0, 14, 0);
             this.scene.scale(2, 2, 2);
             
@@ -75,15 +65,9 @@ class MyLake extends MyBoard {
     }
 
     update(t){ //Animations
-        /**
-         * TODO Change Animation: only needed when a move occurs  
-         */ 
         this.water.update(t);
-        this.frogAnimation.update(t);
-        if(this.frogAnimation.getElapsedTime() > this.frogAnimation.getTotalTime()){
-            this.frogAnimation.resetsTime();
-            this.frogAnimation.finishAnimation = false;
-        }
+        
+        super.update(t);
     }
 
     updateTexCoords(length_s, length_t) {}

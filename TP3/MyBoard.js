@@ -51,8 +51,7 @@ class MyBoard extends CGFobject {
     }
 
     generatePieces(piece) {
-
-        this.piece = piece || new MyFrog(this.scene, 'frogPiece');
+        this.piece = piece || new MyPiece(this.scene, 'piece');
         
         this.generatePieceMaterials();
 
@@ -230,6 +229,10 @@ class MyBoard extends CGFobject {
         this.tiles.forEach(tile => {
             tile.playDown();
         });
+    }
+
+    update(t){
+        this.piece.update(t);
     }
 
     updateTexCoords(length_s, length_t) {}
