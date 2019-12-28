@@ -13,9 +13,6 @@ class XMLscene extends CGFscene {
 
         this.initMusic();
         
-        // Variable for enabling/disabling the axis in the interface
-        this.displayAxis = true;
-
         this.interface = myinterface;
     }
 
@@ -275,10 +272,6 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
         
         this.pushMatrix();
-
-        // Enables/disables the axis according to the interface
-        if(this.displayAxis)
-            this.axis.display();
         
         // Draw axis
         this.setDefaultAppearance();
