@@ -16,10 +16,29 @@ class MyLilyPad extends CGFobject {
         this.material.setShininess(1.0);
         this.material.loadTexture('scenes/images/lilypad.jpg');
         this.material.setTextureWrap('REPEAT', 'REPEAT');   
+
+        this.highlighted = false;
     }
 
     display(){
-        this.material.apply();
+        if(this.highlighted){
+            this.highlightMaterial.apply();
+        }else{
+            this.material.apply();
+        }
+        
         this.lilyPad.display();
+    }
+
+    setHighlightMaterial(material){
+        this.highlightMaterial = material;
+    }
+
+    highlight(){
+        this.highlighted = true;
+    }
+
+    playDown(){
+        this.highlighted = false;
     }
 }

@@ -16,13 +16,31 @@ class MyRock extends CGFobject {
         this.material.setShininess(1.0);
         this.material.loadTexture('scenes/images/rock.jpg');
         this.material.setTextureWrap('REPEAT', 'REPEAT'); 
+
+        this.highlighted = false;
     }
 
     display(){
         this.scene.pushMatrix();
             this.scene.translate(0, -0.25, 0);
-            this.material.apply();
+            if(this.highlighted){
+                this.highlightMaterial.apply();
+            }else{
+                this.material.apply();
+            }
             this.rock.display();
         this.scene.popMatrix();
+    }
+
+    setHighlightMaterial(material){
+        this.highlightMaterial = material;
+    }
+
+    highlight(){
+        this.highlighted = true;
+    }
+
+    playDown(){
+        this.highlighted = false;
     }
 }

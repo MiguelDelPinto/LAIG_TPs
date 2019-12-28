@@ -214,6 +214,12 @@ class MyBoard extends CGFobject {
     setTransformationMatrix(transformationMatrix){
         this.transformationMatrix = transformationMatrix;
     }
+    
+    highlightTiles(positions){
+        positions.forEach(position => {
+            this.tiles[position[0]*8 + position[1]].highlight();
+        });
+    }
 
     updateTexCoords(length_s, length_t) {}
 }

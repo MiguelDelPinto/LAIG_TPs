@@ -14,7 +14,7 @@ class FrogChess extends CGFobject {
         
         this.player = 1; //First Player is the player 1
         
-        this.gameMode = gameMode || 3;
+        this.gameMode = gameMode || 1;
 
         this.fillingBoard = true; //In the beggining of the game, players have to fill the board with frogs
 
@@ -48,7 +48,7 @@ class FrogChess extends CGFobject {
     // Generates possible fill positions
     getFillPositions() {
         if(!this.serverCall){
-            serverValidFillPositions(this.board.pieces, this.handlePositions);
+            serverValidFillPositions(this.board.pieces, data => this.handleFillPositions(data));
             this.serverCall = true;
         }
 
@@ -78,8 +78,8 @@ class FrogChess extends CGFobject {
             return;
         }
 
-        if(position === []) {
-            console.log("INVALID: no valid fill positions left");
+        if(Array.isArray(position) && !position.length) {
+            this.fillingBoard = false;
             return;
         }
 
@@ -88,6 +88,26 @@ class FrogChess extends CGFobject {
 
         this.serverCall = false;
     }
+
+    // Handles an array with all the available fill positions [x, y] from the request
+    handleFillPositions(data) {
+        let positions = JSON.parse(data.target.response);
+
+        if(positions === undefined) {
+            console.log("ERROR: getting fill positions");
+            return;
+        }
+
+        if(Array.isArray(positions) && !positions.length) {
+            this.fillingBoard = false;
+            return;
+        }
+
+        this.board.highlightTiles(positions);
+
+        this.serverCall = false;
+    }
+    
     
     // Parses a position [x, y] from the request
     handlePosition(data) {
