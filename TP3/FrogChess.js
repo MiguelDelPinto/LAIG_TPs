@@ -29,6 +29,10 @@ class FrogChess extends CGFobject {
         return "yellow";
     }
 
+    nextPlayer(){
+        this.player = (this.player+2) % 2 + 1;
+    }
+
     // ---------- GAME LOGIC -----------
 
     // Choosing a fill position, in the beginning of the game
@@ -80,6 +84,7 @@ class FrogChess extends CGFobject {
         }
 
         this.board.setPiecePosition(position, this.getPlayerColor());
+        this.nextPlayer();
 
         this.serverCall = false;
     }
