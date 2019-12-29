@@ -191,7 +191,10 @@ class MyBoard extends CGFobject {
             this.scene.rotate(Math.PI, 0, 1, 0);
         }
 
-        //this.scene.registerForPick(100+row*8+column+1, this.piece);
+        if(piece.canBePicked()){
+            this.scene.registerForPick(100+piece.getRow()*8+piece.getColumn()+1, piece);
+        }
+    
         piece.display();
     }
     
@@ -251,6 +254,39 @@ class MyBoard extends CGFobject {
     update(t){
         this.realPieces.forEach(piece => {
             piece.update(t);
+        });
+    }
+
+    selectPieces(positions){
+        positions.forEach(position => {
+            this.realPieces.forEach(piece =>{
+                let Break = {};
+                try{
+                    if(piece.getRow() === position[0] && piece.getColumn() === position[1]){
+                        piece.enablePicking();
+                        throw Break;
+                    }
+                }catch(e){} //Break forEach loop
+            });
+        });
+    }
+
+    selectPiece(row, column){
+        this.realPieces.forEach(piece => {
+            if(piece.getRow() === row && piece.getColumn() === column){
+                piece.select();
+                return;
+            }
+        });
+    }
+
+    deselectPiece(row, column){
+        
+        this.realPieces.forEach(piece => {
+            if(piece.getRow() === row && piece.getColumn() === column){
+                piece.deselect();
+                return;
+            }
         });
     }
 

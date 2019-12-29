@@ -122,6 +122,10 @@ parse_input(valid_jump_position(Board, StartPosition), EndPosition):-
 	valid_jump_position(Board, StartPosition, EndPosition);
 	EndPosition = [].
 
+% Generating all valid moves
+parse_input(valid_moves(Board, Player), ListOfMoves):-
+	valid_moves(Board, Player, ListOfMoves).
+
 % Generating all valid jump positions
 parse_input(frog_can_jump(Board, StartPosition), EndPosition):-
 	frog_can_jump(Board, StartPosition, EndPosition);

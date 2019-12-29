@@ -12,6 +12,7 @@ class MyPiece extends CGFobject {
         this.material = material;
 
         this.selected = false;
+        this.possiblePicking = false;
 
         this.piece = piece || new MyFrog(scene, 'frog');
 
@@ -22,7 +23,7 @@ class MyPiece extends CGFobject {
 
     display(){
         this.scene.pushMatrix();
-            if(this.select){
+            if(this.selected){
                 this.selectAnimation.apply(this.scene);
             }
             
@@ -33,19 +34,33 @@ class MyPiece extends CGFobject {
     }
 
     select(){
+        console.log("selected: " + this.row + "; " + this.column);
         this.selected = true;
-        this.frogAnimation.resetsTime();
-        this.frogAnimation.finishAnimation = false;
+        this.selectAnimation.resetsTime();
+        this.selectAnimation.finishAnimation = false;
     }
 
     deselect(){
-        this.select = false;
+        console.log("deselected: " + this.row + "; " + this.column);
+        this.selected = false;
     }
     
     update(t){
         if(this.selected){
             this.selectAnimation.update(t);
         }
+    }
+
+    canBePicked(){
+        return this.possiblePicking;
+    }
+
+    enablePicking(){
+        this.possiblePicking = true;
+    }
+
+    disablePicking(){
+        this.possiblePicking = false;
     }
 
     getRow(){

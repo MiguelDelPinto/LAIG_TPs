@@ -64,6 +64,17 @@ function serverGetPlayerFrogs(board, player, callback){
     makeRequest(request, callback);
 }
 
+// Gets all the valid moves
+function serverValidMoves(board, player, callback){
+    let request = "valid_moves("
+                + JSON.stringify(board).replace(/"+/g, '')
+                + ","
+                + player
+                + ")";
+
+    makeRequest(request, callback);
+}
+
 // Checks/Generates a valid fill position
 function serverValidJumpPosition(board, startPosition, callback) {
     let request = "valid_jump_position(" 

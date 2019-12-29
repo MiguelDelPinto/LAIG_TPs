@@ -43,7 +43,7 @@ class FrogChess extends CGFobject {
     chooseFillPosition() {
         if(!this.serverCall){
             this.serverCall = true;
-            serverCpuFillChoose(this.board.pieces, data => this.handleFillPosition(data));
+            serverCpuFillChoose(this.board.getPieces(), data => this.handleFillPosition(data));
         }        
 
     }
@@ -51,7 +51,7 @@ class FrogChess extends CGFobject {
     // Generates possible fill positions
     getFillPositions() {
         if(!this.serverCall){
-            serverValidFillPositions(this.board.pieces, data => this.handleFillPositions(data));
+            serverValidFillPositions(this.board.getPieces(), data => this.handleFillPositions(data));
             this.serverCall = true;
         }
     }
@@ -59,16 +59,29 @@ class FrogChess extends CGFobject {
     // CPU chooses a jump position
     chooseJumpPosition() {
         if(!this.serverCall){
-            serverChooseBestMove(this.board.pieces, this.player, this.level, data => this.handleJumpPosition(data));
+            serverChooseBestMove(this.board.getPieces(), this.player, this.level, data => this.handleJumpPosition(data));
             this.serverCall = true;
         }   
     }
 
-    // Generates possible jump positions
-    getJumpPositions(position) {
+    getPlayerFrogs() {
         if(!this.serverCall){
-            serverValidJumpPosition(this.board.pieces, position, data => this.handleJumpPositions(data));
+            serverGetPlayerFrogs(this.board.getPieces(), this.player, data => this.handlePlayerFrogs(data));
+        }
+    }
+
+    // Generates possible jump positions
+    /*getValidJumpPosition(position) { 
+        if(!this.serverCall){
+            serverValidJumpPosition(this.board.getPieces(), position, data => this.handleValidJumpPosition(position, data));
             this.serverCall = true;
+        }
+    }*/
+
+    // Generates all valid moves
+    getValidMoves(position) {
+        if(!this.serverCall){
+            serverValidMoves(this.board.getPieces(), this.player, data => this.handleValidMoves(position, data));
         }
     }
 
@@ -119,6 +132,80 @@ class FrogChess extends CGFobject {
         this.isPicking = true;
     }
 
+    // Handles an array with all the positions [x, y] of the player frogs from the request
+    handlePlayerFrogs(data){
+        let frogPositions = JSON.parse(data.target.response);
+
+        if(frogPositions === undefined){
+            console.log("ERROR: getting player frogs");
+            this.serverCall = false;
+            return;
+        }
+
+        if(Array.isArray(frogPositions) && !frogPositions.length){ //Player can't move -> GAME OVER
+            this.serverCall = false;
+            return;
+        }
+
+        this.board.selectPieces(frogPositions);
+        this.serverCall = false;
+        this.isPicking = true;
+    }
+
+    // Handles a position [x, y] from the request
+    /*handleValidJumpPosition(position, data){
+        let finalPosition = JSON.parse(data.target.response);
+
+        if(finalPosition === undefined){
+            console.log("ERROR: getting valid jump position");
+            this.serverCall = false;
+            return;
+        }
+        
+        this.serverCall = false;
+
+
+        if(Array.isArray(finalPosition) && !finalPosition.length){ // Selected frog can't jump        
+            console.log("Deselected Piece");
+            this.board.deselectPiece(...position);    
+            this.isPicking = true;
+        }
+    }*/
+
+    // Handles an array with all possible moves of the player
+    handleValidMoves(position, data) {
+        let moves = JSON.parse(data.target.response);
+
+        if(moves === undefined){
+            console.log("ERROR: getting valid moves");
+            this.serverCall = false;
+            return;
+        }
+
+        if(Array.isArray(moves) && !moves.length){ // Player lost the game
+            this.serverCall = false;
+            return;
+        }
+
+        let foundValidMove = false;
+        let validMoveTiles = [];
+
+        moves.forEach(move => { //move is a list of positions
+            const firstPosition = move[0];
+            if(firstPosition[0] === position[0] && firstPosition[1] === position[1]){ //Found Valid Move From Position
+                foundValidMove = true;
+                validMoveTiles.push(move[1]);
+            }
+        });
+
+        if(!foundValidMove){
+            this.board.deselectPiece(...position);    
+            this.isPicking = true;
+        }else{
+            this.board.highlightTiles(validMoveTiles);
+        }
+    }
+
     // Handles a newly generated jump position [x1, y1]->[x2, y2] from the request
     handleJumpPosition(data) {
         let jumps = JSON.parse(data.target.response);
@@ -157,16 +244,30 @@ class FrogChess extends CGFobject {
                 for (var i = 0; i < this.scene.pickResults.length; i++) {
 					var obj = this.scene.pickResults[i][0];
 					if (obj) {
-                        if(this.fillingBoard && this.isPicking){
-                            const index = this.scene.pickResults[i][1] - 1;
-                            console.log("Picked object: " + obj + ", with pick id " + index);	
+                        if(this.isPicking){
+                            if(this.fillingBoard){ // Filling Board
+                                const index = this.scene.pickResults[i][1] - 1;
+                                console.log("Picked object: " + obj + ", with pick id " + index);	
                             
-                            this.board.setPiecePosition([Math.trunc(index / 8), index % 8], this.getPlayerColor());
-                            this.isPicking = false;	
-                            this.nextPlayer();				 
-                            this.board.playDownTiles();                  
-                        }else{
+                                this.board.setPiecePosition([Math.trunc(index / 8), index % 8], this.getPlayerColor());
+                                this.isPicking = false;	
+                                this.nextPlayer();				 
+                                this.board.playDownTiles();
+                            }else{ // Game
+                                const index = this.scene.pickResults[i][1] - 1 - 100; //Frog index starts at 101
+                                console.log("Picked object: " + obj + ", with pick id " + index);	
+                                
+                                const position = [Math.trunc(index / 8), index % 8];
 
+                                this.board.selectPiece(...position);
+                                this.isPicking = false;	
+                                this.selectedPiece = true;
+                                
+                                this.getValidMoves(position);
+                                //this.getValidJumpPosition(position);
+                                //this.nextPlayer();				 
+                                //this.board.playDownTiles();
+                            }                  
                         }
                     }
 				}
@@ -183,6 +284,7 @@ class FrogChess extends CGFobject {
         if(!this.board.loaded)
             return;
 
+        /** FILLING BOARD **/
         if(this.fillingBoard){
             if(!this.isPicking){
                 switch(this.gameMode){
@@ -204,29 +306,27 @@ class FrogChess extends CGFobject {
                 }
             }
         }
-
+        /** GAME **/
         else {
-            /*
-            switch(this.gameMode){
-                case 1: //Players are both human
-                    this.getJumpPositions();
-                    break;
-                case 2: //Player 1 -> human; Player 2 -> CPU
-                    if(this.player == 1){
-                        this.getJumpPositions();
-                    }else{
+            if(!this.isPicking && !this.selectedPiece){
+                switch(this.gameMode){
+                    case 1: //Players are both human
+                        this.getPlayerFrogs();
+                        break;
+                    case 2: //Player 1 -> human; Player 2 -> CPU
+                        if(this.player == 1){
+                            this.getPlayerFrogs();
+                        }else{
+                            this.chooseJumpPosition();
+                        }
+                        break;
+                    case 3: //Players are both CPU
                         this.chooseJumpPosition();
-                    }
-                    break;
-                case 3: //Players are both CPU
-                    this.chooseJumpPosition();
-                    break;
-                default: 
-                    return;
+                        break;
+                    default: 
+                        return;
+                }
             }
-            */
-
-            this.chooseJumpPosition();
         }
     }
 
