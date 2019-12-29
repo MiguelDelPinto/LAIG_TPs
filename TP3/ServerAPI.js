@@ -3,7 +3,7 @@
 // Gets the data from a prolog request, listening on the server port
 function getPrologRequest(requestString, onSuccess, onError, port)
 {
-    var requestPort = port || 8083
+    var requestPort = port || 8080
     var request = new XMLHttpRequest();
     request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
 
@@ -97,8 +97,9 @@ function serverMakeMove(move, board, callback) {
 
 // Checks if the game's over
 function serverCheckGameOver(board, lastPlayer, callback) {
-    let request = "gameOver("
+    let request = "game_over("
                 + JSON.stringify(board).replace(/"+/g, '')
+                + ","
                 + lastPlayer
                 + ")";
 
@@ -107,9 +108,11 @@ function serverCheckGameOver(board, lastPlayer, callback) {
 
 // Chooses the best move
 function serverChooseBestMove(board, player, level, callback) {
-    let request = "chooseMove("
+    let request = "choose_move("
                 + JSON.stringify(board).replace(/"+/g, '')
+                + ","
                 + player
+                + ","
                 + level
                 + ")";
 
