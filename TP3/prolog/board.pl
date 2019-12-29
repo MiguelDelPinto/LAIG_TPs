@@ -9,6 +9,22 @@
 player_frog(1, blue).
 player_frog(2, yellow).
 
+/**
+ * Get Player Frogs
+ * get_player_frogs(+Board, +Player, -FrogPositions)
+ * Returns the list of the player frog positions
+ *
+ * Board -> List of lists representing the board.
+ * Player -> Player that will move the next frog
+ * FrogPositions -> List with all the player frog positions
+ */
+get_player_frogs(Board, Player, FrogPositions) :-
+    player_frog(Player, Frog),
+    (
+        bagof(Pos, (valid_position(Board, Pos), get_position(Board, Pos, Frog)), FrogPositions);
+        FrogPositions = []
+    ), !.
+
 /** 
  * Iterate values
  * iterate_values(+Current, +Target, -Out)

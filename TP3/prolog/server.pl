@@ -158,7 +158,7 @@ parse_input(choose_move(Board, Player, Level), Move):-
 	choose_move(Board, Player, Level, Move);
 	Move = [].
 
-
-
-
-	
+%Get Player Frogs
+parse_input(get_player_frogs(Board, Player), FrogList):-
+	get_player_frogs(Board, Player, FrogList);
+	FrogList = [].
