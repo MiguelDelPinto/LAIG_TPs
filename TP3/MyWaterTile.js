@@ -7,5 +7,6 @@ class MyWaterTile extends MyTile {
 
         let texture = new CGFtexture(scene, 'scenes/images/waterTile.jpg');
         this.material.setTexture(texture);
+        this.highlightMaterial.setTexture(texture);
     }
 }

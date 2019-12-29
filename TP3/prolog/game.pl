@@ -4,6 +4,7 @@
 :- include('input.pl').
 :- include('board.pl').
 :- include('ai.pl').
+:- include('game_state.pl').
 
 /** 
  * Next Player
@@ -201,8 +202,8 @@ valid_jump_position(Board, [SRow, SCol], [ERow, ECol]) :-
  * MidPosition -> Position between Start and End.
  */
 middle_position([SRow,SCol], [ERow,ECol], [MRow,MCol]) :-
-    MRow is (SRow+ERow)/2,
-    MCol is (SCol+ECol)/2.
+    MRow is (SRow+ERow)//2,
+    MCol is (SCol+ECol)//2.
 
 /**
  * Frog can jump
@@ -217,15 +218,16 @@ middle_position([SRow,SCol], [ERow,ECol], [MRow,MCol]) :-
 frog_can_jump(Board, FrogPos, Dest) :-
     % look through all valid jumps
     valid_jump_position(Board, FrogPos, Dest),
-
+    
     % check if dest is empty
     get_position(Board, Dest, empty),
-
+    
     % determine middle position
     middle_position(FrogPos, Dest, MidPos),
-
+    
     % check if there is a frog in middle position
     get_position(Board, MidPos, MidFrog),
+    
     player_frog(_, MidFrog).
 
 /**

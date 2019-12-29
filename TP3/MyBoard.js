@@ -51,12 +51,13 @@ class MyBoard extends CGFobject {
     }
 
     generatePieces(piece) {
-        this.piece = piece || new MyPiece(this.scene, 'piece');
+        this.piece = piece || new MyFrog(this.scene, 'frog');
         
         this.generatePieceMaterials();
 
         // Array that stores the pieces in the board
         this.pieces = [];
+        this.realPieces = [];
 
         for(let row = 1; row <= 8; row++) {
 
@@ -160,7 +161,13 @@ class MyBoard extends CGFobject {
     }
 
     displayPieces(){
-        for(let row = 0; row < 8; row++) {
+        this.realPieces.forEach(piece => {
+            this.scene.pushMatrix();
+                this.displayPiece(piece);
+            this.scene.popMatrix();
+        });
+        
+        /*for(let row = 0; row < 8; row++) {
 
             // Cycles through the 8 collumns
             for(let col = 0; col < 8; col++) {
@@ -173,34 +180,36 @@ class MyBoard extends CGFobject {
                     this.displayPiece(row, col);    
                 this.scene.popMatrix();
             }
-        }
+        }*/
     }
 
-    displayPiece(row, column){     
-        this.pieceTransformation(row, column);
+    displayPiece(piece){     
+        this.pieceTransformation(piece.getRow(), piece.getColumn());
 
-        switch(this.pieces[row][column]){
-            case "yellow":
-                this.yellowMaterial.apply();
-                break;
-            case "blue":
-                this.blueMaterial.apply();
-
-                this.scene.translate(0, 0, -0.4);
-                this.scene.rotate(Math.PI, 0, 1, 0);
-                
-                break;
-            default:
-                return;
+        if(this.pieces[piece.getRow()][piece.getColumn()] === "blue"){
+            this.scene.translate(0, 0, -0.4);
+            this.scene.rotate(Math.PI, 0, 1, 0);
         }
 
         //this.scene.registerForPick(100+row*8+column+1, this.piece);
-        this.piece.display();
+        piece.display();
     }
     
     pieceTransformation(row, column){
         this.scene.translate(-3.5 + row, 0, -3.4 + column);
         this.scene.scale(0.45, 0.45, 0.45);
+    }
+
+    getMaterial(color){
+        switch(color){
+            case "yellow":
+                return this.yellowMaterial;
+            case "blue":
+                return this.blueMaterial;
+            default:
+                console.log("ERROR: Color does not exist\n\n");
+                return null;
+        }
     }
 
     getPieces(){
@@ -212,7 +221,15 @@ class MyBoard extends CGFobject {
     }
 
     setPiecePosition(position, color){
-        this.pieces[position[0]][position[1]] = color;
+        this.pieces[position[0]][position[1]] = color; //Prolog board
+
+        this.realPieces.push(new MyPiece(this.scene,               //scene 
+                                         position[0]+position[1],  //id
+                                         this.piece,               //piece
+                                         position[0],              //row
+                                         position[1],              //column
+                                         this.getMaterial(color))       //material
+                            );   
     }
 
     setTransformationMatrix(transformationMatrix){
@@ -232,7 +249,9 @@ class MyBoard extends CGFobject {
     }
 
     update(t){
-        this.piece.update(t);
+        this.realPieces.forEach(piece => {
+            piece.update(t);
+        });
     }
 
     updateTexCoords(length_s, length_t) {}

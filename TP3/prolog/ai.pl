@@ -226,7 +226,7 @@ valid_moves(Board, Player, ListOfMoves) :-
     (
         % get list of Player frogs
         bagof(Pos, (valid_position(Board, Pos), get_position(Board, Pos, Frog)), FrogList), !,
-
+        
         % generate jumps for those frogs
         generate_jumps(Board, FrogList, ListOfMoves);
 

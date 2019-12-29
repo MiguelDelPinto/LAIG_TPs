@@ -2,10 +2,14 @@
  * MyPiece
  */
 class MyPiece extends CGFobject {   
-    constructor(scene, id, piece) {
+    constructor(scene, id, piece, row, column, material) {
         super(scene);
 
         this.id = id;    
+
+        this.row = row;
+        this.column = column;
+        this.material = material;
 
         this.selected = false;
 
@@ -21,6 +25,9 @@ class MyPiece extends CGFobject {
             if(this.select){
                 this.selectAnimation.apply(this.scene);
             }
+            
+            this.material.apply();
+
             this.piece.display();
         this.scene.popMatrix();
     }
@@ -39,6 +46,14 @@ class MyPiece extends CGFobject {
         if(this.selected){
             this.selectAnimation.update(t);
         }
+    }
+
+    getRow(){
+        return this.row;
+    }
+
+    getColumn(){
+        return this.column;
     }
 
 }

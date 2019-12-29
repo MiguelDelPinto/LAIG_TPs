@@ -53,6 +53,17 @@ function serverCpuFillChoose(board, callback) {
     makeRequest(request, callback);
 }
 
+// Gets the player frogs
+function serverGetPlayerFrogs(board, player, callback){
+    let request = "get_player_frogs("
+                + JSON.stringify(board).replace(/"+/g, '')
+                + ","
+                + player
+                + ")";
+
+    makeRequest(request, callback);
+}
+
 // Checks/Generates a valid fill position
 function serverValidJumpPosition(board, startPosition, callback) {
     let request = "valid_jump_position(" 

@@ -28,6 +28,8 @@ class MyTile extends CGFobject {
         this.highlightMaterial.setDiffuse(0.05, 0.45, 0.25, 1);
         this.highlightMaterial.setSpecular(0.1, 0.9, 0.5, 1);
         this.highlightMaterial.setShininess(5.0);    
+        this.highlightMaterial.loadTexture('scenes/images/tile.jpg');
+        this.highlightMaterial.setTextureWrap('REPEAT', 'REPEAT');
     }
 
     display(){
