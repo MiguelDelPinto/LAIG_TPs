@@ -12,7 +12,7 @@
 
 % Made by Luis Reis (ei12085@fe.up.pt) for LAIG course at FEUP.
 
-port(8083).
+port(8080).
 
 % Server Entry Point
 server :-
@@ -153,9 +153,10 @@ parse_input(valid_game_mode(Mode), Res):-
 parse_input(set_position(Board, Position, NewValue), NewBoard):-
 	set_position(Board, Position, NewValue, NewBoard).
 
-% Chooses the best madaf***ng move
+% Chooses the best move
 parse_input(choose_move(Board, Player, Level), Move):-
-	choose_move(Board, Player, Level, Move).
+	choose_move(Board, Player, Level, Move);
+	Move = [].
 
 
 
