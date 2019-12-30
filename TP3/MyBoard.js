@@ -194,6 +194,10 @@ class MyBoard extends CGFobject {
         if(piece.canBePicked()){
             this.scene.registerForPick(100+piece.getRow()*8+piece.getColumn()+1, piece);
         }
+
+        if(this.pieces[piece.getRow()][piece.getColumn()] === "empty"){
+            return;
+        }
     
         piece.display();
     }

@@ -20,9 +20,22 @@ class FrogChess extends CGFobject {
 
         this.fillingBoard = true; //In the beggining of the game, players have to fill the board with frogs
 
+        this.wait = 20;
+
         //If serverCall is true, there was a call to the server and no other call will be made 
         this.serverCall = false;
         this.isPicking = false;
+    }
+
+    updateWait() {
+        if(this.wait > 0) {
+            this.wait--;
+            return 1;
+        }
+        else {
+            this.wait = 20;
+            return 0;
+        }
     }
 
     getPlayerColor(){
@@ -34,6 +47,37 @@ class FrogChess extends CGFobject {
 
     nextPlayer(){
         this.player = (this.player+2) % 2 + 1;
+    }
+
+    makeMove(pos_from, pos_to) {
+        let pos_middle = [];
+
+        if(pos_from[0] > pos_to[0]) {
+            pos_middle.push(pos_from[0] - 1);
+        }
+        else if(pos_from[0] < pos_to[0]) {
+            pos_middle.push(pos_from[0] + 1);
+        }
+        else {
+            pos_middle.push(pos_from[0]);
+        }
+
+        if(pos_from[1] > pos_to[1]) {
+            pos_middle.push(pos_from[1] - 1);
+        }
+        else if(pos_from[1] < pos_to[1]) {
+            pos_middle.push(pos_from[1] + 1);
+        }
+        else {
+            pos_middle.push(pos_from[1]);
+        }        
+
+        // TODO Add animation here
+
+        this.board.pieces[pos_to[0]][pos_to[1]] = this.board.pieces[pos_from[0]][pos_from[1]];
+        this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
+        this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
+
     }
 
 
@@ -208,9 +252,27 @@ class FrogChess extends CGFobject {
 
     // Handles a newly generated jump position [x1, y1]->[x2, y2] from the request
     handleJumpPosition(data) {
+
         let jumps = JSON.parse(data.target.response);
 
-        console.log(jumps);
+        if(jumps === undefined) {
+            console.log("ERROR: choosing jump position");
+            this.serverCall = false;
+            return;            
+        }
+
+        if(Array.isArray(jumps) && !jumps.length) {
+            console.log("ERROR: no valid moves");
+            this.serverCall = false;
+            return;
+        }
+
+        for(let i = 0; i < jumps.length - 1; i++) {
+            this.makeMove(jumps[i], jumps[i+1]);
+        }
+
+        this.nextPlayer();
+        this.serverCall = false;
     }
     
     // Parses a position [x, y] from the request
@@ -321,6 +383,8 @@ class FrogChess extends CGFobject {
                         }
                         break;
                     case 3: //Players are both CPU
+                        if(this.updateWait())
+                            return;
                         this.chooseJumpPosition();
                         break;
                     default: 
