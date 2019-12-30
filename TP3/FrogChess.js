@@ -16,7 +16,7 @@ class FrogChess extends CGFobject {
 
         this.level = 1; // TODO Add variable levels
         
-        this.gameMode = gameMode || 2;
+        this.gameMode = gameMode || 3;
 
         this.fillingBoard = true; //In the beggining of the game, players have to fill the board with frogs
 

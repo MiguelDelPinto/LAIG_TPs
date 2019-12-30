@@ -8,6 +8,7 @@ class Animation {
         }
 
         this.elapsedTime = 0;
+        this.matrix = mat4.create();
     }
 
     update(t) { //t = time between two updates
@@ -17,6 +18,10 @@ class Animation {
     apply(scene){
         //Apply matrix to scene
         scene.multMatrix(this.matrix);
+    }
+
+    getMatrix(){
+        return this.matrix;
     }
 
     getElapsedTime(){

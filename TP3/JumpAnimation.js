@@ -25,10 +25,10 @@ class JumpAnimation extends Animation {
     }
 
     createMatrix(){
-        // Creates and identity matrix, to accumulate the keyframe's transformations
+        // Creates and identity matrix, to accumulate the jump transformation
         this.matrix = mat4.create(); 
 
-        // Computes the translation between keyframes, using interpolation
+        // Computes the translation, using a function
         const translateCoordinates = [0, this.func(this.elapsedTime/1000.0), 0];
 
         // Accumulates the transformation on a matrix
