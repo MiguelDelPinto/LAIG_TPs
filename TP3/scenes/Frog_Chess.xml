@@ -5,9 +5,9 @@
     <!--                -->
     <!--     Views      -->
     <!--                -->
-    <views default="Full View">
+    <views default="Main Camera">
         <perspective id="Full View" near="0.1" far="500" angle="30">
-            <from x="0" y="150" z="20" />
+            <from x="0" y="150" z="5" />
             <to x="0" y="1" z="0" />
         </perspective>
 

@@ -6,7 +6,6 @@ class MyPiece extends CGFobject {
         super(scene);
 
         this.id = id;    
-
         this.row = row;
         this.column = column;
         this.material = material;
@@ -22,48 +21,66 @@ class MyPiece extends CGFobject {
         this.selectAnimation = new JumpAnimation(x => {
             return 2 - 8*Math.pow(x - 0.5, 2);
         }, 1000);
+
+        this.invisible = false;
+        //this.initShaders();
     }
+
+    /*initShaders(){
+        this.shader = new CGFshader(
+            this.scene.gl,
+            "shaders/invisible.vert",
+            "shaders/invisible.frag"
+        );
+    }*/
 
     display(){
         this.scene.pushMatrix();
-            if(this.moving){
-                this.moveAnimation.apply(this.scene);
-            }
-            else if(this.selected){
-                this.selectAnimation.apply(this.scene);
-            }
+            if(!this.invisible){
+                if(this.moving){
+                    this.moveAnimation.apply(this.scene);
+                }
+                else if(this.selected){
+                    this.selectAnimation.apply(this.scene);
+                }
 
-            this.material.apply();
-
-            this.piece.display();
+                this.material.apply();
+                this.piece.display();
+            }
         this.scene.popMatrix();
     }
 
     select(){
-        console.log("selected: " + this.row + "; " + this.column);
-        this.selected = true;
-        this.selectAnimation.resetsTime();
-        this.selectAnimation.finishAnimation = false;
+        if(!this.invisible){
+            console.log("selected: " + this.row + "; " + this.column);
+            this.selected = true;
+            this.selectAnimation.resetsTime();
+            this.selectAnimation.finishAnimation = false;
+        }
     }
 
     deselect(){
-        console.log("deselected: " + this.row + "; " + this.column);
-        this.selected = false;
+        if(!this.invisible){
+            console.log("deselected: " + this.row + "; " + this.column);
+            this.selected = false;
+        }
     }
     
     update(t){
-        if(this.selected){
-            this.selectAnimation.update(t);
-        }
+        if(!this.invisible){
+            if(this.selected){
+                this.selectAnimation.update(t);
+            }
 
-        if(this.moving){
-            this.moveAnimation.update(t);
-            if(this.moveAnimation.hasFinishedAnimation){
-                this.row = this.endPosition[0];
-                this.column = this.endPosition[1];
-                this.moving = false;
-                this.moveAnimation = null;
-                this.selectAnimation.resetsTime();
+            if(this.moving){
+                this.moveAnimation.update(t/1000.0);
+                if(this.moveAnimation.hasFinishedAnimation()){
+                    this.row = this.endPosition[0];
+                    this.column = this.endPosition[1];
+                    this.moving = false;
+                    this.moveAnimation = null;
+                    this.selectAnimation.resetsTime();
+                }
             }
         }
     }
@@ -89,45 +106,46 @@ class MyPiece extends CGFobject {
     }
 
     move(start, end){
-        const rotate = this.getRotateAngle(start, end);
+        if(!this.invisible){
+            const rotate = this.getRotateAngle(start, end);
 
-        let keyframes = [
-            {
-                'keyframeInstant': 0, 
-                'translateCoordinates': [start[0], 0, start[1]], 
-                'rotateAngles': [0, 0, 0],
-                'scaleCoordinates': [1, 1, 1]
-            },
-            {
-                'keyframeInstant': 0.5, 
-                'translateCoordinates': [start[0], 0, start[1]], 
-                'rotateAngles': [0, rotate, 0], //Rotate to target
-                'scaleCoordinates': [1, 1, 1]
-            },
-            {
-                'keyframeInstant': 1, 
-                'translateCoordinates': [(start[0]+end[0])/2, 2, (start[1]+end[1])/2], 
-                'rotateAngles': [0, rotate, 0], //Rotate to target
-                'scaleCoordinates': [1, 1, 1]
-            },
-            {
-                'keyframeInstant': 1.5, 
-                'translateCoordinates': [end[0], 0, end[1]], 
-                'rotateAngles': [0, rotate, 0], //Rotate to target
-                'scaleCoordinates': [1, 1, 1]
-            },
-            {
-                'keyframeInstant': 2, 
-                'translateCoordinates': [end[0], 0, end[1]], 
-                'rotateAngles': [0, 0, 0], 
-                'scaleCoordinates': [1, 1, 1]
-            }
-        ];
+            let keyframes = [
+                {
+                    'keyframeInstant': 0, 
+                    'translateCoordinates': [0, 0, 0], 
+                    'rotateAngles': [0, 0, 0],
+                    'scaleCoordinates': [1, 1, 1]
+                },
+                {
+                    'keyframeInstant': 0.5, 
+                    'translateCoordinates': [0, 0, 0], 
+                    'rotateAngles': [0, rotate, 0], //Rotate to target
+                    'scaleCoordinates': [1, 1, 1]
+                },
+                {
+                    'keyframeInstant': 1, 
+                    'translateCoordinates': [(end[0]-start[0])/2, 2, (end[1]-start[1])/2],
+                    'rotateAngles': [0, rotate, 0], //Rotate to target
+                    'scaleCoordinates': [1, 1, 1]
+                },
+                {
+                    'keyframeInstant': 1.5, 
+                    'translateCoordinates': [end[0]-start[0], 0, end[1]-start[1]],
+                    'rotateAngles': [0, rotate, 0], //Rotate to target
+                    'scaleCoordinates': [1, 1, 1]
+                },
+                {
+                    'keyframeInstant': 2, 
+                    'translateCoordinates': [end[0]-start[0], 0, end[1]-start[1]],
+                    'rotateAngles': [0, 0, 0], 
+                    'scaleCoordinates': [1, 1, 1]
+                }
+            ];
+            this.moveAnimation = new KeyframeAnimation(keyframes);
+            this.endPosition = end;
 
-        this.moveAnimation = new KeyframeAnimation(keyframes);
-        
-        this.endPosition = end;
-        this.moving = true;
+            this.moving = true;
+        }
     }
 
     getRotateAngle(start, end){
@@ -142,5 +160,17 @@ class MyPiece extends CGFobject {
 
     isMoving(){
         return this.moving;
+    }
+
+    isInvisible(){
+        return this.invisible;
+    }
+
+    makeVisible(){
+        this.invisible = false;
+    }
+
+    makeInvisible(){
+        this.invisible = true;
     }
 }

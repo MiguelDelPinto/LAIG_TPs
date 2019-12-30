@@ -22,6 +22,8 @@ class MyBoard extends CGFobject {
         this.generatePieces(piece);
 
         this.loaded = true;
+
+        this.movingPiece = null;
     }
 
     generateTiles() {
@@ -162,9 +164,11 @@ class MyBoard extends CGFobject {
 
     displayPieces(){
         this.realPieces.forEach(piece => {
-            this.scene.pushMatrix();
-                this.displayPiece(piece);
-            this.scene.popMatrix();
+            if(!piece.isInvisible()){
+                this.scene.pushMatrix();
+                    this.displayPiece(piece);
+                this.scene.popMatrix();
+            }
         });
         
         /*for(let row = 0; row < 8; row++) {
@@ -231,7 +235,7 @@ class MyBoard extends CGFobject {
         this.pieces[position[0]][position[1]] = color; //Prolog board
 
         this.realPieces.push(new MyPiece(this.scene,               //scene 
-                                         position[0]+position[1],  //id
+                                         position[0]*8+position[1],  //id
                                          this.piece,               //piece
                                          position[0],              //row
                                          position[1],              //column
@@ -264,22 +268,26 @@ class MyBoard extends CGFobject {
     selectPieces(positions){
         positions.forEach(position => {
             this.realPieces.forEach(piece =>{
-                let Break = {};
-                try{
-                    if(piece.getRow() === position[0] && piece.getColumn() === position[1]){
-                        piece.enablePicking();
-                        throw Break;
-                    }
-                }catch(e){} //Break forEach loop
+                if(!piece.isInvisible()){
+                    let Break = {};
+                    try{
+                        if(piece.getRow() === position[0] && piece.getColumn() === position[1]){
+                            piece.enablePicking();
+                            throw Break;
+                        }
+                    }catch(e){} //Break forEach loop
+                }
             });
         });
     }
 
     selectPiece(row, column){
         this.realPieces.forEach(piece => {
-            if(piece.getRow() === row && piece.getColumn() === column){
-                piece.select();
-                return;
+            if(!piece.isInvisible()){
+                if(piece.getRow() === row && piece.getColumn() === column){
+                    piece.select();
+                    return;
+                }
             }
         });
     }
@@ -287,8 +295,39 @@ class MyBoard extends CGFobject {
     deselectPiece(row, column){
         
         this.realPieces.forEach(piece => {
+            if(!piece.isInvisible()){
+                if(piece.getRow() === row && piece.getColumn() === column){
+                    piece.deselect();
+                    return;
+                }
+            }
+        });
+    }
+
+    cpuMovePiece(start, end){
+        this.realPieces.forEach(piece => {
+            if(!piece.isInvisible()){
+                if(piece.getRow() === start[0] && piece.getColumn() === start[1]){
+                    piece.move(start, end);
+                    this.movingPiece = piece;
+                    return;
+                }
+            }
+        });
+    }
+
+    getMovingPiece(){
+        return this.movingPiece;
+    }
+
+    finishPieceMove(){
+        this.movingPiece = null;
+    }
+
+    makePieceInvisible(row, column){
+        this.realPieces.forEach(piece => {
             if(piece.getRow() === row && piece.getColumn() === column){
-                piece.deselect();
+                piece.makeInvisible();
                 return;
             }
         });

@@ -24,7 +24,13 @@ class FrogChess extends CGFobject {
 
         //If serverCall is true, there was a call to the server and no other call will be made 
         this.serverCall = false;
+
+        //Checking if the player is picking any tile
         this.isPicking = false;
+
+        //CPU Move Variables
+        this.cpuIsMoving = false;
+        this.cpuMove = null;
     }
 
     updateWait() {
@@ -72,12 +78,10 @@ class FrogChess extends CGFobject {
             pos_middle.push(pos_from[1]);
         }        
 
-        // TODO Add animation here
-
         this.board.pieces[pos_to[0]][pos_to[1]] = this.board.pieces[pos_from[0]][pos_from[1]];
         this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
         this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
-
+        this.board.makePieceInvisible(...pos_middle); //Deletes piece from the board
     }
 
 
@@ -103,7 +107,7 @@ class FrogChess extends CGFobject {
     // CPU chooses a jump position
     chooseJumpPosition() {
         if(!this.serverCall){
-            serverChooseBestMove(this.board.getPieces(), this.player, this.level, data => this.handleJumpPosition(data));
+            serverChooseBestMove(this.board.getPieces(), this.player, this.level, data => this.handleCPUMove(data));
             this.serverCall = true;
         }   
     }
@@ -250,8 +254,8 @@ class FrogChess extends CGFobject {
         }
     }
 
-    // Handles a newly generated jump position [x1, y1]->[x2, y2] from the request
-    handleJumpPosition(data) {
+    // Handles a newly generated move(array of positions [x, y]) from the request
+    handleCPUMove(data) {
 
         let jumps = JSON.parse(data.target.response);
 
@@ -267,9 +271,12 @@ class FrogChess extends CGFobject {
             return;
         }
 
-        for(let i = 0; i < jumps.length - 1; i++) {
-            this.makeMove(jumps[i], jumps[i+1]);
-        }
+        this.cpuIsMoving = true;
+        this.cpuMove = jumps;
+
+        let start = this.cpuMove.shift();
+        this.board.cpuMovePiece(start, this.cpuMove[0]);
+        this.makeMove(start, this.cpuMove[0]);
 
         this.nextPlayer();
         this.serverCall = false;
@@ -370,7 +377,22 @@ class FrogChess extends CGFobject {
         }
         /** GAME **/
         else {
-            if(!this.isPicking && !this.selectedPiece){
+            if(this.cpuIsMoving){
+                const movingPiece = this.board.getMovingPiece();
+                
+                if(!movingPiece.isMoving()){
+                    if(this.cpuMove.length > 1){
+                        const start = this.cpuMove.shift();
+                        movingPiece.move(start, this.cpuMove[0]);
+                        this.makeMove(start, this.cpuMove[0]);
+                    }else{
+                        this.cpuIsMoving = false;
+                        this.cpuMove = null;
+                        this.board.finishPieceMove();
+                    }
+                }
+            }
+            else if(!this.isPicking && !this.selectedPiece){
                 switch(this.gameMode){
                     case 1: //Players are both human
                         this.getPlayerFrogs();
