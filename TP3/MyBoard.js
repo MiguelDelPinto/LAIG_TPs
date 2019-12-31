@@ -340,5 +340,31 @@ class MyBoard extends CGFobject {
         return this.maxHeight;
     }
 
+    removeOuterFrogs(){
+        let aux1 = 0, aux2 = 7; 
+
+        for(let column = 0; column < 8; column++){
+            if(this.pieces[aux1][column] !== "empty"){
+                this.pieces[aux1][column] = "empty";
+                this.makePieceInvisible(aux1, column);
+            }  
+            if(this.pieces[aux2][column] !== "empty"){
+                this.pieces[aux2][column] = "empty";
+                this.makePieceInvisible(aux2, column);
+            }
+        }
+
+        for(let row = 0; row < 8; row++){
+            if(this.pieces[row][aux1] !== "empty"){
+                this.pieces[row][aux1] = "empty";
+                this.makePieceInvisible(row, aux1);
+            }  
+            if(this.pieces[row][aux2] !== "empty"){
+                this.pieces[row][aux2] = "empty";
+                this.makePieceInvisible(row, aux2);
+            }
+        }
+    }
+
     updateTexCoords(length_s, length_t) {}
 }

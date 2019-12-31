@@ -390,6 +390,7 @@ class FrogChess extends CGFobject {
                         this.cpuIsMoving = false;
                         this.cpuMove = null;
                         this.board.finishPieceMove();
+                        this.board.removeOuterFrogs();
                     }
                 }
             }
