@@ -155,12 +155,48 @@ class MyPiece extends CGFobject {
     }
 
     getRotateAngle(start, end){
-        const diff = [start[0]-end[0], start[1]-end[1]];
+        const diff = [end[0]-start[0], start[1]-end[1]];
         const h = Math.sqrt(diff[0]*diff[0]+diff[1]*diff[1]);
         
         const x = diff[0]/h, y = diff[1]/h;
 
-        const rad = (y > 0) ? Math.acos(x) : -Math.acos(x);
+        let rad = 0;
+
+        if(diff[1] == 0) {
+            if(diff[0] > 0) {
+                rad = Math.PI/2;
+            } 
+            else {
+                rad = -Math.PI/2;
+            }
+        }
+        else if(diff[0] == 0) {
+            if(diff[1] > 0) {
+                rad = Math.PI;
+            }
+            else {
+                rad = 0;
+            }
+        }
+
+        else if(diff[1] > 0) {
+            if(diff[0] > 0) {
+                rad = Math.PI/2 + Math.PI/4;
+            }
+            else {
+                rad = -Math.PI/2 - Math.PI/4;
+            }
+        }
+        else {
+            if(diff[0] > 0) {
+                rad = Math.PI/4;
+            }
+            else {
+                rad = -Math.PI/4;
+            }
+        }
+
+        //const rad = (y > 0) ? Math.acos(x) : -Math.acos(x);
         return rad*180/Math.PI;
     }
 
