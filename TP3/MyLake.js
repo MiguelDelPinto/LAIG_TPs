@@ -61,7 +61,11 @@ class MyLake extends MyBoard {
 
     pieceTransformation(row, column){
         this.scene.translate(-3.5 + row, 0.08, -3.45 + column);
-        this.scene.scale(0.25, 0.25, 0.25);
+        this.scene.scale(...this.pieceScale());
+    }
+
+    pieceScale(){
+        return [0.25, 0.25, 0.25];
     }
 
     update(t){ //Animations

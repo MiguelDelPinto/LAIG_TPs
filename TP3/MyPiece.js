@@ -34,9 +34,10 @@ class MyPiece extends CGFobject {
         );
     }*/
 
-    display(){
+    display(pieceScale){
         this.scene.pushMatrix();
             if(!this.invisible){
+                this.scene.scale(...this.invertScale(pieceScale));
                 if(this.moving){
                     this.moveAnimation.apply(this.scene);
                 }
@@ -44,10 +45,15 @@ class MyPiece extends CGFobject {
                     this.selectAnimation.apply(this.scene);
                 }
 
+                this.scene.scale(...pieceScale);
                 this.material.apply();
                 this.piece.display();
             }
         this.scene.popMatrix();
+    }
+
+    invertScale(scale){
+        return [1/scale[0], 1/scale[1], 1/scale[2]];
     }
 
     select(){

@@ -199,12 +199,16 @@ class MyBoard extends CGFobject {
             this.scene.registerForPick(100+piece.getRow()*8+piece.getColumn()+1, piece);
         }
 
-        piece.display();
+        piece.display(this.pieceScale());
     }
     
     pieceTransformation(row, column){
         this.scene.translate(-3.5 + row, 0, -3.4 + column);
-        this.scene.scale(0.45, 0.45, 0.45);
+        this.scene.scale(...this.pieceScale());
+    }
+
+    pieceScale(){
+        return [0.45, 0.45, 0.45];
     }
 
     getMaterial(color){
