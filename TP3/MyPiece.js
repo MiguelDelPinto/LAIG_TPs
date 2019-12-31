@@ -2,13 +2,14 @@
  * MyPiece
  */
 class MyPiece extends CGFobject {   
-    constructor(scene, id, piece, row, column, material) {
+    constructor(scene, id, piece, row, column, material, color) {
         super(scene);
 
         this.id = id;    
         this.row = row;
         this.column = column;
         this.material = material;
+        this.color = color;
 
         this.selected = false;
         this.possiblePicking = false;
@@ -113,7 +114,14 @@ class MyPiece extends CGFobject {
 
     move(start, end, maxHeight){
         if(!this.invisible){
-            const rotate = this.getRotateAngle(start, end);
+            let initAngle = 0;
+            let rotate = this.getRotateAngle(start, end);
+            let initZTransl = 0;
+
+            if(this.color === "blue"){
+                initAngle += 180;
+                initZTransl = -0.2;
+            }
 
             let offset = 0;
             if(Math.abs(rotate) > 135) {
@@ -130,32 +138,32 @@ class MyPiece extends CGFobject {
             let keyframes = [
                 {
                     'keyframeInstant': 0, 
-                    'translateCoordinates': [0, 0, 0], 
-                    'rotateAngles': [0, 0, 0],
+                    'translateCoordinates': [0, 0, initZTransl], 
+                    'rotateAngles': [0, initAngle, 0],
                     'scaleCoordinates': [1, 1, 1]
                 },
                 {
                     'keyframeInstant': 0.5 + offset, 
-                    'translateCoordinates': [0, 0, 0], 
+                    'translateCoordinates': [0, 0, initZTransl], 
                     'rotateAngles': [0, rotate, 0], //Rotate to target
                     'scaleCoordinates': [1, 1, 1]
                 },
                 {
                     'keyframeInstant': 1 + offset, 
-                    'translateCoordinates': [(end[0]-start[0])/2, maxHeight, (end[1]-start[1])/2],
+                    'translateCoordinates': [(end[0]-start[0])/2, maxHeight, initZTransl + (end[1]-start[1])/2],
                     'rotateAngles': [0, rotate, 0], //Rotate to target
                     'scaleCoordinates': [1, 1, 1]
                 },
                 {
                     'keyframeInstant': 1.5 + offset, 
-                    'translateCoordinates': [end[0]-start[0], 0, end[1]-start[1]],
+                    'translateCoordinates': [end[0]-start[0], 0, initZTransl + end[1]-start[1]],
                     'rotateAngles': [0, rotate, 0], //Rotate to target
                     'scaleCoordinates': [1, 1, 1]
                 },
                 {
                     'keyframeInstant': 2 + 2*offset, 
-                    'translateCoordinates': [end[0]-start[0], 0, end[1]-start[1]],
-                    'rotateAngles': [0, 0, 0], 
+                    'translateCoordinates': [end[0]-start[0], 0, initZTransl + end[1]-start[1]],
+                    'rotateAngles': [0, initAngle, 0], 
                     'scaleCoordinates': [1, 1, 1]
                 }
             ];

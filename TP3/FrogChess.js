@@ -33,6 +33,8 @@ class FrogChess extends CGFobject {
         this.cpuMove = null;
 
         this.jump_pos_from = null;
+
+        this.gameOver = false;
     }
 
     updateWait() {
@@ -123,6 +125,13 @@ class FrogChess extends CGFobject {
     getPlayerFrogs() {
         if(!this.serverCall){
             serverGetPlayerFrogs(this.board.getPieces(), this.player, data => this.handlePlayerFrogs(data));
+        }
+    }
+
+    //Check Game Over
+    checkGameOver(){
+        if(!this.serverCall){
+            serverCheckGameOver(this.board.getPieces(), this.player, data => this.handleGameOver(data));
         }
     }
 
@@ -288,6 +297,24 @@ class FrogChess extends CGFobject {
         this.nextPlayer();
         this.serverCall = false;
     }
+
+    handleGameOver(data){
+        let winner = JSON.parse(data.target.response);
+
+        if(winner === undefined){
+            console.log("ERROR: check game over");
+            this.serverCall = false;
+            return;
+        }
+
+        if(winner === 0){ //No one won the game yet
+            return;
+        }
+
+        console.log("CONGRATULATIONS PLAYER " + winner + " FOR WINNING THE GAME!!!!");
+        this.gameOver = true;
+        this.serverCall = false;
+    }
     
     // Parses a position [x, y] from the request
     handlePosition(data) {
@@ -360,6 +387,9 @@ class FrogChess extends CGFobject {
         if(!this.board.loaded)
             return;
 
+        if(this.gameOver)
+            return;
+
         /** FILLING BOARD **/
         if(this.fillingBoard){
             if(!this.isPicking){
@@ -399,6 +429,7 @@ class FrogChess extends CGFobject {
                         this.cpuMove = null;
                         this.board.finishPieceMove();
                         this.board.removeOuterFrogs();
+                        this.checkGameOver()
                     }
                 }
             }

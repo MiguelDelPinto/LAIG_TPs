@@ -241,7 +241,8 @@ class MyBoard extends CGFobject {
                                          this.piece,               //piece
                                          position[0],              //row
                                          position[1],              //column
-                                         this.getMaterial(color))       //material
+                                         this.getMaterial(color),
+                                         color)       //material
                             );   
     }
 
@@ -310,7 +311,6 @@ class MyBoard extends CGFobject {
         this.realPieces.forEach(piece => {
             if(!piece.isInvisible()){
                 if(piece.getRow() === start[0] && piece.getColumn() === start[1]){
-                    console.log("Start: " + start + "; End: " + end);
                     piece.move(start, end, this.maxHeight);
                     this.movingPiece = piece;
                     return;
