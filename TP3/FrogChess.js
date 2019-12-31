@@ -81,6 +81,7 @@ class FrogChess extends CGFobject {
         this.board.pieces[pos_to[0]][pos_to[1]] = this.board.pieces[pos_from[0]][pos_from[1]];
         this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
         this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
+        
         this.board.makePieceInvisible(...pos_middle); //Deletes piece from the board
     }
 
