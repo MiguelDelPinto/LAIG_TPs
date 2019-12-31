@@ -115,6 +115,18 @@ class MyPiece extends CGFobject {
         if(!this.invisible){
             const rotate = this.getRotateAngle(start, end);
 
+            let offset = 0;
+            if(Math.abs(rotate) > 135) {
+                offset = 0.75;
+            }
+            else if(Math.abs(rotate) > 90) {
+                offset = 0.50;
+            }
+            else if(Math.abs(rotate) > 45) {
+                offset = 0.25;
+            }            
+
+
             let keyframes = [
                 {
                     'keyframeInstant': 0, 
@@ -123,25 +135,25 @@ class MyPiece extends CGFobject {
                     'scaleCoordinates': [1, 1, 1]
                 },
                 {
-                    'keyframeInstant': 0.5, 
+                    'keyframeInstant': 0.5 + offset, 
                     'translateCoordinates': [0, 0, 0], 
                     'rotateAngles': [0, rotate, 0], //Rotate to target
                     'scaleCoordinates': [1, 1, 1]
                 },
                 {
-                    'keyframeInstant': 1, 
+                    'keyframeInstant': 1 + offset, 
                     'translateCoordinates': [(end[0]-start[0])/2, maxHeight, (end[1]-start[1])/2],
                     'rotateAngles': [0, rotate, 0], //Rotate to target
                     'scaleCoordinates': [1, 1, 1]
                 },
                 {
-                    'keyframeInstant': 1.5, 
+                    'keyframeInstant': 1.5 + offset, 
                     'translateCoordinates': [end[0]-start[0], 0, end[1]-start[1]],
                     'rotateAngles': [0, rotate, 0], //Rotate to target
                     'scaleCoordinates': [1, 1, 1]
                 },
                 {
-                    'keyframeInstant': 2, 
+                    'keyframeInstant': 2 + 2*offset, 
                     'translateCoordinates': [end[0]-start[0], 0, end[1]-start[1]],
                     'rotateAngles': [0, 0, 0], 
                     'scaleCoordinates': [1, 1, 1]
