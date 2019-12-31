@@ -310,6 +310,7 @@ class MyBoard extends CGFobject {
         this.realPieces.forEach(piece => {
             if(!piece.isInvisible()){
                 if(piece.getRow() === start[0] && piece.getColumn() === start[1]){
+                    console.log("Start: " + start + "; End: " + end);
                     piece.move(start, end, this.maxHeight);
                     this.movingPiece = piece;
                     return;
@@ -329,7 +330,6 @@ class MyBoard extends CGFobject {
     makePieceInvisible(row, column){
         this.realPieces.forEach(piece => {
             if(piece.getRow() === row && piece.getColumn() === column){
-                console.log(row + ", " + column);
                 piece.makeInvisible();
                 return;
             }

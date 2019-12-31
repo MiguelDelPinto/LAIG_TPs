@@ -31,6 +31,8 @@ class FrogChess extends CGFobject {
         //CPU Move Variables
         this.cpuIsMoving = false;
         this.cpuMove = null;
+
+        this.jump_pos_from = null;
     }
 
     updateWait() {
@@ -55,7 +57,12 @@ class FrogChess extends CGFobject {
         this.player = (this.player+2) % 2 + 1;
     }
 
-    makeMove(pos_from, pos_to) {
+    startMove(pos_from){
+        this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
+        this.jump_pos_from = pos_from;
+    }
+
+    finishMove(pos_from, pos_to) {
         let pos_middle = [];
 
         if(pos_from[0] > pos_to[0]) {
@@ -78,8 +85,8 @@ class FrogChess extends CGFobject {
             pos_middle.push(pos_from[1]);
         }        
 
-        this.board.pieces[pos_to[0]][pos_to[1]] = this.board.pieces[pos_from[0]][pos_from[1]];
-        this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
+        this.board.pieces[pos_to[0]][pos_to[1]] = this.board.pieces[this.jump_pos_from[0]][this.jump_pos_from[1]];
+        this.jump_pos_from = null;
         this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
         
         this.board.makePieceInvisible(...pos_middle); //Deletes piece from the board
@@ -275,9 +282,8 @@ class FrogChess extends CGFobject {
         this.cpuIsMoving = true;
         this.cpuMove = jumps;
 
-        let start = this.cpuMove.shift();
-        this.board.cpuMovePiece(start, this.cpuMove[0]);
-        this.makeMove(start, this.cpuMove[0]);
+        this.board.cpuMovePiece(this.cpuMove[0], this.cpuMove[1]);
+        this.startMove(this.cpuMove[0]);
 
         this.nextPlayer();
         this.serverCall = false;
@@ -382,11 +388,13 @@ class FrogChess extends CGFobject {
                 const movingPiece = this.board.getMovingPiece();
                 
                 if(!movingPiece.isMoving()){
-                    if(this.cpuMove.length > 1){
-                        const start = this.cpuMove.shift();
-                        movingPiece.move(start, this.cpuMove[0], this.board.getMaxHeight());
-                        this.makeMove(start, this.cpuMove[0]);
+                    if(this.cpuMove.length > 2){
+                        this.finishMove(this.cpuMove[0], this.cpuMove[1]);
+                        this.cpuMove.shift();
+                        this.startMove(this.cpuMove[0]);
+                        movingPiece.move(this.cpuMove[0], this.cpuMove[1], this.board.getMaxHeight());
                     }else{
+                        this.finishMove(this.cpuMove[0], this.cpuMove[1]);
                         this.cpuIsMoving = false;
                         this.cpuMove = null;
                         this.board.finishPieceMove();
