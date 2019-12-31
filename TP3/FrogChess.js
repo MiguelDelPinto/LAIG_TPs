@@ -58,8 +58,8 @@ class FrogChess extends CGFobject {
     }
 
     startMove(pos_from){
+        this.jump_pos_from = this.board.pieces[pos_from[0]][pos_from[1]];
         this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
-        this.jump_pos_from = pos_from;
     }
 
     finishMove(pos_from, pos_to) {
@@ -85,7 +85,7 @@ class FrogChess extends CGFobject {
             pos_middle.push(pos_from[1]);
         }        
 
-        this.board.pieces[pos_to[0]][pos_to[1]] = this.board.pieces[this.jump_pos_from[0]][this.jump_pos_from[1]];
+        this.board.pieces[pos_to[0]][pos_to[1]] = this.jump_pos_from;
         this.jump_pos_from = null;
         this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
         
