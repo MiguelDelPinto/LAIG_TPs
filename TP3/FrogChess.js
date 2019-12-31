@@ -384,7 +384,7 @@ class FrogChess extends CGFobject {
                 if(!movingPiece.isMoving()){
                     if(this.cpuMove.length > 1){
                         const start = this.cpuMove.shift();
-                        movingPiece.move(start, this.cpuMove[0]);
+                        movingPiece.move(start, this.cpuMove[0], this.board.getMaxHeight());
                         this.makeMove(start, this.cpuMove[0]);
                     }else{
                         this.cpuIsMoving = false;

@@ -336,5 +336,9 @@ class MyBoard extends CGFobject {
         });
     }
 
+    getMaxHeight(){
+        return this.maxHeight;
+    }
+
     updateTexCoords(length_s, length_t) {}
 }
