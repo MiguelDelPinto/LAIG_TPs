@@ -22,7 +22,7 @@ class MyRock extends CGFobject {
 
     display(){
         this.scene.pushMatrix();
-            this.scene.translate(0, -0.25, 0);
+            this.scene.translate(0, -0.3, 0);
             if(this.highlighted){
                 this.highlightMaterial.apply();
             }else{

@@ -111,7 +111,7 @@ class MyPiece extends CGFobject {
         return this.column;
     }
 
-    move(start, end){
+    move(start, end, maxHeight){
         if(!this.invisible){
             const rotate = this.getRotateAngle(start, end);
 
@@ -130,7 +130,7 @@ class MyPiece extends CGFobject {
                 },
                 {
                     'keyframeInstant': 1, 
-                    'translateCoordinates': [(end[0]-start[0])/2, 2, (end[1]-start[1])/2],
+                    'translateCoordinates': [(end[0]-start[0])/2, maxHeight, (end[1]-start[1])/2],
                     'rotateAngles': [0, rotate, 0], //Rotate to target
                     'scaleCoordinates': [1, 1, 1]
                 },

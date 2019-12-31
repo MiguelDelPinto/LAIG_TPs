@@ -11,6 +11,8 @@ class MyLake extends MyBoard {
 
         // Generates the tiles
         this.generateTiles();
+
+        this.maxHeight = 1;
     }
 
     generateTiles() {
@@ -60,7 +62,7 @@ class MyLake extends MyBoard {
     displayBorders(){} //In the lake, the board doesn't have borders 
 
     pieceTransformation(row, column){
-        this.scene.translate(-3.5 + row, 0.08, -3.45 + column);
+        this.scene.translate(-3.5 + row, 0.03, -3.45 + column);
         this.scene.scale(...this.pieceScale());
     }
 
