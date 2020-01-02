@@ -374,9 +374,11 @@ class FrogChess extends CGFobject {
                                         const position = [Math.trunc(index / 8), index % 8];
 
                                         const movingPiece = this.board.getMovingPiece();
-                                        if(movingPiece !== null && movingPiece !== undefined)
-                                            this.board.deselectPiece(movingPiece);
-                                        
+                                        if(movingPiece !== null && movingPiece !== undefined){
+                                            this.board.playDownTiles();
+                                            this.board.deselectPiece(movingPiece.getRow(), movingPiece.getColumn());
+                                        }
+
                                         this.board.selectPiece(...position);
                                         this.selectedPiece = true;
                                         this.getValidMoves(position);
@@ -500,10 +502,10 @@ class FrogChess extends CGFobject {
                         return;
                 }
             }
-            else if(this.playerStartMoving){
+            /*else if(this.playerStartMoving){
                 const movingPiece = this.board.getMovingPiece();
                 console.log(movingPiece);
-            }
+            }*/
         }
     }
 
