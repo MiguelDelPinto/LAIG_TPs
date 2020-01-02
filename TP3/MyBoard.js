@@ -12,6 +12,8 @@ class MyBoard extends CGFobject {
 
         this.loaded = false;
 
+        this.button = new MyButton(scene);
+
         // Generates the tiles
         this.generateTiles();
 
@@ -102,6 +104,8 @@ class MyBoard extends CGFobject {
                 this.displayBorders();
 
                 this.displayPieces();
+
+                this.displayUndoButton();
 
             this.scene.popMatrix();
         this.scene.popMatrix();
@@ -202,6 +206,14 @@ class MyBoard extends CGFobject {
         }
 
         piece.display(this.pieceScale());
+    }
+
+    displayUndoButton() {
+        this.scene.pushMatrix();
+            this.scene.translate(-5, 0, 0);
+            this.scene.registerForPick(420, this.button);
+            this.button.display();
+        this.scene.popMatrix();
     }
     
     pieceTransformation(row, column){
