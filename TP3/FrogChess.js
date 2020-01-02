@@ -297,6 +297,7 @@ class FrogChess extends CGFobject {
                 this.playerStartMoving = false;
                 this.nextPlayer();
                 this.isPicking = false;
+                this.board.disableDisplayCheck();
             }else{
                 this.board.deselectPiece(position[0], position[1]);    
                 this.isPicking = true;
@@ -385,24 +386,36 @@ class FrogChess extends CGFobject {
 					var obj = this.scene.pickResults[i][0];
 					if (obj) {
                         let index = this.scene.pickResults[i][1] - 1; 
-                        
+                        console.log("Picked object: " + obj + ", with pick id " + index);	
+
                         if(index === 419)
                             continue;
-                            
+
                         if(this.isPicking){
-                            if(this.fillingBoard){ // Filling Board
-                                console.log("Picked object: " + obj + ", with pick id " + index);	
-                            
+                            if(index === 500){
+                                this.board.removeOuterFrogs();
+                                this.checkGameOver();
+
+                                const movingPiece = this.board.getMovingPiece();
+                                this.board.deselectPiece(movingPiece.getRow(), movingPiece.getColumn());  
+                                this.board.playDownTiles();  
+                                this.board.finishPieceMove();
+                                this.selectedPiece = false;
+                                this.playerStartMoving = false;
+                                this.nextPlayer();
+                                this.isPicking = false;
+                                this.board.disableDisplayCheck();
+                            }
+                            else if(this.fillingBoard){ // Filling Board
+                               
                                 this.board.setPiecePosition([Math.trunc(index / 8), index % 8], this.getPlayerColor());
                                 this.nextPlayer();				 
                                 this.board.playDownTiles();
                             }else{ // Game
                                
                                 if(!this.playerStartMoving){
-                                    
                                     if(index >= 100){ //Frog index starts at 101
-                                        console.log("Picked frog: " + obj + ", with pick id " + index);	
-                                        
+                                       
                                         index -= 100;
 
                                         const position = [Math.trunc(index / 8), index % 8];
@@ -418,8 +431,6 @@ class FrogChess extends CGFobject {
                                         this.selectedPiece = true;
                                         this.getValidMoves(position);
                                     }else{
-                                        console.log("Picked tile: " + obj + ", with pick id " + index);	
-
                                         const position = [Math.trunc(index / 8), index % 8]; //Get final jump position
 
                                         const movingPiece = this.board.getMovingPiece();
@@ -436,30 +447,29 @@ class FrogChess extends CGFobject {
                                         this.board.playDownTiles();
                                         this.board.highlightTiles([this.move[1]]);
                                         this.board.deselectPieces();
+                                        this.board.enableDisplayCheck();
                                         this.startMove(this.move[0]);
                                         this.board.movePiece(this.move[0], this.move[1]);
                                     }                                    
                                 }else{
-                                        console.log("Picked tile: " + obj + ", with pick id " + index);	
-                                        
-                                        const position = [Math.trunc(index / 8), index % 8]; //Get final jump position
+                                    const position = [Math.trunc(index / 8), index % 8]; //Get final jump position
 
-                                        const movingPiece = this.board.getMovingPiece();
-                                        if(movingPiece === null || movingPiece === undefined) //Can't move if no piece is selected
-                                            break;
-                                        
-                                        if(movingPiece.isMoving())
-                                            break;
+                                    const movingPiece = this.board.getMovingPiece();
+                                    if(movingPiece === null || movingPiece === undefined) //Can't move if no piece is selected
+                                        break;
+                                    
+                                    if(movingPiece.isMoving())
+                                        break;
 
-                                        this.move = [
-                                            [movingPiece.getRow(), movingPiece.getColumn()],
-                                            position
-                                        ];
-                                        
-                                        this.board.playDownTiles();
-                                        this.board.highlightTiles([this.move[1]]);
-                                        this.startMove(this.move[0]);
-                                        this.board.movePiece(this.move[0], this.move[1]);
+                                    this.move = [
+                                        [movingPiece.getRow(), movingPiece.getColumn()],
+                                        position
+                                    ];
+                                    
+                                    this.board.playDownTiles();
+                                    this.board.highlightTiles([this.move[1]]);
+                                    this.startMove(this.move[0]);
+                                    this.board.movePiece(this.move[0], this.move[1]);
                                 }
                             }               
                             this.isPicking = false;	   
