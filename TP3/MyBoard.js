@@ -301,6 +301,22 @@ class MyBoard extends CGFobject {
         });
     }
 
+    getNumberPlayerPieces(playerColor){
+        
+        let numberPieces = 0;
+
+        this.realPieces.forEach(piece =>{
+            if(!piece.isInvisible()){
+                if(piece.getColor() === playerColor){
+                    numberPieces++;
+                    console.log(numberPieces);
+                }
+            }
+        });
+
+        return numberPieces;
+    }
+
     selectPieces(positions){
         positions.forEach(position => {
             this.realPieces.forEach(piece =>{

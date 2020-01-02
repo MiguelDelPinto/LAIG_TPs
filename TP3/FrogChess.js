@@ -42,6 +42,8 @@ class FrogChess extends CGFobject {
 
         //Game Over Boolean
         this.gameOver = false;
+
+        //this.ui = new UI(scene);
     }
 
     updateWait() {
@@ -616,5 +618,7 @@ class FrogChess extends CGFobject {
         this.scene.clearPickRegistration();
 
         this.board.display();
+
+        //this.ui.display();
     }
 }

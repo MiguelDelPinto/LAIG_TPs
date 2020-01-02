@@ -2,9 +2,8 @@
  * UI
  */
 class UI {
-    constructor(scene, textureRTT){
+    constructor(scene){
         this.scene = scene;
-        this.textureRTT = textureRTT;
 
         this.rectangle = new MyRectangle(this.scene, "ui", -1, -0.5, 0.75, 1);
        
@@ -20,8 +19,6 @@ class UI {
             "shaders/ui.vert",
             "shaders/ui.frag"
         );
-
-        this.shader.setUniformsValues({texture: 0});
     }
 
     /**
@@ -30,11 +27,9 @@ class UI {
      */
     display(){
         this.scene.setActiveShader(this.shader);
-            this.textureRTT.bind(0);
-        
-            this.rectangle.display();
 
-            this.textureRTT.unbind(0);
+                this.rectangle.display();
+
         this.scene.setActiveShader(this.scene.defaultShader);
     }
 }

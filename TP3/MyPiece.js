@@ -177,6 +177,10 @@ class MyPiece extends CGFobject {
         }
     }
 
+    getColor(){
+        return this.color;
+    }
+
     getRotateAngle(start, end){
         const diff = [end[0]-start[0], start[1]-end[1]];
 
