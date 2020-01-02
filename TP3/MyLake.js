@@ -45,6 +45,11 @@ class MyLake extends MyBoard {
     initMusic(){
         this.select_music = new Audio('audio/croak.mp3');
         this.select_music.volume = 0.5;
+
+        this.background_music = new Audio('audio/lake.mp3');
+        this.background_music.loop = true;
+        this.background_music.volume = 0.1;
+        this.background_music.autoplay = true;
     }
 
     display() {

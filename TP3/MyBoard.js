@@ -30,6 +30,15 @@ class MyBoard extends CGFobject {
         this.movingPiece = null;
 
         this.maxHeight = 2;
+
+        this.initMusic();
+    }
+
+    initMusic(){
+        this.background_music = new Audio('audio/chess.mp3');
+        this.background_music.loop = true;
+        this.background_music.volume = 0.25;
+        this.background_music.autoplay = true;
     }
 
     generateTiles() {
