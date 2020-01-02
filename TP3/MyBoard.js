@@ -374,6 +374,7 @@ class MyBoard extends CGFobject {
         this.realPieces.forEach(piece => {
             if(piece.getRow() === row && piece.getColumn() === column){
                 piece.makeInvisible();
+                piece.deselect();
                 return;
             }
         });

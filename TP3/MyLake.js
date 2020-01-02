@@ -13,6 +13,8 @@ class MyLake extends MyBoard {
         this.generateTiles();
 
         this.maxHeight = 1;
+
+        this.initMusic();
     }
 
     generateTiles() {
@@ -38,6 +40,11 @@ class MyLake extends MyBoard {
 
             }
         }
+    }
+
+    initMusic(){
+        this.select_music = new Audio('audio/croak.mp3');
+        this.select_music.volume = 0.5;
     }
 
     display() {
@@ -74,6 +81,19 @@ class MyLake extends MyBoard {
         this.water.update(t);
         
         super.update(t);
+    }
+
+    movePiece(start, end){
+        this.select_music.play();
+        this.select_music.loop = true;
+        super.movePiece(start, end);
+    }
+
+    finishPieceMove(){
+        this.select_music.pause();
+        this.select_music.currentTime = 0;
+        
+        super.finishPieceMove();
     }
 
     updateTexCoords(length_s, length_t) {}
