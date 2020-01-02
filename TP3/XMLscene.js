@@ -57,6 +57,24 @@ class XMLscene extends CGFscene {
         this.setUpdatePeriod(25);
 
         this.initGame = false;
+        this.level = 1;
+        this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
+        this.mode = 'Player vs. CPU';
+    }
+
+    updateLevel(){
+        this.frogchess.updateLevel(this.level);
+    }
+
+    updateMode(){
+        let mode;
+        for(let i = 0; i < this.modes; i++){
+            if(this.mode === this.modes[i]){
+                mode = i + 1;
+                break;
+            }
+        }
+        this.frogchess.updateMode(mode);
     }
 
     /**

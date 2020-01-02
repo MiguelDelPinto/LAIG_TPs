@@ -57,6 +57,14 @@ class FrogChess extends CGFobject {
         }
     }
 
+    updateLevel(level){
+        this.level = level;
+    }
+
+    updateMode(mode){
+        this.gameMode = mode;
+    }
+
     getPlayerColor(){
         if(this.player == 1)
             return "blue";

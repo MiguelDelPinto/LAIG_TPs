@@ -31,8 +31,7 @@ class MyInterface extends CGFinterface {
     loadInterface(graphLights) {
         this.loadLightsOption(graphLights);
         this.loadCamerasOption();
-        this.loadSecurityCameraOptions();
-        this.loadMusicOptions();
+        this.loadGameOptions();
     }
 
     /**
@@ -45,25 +44,6 @@ class MyInterface extends CGFinterface {
                      .onChange(this.scene.updateCamera.bind(this.scene));   // calls updateCamera() of XMLscene
                                                                             // when a new camera is chosen
     }                                                                       
-
-    /**
-     * Load all of the security camera options to interface
-     */
-    loadSecurityCameraOptions(){
-        var folder = this.gui.addFolder('Security Camera');
-        
-        folder.add(this.scene, 'current_rtt_camera_id', this.scene.cameraNames)
-                   .name('Security Camera');
-        folder.add(this.scene, 'scaleFactor', 50.0, 150.0)
-                   .name('Scale Factor')
-                   .onChange(this.scene.updateScaleFactor.bind(this.scene)); 
-        folder.add(this.scene, 'speed', 1.0, 10.0)
-                   .name('Speed')
-                   .onChange(this.scene.updateSpeed.bind(this.scene));
-        folder.add(this.scene, 'colorFactor', 1.0, 5.0)
-                   .name('Color Factor')
-                   .onChange(this.scene.updateColorFactor.bind(this.scene));
-    }
 
     /**
      * Loads all of the light options to interface
@@ -90,12 +70,15 @@ class MyInterface extends CGFinterface {
         }
     }
 
-    loadMusicOptions(){
-        var folder = this.gui.addFolder('Music');
-
-        folder.add(this.scene, 'musicVolume', 0.0, 1.0)
-                     .name('Volume')
-                     .onChange(this.scene.updateVolume.bind(this.scene));   // calls updateCamera() of XMLscene
+    loadGameOptions(){
+        this.gui.add(this.scene, 'level', [1, 2, 3, 4])
+            .name('Level')
+            .onChange(this.scene.updateLevel.bind(this.scene));
+            
+            this.gui.add(this.scene, 'mode', this.scene.modes)
+                .name('Game Mode')
+                .onChange(this.scene.updateMode.bind(this.scene));   // calls updateCamera() of XMLscene
+                          
     }
 
     /**
