@@ -1,9 +1,9 @@
 /**
-* MyButton
+* MyUndoButton
 * @constructor
 * @param scene - Reference to MyScene object
 */
-class MyButton extends CGFobject {
+class MyUndoButton extends CGFobject {
     constructor(scene) {
         super(scene);
         this.scene = scene;

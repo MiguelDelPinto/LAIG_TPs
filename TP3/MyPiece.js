@@ -38,15 +38,15 @@ class MyPiece extends CGFobject {
     display(pieceScale){
         this.scene.pushMatrix();
             if(!this.invisible){
-                this.scene.scale(...this.invertScale(pieceScale));
                 if(this.moving){
+                    this.scene.scale(...this.invertScale(pieceScale));
                     this.moveAnimation.apply(this.scene);
+                    this.scene.scale(...pieceScale);
                 }
                 else if(this.selected){
                     this.selectAnimation.apply(this.scene);
                 }
 
-                this.scene.scale(...pieceScale);
                 this.material.apply();
                 this.piece.display();
             }
@@ -58,7 +58,7 @@ class MyPiece extends CGFobject {
     }
 
     select(){
-        if(!this.invisible){
+        if(!this.invisible && !this.selected){
             console.log("selected: " + this.row + "; " + this.column);
             this.selected = true;
             this.selectAnimation.resetsTime();
@@ -127,13 +127,13 @@ class MyPiece extends CGFobject {
             }
 
             let offset = 0;
-            if(Math.abs(rotate) > 135) {
+            if(Math.abs(rotate - initAngle) > 135) {
                 offset = 0.75;
             }
-            else if(Math.abs(rotate) > 90) {
+            else if(Math.abs(rotate - initAngle) > 90) {
                 offset = 0.50;
             }
-            else if(Math.abs(rotate) > 45) {
+            else if(Math.abs(rotate - initAngle) > 45) {
                 offset = 0.25;
             }            
 

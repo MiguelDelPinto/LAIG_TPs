@@ -12,7 +12,9 @@ class MyBoard extends CGFobject {
 
         this.loaded = false;
 
-        this.button = new MyButton(scene);
+        this.undo_button = new MyUndoButton(scene);
+        this.check_button = new FinishMoveButton(scene);
+        this.canDisplayCheck = false;
 
         // Generates the tiles
         this.generateTiles();
@@ -107,6 +109,8 @@ class MyBoard extends CGFobject {
 
                 this.displayUndoButton();
 
+                this.displayCheckButton();
+
             this.scene.popMatrix();
         this.scene.popMatrix();
     }
@@ -176,21 +180,6 @@ class MyBoard extends CGFobject {
                 this.scene.popMatrix();
             }
         });
-        
-        /*for(let row = 0; row < 8; row++) {
-
-            // Cycles through the 8 collumns
-            for(let col = 0; col < 8; col++) {
-
-                // Calculates the index for piece selection
-                //let index = row*8 + col;
-
-                // Displays the current 
-                this.scene.pushMatrix();
-                    this.displayPiece(row, col);    
-                this.scene.popMatrix();
-            }
-        }*/
     }
 
     displayPiece(piece){     
@@ -206,13 +195,36 @@ class MyBoard extends CGFobject {
         }
 
         piece.display(this.pieceScale());
+        
+        this.scene.clearPickRegistration();
     }
 
     displayUndoButton() {
         this.scene.pushMatrix();
-            this.scene.translate(-5, 0, 0);
-            this.scene.registerForPick(420, this.button);
-            this.button.display();
+            this.scene.translate(-5, 0, -1);
+            this.scene.registerForPick(420, this.undo_button);
+            this.undo_button.display();
+            this.scene.clearPickRegistration();
+        this.scene.popMatrix();
+    }
+
+    enableDisplayCheck(){
+        this.canDisplayCheck = true;
+    }
+
+    disableDisplayCheck(){
+        this.canDisplayCheck = false;
+    }
+
+    displayCheckButton(){
+        if(!this.canDisplayCheck)
+            return;
+            
+        this.scene.pushMatrix();
+            this.scene.translate(-5, 0, 1);
+            this.scene.registerForPick(501, this.check_button);
+            this.check_button.display();
+            this.scene.clearPickRegistration();
         this.scene.popMatrix();
     }
     
@@ -296,39 +308,58 @@ class MyBoard extends CGFobject {
         });
     }
 
-    selectPiece(row, column){
-        this.realPieces.forEach(piece => {
-            if(!piece.isInvisible()){
-                if(piece.getRow() === row && piece.getColumn() === column){
-                    piece.select();
-                    return;
-                }
-            }
+    deselectPieces(){
+        this.realPieces.forEach(piece =>{
+            piece.disablePicking();
         });
+    }
+
+    selectPiece(row, column){
+        const Break = {};
+
+        try{
+            this.realPieces.forEach(piece => {
+                if(!piece.isInvisible()){
+                    if(piece.getRow() === row && piece.getColumn() === column){
+                        piece.select();
+                        this.movingPiece = piece;
+                        throw Break; //Force loop break
+                    }
+                }
+            });
+        }catch(e){}
     }
 
     deselectPiece(row, column){
-        
-        this.realPieces.forEach(piece => {
-            if(!piece.isInvisible()){
-                if(piece.getRow() === row && piece.getColumn() === column){
-                    piece.deselect();
-                    return;
+        const Break = {};
+
+        try{
+            this.realPieces.forEach(piece => {
+                if(!piece.isInvisible()){
+                    if(piece.getRow() === row && piece.getColumn() === column){
+                        piece.deselect();
+                        this.movingPiece = null;
+                        throw Break; //Force loop break
+                    }
                 }
-            }
-        });
+            });
+        }catch(e){}
     }
 
-    cpuMovePiece(start, end){
-        this.realPieces.forEach(piece => {
-            if(!piece.isInvisible()){
-                if(piece.getRow() === start[0] && piece.getColumn() === start[1]){
-                    piece.move(start, end, this.maxHeight);
-                    this.movingPiece = piece;
-                    return;
+    movePiece(start, end){
+        const Break = {};
+
+        try{
+            this.realPieces.forEach(piece => {
+                if(!piece.isInvisible()){
+                    if(piece.getRow() === start[0] && piece.getColumn() === start[1]){
+                        piece.move(start, end, this.maxHeight);
+                        this.movingPiece = piece;
+                        throw Break; //Force loop break
+                    }
                 }
-            }
-        });
+            });
+        }catch(e){}
     }
 
     getMovingPiece(){

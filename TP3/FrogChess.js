@@ -33,10 +33,14 @@ class FrogChess extends CGFobject {
 
         //CPU Move Variables
         this.cpuIsMoving = false;
-        this.cpuMove = null;
-
+        this.move = null;
         this.jump_pos_from = null;
 
+        //Player Move Variables
+        this.playerStartMoving = false;
+        this.playerFrogs = null;
+
+        //Game Over Boolean
         this.gameOver = false;
     }
 
@@ -134,14 +138,14 @@ class FrogChess extends CGFobject {
         move.color_moving = this.board.pieces[move.from[0]][move.from[1]];
         move.color_eaten = this.board.pieces[move.middle[0]][move.middle[1]];     
      
-        /*
+    /*    
         console.log(move.type);
         console.log(move.from);
         console.log(move.to);
         console.log(move.middle);
         console.log(move.color_moving);
         console.log(move.color_eaten);
-        */
+    */  
 
         this.moves.push(move);
     }
@@ -200,7 +204,6 @@ class FrogChess extends CGFobject {
             serverValidMoves(this.board.getPieces(), this.player, data => this.handleValidMoves(position, data));
         }
     }
-
 
     // ---------- REQUEST HANDLERS -----------
 
@@ -263,6 +266,7 @@ class FrogChess extends CGFobject {
             return;
         }
 
+        this.playerFrogs = frogPositions;
         this.board.selectPieces(frogPositions);
         this.serverCall = false;
         this.isPicking = true;
@@ -315,10 +319,23 @@ class FrogChess extends CGFobject {
         });
 
         if(!foundValidMove){
-            this.board.deselectPiece(...position);    
-            this.isPicking = true;
+            if(this.playerStartMoving){
+                this.board.removeOuterFrogs();
+                this.checkGameOver();
+                this.board.finishPieceMove();
+                this.selectedPiece = false;
+                this.playerStartMoving = false;
+                this.nextPlayer();
+                this.isPicking = false;
+                this.board.disableDisplayCheck();
+            }else{
+                this.board.deselectPiece(position[0], position[1]);    
+                this.isPicking = true;
+            }
         }else{
+            this.board.playDownTiles();
             this.board.highlightTiles(validMoveTiles);
+            this.isPicking = true;
         }
     }
 
@@ -340,11 +357,11 @@ class FrogChess extends CGFobject {
         }
 
         this.cpuIsMoving = true;
-        this.cpuMove = jumps;
-        this.pushMove('CPU',this.cpuMove[0], this.cpuMove[1])
+        this.move = jumps;
+        this.pushMove('CPU',this.move[0], this.move[1]);
 
-        this.board.cpuMovePiece(this.cpuMove[0], this.cpuMove[1]);
-        this.startMove(this.cpuMove[0]);
+        this.board.movePiece(this.move[0], this.move[1]);
+        this.startMove(this.move[0]);
 
         this.nextPlayer();
         this.serverCall = false;
@@ -399,40 +416,94 @@ class FrogChess extends CGFobject {
                 for (var i = 0; i < this.scene.pickResults.length; i++) {
 					var obj = this.scene.pickResults[i][0];
 					if (obj) {
+                        let index = this.scene.pickResults[i][1] - 1; 
+                        console.log("Picked object: " + obj + ", with pick id " + index);	
+
+                        if(index === 419)
+                            continue;
+
                         if(this.isPicking){
-                            if(this.fillingBoard){ // Filling Board
-                                const index = this.scene.pickResults[i][1] - 1;
+                            if(index === 500){
+                                this.board.removeOuterFrogs();
+                                this.checkGameOver();
 
-                                // Undo button
-                                if(index === 419)
-                                    continue;
-
-                                console.log("Picked object: " + obj + ", with pick id " + index);	
-                            
+                                const movingPiece = this.board.getMovingPiece();
+                                this.board.deselectPiece(movingPiece.getRow(), movingPiece.getColumn());  
+                                this.board.playDownTiles();  
+                                this.board.finishPieceMove();
+                                this.selectedPiece = false;
+                                this.playerStartMoving = false;
+                                this.nextPlayer();
+                                this.isPicking = false;
+                                this.board.disableDisplayCheck();
+                            }
+                            else if(this.fillingBoard){ // Filling Board
+                               
                                 this.board.setPiecePosition([Math.trunc(index / 8), index % 8], this.getPlayerColor());
-                                this.isPicking = false;	
                                 this.nextPlayer();				 
                                 this.board.playDownTiles();
                             }else{ // Game
-                                const index = this.scene.pickResults[i][1] - 1 - 100; //Frog index starts at 101
-                                
-                                // Undo button
-                                if(index == 419)
-                                    continue;
-                                    
-                                console.log("Picked object: " + obj + ", with pick id " + index);	
-                                
-                                const position = [Math.trunc(index / 8), index % 8];
+                               
+                                if(!this.playerStartMoving){
+                                    if(index >= 100){ //Frog index starts at 101
+                                       
+                                        index -= 100;
 
-                                this.board.selectPiece(...position);
-                                this.isPicking = false;	
-                                this.selectedPiece = true;
-                                
-                                this.getValidMoves(position);
-                                //this.getValidJumpPosition(position);
-                                //this.nextPlayer();				 
-                                //this.board.playDownTiles();
-                            }                  
+                                        const position = [Math.trunc(index / 8), index % 8];
+
+                                        const movingPiece = this.board.getMovingPiece();
+                                        if(movingPiece !== null && movingPiece !== undefined){
+                                            this.board.playDownTiles();
+                                            movingPiece.deselect();
+                                            this.board.finishPieceMove();
+                                        }
+
+                                        this.board.selectPiece(...position);
+                                        this.selectedPiece = true;
+                                        this.getValidMoves(position);
+                                    }else{
+                                        const position = [Math.trunc(index / 8), index % 8]; //Get final jump position
+
+                                        const movingPiece = this.board.getMovingPiece();
+                                        if(movingPiece === null || movingPiece === undefined) //Can't move if no piece is selected
+                                            break;
+
+                                        this.move = [
+                                            [movingPiece.getRow(), movingPiece.getColumn()],
+                                            position
+                                        ];
+                                        
+                                        this.playerStartMoving = true;
+
+                                        this.board.playDownTiles();
+                                        this.board.highlightTiles([this.move[1]]);
+                                        this.board.deselectPieces();
+                                        this.board.enableDisplayCheck();
+                                        this.startMove(this.move[0]);
+                                        this.board.movePiece(this.move[0], this.move[1]);
+                                    }                                    
+                                }else{
+                                    const position = [Math.trunc(index / 8), index % 8]; //Get final jump position
+
+                                    const movingPiece = this.board.getMovingPiece();
+                                    if(movingPiece === null || movingPiece === undefined) //Can't move if no piece is selected
+                                        break;
+                                    
+                                    if(movingPiece.isMoving())
+                                        break;
+
+                                    this.move = [
+                                        [movingPiece.getRow(), movingPiece.getColumn()],
+                                        position
+                                    ];
+                                    
+                                    this.board.playDownTiles();
+                                    this.board.highlightTiles([this.move[1]]);
+                                    this.startMove(this.move[0]);
+                                    this.board.movePiece(this.move[0], this.move[1]);
+                                }
+                            }               
+                            this.isPicking = false;	   
                         }
                     }
 				}
@@ -480,22 +551,33 @@ class FrogChess extends CGFobject {
                 const movingPiece = this.board.getMovingPiece();
                 
                 if(!movingPiece.isMoving()){
-                    if(this.cpuMove.length > 2){
-                        this.finishMove(this.cpuMove[0], this.cpuMove[1]);
-                        this.cpuMove.shift();
+                    if(this.move.length > 2){
+                        this.finishMove(this.move[0], this.move[1]);
+                        this.move.shift();
 
-                        this.pushMove('CPU', this.cpuMove[0], this.cpuMove[1]);
+                        this.pushMove('CPU', this.move[0], this.move[1]);
 
-                        this.startMove(this.cpuMove[0]);
-                        movingPiece.move(this.cpuMove[0], this.cpuMove[1], this.board.getMaxHeight());
+                        this.startMove(this.move[0]);
+                        movingPiece.move(this.move[0], this.move[1], this.board.getMaxHeight());
                     }else{
-                        this.finishMove(this.cpuMove[0], this.cpuMove[1]);
+                        this.finishMove(this.move[0], this.move[1]);
                         this.cpuIsMoving = false;
-                        this.cpuMove = null;
+                        this.move = null;
                         this.board.finishPieceMove();
                         this.board.removeOuterFrogs();
                         this.checkGameOver()
                     }
+                }
+            }
+            else if(this.playerStartMoving){
+                const movingPiece = this.board.getMovingPiece();
+                
+                if(!movingPiece.isMoving() && !this.isPicking){
+                    this.finishMove(this.move[0], this.move[1]);
+                    this.board.playDownTiles();
+                    this.isPicking = true;
+                    this.getValidMoves(this.move[1]);
+                    this.move = null;
                 }
             }
             else if(!this.isPicking && !this.selectedPiece){
