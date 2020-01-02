@@ -28,6 +28,9 @@ class FrogChess extends CGFobject {
         //Checking if the player is picking any tile
         this.isPicking = false;
 
+        //Stack that holds all of the moves played
+        this.moves = [];
+
         //CPU Move Variables
         this.cpuIsMoving = false;
         this.move = null;
@@ -96,6 +99,24 @@ class FrogChess extends CGFobject {
         this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
         
         this.board.makePieceInvisible(...pos_middle); //Deletes piece from the board
+    }
+
+    undoCPUMove() {
+        if(this.moves.length > 0) {
+
+            let move = this.moves.pop();
+
+            // Undo a CPU move
+            if(move[0] === 'CPU') {
+                let color = move[1];
+                let to = move[1];
+                let from = move[2];
+            }
+            // Undo a Human move
+            else {
+            
+            }
+        }
     }
 
 
@@ -363,8 +384,12 @@ class FrogChess extends CGFobject {
                 for (var i = 0; i < this.scene.pickResults.length; i++) {
 					var obj = this.scene.pickResults[i][0];
 					if (obj) {
+                        let index = this.scene.pickResults[i][1] - 1; 
+                        
+                        if(index === 419)
+                            continue;
+                            
                         if(this.isPicking){
-                            let index = this.scene.pickResults[i][1] - 1; 
                             if(this.fillingBoard){ // Filling Board
                                 console.log("Picked object: " + obj + ", with pick id " + index);	
                             
@@ -375,7 +400,7 @@ class FrogChess extends CGFobject {
                                
                                 if(!this.playerStartMoving){
                                     
-                                    if(index > 100){ //Frog index starts at 101
+                                    if(index >= 100){ //Frog index starts at 101
                                         console.log("Picked frog: " + obj + ", with pick id " + index);	
                                         
                                         index -= 100;
