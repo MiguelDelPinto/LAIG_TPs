@@ -12,7 +12,7 @@ class MyBoard extends CGFobject {
 
         this.loaded = false;
 
-        this.button = new MyButton(scene);
+        this.undo_button = new MyUndoButton(scene);
 
         // Generates the tiles
         this.generateTiles();
@@ -176,21 +176,6 @@ class MyBoard extends CGFobject {
                 this.scene.popMatrix();
             }
         });
-        
-        /*for(let row = 0; row < 8; row++) {
-
-            // Cycles through the 8 collumns
-            for(let col = 0; col < 8; col++) {
-
-                // Calculates the index for piece selection
-                //let index = row*8 + col;
-
-                // Displays the current 
-                this.scene.pushMatrix();
-                    this.displayPiece(row, col);    
-                this.scene.popMatrix();
-            }
-        }*/
     }
 
     displayPiece(piece){     
@@ -213,9 +198,9 @@ class MyBoard extends CGFobject {
     displayUndoButton() {
         this.scene.pushMatrix();
             this.scene.translate(-5, 0, 0);
-            this.scene.registerForPick(420, this.button);
-            this.button.display();
-            this.clearPickRegistration();
+            this.scene.registerForPick(420, this.undo_button);
+            this.undo_button.display();
+            this.scene.clearPickRegistration();
         this.scene.popMatrix();
     }
     
