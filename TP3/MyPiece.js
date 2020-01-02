@@ -58,7 +58,7 @@ class MyPiece extends CGFobject {
     }
 
     select(){
-        if(!this.invisible){
+        if(!this.invisible && !this.selected){
             console.log("selected: " + this.row + "; " + this.column);
             this.selected = true;
             this.selectAnimation.resetsTime();

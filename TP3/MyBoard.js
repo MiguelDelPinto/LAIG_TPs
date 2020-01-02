@@ -316,7 +316,7 @@ class MyBoard extends CGFobject {
         }catch(e){}
     }
 
-    cpuMovePiece(start, end){
+    movePiece(start, end){
         const Break = {};
 
         try{
