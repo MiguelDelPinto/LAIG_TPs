@@ -272,7 +272,6 @@ class FrogChess extends CGFobject {
                 this.board.removeOuterFrogs();
                 this.checkGameOver();
                 this.board.finishPieceMove();
-                this.board.playDownTiles();
                 this.selectedPiece = false;
                 this.playerStartMoving = false;
                 this.nextPlayer();
@@ -409,23 +408,31 @@ class FrogChess extends CGFobject {
                                         
                                         this.playerStartMoving = true;
 
+                                        this.board.playDownTiles();
+                                        this.board.highlightTiles([this.move[1]]);
+                                        this.board.deselectPieces();
                                         this.startMove(this.move[0]);
                                         this.board.movePiece(this.move[0], this.move[1]);
                                     }                                    
                                 }else{
                                         console.log("Picked tile: " + obj + ", with pick id " + index);	
-
+                                        
                                         const position = [Math.trunc(index / 8), index % 8]; //Get final jump position
 
                                         const movingPiece = this.board.getMovingPiece();
                                         if(movingPiece === null || movingPiece === undefined) //Can't move if no piece is selected
+                                            break;
+                                        
+                                        if(movingPiece.isMoving())
                                             break;
 
                                         this.move = [
                                             [movingPiece.getRow(), movingPiece.getColumn()],
                                             position
                                         ];
-
+                                        
+                                        this.board.playDownTiles();
+                                        this.board.highlightTiles([this.move[1]]);
                                         this.startMove(this.move[0]);
                                         this.board.movePiece(this.move[0], this.move[1]);
                                 }
@@ -498,6 +505,7 @@ class FrogChess extends CGFobject {
                 
                 if(!movingPiece.isMoving() && !this.isPicking){
                     this.finishMove(this.move[0], this.move[1]);
+                    this.board.playDownTiles();
                     this.isPicking = true;
                     this.getValidMoves(this.move[1]);
                     this.move = null;

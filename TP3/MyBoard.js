@@ -284,6 +284,12 @@ class MyBoard extends CGFobject {
         });
     }
 
+    deselectPieces(){
+        this.realPieces.forEach(piece =>{
+            piece.disablePicking();
+        });
+    }
+
     selectPiece(row, column){
         const Break = {};
 
