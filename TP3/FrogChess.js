@@ -16,7 +16,7 @@ class FrogChess extends CGFobject {
 
         this.level = 1; // TODO Add variable levels
         
-        this.gameMode = gameMode || 2;
+        this.gameMode = gameMode || 3;
 
         this.fillingBoard = true; //In the beggining of the game, players have to fill the board with frogs
 
@@ -72,6 +72,37 @@ class FrogChess extends CGFobject {
     }
 
     finishMove(pos_from, pos_to) {
+        let pos_middle = this.calculateMiddle(pos_from, pos_to);
+     
+        this.board.pieces[pos_to[0]][pos_to[1]] = this.jump_pos_from;
+        this.jump_pos_from = null;
+        this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
+        
+        this.board.makePieceInvisible(...pos_middle); //Deletes piece from the board
+    }
+
+    undoCPUMove() {
+        if(this.moves.length > 0) {
+
+            let move = this.moves.pop();
+
+            // Undo a CPU move
+            if(move.type === 'CPU') {
+
+                let middle = this.calculateMiddle(move.from, move.to);
+
+                this.board.pieces[move.to[0]][move.to[1]] = "empty";
+                this.board.pieces[move.from[0]][move.from[1]] = move.color_moving;
+                this.board.pieces[middle[0]][middle[1]] = move.color_eaten;    
+            }
+            // Undo a Human move
+            else {
+            
+            }
+        }
+    }
+
+    calculateMiddle(pos_from, pos_to) {
         let pos_middle = [];
 
         if(pos_from[0] > pos_to[0]) {
@@ -92,33 +123,32 @@ class FrogChess extends CGFobject {
         }
         else {
             pos_middle.push(pos_from[1]);
-        }        
+        }   
 
-        this.board.pieces[pos_to[0]][pos_to[1]] = this.jump_pos_from;
-        this.jump_pos_from = null;
-        this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
-        
-        this.board.makePieceInvisible(...pos_middle); //Deletes piece from the board
+        return pos_middle;
     }
 
-    undoCPUMove() {
-        if(this.moves.length > 0) {
+    pushMove(type, from, to) {
+        let move = new Object();
 
-            let move = this.moves.pop();
+        move.type = type;
+        move.from = from;
+        move.to = to;
+        move.middle = this.calculateMiddle(from, to);
+        move.color_moving = this.board.pieces[move.from[0]][move.from[1]];
+        move.color_eaten = this.board.pieces[move.middle[0]][move.middle[1]];     
+     
+    /*    
+        console.log(move.type);
+        console.log(move.from);
+        console.log(move.to);
+        console.log(move.middle);
+        console.log(move.color_moving);
+        console.log(move.color_eaten);
+    */  
 
-            // Undo a CPU move
-            if(move[0] === 'CPU') {
-                let color = move[1];
-                let to = move[1];
-                let from = move[2];
-            }
-            // Undo a Human move
-            else {
-            
-            }
-        }
+        this.moves.push(move);
     }
-
 
     // ---------- GAME LOGIC -----------
 
@@ -328,6 +358,7 @@ class FrogChess extends CGFobject {
 
         this.cpuIsMoving = true;
         this.move = jumps;
+        this.pushMove('CPU',this.move[0], this.move[1]);
 
         this.board.movePiece(this.move[0], this.move[1]);
         this.startMove(this.move[0]);
@@ -523,6 +554,9 @@ class FrogChess extends CGFobject {
                     if(this.move.length > 2){
                         this.finishMove(this.move[0], this.move[1]);
                         this.move.shift();
+
+                        this.pushMove('CPU', this.move[0], this.move[1]);
+
                         this.startMove(this.move[0]);
                         movingPiece.move(this.move[0], this.move[1], this.board.getMaxHeight());
                     }else{

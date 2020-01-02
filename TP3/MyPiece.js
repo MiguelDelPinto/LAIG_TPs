@@ -121,16 +121,19 @@ class MyPiece extends CGFobject {
             if(this.color === "blue"){
                 initAngle += 180;
                 initZTransl = -0.2;
+
+                if(Math.abs(initAngle - rotate) > 180)
+                    rotate = 360-Math.abs(rotate);
             }
 
             let offset = 0;
-            if(Math.abs(rotate) > 135) {
+            if(Math.abs(rotate - initAngle) > 135) {
                 offset = 0.75;
             }
-            else if(Math.abs(rotate) > 90) {
+            else if(Math.abs(rotate - initAngle) > 90) {
                 offset = 0.50;
             }
-            else if(Math.abs(rotate) > 45) {
+            else if(Math.abs(rotate - initAngle) > 45) {
                 offset = 0.25;
             }            
 
@@ -211,6 +214,10 @@ class MyPiece extends CGFobject {
             else {
                 rad = -Math.PI/4;
             }
+        }
+
+        if(Math.abs(rad) > Math.PI) {
+            rad = - (Math.abs(rad) % Math.PI);
         }
 
         return rad*180/Math.PI;
