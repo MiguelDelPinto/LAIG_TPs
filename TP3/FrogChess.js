@@ -16,7 +16,7 @@ class FrogChess extends CGFobject {
 
         this.level = 1; // TODO Add variable levels
         
-        this.gameMode = gameMode || 3;
+        this.gameMode = gameMode || 2;
 
         this.fillingBoard = true; //In the beggining of the game, players have to fill the board with frogs
 
@@ -318,6 +318,11 @@ class FrogChess extends CGFobject {
             }
         });
 
+        // Remove duplicates from validMoveTiles
+        let validMovesSet = new Set(validMoveTiles);
+        let validMoves = validMovesSet.values();
+        validMoveTiles = Array.from(validMoves);
+
         if(!foundValidMove){
             if(this.playerStartMoving){
                 this.board.removeOuterFrogs();
@@ -363,7 +368,6 @@ class FrogChess extends CGFobject {
         this.board.movePiece(this.move[0], this.move[1]);
         this.startMove(this.move[0]);
 
-        this.nextPlayer();
         this.serverCall = false;
     }
 
@@ -566,6 +570,7 @@ class FrogChess extends CGFobject {
                         this.board.finishPieceMove();
                         this.board.removeOuterFrogs();
                         this.checkGameOver()
+                        this.nextPlayer();
                     }
                 }
             }
@@ -584,10 +589,12 @@ class FrogChess extends CGFobject {
                 switch(this.gameMode){
                     case 1: //Players are both human
                         this.getPlayerFrogs();
+                        this.isPicking = true;
                         break;
                     case 2: //Player 1 -> human; Player 2 -> CPU
                         if(this.player == 1){
                             this.getPlayerFrogs();
+                            this.isPicking = true;
                         }else{
                             this.chooseJumpPosition();
                         }
