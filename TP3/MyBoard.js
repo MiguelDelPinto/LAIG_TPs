@@ -202,6 +202,8 @@ class MyBoard extends CGFobject {
         }
 
         piece.display(this.pieceScale());
+        
+        this.scene.clearPickRegistration();
     }
     
     pieceTransformation(row, column){
