@@ -38,15 +38,15 @@ class MyPiece extends CGFobject {
     display(pieceScale){
         this.scene.pushMatrix();
             if(!this.invisible){
-                this.scene.scale(...this.invertScale(pieceScale));
                 if(this.moving){
+                    this.scene.scale(...this.invertScale(pieceScale));
                     this.moveAnimation.apply(this.scene);
+                    this.scene.scale(...pieceScale);
                 }
                 else if(this.selected){
                     this.selectAnimation.apply(this.scene);
                 }
 
-                this.scene.scale(...pieceScale);
                 this.material.apply();
                 this.piece.display();
             }

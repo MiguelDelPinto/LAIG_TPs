@@ -285,38 +285,51 @@ class MyBoard extends CGFobject {
     }
 
     selectPiece(row, column){
-        this.realPieces.forEach(piece => {
-            if(!piece.isInvisible()){
-                if(piece.getRow() === row && piece.getColumn() === column){
-                    piece.select();
-                    return;
+        const Break = {};
+
+        try{
+            this.realPieces.forEach(piece => {
+                if(!piece.isInvisible()){
+                    if(piece.getRow() === row && piece.getColumn() === column){
+                        piece.select();
+                        this.movingPiece = piece;
+                        throw Break; //Force loop break
+                    }
                 }
-            }
-        });
+            });
+        }catch(e){}
     }
 
     deselectPiece(row, column){
-        
-        this.realPieces.forEach(piece => {
-            if(!piece.isInvisible()){
-                if(piece.getRow() === row && piece.getColumn() === column){
-                    piece.deselect();
-                    return;
+        const Break = {};
+
+        try{
+            this.realPieces.forEach(piece => {
+                if(!piece.isInvisible()){
+                    if(piece.getRow() === row && piece.getColumn() === column){
+                        piece.deselect();
+                        this.movingPiece = null;
+                        throw Break; //Force loop break
+                    }
                 }
-            }
-        });
+            });
+        }catch(e){}
     }
 
     cpuMovePiece(start, end){
-        this.realPieces.forEach(piece => {
-            if(!piece.isInvisible()){
-                if(piece.getRow() === start[0] && piece.getColumn() === start[1]){
-                    piece.move(start, end, this.maxHeight);
-                    this.movingPiece = piece;
-                    return;
+        const Break = {};
+
+        try{
+            this.realPieces.forEach(piece => {
+                if(!piece.isInvisible()){
+                    if(piece.getRow() === start[0] && piece.getColumn() === start[1]){
+                        piece.move(start, end, this.maxHeight);
+                        this.movingPiece = piece;
+                        throw Break; //Force loop break
+                    }
                 }
-            }
-        });
+            });
+        }catch(e){}
     }
 
     getMovingPiece(){

@@ -16,7 +16,7 @@ class FrogChess extends CGFobject {
 
         this.level = 1; // TODO Add variable levels
         
-        this.gameMode = gameMode || 3;
+        this.gameMode = gameMode || 2;
 
         this.fillingBoard = true; //In the beggining of the game, players have to fill the board with frogs
 
@@ -31,9 +31,13 @@ class FrogChess extends CGFobject {
         //CPU Move Variables
         this.cpuIsMoving = false;
         this.cpuMove = null;
-
         this.jump_pos_from = null;
 
+        //Player Move Variables
+        this.playerStartMoving = false;
+        this.playerFrogs = null;
+
+        //Game Over Boolean
         this.gameOver = false;
     }
 
@@ -212,6 +216,7 @@ class FrogChess extends CGFobject {
             return;
         }
 
+        this.playerFrogs = frogPositions;
         this.board.selectPieces(frogPositions);
         this.serverCall = false;
         this.isPicking = true;
@@ -357,16 +362,57 @@ class FrogChess extends CGFobject {
                                 this.nextPlayer();				 
                                 this.board.playDownTiles();
                             }else{ // Game
-                                const index = this.scene.pickResults[i][1] - 1 - 100; //Frog index starts at 101
-                                console.log("Picked object: " + obj + ", with pick id " + index);	
-                                
-                                const position = [Math.trunc(index / 8), index % 8];
+                               
+                                if(!this.playerStartMoving){
+                                    
+                                    let index = this.scene.pickResults[i][1] - 1; 
+                                    if(index > 100){ //Frog index starts at 101
+                                        console.log("Picked frog: " + obj + ", with pick id " + index);	
+                                        
+                                        index -= 100;
 
-                                this.board.selectPiece(...position);
-                                this.isPicking = false;	
-                                this.selectedPiece = true;
-                                
-                                this.getValidMoves(position);
+                                        const position = [Math.trunc(index / 8), index % 8];
+
+                                        const movingPiece = this.board.getMovingPiece();
+                                        if(movingPiece !== null && movingPiece !== undefined)
+                                            this.board.deselectPiece(movingPiece);
+                                        
+                                        this.board.selectPiece(...position);
+                                        this.selectedPiece = true;
+                                        this.getValidMoves(position);
+                                    }else{
+                                        console.log("Picked tile: " + obj + ", with pick id " + index);	
+                                       
+                                        this.playerStartMoving = true;
+
+                                        const position = [Math.trunc(index / 8), index % 8]; //Get final jump position
+
+                                       /* const movingPiece = this.board.getMovingPiece();
+                                        if(movingPiece !== null && movingPiece !== undefined)
+                                            this.board.deselectPiece(movingPiece);
+                                        
+                                        this.board.selectPiece(...position);
+                                        this.isPicking = false;	
+                                        this.selectedPiece = true;
+                                        this.getValidMoves(position);
+
+                                        if(!movingPiece.isMoving()){
+                                            if(this.cpuMove.length > 2){
+                                                this.finishMove(this.cpuMove[0], this.cpuMove[1]);
+                                                this.cpuMove.shift();
+                                                this.startMove(this.cpuMove[0]);
+                                                movingPiece.move(this.cpuMove[0], this.cpuMove[1], this.board.getMaxHeight());
+                                            }else{
+                                                this.finishMove(this.cpuMove[0], this.cpuMove[1]);
+                                                this.cpuIsMoving = false;
+                                                this.cpuMove = null;
+                                                this.board.finishPieceMove();
+                                                this.board.removeOuterFrogs();
+                                                this.checkGameOver()
+                                            }
+                                        }*/
+                                    }                                    
+                                }
                                 //this.getValidJumpPosition(position);
                                 //this.nextPlayer();				 
                                 //this.board.playDownTiles();
@@ -453,6 +499,10 @@ class FrogChess extends CGFobject {
                     default: 
                         return;
                 }
+            }
+            else if(this.playerStartMoving){
+                const movingPiece = this.board.getMovingPiece();
+                console.log(movingPiece);
             }
         }
     }
