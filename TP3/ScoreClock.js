@@ -53,8 +53,34 @@ class ScoreClock extends CGFobject {
             }
         ], true);
 
-        this.firstPlayerTime = 300000;
-        this.secondPlayerTime = 300000;
+        this.finishAnimation = new KeyframeAnimation([
+            {
+                'keyframeInstant': 0, 
+                'translateCoordinates': [0, 0, 0], 
+                'rotateAngles': [0, 0, 0],
+                'scaleCoordinates': [1, 1, 0]
+            },
+            {
+                'keyframeInstant': 1, 
+                'translateCoordinates': [0, 0, 0], 
+                'rotateAngles': [0, 0, 0],
+                'scaleCoordinates': [1, 1, 1]
+            },
+            {
+                'keyframeInstant': 2, 
+                'translateCoordinates': [0, 0, 0],
+                'rotateAngles': [0, 0, 0], 
+                'scaleCoordinates': [1, 1, 0]
+            }
+        ], true);
+
+        this.firstPlayerTime = 10000;
+        this.secondPlayerTime = 10000;
+
+        this.alarm = new Audio('audio/alarm.mp3');
+        this.alarm.volume = 0.25;
+        this.alarm.loop = true;
+
     }
 
     createNumbers(){
@@ -195,7 +221,7 @@ class ScoreClock extends CGFobject {
 
     displayScore(){
         this.scene.pushMatrix();
-            this.scene.translate(0.43, 0.125, 0.2);
+            this.scene.translate(0.43, 0.125, 0.3);
             this.scene.scale(0.03, 0.03, 0.025);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
@@ -204,7 +230,7 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0.43, 0.125, 0.075);
+            this.scene.translate(0.43, 0.125, 0.175);
             this.scene.scale(0.03, 0.03, 0.025);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
@@ -213,7 +239,7 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0.455, 0.085, -0.015);
+            this.scene.translate(0.455, 0.085, 0);
             this.scene.scale(0.03, 0.03, 0.025);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
@@ -247,7 +273,13 @@ class ScoreClock extends CGFobject {
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.numbers[Number(this.time[0])].display();
+
+            this.scene.pushMatrix();
+                if(this.secondPlayerTime === 0){
+                    this.finishAnimation.apply(this.scene);
+                }
+                this.numbers[Number(this.time[0])].display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -256,7 +288,12 @@ class ScoreClock extends CGFobject {
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.numbers[Number(this.time[1])].display();
+            this.scene.pushMatrix();
+                if(this.secondPlayerTime === 0){
+                    this.finishAnimation.apply(this.scene);
+                }
+                this.numbers[Number(this.time[1])].display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -293,7 +330,13 @@ class ScoreClock extends CGFobject {
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.numbers[Number(this.time[3])].display();
+
+            this.scene.pushMatrix();
+                if(this.secondPlayerTime === 0){
+                    this.finishAnimation.apply(this.scene);
+                }
+                this.numbers[Number(this.time[3])].display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -302,7 +345,12 @@ class ScoreClock extends CGFobject {
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.numbers[Number(this.time[4])].display();
+            this.scene.pushMatrix();
+                if(this.secondPlayerTime === 0){
+                    this.finishAnimation.apply(this.scene);
+                }
+                this.numbers[Number(this.time[4])].display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -311,7 +359,12 @@ class ScoreClock extends CGFobject {
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.numbers[Number(this.time[10])].display();
+            this.scene.pushMatrix();
+                if(this.firstPlayerTime === 0){
+                    this.finishAnimation.apply(this.scene);
+                }
+                this.numbers[Number(this.time[10])].display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -320,7 +373,12 @@ class ScoreClock extends CGFobject {
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.numbers[Number(this.time[9])].display();
+            this.scene.pushMatrix();
+                if(this.firstPlayerTime === 0){
+                    this.finishAnimation.apply(this.scene);
+                }
+                this.numbers[Number(this.time[9])].display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -357,7 +415,12 @@ class ScoreClock extends CGFobject {
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.numbers[Number(this.time[7])].display();
+            this.scene.pushMatrix();
+                if(this.firstPlayerTime === 0){
+                    this.finishAnimation.apply(this.scene);
+                }
+                this.numbers[Number(this.time[7])].display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -366,7 +429,12 @@ class ScoreClock extends CGFobject {
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.numbers[Number(this.time[6])].display();
+            this.scene.pushMatrix();
+                if(this.firstPlayerTime === 0){
+                    this.finishAnimation.apply(this.scene);
+                }
+                this.numbers[Number(this.time[6])].display();
+            this.scene.popMatrix();            
         this.scene.popMatrix();
     }
 
@@ -388,8 +456,19 @@ class ScoreClock extends CGFobject {
     updateTime(t, player){
         if(player === 1){
             this.firstPlayerTime -= t;
+            if(this.firstPlayerTime <= 0){
+
+                this.alarm.play();
+                this.firstPlayerTime = 0;
+                return true;
+            }
         }else if(player === 2){
             this.secondPlayerTime -= t;
+            if(this.secondPlayerTime <= 0){
+                this.alarm.play();
+                this.secondPlayerTime = 0;
+                return true;
+            }
         }
 
         const firstSec = Math.trunc((this.firstPlayerTime/1000.0) % 60);
@@ -432,6 +511,7 @@ class ScoreClock extends CGFobject {
 
     update(t){
         this.pointsAnimation.update(t/1000.0);
+        this.finishAnimation.update(t/1000.0);
     }
 
     updateTexCoords(length_s, length_t) {}

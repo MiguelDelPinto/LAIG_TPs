@@ -34,6 +34,10 @@ class MyLilyPad extends CGFobject {
         this.highlightMaterial = material;
     }
 
+    setMaterial(material){
+        this.material = material;
+    }
+
     highlight(){
         this.highlighted = true;
     }

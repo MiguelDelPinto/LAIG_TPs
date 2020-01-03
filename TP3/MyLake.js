@@ -12,6 +12,10 @@ class MyLake extends MyBoard {
         // Generates the tiles
         this.generateTiles();
 
+        this.undo_button = new LakeUndoButton(scene);
+        this.check_button = new LakeFinishMoveButton(scene);
+        this.clock = new LakeScoreClock(scene);
+
         this.maxHeight = 1;
 
         this.initMusic();

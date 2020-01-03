@@ -57,6 +57,9 @@ serialInclude(['../lib/CGF.js',
                 'numbers/Eight.js',
                 'numbers/Nine.js',
                 'ScoreClock.js',
+                'LakeScoreClock.js',
+                'LakeUndoButton.js',
+                'LakeFinishMoveButton.js',
 
 main=function()
 {

@@ -472,7 +472,10 @@ class MyBoard extends CGFobject {
     }
 
     updateTime(t, player){
-        this.clock.updateTime(t, player);
+        const finishGame = this.clock.updateTime(t, player);
+        if(finishGame){
+            return true;
+        }
     }
 
     updateTexCoords(length_s, length_t) {}

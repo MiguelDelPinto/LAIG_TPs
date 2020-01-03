@@ -51,7 +51,6 @@ class KeyframeAnimation extends Animation {
                 this.elapsedTime = 0;
                 this.firstKeyframe = 0;
                 this.secondKeyframe = 1;
-                console.log("loop");
             }else{
                 this.finishAnimation = true;
                 this.createFinalMatrix();

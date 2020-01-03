@@ -568,7 +568,14 @@ class FrogChess extends CGFobject {
         }
         /** GAME **/
         else {
-            this.board.updateTime(this.timeBetweenUpdates, this.player);
+            const finishGame = this.board.updateTime(this.timeBetweenUpdates, this.player);
+            if(finishGame){ 
+                this.nextPlayer();
+                console.log("CONGRATULATIONS PLAYER " + this.player + " FOR WINNING THE GAME!!!!");
+
+                this.gameOver = true;
+                return;
+            }
 
             if(this.cpuIsMoving){
                 const movingPiece = this.board.getMovingPiece();
