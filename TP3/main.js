@@ -45,6 +45,18 @@ serialInclude(['../lib/CGF.js',
                 'MyUndoButton.js',
                 'FinishMoveButton.js',
                 'UI.js',
+                'numbers/Hexagon.js',
+                'numbers/Zero.js',
+                'numbers/One.js',
+                'numbers/Two.js',
+                'numbers/Three.js',
+                'numbers/Four.js',
+                'numbers/Five.js',
+                'numbers/Six.js',
+                'numbers/Seven.js',
+                'numbers/Eight.js',
+                'numbers/Nine.js',
+                'ScoreClock.js',
 
 main=function()
 {
