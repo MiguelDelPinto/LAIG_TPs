@@ -11,14 +11,14 @@ class ScoreClock extends CGFobject {
         this.buttonMaterial = new CGFappearance(this.scene);
         this.buttonMaterial.setAmbient(0.2, 0.1, 0.0, 1);
         this.buttonMaterial.setDiffuse(0.2, 0.1, 0.0, 1);
-        this.buttonMaterial.setSpecular(0.2, 0.1, 0.0, 0.1);
+        this.buttonMaterial.setSpecular(0.02, 0.01, 0.0, 0.1);
         this.buttonMaterial.setShininess(1.0);
 
         this.digitMaterial = new CGFappearance(this.scene);
         this.digitMaterial.setAmbient(0.0, 0.2, 0.7, 1);
         this.digitMaterial.setDiffuse(0.0, 0.2, 0.7, 1);
         this.digitMaterial.setSpecular(0.0, 0.2, 0.7, 0.1);
-        this.digitMaterial.setShininess(1.0);
+        this.digitMaterial.setShininess(10.0);
         
         this.plane = new MyPlane(scene, 15, 15);
 
@@ -31,6 +31,30 @@ class ScoreClock extends CGFobject {
 
         this.score = "00-00";
         this.time = "05:00-05:00";
+
+        this.pointsAnimation = new KeyframeAnimation([
+            {
+                'keyframeInstant': 0, 
+                'translateCoordinates': [0, 0, 0], 
+                'rotateAngles': [0, 0, 0],
+                'scaleCoordinates': [0, 0, 0]
+            },
+            {
+                'keyframeInstant': 2, 
+                'translateCoordinates': [0, 0, 0], 
+                'rotateAngles': [0, 0, 0],
+                'scaleCoordinates': [1, 1, 1]
+            },
+            {
+                'keyframeInstant': 4, 
+                'translateCoordinates': [0, 0, 0],
+                'rotateAngles': [0, 0, 0], 
+                'scaleCoordinates': [0, 0, 0]
+            }
+        ], true);
+
+        this.firstPlayerTime = 300000;
+        this.secondPlayerTime = 300000;
     }
 
     createNumbers(){
@@ -96,7 +120,7 @@ class ScoreClock extends CGFobject {
                 this.scene.scale(1, 2, 1);
 
                 this.scene.pushMatrix();
-                    this.scene.translate(0, this.height, 0);
+                    this.scene.translate(0, this.height-0.003, 0);
                     this.scene.scale(0.5, 0.5, 1);
                     this.plane.display();
                 this.scene.popMatrix();
@@ -116,7 +140,7 @@ class ScoreClock extends CGFobject {
                 this.scene.popMatrix();
 
                 this.scene.pushMatrix();
-                    this.scene.scale(0.5, 0.45, 1);
+                    this.scene.scale(0.5, 0.4275, 1);
                     this.scene.translate(0, 0.5, 0.5);
                     this.scene.rotate(Math.PI/2, 1, 0, 0);
                     this.plane.display();
@@ -137,7 +161,7 @@ class ScoreClock extends CGFobject {
                     this.scene.rotate(Math.PI, 0, 1, 0);
 
                     this.scene.pushMatrix();
-                        this.scene.scale(0.5, 0.45, 1);
+                        this.scene.scale(0.5, 0.4275, 1);
                         this.scene.translate(0, 0.5, 0.5);
                         this.scene.rotate(Math.PI/2, 1, 0, 0);
                         this.plane.display();
@@ -171,7 +195,7 @@ class ScoreClock extends CGFobject {
 
     displayScore(){
         this.scene.pushMatrix();
-            this.scene.translate(0.45, 0.125, 0.2);
+            this.scene.translate(0.43, 0.125, 0.2);
             this.scene.scale(0.03, 0.03, 0.025);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
@@ -180,7 +204,7 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0.45, 0.125, 0.075);
+            this.scene.translate(0.43, 0.125, 0.075);
             this.scene.scale(0.03, 0.03, 0.025);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
@@ -189,7 +213,7 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0.46, 0.085, -0.015);
+            this.scene.translate(0.455, 0.085, -0.015);
             this.scene.scale(0.03, 0.03, 0.025);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
@@ -198,7 +222,7 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0.45, 0.125, -0.175);
+            this.scene.translate(0.43, 0.125, -0.175);
             this.scene.scale(0.03, 0.03, 0.025);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
@@ -207,7 +231,7 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0.45, 0.125, -0.3);
+            this.scene.translate(0.43, 0.125, -0.3);
             this.scene.scale(0.03, 0.03, 0.025);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
@@ -236,21 +260,31 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-            this.scene.translate(0.31, 0.33, 0.26);
+
+            this.scene.translate(0.35, 0.33, 0.26);
             this.scene.scale(0.03, 0.03, 0.01);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.separator.display();
+
+            this.scene.pushMatrix();
+                this.pointsAnimation.apply(this.scene);
+                this.separator.display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
+
             this.scene.translate(0.35, 0.275, 0.26);
             this.scene.scale(0.03, 0.03, 0.01);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.separator.display();
+
+            this.scene.pushMatrix();
+                this.pointsAnimation.apply(this.scene);
+                this.separator.display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -290,21 +324,31 @@ class ScoreClock extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
+
             this.scene.translate(0.31, 0.33, -0.25);
             this.scene.scale(0.03, 0.03, 0.01);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.separator.display();
+
+            this.scene.pushMatrix();
+                this.pointsAnimation.apply(this.scene);
+                this.separator.display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
+
             this.scene.translate(0.35, 0.275, -0.25);
             this.scene.scale(0.03, 0.03, 0.01);
 
             this.scene.rotate(Math.PI/6, 0, 0, 1);
             this.scene.rotate(Math.PI/2, 0, 1, 0);
-            this.separator.display();
+
+            this.scene.pushMatrix();
+                this.pointsAnimation.apply(this.scene);
+                this.separator.display();
+            this.scene.popMatrix();
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
@@ -339,6 +383,55 @@ class ScoreClock extends CGFobject {
             this.score += String(0);
         }
         this.score += String(player2Score);
+    }
+
+    updateTime(t, player){
+        if(player === 1){
+            this.firstPlayerTime -= t;
+        }else if(player === 2){
+            this.secondPlayerTime -= t;
+        }
+
+        const firstSec = Math.trunc((this.firstPlayerTime/1000.0) % 60);
+        const secondSec = Math.trunc((this.secondPlayerTime/1000.0) % 60);
+
+        const firstMin = Math.trunc((this.firstPlayerTime/1000.0) / 60);
+        const secondMin = Math.trunc((this.secondPlayerTime/1000.0) / 60);
+
+        let newTime = "";
+
+        if(secondMin < 10){
+            newTime += String(0);
+        }
+        newTime += String(secondMin);
+
+        newTime += ":";
+
+        if(secondSec < 10){
+            newTime += String(0);
+        }
+        newTime += String(secondSec);
+        
+        newTime += "-";
+
+
+        if(firstMin < 10){
+            newTime += String(0);
+        }
+        newTime += String(firstMin);
+        
+        newTime += ":";
+
+        if(firstSec < 10){
+            newTime += String(0);
+        }
+        newTime += String(firstSec);
+
+        this.time = newTime;
+    }
+
+    update(t){
+        this.pointsAnimation.update(t/1000.0);
     }
 
     updateTexCoords(length_s, length_t) {}

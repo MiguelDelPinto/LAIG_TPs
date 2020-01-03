@@ -44,6 +44,9 @@ class FrogChess extends CGFobject {
         this.gameOver = false;
 
         //this.ui = new UI(scene);
+
+        this.timeBetweenUpdates = 0;
+        this.lastUpdate = null;
     }
 
     updateWait() {
@@ -537,6 +540,10 @@ class FrogChess extends CGFobject {
         if(this.gameOver)
             return;
 
+        this.lastUpdate = this.lastUpdate || t;
+        this.timeBetweenUpdates = t - this.lastUpdate;
+        this.lastUpdate = t;
+
         /** FILLING BOARD **/
         if(this.fillingBoard){
             if(!this.isPicking){
@@ -561,6 +568,8 @@ class FrogChess extends CGFobject {
         }
         /** GAME **/
         else {
+            this.board.updateTime(this.timeBetweenUpdates, this.player);
+
             if(this.cpuIsMoving){
                 const movingPiece = this.board.getMovingPiece();
                 

@@ -2,7 +2,7 @@
 * Class KeyframeAnimation
 */
 class KeyframeAnimation extends Animation {
-    constructor(keyframes){
+    constructor(keyframes, loop){
         super();
 
         this.keyframes = keyframes;
@@ -24,6 +24,8 @@ class KeyframeAnimation extends Animation {
             'rotateAngles': [0, 0, 0],
             'scaleCoordinates': [1, 1, 1]
         });
+
+        this.loop = loop || false;
        
         this.createMatrix();
     }
@@ -45,9 +47,16 @@ class KeyframeAnimation extends Animation {
  
         // Determines if the animation has ended
         if(this.secondKeyframe >= this.keyframes.length){
-            this.finishAnimation = true;
-            this.createFinalMatrix();
-            return;
+            if(this.loop){
+                this.elapsedTime = 0;
+                this.firstKeyframe = 0;
+                this.secondKeyframe = 1;
+                console.log("loop");
+            }else{
+                this.finishAnimation = true;
+                this.createFinalMatrix();
+                return;
+            }
         }
         
         this.createMatrix();

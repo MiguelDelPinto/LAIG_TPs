@@ -14,6 +14,8 @@ class MyBoard extends CGFobject {
 
         this.undo_button = new MyUndoButton(scene);
         this.check_button = new FinishMoveButton(scene);
+        this.clock = new ScoreClock(scene);
+
         this.canDisplayCheck = false;
 
         // Generates the tiles
@@ -120,6 +122,8 @@ class MyBoard extends CGFobject {
 
                 this.displayCheckButton();
 
+                this.displayClock();
+
             this.scene.popMatrix();
         this.scene.popMatrix();
     }
@@ -217,6 +221,16 @@ class MyBoard extends CGFobject {
         this.scene.popMatrix();
     }
 
+    displayClock(){
+        this.scene.pushMatrix();
+            this.scene.translate(5, 0, 0);
+            this.scene.rotate(Math.PI, 0, 1, 0);
+            this.scene.scale(1, 0.75, 1.5);
+            this.clock.display();
+            this.scene.clearPickRegistration();
+        this.scene.popMatrix();
+    }
+
     enableDisplayCheck(){
         this.canDisplayCheck = true;
     }
@@ -276,7 +290,9 @@ class MyBoard extends CGFobject {
                                          position[1],              //column
                                          this.getMaterial(color),
                                          color)       //material
-                            );   
+                            );
+
+        this.updateScore();
     }
 
     setTransformationMatrix(transformationMatrix){
@@ -299,6 +315,8 @@ class MyBoard extends CGFobject {
         this.realPieces.forEach(piece => {
             piece.update(t);
         });
+
+        this.clock.update(t);
     }
 
     getNumberPlayerPieces(playerColor){
@@ -309,7 +327,6 @@ class MyBoard extends CGFobject {
             if(!piece.isInvisible()){
                 if(piece.getColor() === playerColor){
                     numberPieces++;
-                    console.log(numberPieces);
                 }
             }
         });
@@ -403,6 +420,8 @@ class MyBoard extends CGFobject {
                 return;
             }
         });
+
+        this.updateScore();
     }
 
     getMaxHeight(){
@@ -433,6 +452,27 @@ class MyBoard extends CGFobject {
                 this.makePieceInvisible(row, aux2);
             }
         }
+    }
+
+    updateScore(){
+        let player1Score = 0, player2Score = 0;
+
+        this.realPieces.forEach(piece =>{
+            if(!piece.isInvisible()){
+                if(piece.getColor() === "blue"){
+                    player1Score++;
+                }
+                else if(piece.getColor() === "yellow"){
+                    player2Score++;
+                }
+            }
+        });
+
+        this.clock.updateScore(player2Score, player1Score);
+    }
+
+    updateTime(t, player){
+        this.clock.updateTime(t, player);
     }
 
     updateTexCoords(length_s, length_t) {}

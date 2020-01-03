@@ -60,8 +60,6 @@ class XMLscene extends CGFscene {
         this.level = 1;
         this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
         this.mode = 'Player vs. CPU';
-
-        this.hexagon = new ScoreClock(this);
     }
 
     updateLevel(){
@@ -297,10 +295,8 @@ class XMLscene extends CGFscene {
         this.setDefaultAppearance();
 
         // Displays the scene (MySceneGraph function).
-        //this.graph.displayScene();
-        //this.frogchess.display();
-        
-        this.hexagon.display();
+        this.graph.displayScene();
+        this.frogchess.display();
 
         this.popMatrix();
         
