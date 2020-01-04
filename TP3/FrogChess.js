@@ -90,10 +90,11 @@ class FrogChess extends CGFobject {
         this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
     }
 
-    finishMove(pos_from, pos_to, color_moving) {
+    finishMove(pos_from, pos_to) {
         let pos_middle = this.calculateMiddle(pos_from, pos_to);
      
-        this.board.pieces[pos_to[0]][pos_to[1]] = color_moving;
+        this.board.pieces[pos_to[0]][pos_to[1]] = this.jump_pos_from;
+        this.jump_pos_from = null;
         this.piecesEaten.push(this.board.pieces[pos_middle[0]][pos_middle[1]]);
         this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
         
