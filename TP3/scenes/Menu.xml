@@ -11,10 +11,6 @@
             <to x="0" y="0" z="0" />
             <up x="0" y="1" z="0" />
         </ortho>
-        <perspective id="Camera" near="0.1" far="500" angle="38">
-            <from x="0" y="0" z="10" />
-            <to x="0" y="0" z="-250" />
-        </perspective>
     </views>
 
     <globals>

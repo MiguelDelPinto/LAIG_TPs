@@ -44,9 +44,6 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
 
-        //this.textureRTT = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
-        //this.securityCamera = new MySecurityCamera(this, this.textureRTT);
-
         //Scale factor used in the security camera
         this.scaleFactor = 100.0;
         
@@ -64,23 +61,9 @@ class XMLscene extends CGFscene {
         this.mode = 'Player vs. CPU';
 
         this.menu = new Menu(this, this.level, this.mode);
+        this.displayMenu = true;
     }
-
-    updateLevel(){
-        this.frogchess.updateLevel(this.level);
-    }
-
-    updateMode(){
-        let mode;
-        for(let i = 0; i < this.modes; i++){
-            if(this.mode === this.modes[i]){
-                mode = i + 1;
-                break;
-            }
-        }
-        this.frogchess.updateMode(mode);
-    }
-
+    
     /**
      * Initializes WebGL's default camera.
      * Will only be used if the default camera in the XML is not working
@@ -272,6 +255,27 @@ class XMLscene extends CGFscene {
         }
     }
 
+    startGame(ambient, level, game_mode){
+        this.level = level;
+        this.mode = game_mode;
+        
+        let filename;
+        switch(ambient){
+            case 1:
+                filename = "Frog_Chess.xml";
+                break;
+            case 2:
+                filename = "Frog_Lake_Chess.xml";
+                break;
+            default:
+                filename = "Menu.xml";
+                break;
+        }
+        this.sceneInited = false;
+        this.displayMenu = false;
+        this.graph = new MySceneGraph(filename, this);
+    }
+
     /** Handler called when the graph is finally loaded. 
      * As loading is asynchronous, this may be called already after the application has started the run loop
      */
@@ -317,8 +321,14 @@ class XMLscene extends CGFscene {
 
         // Displays the scene (MySceneGraph function).
         this.graph.displayScene();
-        //this.frogchess.display();
-        this.menu.display();
+        
+        if(this.displayMenu){
+            this.menu.display();
+        }else{
+            if(this.frogchess != null){
+                this.frogchess.display();
+            }
+        }
 
         this.popMatrix();
         
@@ -346,14 +356,7 @@ class XMLscene extends CGFscene {
      */
     display(){
         if (this.sceneInited) {
-            /*this.textureRTT.attachToFrameBuffer();
-            this.render(true);*/
-            //this.textureRTT.detachFromFrameBuffer();
             this.render(false);
-
-            /*this.gl.disable(this.gl.DEPTH_TEST);
-            this.securityCamera.display();
-            this.gl.enable(this.gl.DEPTH_TEST);*/
         }
     }
 
@@ -361,24 +364,33 @@ class XMLscene extends CGFscene {
      * Update function that is called every frame
      * @param {number} t Number of milisseconds since the loading of the scene 
      */
-    update(t){   
-        if(this.sceneInited){
-            if(!this.initGame){
-                this.frogchess = new FrogChess(this, this.graph.board);
-                this.initGame = true;
+    update(t){  
+        if(!this.displayMenu){ 
+            if(this.sceneInited){
+                if(!this.initGame){
+                    let mode;
+                    for(let i = 0; i < this.modes.length; i++){
+                        if(this.modes[i] === this.mode){
+                            mode = i + 1;
+                            break;
+                        }
+                    }
+                    this.frogchess = new FrogChess(this, this.graph.board, mode, this.level);
+                    this.initGame = true;
+                }
+
+                //Updates the time variables
+                this.lastTime = this.lastTime || t;
+                this.deltaTime = t - this.lastTime;
+                this.lastTime = t;
+                
+                this.checkKeys();
+                this.graph.updateAnimations(this.deltaTime);
+                this.graph.update(this.deltaTime);
+                //this.securityCamera.update(this.deltaTime);
+
+                this.frogchess.update(t);
             }
-
-            //Updates the time variables
-            this.lastTime = this.lastTime || t;
-            this.deltaTime = t - this.lastTime;
-            this.lastTime = t;
-            
-            this.checkKeys();
-            this.graph.updateAnimations(this.deltaTime);
-            this.graph.update(this.deltaTime);
-            //this.securityCamera.update(this.deltaTime);
-
-            this.frogchess.update(t);
         }
     }
 

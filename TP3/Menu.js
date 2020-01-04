@@ -24,9 +24,9 @@ class Menu extends CGFobject {
     }
 
     initMusic(){
-        this.background_music = new Audio('audio/chess.mp3');
+        this.background_music = new Audio('audio/crazyFrog.mp3');
         this.background_music.loop = true;
-        this.background_music.volume = 0.25;
+        this.background_music.volume = 0.4;
         this.background_music.autoplay = true;
     }
 
@@ -514,7 +514,8 @@ class Menu extends CGFobject {
     }
 
     startGame(){
-
+        this.scene.startGame(this.ambient, this.level, this.game_mode);
+        this.background_music.pause();
     }
 
     pickResults() {

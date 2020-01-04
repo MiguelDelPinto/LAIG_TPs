@@ -4,7 +4,7 @@
  * @param scene - Reference to MyScene object
  */
 class FrogChess extends CGFobject {
-    constructor(scene, board, gameMode) {
+    constructor(scene, board, gameMode, level) {
         super(scene);
         this.scene = scene;
 
@@ -14,7 +14,7 @@ class FrogChess extends CGFobject {
         
         this.player = 1; //First Player is the player 1
 
-        this.level = 1; // TODO Add variable levels
+        this.level = level || 1; 
         
         this.gameMode = gameMode || 2;
 
@@ -60,14 +60,6 @@ class FrogChess extends CGFobject {
             this.wait = 20;
             return 0;
         }
-    }
-
-    updateLevel(level){
-        this.level = level;
-    }
-
-    updateMode(mode){
-        this.gameMode = mode;
     }
 
     getPlayerColor(){
@@ -559,7 +551,6 @@ class FrogChess extends CGFobject {
 
         if(this.gameOver)
             return;
-
 
         /** FILLING BOARD **/
         if(this.fillingBoard){

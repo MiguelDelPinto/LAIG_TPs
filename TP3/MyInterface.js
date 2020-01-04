@@ -29,9 +29,11 @@ class MyInterface extends CGFinterface {
      *  Loads the entire interface: cameras and lights
      */
     loadInterface(graphLights) {
+        this.gui.destroy();
+        this.gui = new dat.GUI();
+        
         this.loadLightsOption(graphLights);
         this.loadCamerasOption();
-        this.loadGameOptions();
     }
 
     /**
@@ -68,17 +70,6 @@ class MyInterface extends CGFinterface {
                 i++;
             }
         }
-    }
-
-    loadGameOptions(){
-        this.gui.add(this.scene, 'level', [1, 2, 3, 4])
-            .name('Level')
-            .onChange(this.scene.updateLevel.bind(this.scene));
-            
-            this.gui.add(this.scene, 'mode', this.scene.modes)
-                .name('Game Mode')
-                .onChange(this.scene.updateMode.bind(this.scene));   // calls updateCamera() of XMLscene
-                          
     }
 
     /**
