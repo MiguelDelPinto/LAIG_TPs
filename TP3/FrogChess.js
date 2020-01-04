@@ -90,27 +90,28 @@ class FrogChess extends CGFobject {
         this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
     }
 
-    finishMove(pos_from, pos_to) {
+    finishMove(pos_from, pos_to, color_moving) {
         let pos_middle = this.calculateMiddle(pos_from, pos_to);
      
-        this.board.pieces[pos_to[0]][pos_to[1]] = this.jump_pos_from;
-        this.jump_pos_from = null;
+        this.board.pieces[pos_to[0]][pos_to[1]] = color_moving;
         this.piecesEaten.push(this.board.pieces[pos_middle[0]][pos_middle[1]]);
         this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
         
         this.board.makePieceInvisible(...pos_middle); //Deletes piece from the board
     }
 
+    startUndo(pos_from){
+        this.board.pieces[pos_from[0]][pos_from[1]] = "empty";
+    }
+
     finishUndo(pos_from, pos_to) {
         let pos_middle = this.calculateMiddle(pos_from, pos_to);
      
-        this.board.pieces[pos_to[0]][pos_to[1]] = this.jump_pos_from;
-        this.jump_pos_from = null;
-        console.log(this.piecesEaten);
+        this.board.pieces[pos_to[0]][pos_to[1]] = this.color_moving;
         let color = this.piecesEaten.pop();
         this.board.pieces[pos_middle[0]][pos_middle[1]] = color; 
 
-        this.board.reactivatePiece(...pos_middle);
+        this.board.reactivatePiece(pos_middle);
     }
 
     undoMove() {
@@ -137,7 +138,9 @@ class FrogChess extends CGFobject {
                 // Reactivates the last piece, in case it's been cleared for being on the edges
                 this.board.reactivatePiece(this.move[0]);
                 this.board.movePiece(this.move[0], this.move[1]);
-                this.startMove(this.move[0]);
+                this.startUndo(this.move[0]);
+                this.color_moving = move.color_moving;
+                //this.board.pieces[pos_from[0]][pos_from[1]] = move.color_moving;
                 
                 /*
                 this.board.movePiece(move.to, move.from);
@@ -668,16 +671,15 @@ class FrogChess extends CGFobject {
                         this.finishUndo(this.move[0], this.move[1]);
                         this.move.shift();
 
-                        this.startMove(this.move[0]);
+                        this.startUndo(this.move[0]);
                         movingPiece.move(this.move[0], this.move[1], this.board.getMaxHeight());
                     }else{
                         this.finishUndo(this.move[0], this.move[1]);
                         this.cpuIsUndoing = false;
                         this.move = null;
                         this.board.finishPieceMove();
-                        this.board.removeOuterFrogs();
-                        this.checkGameOver();
-                        this.nextPlayer();
+                        this.chooseJumpPosition();
+                        //this.nextPlayer();
                     }
                 }
             }
