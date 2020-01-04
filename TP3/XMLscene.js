@@ -10,8 +10,6 @@ class XMLscene extends CGFscene {
      */
     constructor(myinterface) {
         super();
-
-        this.initMusic();
         
         this.interface = myinterface;
     }
@@ -113,17 +111,6 @@ class XMLscene extends CGFscene {
                 i++;
             }
         }
-    }
-    
-    /**
-     * Initializes the music from 'The Legend of Zelda: Ocarina of Time'
-     */
-    initMusic(){
-        this.music = new Audio('audio/zeldaOoT.mp3');
-        this.music.loop = true;
-        this.music.autoplay = true;
-        this.music.volume = 0;
-        this.musicVolume = this.music.volume;
     }
 
     /**

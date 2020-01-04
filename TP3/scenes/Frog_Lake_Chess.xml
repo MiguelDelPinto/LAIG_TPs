@@ -60,11 +60,11 @@
     <!--                -->
     <textures>
         <texture id="defaultTexture" file="scenes/images/vidral.jpg" />
-        <texture id="background" file="scenes/images/background_plains.jpg" />
-        <texture id="background_right" file="scenes/images/background_right.jpg" />
-        <texture id="background_left" file="scenes/images/background_left.jpg" />
-        <texture id="background_front" file="scenes/images/background_front.jpg" />
-        <texture id="background_back" file="scenes/images/background_back.jpg" />      
+        <texture id="background" file="scenes/images/lake1_up.jpg" />
+        <texture id="background_right" file="scenes/images/lake1_rt.jpg" />
+        <texture id="background_left" file="scenes/images/lake1_lf.jpg" />
+        <texture id="background_front" file="scenes/images/lake1_bk.jpg" />
+        <texture id="background_back" file="scenes/images/lake1_ft.jpg" />      
         <texture id="table_wood" file="scenes/images/wood.jpg"/>
         <texture id="leaf" file="scenes/images/leaf.jpg" />
         <texture id="rock" file="scenes/images/rock.jpg" />
@@ -269,14 +269,15 @@
         </component>
         <component id="background_top">
             <transformation>
+                <rotate axis="y" angle="180"/>
                 <translate x="0" y="60" z="0" />
                 <scale x="120" y="1" z="60" />
                 <rotate axis="x" angle="90"/>
             </transformation>
             <materials>
-                <material id="sky_blue" />
+                <material id="inherit" />
             </materials>
-            <texture id="none" />
+            <texture id="background" length_s="1" length_t="2" />
             <children>
                 <primitiveref id="rectangle" />
             </children>

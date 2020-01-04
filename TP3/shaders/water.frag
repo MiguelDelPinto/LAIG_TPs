@@ -20,7 +20,7 @@ float getRadialValue(){
 
 void main() {
 	//Getting radial value
-	float radial_value = getRadialValue();
+	float radial_value = getRadialValue()+0.25;
 
 	//Getting color from textureRTT
 	vec4 color = texture2D(texture, vTextureCoord+vec2(timeFactor*0.0000025,timeFactor*0.0000025));

@@ -6,7 +6,7 @@ class MyLakeWater extends CGFobject {
     constructor(scene){
         super(scene);
         
-        this.texture = new CGFtexture(this.scene, 'scenes/images/water.jpg');
+        this.texture = new CGFtexture(this.scene, 'scenes/images/lake1_dn.jpg');
 
         this.material = new CGFappearance(scene);
         this.material.setAmbient(0.2, 0.2, 0.2, 1);
