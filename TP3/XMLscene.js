@@ -63,7 +63,7 @@ class XMLscene extends CGFscene {
         this.modes = ['Player vs. Player', 'Player vs. CPU', 'CPU vs. CPU'];
         this.mode = 'Player vs. CPU';
 
-        this.menu = new Menu(this);
+        this.menu = new Menu(this, this.level, this.mode);
     }
 
     updateLevel(){
