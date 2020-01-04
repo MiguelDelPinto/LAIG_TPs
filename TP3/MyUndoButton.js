@@ -32,6 +32,11 @@ class MyUndoButton extends CGFobject {
             this.scene.scale(1, 1, 1.5);
 
             this.scene.pushMatrix();
+                this.buttonMaterial.apply();
+                this.plane.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
                 this.undoMaterial.apply();
                 this.plane.display();
             this.scene.popMatrix();

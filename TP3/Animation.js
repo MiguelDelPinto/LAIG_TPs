@@ -33,4 +33,9 @@ class Animation {
         this.elapsedTime = 0;
     }
 
+    // Checks if the animation has finished
+    hasFinishedAnimation(){
+        return this.finishAnimation;
+    }
+
 }

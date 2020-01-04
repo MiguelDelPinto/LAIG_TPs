@@ -144,9 +144,4 @@ class KeyframeAnimation extends Animation {
         return Math.PI*angle/180;
     }
 
-    // Checks if the animation has finished
-    hasFinishedAnimation(){
-        return this.finishAnimation;
-    }
-
 }

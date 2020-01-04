@@ -4,7 +4,7 @@
 * @param scene - Reference to MyScene object
 */
 class ScoreClock extends CGFobject {
-    constructor(scene) {
+    constructor(scene, level) {
         super(scene);
         this.scene = scene;
 
@@ -30,7 +30,6 @@ class ScoreClock extends CGFobject {
         this.createNumbers();
 
         this.score = "00-00";
-        this.time = "05:00-05:00";
 
         this.pointsAnimation = new KeyframeAnimation([
             {
@@ -74,8 +73,13 @@ class ScoreClock extends CGFobject {
             }
         ], true);
 
-        this.firstPlayerTime = 10000;
-        this.secondPlayerTime = 10000;
+        
+        this.level = level || 1;
+
+        this.firstPlayerTime = 300000 * this.level;
+        this.secondPlayerTime = 300000 * this.level;
+
+        this.createTimeString();
 
         this.alarm = new Audio('audio/alarm.mp3');
         this.alarm.volume = 0.25;
@@ -471,6 +475,10 @@ class ScoreClock extends CGFobject {
             }
         }
 
+        this.createTimeString();
+    }
+    
+    createTimeString(){
         const firstSec = Math.trunc((this.firstPlayerTime/1000.0) % 60);
         const secondSec = Math.trunc((this.secondPlayerTime/1000.0) % 60);
 

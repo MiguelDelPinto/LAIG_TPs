@@ -60,6 +60,7 @@ serialInclude(['../lib/CGF.js',
                 'LakeScoreClock.js',
                 'LakeUndoButton.js',
                 'LakeFinishMoveButton.js',
+                'CameraAnimation.js',
 
 main=function()
 {

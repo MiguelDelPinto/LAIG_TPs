@@ -32,6 +32,10 @@ class FinishMoveButton extends CGFobject {
             this.scene.scale(1, 1, 1.5);
 
             this.scene.pushMatrix();
+                this.plane.display();
+            this.scene.popMatrix();
+
+            this.scene.pushMatrix();
                 this.finishMoveMaterial.apply();
                 this.plane.display();
             this.scene.popMatrix();

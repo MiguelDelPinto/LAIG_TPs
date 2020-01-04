@@ -47,6 +47,8 @@ class FrogChess extends CGFobject {
 
         this.timeBetweenUpdates = 0;
         this.lastUpdate = null;
+
+        this.cameraAnimation = null;
     }
 
     updateWait() {
@@ -76,6 +78,8 @@ class FrogChess extends CGFobject {
     }
 
     nextPlayer(){
+        const camera = this.scene.getMainCamera();
+        this.cameraAnimation = new CameraAnimation(camera, this.player === 1 ? -1 : 1);
         this.player = (this.player+2) % 2 + 1;
     }
 
@@ -434,8 +438,11 @@ class FrogChess extends CGFobject {
 					var obj = this.scene.pickResults[i][0];
 					if (obj) {
                         let index = this.scene.pickResults[i][1] - 1; 
-                        console.log("Picked object: " + obj + ", with pick id " + index);	
+                        if(this.gameOver)
+                            break;
 
+                        console.log("Picked object: " + obj + ", with pick id " + index);	
+                        
                         if(index === 419)
                             continue;
 
@@ -533,6 +540,19 @@ class FrogChess extends CGFobject {
     // ---------- GAME CYCLE -----------
 
     update(t){
+        
+        this.lastUpdate = this.lastUpdate || t;
+        this.timeBetweenUpdates = t - this.lastUpdate;
+        this.lastUpdate = t;
+        
+        if(this.cameraAnimation !== null){
+            if(this.cameraAnimation.hasFinishedAnimation()){
+                this.cameraAnimation = null;
+            }else{
+                this.cameraAnimation.update(this.timeBetweenUpdates);
+                return;
+            }
+        }
 
         if(!this.board.loaded)
             return;
@@ -540,9 +560,6 @@ class FrogChess extends CGFobject {
         if(this.gameOver)
             return;
 
-        this.lastUpdate = this.lastUpdate || t;
-        this.timeBetweenUpdates = t - this.lastUpdate;
-        this.lastUpdate = t;
 
         /** FILLING BOARD **/
         if(this.fillingBoard){

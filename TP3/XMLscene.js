@@ -224,7 +224,16 @@ class XMLscene extends CGFscene {
 
         // In case of a camera being corrupted, goes to the default camera
         this.camera = current_camera || this.default_camera;
-        this.interface.setActiveCamera(this.camera);
+        
+        if(this.current_camera_id === 'Main Camera'){
+            this.interface.setActiveCamera(null);
+        }else{
+            this.interface.setActiveCamera(this.camera);
+        }
+    }
+
+    getMainCamera(){
+        return this.cameras['Main Camera'];
     }
 
     /**
@@ -237,7 +246,11 @@ class XMLscene extends CGFscene {
         // If it isn't working, chooses the default camera
         this.camera = selected_camera || this.default_camera;
 
-        this.interface.setActiveCamera(this.camera);
+        if(this.current_camera_id === 'Main Camera'){
+            this.interface.setActiveCamera(null);
+        }else{
+            this.interface.setActiveCamera(this.camera);
+        }
     }
 
     /**
@@ -250,7 +263,11 @@ class XMLscene extends CGFscene {
         // If it isn't working, chooses the default camera
         this.camera = selected_camera || this.default_camera;
 
-        this.interface.setActiveCamera(this.camera);
+        if(this.current_camera_id === 'Main Camera'){
+            this.interface.setActiveCamera(null);
+        }else{
+            this.interface.setActiveCamera(this.camera);
+        }
     }
 
     /** Handler called when the graph is finally loaded. 
