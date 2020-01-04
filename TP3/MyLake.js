@@ -18,6 +18,12 @@ class MyLake extends MyBoard {
 
         this.maxHeight = 1;
 
+        this.yellowMaterial.loadTexture('scenes/images/frog_diff.jpg');
+        this.yellowMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.blueMaterial.loadTexture('scenes/images/frog_diff.jpg');
+        this.blueMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
         this.initMusic();
     }
 
