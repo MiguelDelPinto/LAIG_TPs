@@ -30,9 +30,11 @@ class FrogChess extends CGFobject {
 
         //Stack that holds all of the moves played
         this.moves = [];
+        this.piecesEaten = [];
 
         //CPU Move Variables
         this.cpuIsMoving = false;
+        this.cpuIsUndoing = false;
         this.move = null;
         this.jump_pos_from = null;
 
@@ -93,24 +95,59 @@ class FrogChess extends CGFobject {
      
         this.board.pieces[pos_to[0]][pos_to[1]] = this.jump_pos_from;
         this.jump_pos_from = null;
+        this.piecesEaten.push(this.board.pieces[pos_middle[0]][pos_middle[1]]);
         this.board.pieces[pos_middle[0]][pos_middle[1]] = "empty"; 
         
         this.board.makePieceInvisible(...pos_middle); //Deletes piece from the board
     }
 
-    undoCPUMove() {
+    finishUndo(pos_from, pos_to) {
+        let pos_middle = this.calculateMiddle(pos_from, pos_to);
+     
+        this.board.pieces[pos_to[0]][pos_to[1]] = this.jump_pos_from;
+        this.jump_pos_from = null;
+        console.log(this.piecesEaten);
+        let color = this.piecesEaten.pop();
+        this.board.pieces[pos_middle[0]][pos_middle[1]] = color; 
+
+        this.board.reactivatePiece(...pos_middle);
+    }
+
+    undoMove() {
         if(this.moves.length > 0) {
 
             let move = this.moves.pop();
 
             // Undo a CPU move
             if(move.type === 'CPU') {
+                this.cpuIsUndoing = true;
+                this.move = [];
+                this.move.push(...[move.to, move.from]);
+
+                let nextMove = this.moves.pop();
+                while(nextMove && nextMove.type === 'CPU') {
+                    this.move.push(nextMove.from);
+                    nextMove = this.moves.pop();
+                }
+                if(this.moves.length > 0) {
+                    // Popped a non-CPU move, putting it back in the stack
+                    this.moves.push(move);
+                }
+
+                // Reactivates the last piece, in case it's been cleared for being on the edges
+                this.board.reactivatePiece(this.move[0]);
+                this.board.movePiece(this.move[0], this.move[1]);
+                this.startMove(this.move[0]);
+                
+                /*
+                this.board.movePiece(move.to, move.from);
 
                 let middle = this.calculateMiddle(move.from, move.to);
 
                 this.board.pieces[move.to[0]][move.to[1]] = "empty";
                 this.board.pieces[move.from[0]][move.from[1]] = move.color_moving;
-                this.board.pieces[middle[0]][middle[1]] = move.color_eaten;    
+                this.board.pieces[middle[0]][middle[1]] = move.color_eaten;   
+                */ 
             }
             // Undo a Human move
             else {
@@ -443,8 +480,14 @@ class FrogChess extends CGFobject {
 
                         console.log("Picked object: " + obj + ", with pick id " + index);	
                         
-                        if(index === 419)
+                        // Undo button
+                        if(index === 419) {
+                            if(!this.cpuIsMoving && this.moves.length > 0) {
+                                this.nextPlayer();
+                                this.undoMove();
+                            }
                             continue;
+                        }
 
                         if(this.isPicking){
                             if(index === 500){
@@ -613,6 +656,27 @@ class FrogChess extends CGFobject {
                         this.board.finishPieceMove();
                         this.board.removeOuterFrogs();
                         this.checkGameOver()
+                        this.nextPlayer();
+                    }
+                }
+            }
+            else if(this.cpuIsUndoing) {
+                const movingPiece = this.board.getMovingPiece();
+
+                if(!movingPiece.isMoving()){
+                    if(this.move.length > 2){
+                        this.finishUndo(this.move[0], this.move[1]);
+                        this.move.shift();
+
+                        this.startMove(this.move[0]);
+                        movingPiece.move(this.move[0], this.move[1], this.board.getMaxHeight());
+                    }else{
+                        this.finishUndo(this.move[0], this.move[1]);
+                        this.cpuIsUndoing = false;
+                        this.move = null;
+                        this.board.finishPieceMove();
+                        this.board.removeOuterFrogs();
+                        this.checkGameOver();
                         this.nextPlayer();
                     }
                 }
