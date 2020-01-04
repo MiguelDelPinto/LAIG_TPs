@@ -404,6 +404,22 @@ class MyBoard extends CGFobject {
         }catch(e){}
     }
 
+
+    reactivatePiece(start){
+        const Break = {};
+
+        try{
+            this.realPieces.forEach(piece => {
+                if(piece.isInvisible()){
+                    if(piece.getRow() === start[0] && piece.getColumn() === start[1]){
+                        piece.makeVisible();
+                        throw Break; //Force loop break
+                    }
+                }
+            });
+        }catch(e){}
+    }
+
     getMovingPiece(){
         return this.movingPiece;
     }
