@@ -513,10 +513,6 @@ class Menu extends CGFobject {
         this.scene.popMatrix();
     }
 
-    update(t){
-
-    }
-
     startGame(){
 
     }
