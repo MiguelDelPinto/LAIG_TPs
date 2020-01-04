@@ -61,6 +61,7 @@ serialInclude(['../lib/CGF.js',
                 'LakeUndoButton.js',
                 'LakeFinishMoveButton.js',
                 'CameraAnimation.js',
+                'Menu.js',
 
 main=function()
 {
@@ -79,7 +80,7 @@ main=function()
 	// get file name provided in URL, e.g. http://localhost/myproj/?file=myfile.xml 
 	// or use "LAIG_TP2_XML_T6_G05.xml" as default (assumes files in subfolder "scenes", check MySceneGraph constructor) 
 	
-    var filename=getUrlVars()['file'] || "Frog_Chess.xml";
+    var filename=getUrlVars()['file'] || "Menu.xml";
 
 	// create and load graph, and associate it to scene. 
 	// Check console for loading errors

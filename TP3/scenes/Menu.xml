@@ -1,0 +1,147 @@
+<lxs>
+    <scene root="scene_component" axis_length="5"/>
+
+
+    <!--                -->
+    <!--     Views      -->
+    <!--                -->
+    <views default="Main Camera">
+        <ortho id="Main Camera" near="0.1" far="500" left="-4" right="4" top="4" bottom="-4">
+            <from x="0" y="0" z="10" />
+            <to x="0" y="0" z="0" />
+            <up x="0" y="1" z="0" />
+        </ortho>
+        <perspective id="Camera" near="0.1" far="500" angle="38">
+            <from x="0" y="0" z="10" />
+            <to x="0" y="0" z="-250" />
+        </perspective>
+    </views>
+
+    <globals>
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <background r="0.0" g="0.0" b="0.0" a="1.0" />
+    </globals>
+
+
+    <!--                -->
+    <!--     Lights     -->
+    <!--                -->
+    <lights>
+        <omni id="Extra" enabled="1">
+            <location x="6" y="5" z="16" w="1.0" />
+            <ambient r="0" g="0" b="0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+            <attenuation constant="1.0" linear="0" quadratic="0.0" />
+        </omni>
+
+        <omni id="Sun" enabled="1">
+            <location x="100" y="100" z="-100" w="1.0" />
+            <ambient r="0.25" g="0.25" b="0.25" a="0.25" />
+            <diffuse r="0.25" g="0.25" b="0.25" a="0.25" />
+            <specular r="0.25" g="0.25" b="0.25" a="0.25" />
+            <attenuation constant="0.7" linear="0" quadratic="0.0" />
+        </omni>
+    </lights>
+
+
+    <!--                -->
+    <!--    Textures    -->
+    <!--                -->
+    <textures>
+        <texture id="background" file="scenes/images/tile.jpg" />
+    </textures>
+
+
+    <!--                -->
+    <!--    Materials   -->
+    <!--                -->
+    <materials>
+        <material id="defaultMaterial" shininess="5">
+            <emission r="1.0" g="1.0" b="1.0" a="1.0" />
+            <ambient r="1.0" g="1.0" b="1.0" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </material>
+    </materials>
+
+
+    <!--                     -->
+    <!--   Transformations   -->
+    <!--                     -->
+    <transformations>
+        <transformation id="house_transform">
+            <translate x="5" y="10" z="4" />
+            <scale x="1.4" y="1.4" z="1.4" />
+            <rotate axis="y" angle="10" />
+        </transformation>
+    </transformations>
+
+
+    <!--                -->
+    <!--   Animations   -->
+    <!--                -->
+    <animations/>
+
+
+    <!--                -->
+    <!--   Primitives   -->
+    <!--                -->
+    <primitives>
+        <primitive id="rectangle">
+            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+        </primitive> 
+    </primitives>
+
+    <!--           -->
+    <!--   Board   -->
+    <!--           -->
+    <board/>
+
+    <!--                -->
+    <!--   Components   -->
+    <!--                -->
+    <components>
+
+        <!-- Root -->
+        <component id="scene_component">
+            <transformation/>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="defaultTexture" length_s="1" length_t="1"/>
+            <children>
+                <componentref id="background" />
+            </children>
+        </component>
+
+        <!-- Background -->
+        <component id="background">
+            <transformation>
+                <translate x="0" y="10" z="0" />
+                <rotate axis="x" angle="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background" length_s="1" length_t="1" />
+            <children>
+                <componentref id="background_front"/>    
+            </children>
+        </component>
+        <component id="background_front">
+            <transformation>
+                <translate x="0" y="30" z="-60" />
+                <scale x="150" y="150" z="150" />
+                <rotate axis="y" angle="0"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="background" length_s="1" length_t="2" />
+            <children>
+                <primitiveref id="rectangle" />
+            </children>
+        </component>
+    </components>
+</lxs>

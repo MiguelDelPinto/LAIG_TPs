@@ -1204,6 +1204,9 @@ class MySceneGraph {
         //Stores transformation(s), material(s), texture and reference(s) to components/primitives
         let children = boardNode.children;
 
+        if(children.length === 0)
+            return;
+
         let nodeNames = [];
         for (let j = 0; j < children.length; j++) {
             nodeNames.push(children[j].nodeName);
