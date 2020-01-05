@@ -47,6 +47,9 @@ class FrogChess extends CGFobject {
         //Game Over Boolean
         this.gameOverMessage = null;
         this.gameOver = false;
+        this.showGameOverMessage = false;
+        this.showingMovie = false;
+        this.moviePosition = 0;
 
         //this.ui = new UI(scene);
 
@@ -456,8 +459,7 @@ class FrogChess extends CGFobject {
         }
 
         this.gameOverMessage = new GameOverMessage(this.scene, winner, this.player, this.board);
-
-        console.log("CONGRATULATIONS PLAYER " + winner + " FOR WINNING THE GAME!!!!");
+        this.showGameOverMessage = true;
         this.gameOver = true;
         this.serverCall = false;
     }
@@ -500,7 +502,11 @@ class FrogChess extends CGFobject {
                             if(index === 1000){
                                 this.scene.mainMenu();
                             }else if(index === 1001){
-
+                                this.showingMovie = true;
+                                this.showGameOverMessage = false;
+                                /**
+                                 * TODO Destroy realPieces and pieces and construct a new board
+                                 */
                             }
                             break;
                         }
@@ -654,8 +660,55 @@ class FrogChess extends CGFobject {
         if(!this.board.loaded)
             return;
 
-        if(this.gameOver)
+        if(this.gameOver){
+            if(this.showingMovie){
+                const movingPiece = this.board.getMovingPiece();
+                
+                if(movingPiece === null){
+                    const currentMove = this.moves[this.moviePosition];
+                    this.board.movePiece(currentMove.from, currentMove.to);
+                    this.startMove(currentMove.from);
+
+                }else if(!movingPiece.isMoving()){
+                    const currentMove = this.moves[this.moviePosition];
+                    this.finishMove(currentMove.from, currentMove.to);
+                    this.board.finishPieceMove();
+                    this.board.removeOuterFrogs();
+
+                    this.moviePosition++;
+                    if(this.moviePosition >= this.moves.length){
+                        this.showingMovie = false;
+                        this.showGameOverMessage = true;
+                        return;
+                    }
+
+                    const nextMove = this.moves[this.moviePosition];
+                    this.board.movePiece(nextMove.from, nextMove.to);
+                    this.startMove(nextMove.from);
+                }
+                /*}else{
+
+                    if(!movingPiece.isMoving()){
+                        if(this.move.length > 2){
+                            this.finishMove(this.move[0], this.move[1]);
+                            this.move.shift();
+        
+                            this.startMove(this.move[0]);
+                            movingPiece.move(this.move[0], this.move[1], this.board.getMaxHeight());
+                        }else{
+                            this.finishMove(this.move[0], this.move[1]);
+                            this.cpuIsMoving = false;
+                            this.move = null;
+                            this.board.finishPieceMove();
+                            this.board.removeOuterFrogs();
+                            this.checkGameOver()
+                            this.nextPlayer();
+                        }
+                    }
+                }*/
+            }   
             return;
+        }
 
         /** FILLING BOARD **/
         if(this.fillingBoard){
@@ -686,6 +739,7 @@ class FrogChess extends CGFobject {
                 this.nextPlayer();
                 this.gameOverMessage = new GameOverMessage(this.scene, this.player, this.player, this.board);
                 this.gameOver = true;
+                this.showGameOverMessage = true;
                 return;
             }
 
@@ -811,7 +865,7 @@ class FrogChess extends CGFobject {
 
         this.board.display();
 
-        if(this.gameOver){
+        if(this.showGameOverMessage){
             this.gameOverMessage.display();
         }
 
