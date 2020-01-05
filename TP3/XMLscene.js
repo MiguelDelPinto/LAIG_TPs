@@ -208,6 +208,24 @@ class XMLscene extends CGFscene {
         return this.cameras['Main Camera'];
     }
 
+    destroyCameras(){
+        let current_camera = this.cameras['Main Camera'];
+        this.cameras = [];
+        this.cameras['Main Camera'] = current_camera;
+        this.cameraNames = ['Main Camera'];
+        this.camera = current_camera || this.default_camera;
+
+        this.current_camera_id = 'Main Camera';
+        
+        if(this.current_camera_id === 'Main Camera'){
+            this.interface.setActiveCamera(null);
+        }else{
+            this.interface.setActiveCamera(this.camera);
+        }
+
+        this.interface.loadInterface(this.graph.getLights());
+    }
+
     /**
      * Updates the camera when a new one is selected on the interface
      */

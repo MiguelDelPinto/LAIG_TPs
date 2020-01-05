@@ -8,6 +8,8 @@ class GameOverMessage extends CGFobject {
         super(scene);
         this.scene = scene;
 
+        this.scene.destroyCameras();
+
         this.rectangle1 = new MyRectangle(scene, '1', -0.5, 0.5, 0.5, 0.75);
         this.rectangle2 = new MyRectangle(scene, '2', -0.25, 0.1, 0.25, 0.5);
         this.rectangle3 = new MyRectangle(scene, '3', 0.15, 0.25, 0.25, 0.5);
