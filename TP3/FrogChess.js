@@ -39,6 +39,8 @@ class FrogChess extends CGFobject {
         this.jump_pos_from = null;
 
         //Player Move Variables
+        this.playerIsUndoing = false;
+        this.playerLockFrog = false;
         this.playerStartMoving = false;
         this.playerFrogs = null;
 
@@ -118,14 +120,16 @@ class FrogChess extends CGFobject {
                 this.move = [];
                 this.move.push(...[move.to, move.from]);
 
+                let color = move.color_moving;
+
                 let nextMove = this.moves.pop();
-                while(nextMove && nextMove.type === 'CPU') {
+                while(nextMove && nextMove.color_moving === color) {
                     this.move.push(nextMove.from);
                     nextMove = this.moves.pop();
                 }
                 if(this.moves.length > 0) {
-                    // Popped a non-CPU move, putting it back in the stack
-                    this.moves.push(move);
+                    // Popped a move from the other player, putting it back in the stack
+                    this.moves.push(nextMove);
                 }
 
                 // Reactivates the last piece, in case it's been cleared for being on the edges
@@ -135,19 +139,44 @@ class FrogChess extends CGFobject {
                 this.color_moving = move.color_moving;
                 //this.board.pieces[pos_from[0]][pos_from[1]] = move.color_moving;
                 
-                /*
-                this.board.movePiece(move.to, move.from);
-
-                let middle = this.calculateMiddle(move.from, move.to);
-
-                this.board.pieces[move.to[0]][move.to[1]] = "empty";
-                this.board.pieces[move.from[0]][move.from[1]] = move.color_moving;
-                this.board.pieces[middle[0]][middle[1]] = move.color_eaten;   
-                */ 
             }
-            // Undo a Human move
-            else {
-            
+
+            // Undo a Player move
+            else if(move.type === 'Player') {
+                this.playerIsUndoing = true;
+                this.move = [];
+                this.move.push(...[move.to, move.from]);
+
+                let color = move.color_moving;
+
+                let numberOfMoves = 1;
+                let nextMove = this.moves.pop();
+                let allNextMoves = [];
+                while(nextMove && nextMove.color_moving === color) {
+                    allNextMoves.push(nextMove);
+                    numberOfMoves++;
+                    nextMove = this.moves.pop();
+                }
+                if(this.moves.length > 0) {
+                    // Popped a move from the other player, putting it back in the stack
+                    this.moves.push(nextMove);
+                }
+
+                for(let i = allNextMoves.length - 1; i >= 0; i--) {
+                    this.moves.push(allNextMoves[i]);
+                }
+
+                // If there are more than 1 move left of the same player,
+                // the player's frog should be locked after undoing
+                if(numberOfMoves > 1) {
+                    this.playerLockFrog = true;
+                }
+
+                // Reactivates the last piece, in case it's been cleared for being on the edges
+                this.board.reactivatePiece(this.move[0]);
+                this.board.movePiece(this.move[0], this.move[1]);
+                this.startUndo(this.move[0]);
+                this.color_moving = move.color_moving;
             }
         }
     }
@@ -187,15 +216,6 @@ class FrogChess extends CGFobject {
         move.middle = this.calculateMiddle(from, to);
         move.color_moving = this.board.pieces[move.from[0]][move.from[1]];
         move.color_eaten = this.board.pieces[move.middle[0]][move.middle[1]];     
-     
-    /*    
-        console.log(move.type);
-        console.log(move.from);
-        console.log(move.to);
-        console.log(move.middle);
-        console.log(move.color_moving);
-        console.log(move.color_eaten);
-    */  
 
         this.moves.push(move);
     }
@@ -468,7 +488,7 @@ class FrogChess extends CGFobject {
 			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
 
                 for (var i = 0; i < this.scene.pickResults.length; i++) {
-					var obj = this.scene.pickResults[i][0];
+                    var obj = this.scene.pickResults[i][0];
 					if (obj) {
                         let index = this.scene.pickResults[i][1] - 1; 
                         if(this.gameOver)
@@ -478,8 +498,31 @@ class FrogChess extends CGFobject {
                         
                         // Undo button
                         if(index === 419) {
-                            if(!this.cpuIsMoving && this.moves.length > 0) {
-                                this.nextPlayer();
+                            if(!this.cpuIsMoving && !this.cpuIsUndoing && this.moves.length > 0) {
+
+                                // If there's a selected bouncing piece, deselects it
+                                const movingPiece = this.board.getMovingPiece();
+
+                                if(movingPiece !== null && movingPiece.isMoving())
+                                    continue;
+
+                                if(movingPiece !== null && movingPiece !== undefined){
+                                    this.board.playDownTiles();
+                                    movingPiece.deselect();
+                                    this.board.finishPieceMove();
+                                }
+                                
+                                // If it's a move from the other player, switches to its view
+                                let move = this.moves.pop();
+
+                                if(move.color_moving !== this.getPlayerColor()) {
+                                    this.nextPlayer();
+                                }
+                                
+                                // Puts the move back in the stack
+                                this.moves.push(move);
+
+                                // Backtracks the last move
                                 this.undoMove();
                             }
                             continue;
@@ -542,6 +585,9 @@ class FrogChess extends CGFobject {
                                         this.board.highlightTiles([this.move[1]]);
                                         this.board.deselectPieces();
                                         this.board.enableDisplayCheck();
+
+                                        this.pushMove('Player', this.move[0], this.move[1]);
+
                                         this.startMove(this.move[0]);
                                         this.board.movePiece(this.move[0], this.move[1]);
                                     }                                    
@@ -562,6 +608,9 @@ class FrogChess extends CGFobject {
                                     
                                     this.board.playDownTiles();
                                     this.board.highlightTiles([this.move[1]]);
+
+                                    this.pushMove('Player', this.move[0], this.move[1]);
+
                                     this.startMove(this.move[0]);
                                     this.board.movePiece(this.move[0], this.move[1]);
                                 }
@@ -673,6 +722,42 @@ class FrogChess extends CGFobject {
                         this.chooseJumpPosition();
                         //this.nextPlayer();
                     }
+                }
+            }
+            else if(this.playerIsUndoing) {
+                const movingPiece = this.board.getMovingPiece();
+
+                if(!movingPiece.isMoving()){
+                    this.finishUndo(this.move[0], this.move[1]);
+                    this.playerIsUndoing = false;                    
+                    this.move = null;
+
+                    /*
+                    if(this.playerLockFrog) {
+                        this.board.selectPiece(movingPiece.getRow(), movingPiece.getColumn());
+                        this.playerStartMoving = true;
+                    }
+                    */
+
+
+                    if(!this.playerLockFrog) {
+                        this.playerStartMoving = false;
+                        this.isPicking = true;
+                        this.getPlayerFrogs();
+                    }
+                }
+            }
+            else if (this.playerLockFrog) {
+                const movingPiece = this.board.getMovingPiece();
+
+                if(movingPiece !== null && !movingPiece.isMoving()){
+                    this.board.selectPiece(movingPiece.getRow(), movingPiece.getColumn());
+                    this.selectedPiece = true;
+                    this.playerLockFrog = false;
+                    this.isPicking = true;
+                    this.playerStartMoving = true;
+
+                    this.getValidMoves([movingPiece.getRow(), movingPiece.getColumn()]);
                 }
             }
             else if(this.playerStartMoving){
