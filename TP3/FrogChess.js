@@ -43,8 +43,8 @@ class FrogChess extends CGFobject {
         this.playerFrogs = null;
 
         //Game Over Boolean
-        this.gameOverMessage = new GameOverMessage(this.scene, 2);
-        this.gameOver = true;
+        this.gameOverMessage = null;
+        this.gameOver = false;
 
         //this.ui = new UI(scene);
 
@@ -435,7 +435,7 @@ class FrogChess extends CGFobject {
             return;
         }
 
-        this.gameOverMessage = new GameOverMessage(this.scene, winner);
+        this.gameOverMessage = new GameOverMessage(this.scene, winner, this.player, this.board);
 
         console.log("CONGRATULATIONS PLAYER " + winner + " FOR WINNING THE GAME!!!!");
         this.gameOver = true;
@@ -637,7 +637,7 @@ class FrogChess extends CGFobject {
             const finishGame = this.board.updateTime(this.timeBetweenUpdates, this.player);
             if(finishGame){ 
                 this.nextPlayer();
-                this.gameOverMessage = new GameOverMessage(this.scene, this.player);
+                this.gameOverMessage = new GameOverMessage(this.scene, this.player, this.player, this.board);
                 this.gameOver = true;
                 return;
             }

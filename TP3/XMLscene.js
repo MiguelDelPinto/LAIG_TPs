@@ -245,8 +245,9 @@ class XMLscene extends CGFscene {
     mainMenu(){
         this.displayMenu = true;
         this.sceneInited = false;
-        delete this.graph;
-        delete this.frogchess; 
+        this.graph = new MySceneGraph("Menu.xml", this);
+        this.frogchess = null; 
+        this.initGame = false;
     }
 
     startGame(ambient, level, game_mode){
