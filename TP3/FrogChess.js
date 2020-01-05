@@ -29,6 +29,7 @@ class FrogChess extends CGFobject {
         this.isPicking = false;
 
         //Stack that holds all of the moves played
+        this.fills = [];
         this.moves = [];
         this.piecesEaten = [];
 
@@ -221,6 +222,19 @@ class FrogChess extends CGFobject {
         this.moves.push(move);
     }
 
+    pushFill(type, position) {
+        let fill = new Object();
+
+        fill.type = type;
+        fill.position = position;
+        fill.color = this.getPlayerColor();
+
+        this.fills.push(fill);
+
+        console.log(fill);
+        console.log(this.fills);
+    }
+
     // ---------- GAME LOGIC -----------
 
     // CPU chooses a fill position, in the beginning of the game
@@ -295,6 +309,7 @@ class FrogChess extends CGFobject {
         }
 
         this.board.setPiecePosition(position, this.getPlayerColor());
+        this.pushFill('CPU', position);
         this.nextPlayer();
 
         this.serverCall = false;
@@ -555,6 +570,7 @@ class FrogChess extends CGFobject {
                             else if(this.fillingBoard){ // Filling Board
                                
                                 this.board.setPiecePosition([Math.trunc(index / 8), index % 8], this.getPlayerColor());
+                                this.pushFill('Human', [Math.trunc(index / 8), index % 8]);
                                 this.nextPlayer();				 
                                 this.board.playDownTiles();
                             }else{ // Game
