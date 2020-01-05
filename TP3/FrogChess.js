@@ -519,6 +519,10 @@ class FrogChess extends CGFobject {
                             }else if(index === 1001){
                                 this.showingMovie = true;
                                 this.showGameOverMessage = false;
+                                this.fillingBoard = true;
+
+                                delete this.board.realPieces;
+                                delete this.board.pieces;
                                 /**
                                  * TODO Destroy realPieces and pieces and construct a new board
                                  */
@@ -678,50 +682,43 @@ class FrogChess extends CGFobject {
 
         if(this.gameOver){
             if(this.showingMovie){
-                const movingPiece = this.board.getMovingPiece();
-                
-                if(movingPiece === null){
-                    const currentMove = this.moves[this.moviePosition];
-                    this.board.movePiece(currentMove.from, currentMove.to);
-                    this.startMove(currentMove.from);
+                if(this.fillingBoard){
+                    const currentFill = this.fills[this.moviePosition];
 
-                }else if(!movingPiece.isMoving()){
-                    const currentMove = this.moves[this.moviePosition];
-                    this.finishMove(currentMove.from, currentMove.to);
-                    this.board.finishPieceMove();
-                    this.board.removeOuterFrogs();
+                    this.board.setPiecePosition(currenFill.position, currentFill.color);
 
                     this.moviePosition++;
                     if(this.moviePosition >= this.moves.length){
-                        this.showingMovie = false;
-                        this.showGameOverMessage = true;
+                        this.moviePosition = 0;
+                        this.fillingBoard = false;
                         return;
                     }
+                }else{
+                    const movingPiece = this.board.getMovingPiece();
+                    
+                    if(movingPiece === null){
+                        const currentMove = this.moves[this.moviePosition];
+                        this.board.movePiece(currentMove.from, currentMove.to);
+                        this.startMove(currentMove.from);
 
-                    const nextMove = this.moves[this.moviePosition];
-                    this.board.movePiece(nextMove.from, nextMove.to);
-                    this.startMove(nextMove.from);
-                }
-                /*}else{
+                    }else if(!movingPiece.isMoving()){
+                        const currentMove = this.moves[this.moviePosition];
+                        this.finishMove(currentMove.from, currentMove.to);
+                        this.board.finishPieceMove();
+                        this.board.removeOuterFrogs();
 
-                    if(!movingPiece.isMoving()){
-                        if(this.move.length > 2){
-                            this.finishMove(this.move[0], this.move[1]);
-                            this.move.shift();
-        
-                            this.startMove(this.move[0]);
-                            movingPiece.move(this.move[0], this.move[1], this.board.getMaxHeight());
-                        }else{
-                            this.finishMove(this.move[0], this.move[1]);
-                            this.cpuIsMoving = false;
-                            this.move = null;
-                            this.board.finishPieceMove();
-                            this.board.removeOuterFrogs();
-                            this.checkGameOver()
-                            this.nextPlayer();
+                        this.moviePosition++;
+                        if(this.moviePosition >= this.moves.length){
+                            this.showingMovie = false;
+                            this.showGameOverMessage = true;
+                            return;
                         }
+
+                        const nextMove = this.moves[this.moviePosition];
+                        this.board.movePiece(nextMove.from, nextMove.to);
+                        this.startMove(nextMove.from);
                     }
-                }*/
+                }
             }   
             return;
         }
