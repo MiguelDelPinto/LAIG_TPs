@@ -43,7 +43,8 @@ class FrogChess extends CGFobject {
         this.playerFrogs = null;
 
         //Game Over Boolean
-        this.gameOver = false;
+        this.gameOverMessage = new GameOverMessage(this.scene, 2);
+        this.gameOver = true;
 
         //this.ui = new UI(scene);
 
@@ -434,6 +435,8 @@ class FrogChess extends CGFobject {
             return;
         }
 
+        this.gameOverMessage = new GameOverMessage(this.scene, winner);
+
         console.log("CONGRATULATIONS PLAYER " + winner + " FOR WINNING THE GAME!!!!");
         this.gameOver = true;
         this.serverCall = false;
@@ -466,16 +469,24 @@ class FrogChess extends CGFobject {
     pickResults() {
 		if (this.scene.pickMode == false) {
 			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {
-
                 for (var i = 0; i < this.scene.pickResults.length; i++) {
-					var obj = this.scene.pickResults[i][0];
+                    var obj = this.scene.pickResults[i][0];
+                    console.log(obj);
+                    let index = this.scene.pickResults[i][1] - 1; 
+                    console.log(index);
 					if (obj) {
-                        let index = this.scene.pickResults[i][1] - 1; 
-                        if(this.gameOver)
-                            break;
 
                         console.log("Picked object: " + obj + ", with pick id " + index);	
                         
+                        if(this.gameOver){
+                            if(index === 1000){
+                                this.scene.mainMenu();
+                            }else if(index === 1001){
+
+                            }
+                            break;
+                        }
+
                         // Undo button
                         if(index === 419) {
                             if(!this.cpuIsMoving && this.moves.length > 0) {
@@ -626,8 +637,7 @@ class FrogChess extends CGFobject {
             const finishGame = this.board.updateTime(this.timeBetweenUpdates, this.player);
             if(finishGame){ 
                 this.nextPlayer();
-                console.log("CONGRATULATIONS PLAYER " + this.player + " FOR WINNING THE GAME!!!!");
-
+                this.gameOverMessage = new GameOverMessage(this.scene, this.player);
                 this.gameOver = true;
                 return;
             }
@@ -717,6 +727,10 @@ class FrogChess extends CGFobject {
         this.scene.clearPickRegistration();
 
         this.board.display();
+
+        if(this.gameOver){
+            this.gameOverMessage.display();
+        }
 
         //this.ui.display();
     }

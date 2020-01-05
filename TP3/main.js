@@ -63,6 +63,7 @@ serialInclude(['../lib/CGF.js',
                 'CameraAnimation.js',
                 'Menu.js',
                 'MyButterfly.js',
+                'GameOverMessage.js',
 
 main=function()
 {

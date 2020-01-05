@@ -242,6 +242,13 @@ class XMLscene extends CGFscene {
         }
     }
 
+    mainMenu(){
+        this.displayMenu = true;
+        this.sceneInited = false;
+        delete this.graph;
+        delete this.frogchess; 
+    }
+
     startGame(ambient, level, game_mode){
         this.level = level;
         this.mode = game_mode;
