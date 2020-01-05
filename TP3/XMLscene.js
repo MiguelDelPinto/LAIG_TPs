@@ -316,7 +316,6 @@ class XMLscene extends CGFscene {
                 this.frogchess.display();
             }
         }
-
         this.popMatrix();
         
         // ---- END Background, camera and axis setup

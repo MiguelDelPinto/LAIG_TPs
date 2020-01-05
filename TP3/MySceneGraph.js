@@ -803,6 +803,11 @@ class MySceneGraph {
             if (this.animations[animationId] != null)
                 return "ID must be unique for each animation (conflict: ID = " + animationId + ")";
 
+            let loop = this.reader.getBoolean(children[i], 'loop');
+            if (loop == null){
+                loop = false;
+            }
+
             // Gets the keyframes of the animation
             grandChildren = children[i].children;
 
@@ -850,7 +855,7 @@ class MySceneGraph {
             // Sorts the keyframes, so that none is missed when a keyframe that happens sooner is inserted after
             // one that happens later
             keyframes.sort((kf1, kf2) => (kf1.keyframeInstant >= kf2.keyframeInstant) ? 1 : -1); 
-            this.animations[animationId] = new KeyframeAnimation(keyframes);
+            this.animations[animationId] = new KeyframeAnimation(keyframes, loop);
         }
 
         this.log("Parsed animations");
@@ -894,7 +899,8 @@ class MySceneGraph {
                     grandChildren[0].nodeName != 'cylinder' && grandChildren[0].nodeName != 'sphere' &&
                     grandChildren[0].nodeName != 'torus' && grandChildren[0].nodeName != 'cylinder2' && 
                     grandChildren[0].nodeName != 'patch' && grandChildren[0].nodeName != 'plane' &&
-                    grandChildren[0].nodeName != 'board' && grandChildren[0].nodeName != 'lake')) {
+                    grandChildren[0].nodeName != 'board' && grandChildren[0].nodeName != 'lake' &&
+                    grandChildren[0].nodeName != 'butterfly')) {
                 return "There must be exactly 1 primitive type (rectangle, triangle, cylinder, sphere, torus, plane, patch, cylinder2 or board) at primitive with ID " + primitiveId;
             }
 
@@ -1183,6 +1189,13 @@ class MySceneGraph {
                 let lake = new MyLake(this.scene);
 
                 this.primitives[primitiveId] = lake;
+            }
+
+            //Butterfly
+            else if(primitiveType == "butterfly"){
+                let butterfly = new MyButterfly(this.scene, 'butterfly');
+
+                this.primitives[primitiveId] = butterfly;
             }
 
             // UNKNOWN
