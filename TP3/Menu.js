@@ -60,12 +60,16 @@ class Menu extends CGFobject {
         this.yellowMaterial.setDiffuse(0.5, 0.5, 0.125, 1);
         this.yellowMaterial.setSpecular(0.1, 0.1, 0.025, 0.1);
         this.yellowMaterial.setShininess(1.0);
-           
+        this.yellowMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
+
         this.blueMaterial = new CGFappearance(this.scene);
         this.blueMaterial.setAmbient(0.125, 0.5, 0.5, 1);
         this.blueMaterial.setDiffuse(0.125, 0.5, 0.5, 1);
         this.blueMaterial.setSpecular(0.025, 0.1, 0.1, 0.1);
         this.blueMaterial.setShininess(1.0);
+        this.blueMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
 
         this.highlight_material = new CGFappearance(this.scene);
         this.highlight_material.setAmbient(0.5, 0.25, 0.125, 1);
@@ -96,6 +100,9 @@ class Menu extends CGFobject {
         this.medium_texture = new CGFtexture(this.scene, 'scenes/images/medium.png');
         this.hard_texture = new CGFtexture(this.scene, 'scenes/images/hard.png');
         this.expert_texture = new CGFtexture(this.scene, 'scenes/images/expert.png');
+
+        this.frog_texture = new CGFtexture(this.scene, 'scenes/images/frog_diff.jpg');
+
     }
 
     display() {
@@ -492,13 +499,34 @@ class Menu extends CGFobject {
             
             this.scene.clearPickRegistration();
 
-            //Frog
+            //Frogs
+            this.scene.pushMatrix();
+                this.scene.translate(4, -3, -4);
+                this.scene.scale(0.5, 0.5, 0.5);
+                this.scene.rotate(Math.PI/8, 1, 0, 0);
+                this.scene.rotate(-Math.PI/6, 0, 1, 0);
+                this.yellowMaterial.setTexture(null);
+                this.yellowMaterial.apply();
+                this.frog.display();
+            this.scene.popMatrix();
+
             this.scene.pushMatrix();
                 this.scene.translate(3, -3, 2);
                 this.scene.scale(0.5, 0.5, 0.5);
                 this.scene.rotate(Math.PI/8, 1, 0, 0);
                 this.scene.rotate(-Math.PI/3, 0, 1, 0);
+                this.yellowMaterial.setTexture(this.frog_texture);
                 this.yellowMaterial.apply();
+                this.frog.display();
+            this.scene.popMatrix();
+            
+            this.scene.pushMatrix();
+                this.scene.translate(-4, -3, -4);
+                this.scene.scale(0.5, 0.5, 0.5);
+                this.scene.rotate(Math.PI/8, 1, 0, 0);
+                this.scene.rotate(Math.PI/6, 0, 1, 0);
+                this.blueMaterial.setTexture(null);
+                this.blueMaterial.apply();
                 this.frog.display();
             this.scene.popMatrix();
 
@@ -507,6 +535,7 @@ class Menu extends CGFobject {
                 this.scene.scale(0.5, 0.5, 0.5);
                 this.scene.rotate(Math.PI/8, 1, 0, 0);
                 this.scene.rotate(Math.PI/3, 0, 1, 0);
+                this.blueMaterial.setTexture(this.frog_texture);
                 this.blueMaterial.apply();
                 this.frog.display();
             this.scene.popMatrix();

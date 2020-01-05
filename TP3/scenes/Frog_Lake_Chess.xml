@@ -121,45 +121,134 @@
     <!--   Animations   -->
     <!--                -->
     <animations>
-        <animation id="house_going_up">
+        <animation id="butterfly" loop="1">
             <keyframe instant="1">
-                <translate x="0.3" y="0.2" z="-0.3" />
-                <rotate angle_x="3" angle_y="10" angle_z="0" />
+                <translate x="-1" y="1" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="45" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="2">
+                <translate x="-2" y="2" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="90" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
             <keyframe instant="3">
-                <translate x="-0.2" y="-0.4" z="0.2" />
-                <rotate angle_x="0" angle_y="-10" angle_z="0" />
+                <translate x="-3" y="1" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="135" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="4">
+                <translate x="-4" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="180" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
             <keyframe instant="5">
-                <translate x="0.0" y="0.0" z="0.0" />
-                <rotate angle_x="0" angle_y="0" angle_z="0" />
+                <translate x="-3" y="-1" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="225" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="10">
-                <translate x="0.0" y="0.0" z="0.0" />
-                <rotate angle_x="0" angle_y="-30" angle_z="0" />
+            <keyframe instant="6">
+                <translate x="-2" y="-2" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="270" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="15">
-                <translate x="0.0" y="0.0" z="0.0" />
-                <rotate angle_x="0" angle_y="30" angle_z="0" />
+            <keyframe instant="7">
+                <translate x="-1" y="-1" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="315" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="20">
-                <translate x="0.0" y="10.0" z="0.0" />
-                <rotate angle_x="0" angle_y="-30" angle_z="0" />
+            <keyframe instant="8">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="360" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="30">
-                <translate x="0.0" y="10.0" z="0.0" />
-                <rotate angle_x="0" angle_y="30" angle_z="0" />
+        </animation>
+        <animation id="butterfly2" loop="1">
+            <keyframe instant="1">
+                <translate x="1" y="1" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-45" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
-            <keyframe instant="40">
-                <translate x="0.0" y="10.0" z="0.0" />
-                <rotate angle_x="0" angle_y="0" angle_z="0" />
+            <keyframe instant="2">
+                <translate x="2" y="2" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-90" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="3">
+                <translate x="3" y="1" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-135" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="4">
+                <translate x="4" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-180" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="5">
+                <translate x="3" y="-1" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-225" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="6">
+                <translate x="2" y="-2" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-270" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="7">
+                <translate x="1" y="-1" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-315" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="8">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="0" angle_y="0" angle_z="-360" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+        </animation>
+        <animation id="butterfly3" loop="1">
+            <keyframe instant="0">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="45" angle_y="0" angle_z="0" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="1">
+                <translate x="-1" y="1" z="1" />
+                <rotate angle_x="0" angle_y="0" angle_z="45" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="2">
+                <translate x="-2" y="2" z="0" />
+                <rotate angle_x="-45" angle_y="0" angle_z="90" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="3">
+                <translate x="-3" y="1" z="-1" />
+                <rotate angle_x="0" angle_y="0" angle_z="135" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="4">
+                <translate x="-4" y="0" z="0" />
+                <rotate angle_x="45" angle_y="0" angle_z="180" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="5">
+                <translate x="-3" y="-1" z="1" />
+                <rotate angle_x="0" angle_y="0" angle_z="225" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="6">
+                <translate x="-2" y="-2" z="0" />
+                <rotate angle_x="-45" angle_y="0" angle_z="270" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="7">
+                <translate x="-1" y="-1" z="-1" />
+                <rotate angle_x="0" angle_y="0" angle_z="315" />
+                <scale x="1.0" y="1.0" z="1.0" />
+            </keyframe>
+            <keyframe instant="8">
+                <translate x="0" y="0" z="0" />
+                <rotate angle_x="45" angle_y="0" angle_z="360" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
@@ -173,6 +262,9 @@
         <primitive id="rectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive> 
+        <primitive id="butterfly">
+            <butterfly />
+        </primitive>
         <primitive id="lake">
             <lake />
         </primitive>
@@ -201,8 +293,9 @@
                 <material id="defaultMaterial" />
             </materials>
             <texture id="defaultTexture" length_s="1" length_t="1"/>
-            <children>>
+            <children>
                 <componentref id="background" />
+                <componentref id="butterflies" />
             </children>
         </component>
 
@@ -295,6 +388,108 @@
             <children>
                 <primitiveref id="rectangle" />
             </children>
-        </component>              
+        </component> 
+
+        <component id="butterflies">
+            <transformation>
+                <rotate axis="x" angle="-90" />
+            </transformation>
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <componentref id="butterfly_1" />
+                <componentref id="butterfly_2" />
+                <componentref id="butterfly_3" />
+                <componentref id="butterfly_4" />
+                <componentref id="butterfly_5" />
+            </children>
+        </component>             
+
+        <component id="butterfly_1">
+            <transformation>
+                <translate x="5" y="0" z="-3" />
+            </transformation>
+            <animationref id="butterfly2" />
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="butterfly" />
+            </children>
+        </component>
+
+        <component id="butterfly_2">
+            <transformation>
+                <translate x="-10" y="-5" z="-2" />
+            </transformation>
+            <animationref id="butterfly3" />
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="butterfly" />
+            </children>
+        </component>
+        
+        <component id="butterfly_3">
+            <transformation>
+                <translate x="5" y="-10" z="-3" />
+            </transformation>
+            <animationref id="butterfly" />
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="butterfly" />
+            </children>
+        </component>
+
+        <component id="butterfly_4">
+            <transformation>
+                <translate x="10" y="-15" z="-1" />
+            </transformation>
+            <animationref id="butterfly3" />
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="butterfly" />
+            </children>
+        </component>
+
+        <component id="butterfly_5">
+            <transformation>
+                <translate x="-5" y="-20" z="-1" />
+            </transformation>
+            <animationref id="butterfly" />
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="butterfly" />
+            </children>
+        </component>
+
+        <component id="butterfly_6">
+            <transformation>
+                <translate x="10" y="-30" z="-1" />
+            </transformation>
+            <animationref id="butterfly2" />
+            <materials>
+                <material id="defaultMaterial" />
+            </materials>
+            <texture id="none"/>
+            <children>
+                <primitiveref id="butterfly" />
+            </children>
+        </component>
+
     </components>
 </lxs>
