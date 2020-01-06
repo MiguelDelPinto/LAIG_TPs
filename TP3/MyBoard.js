@@ -494,5 +494,21 @@ class MyBoard extends CGFobject {
         }
     }
 
+    deletePieces(){
+        this.pieces = [];
+        this.realPieces = [];
+
+        for(let row = 1; row <= 8; row++) {
+
+            let row_of_pieces = [];
+            for(let col = 1; col <= 8; col++) {
+
+                row_of_pieces.push("empty");
+            }
+
+            this.pieces.push(row_of_pieces);
+        }
+    }
+
     updateTexCoords(length_s, length_t) {}
 }

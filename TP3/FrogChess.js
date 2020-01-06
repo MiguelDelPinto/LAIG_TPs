@@ -521,11 +521,7 @@ class FrogChess extends CGFobject {
                                 this.showGameOverMessage = false;
                                 this.fillingBoard = true;
 
-                                delete this.board.realPieces;
-                                delete this.board.pieces;
-                                /**
-                                 * TODO Destroy realPieces and pieces and construct a new board
-                                 */
+                                this.board.deletePieces();
                             }
                             break;
                         }
