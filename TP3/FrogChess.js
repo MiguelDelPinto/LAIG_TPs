@@ -452,7 +452,8 @@ class FrogChess extends CGFobject {
 
         this.cpuIsMoving = true;
         this.move = jumps;
-        this.pushMove('CPU',this.move[0], this.move[1]);
+        if(!this.gameOver)
+            this.pushMove('CPU',this.move[0], this.move[1]);
 
         this.board.movePiece(this.move[0], this.move[1]);
         this.startMove(this.move[0]);
@@ -520,6 +521,7 @@ class FrogChess extends CGFobject {
                                 this.showingMovie = true;
                                 this.showGameOverMessage = false;
                                 this.fillingBoard = true;
+                                this.moviePosition = 0;
 
                                 this.board.deletePieces();
                             }
@@ -617,7 +619,8 @@ class FrogChess extends CGFobject {
                                         this.board.deselectPieces();
                                         this.board.enableDisplayCheck();
 
-                                        this.pushMove('Player', this.move[0], this.move[1]);
+                                        if(!this.gameOver)
+                                            this.pushMove('Player', this.move[0], this.move[1]);
 
                                         this.startMove(this.move[0]);
                                         this.board.movePiece(this.move[0], this.move[1]);
@@ -640,7 +643,8 @@ class FrogChess extends CGFobject {
                                     this.board.playDownTiles();
                                     this.board.highlightTiles([this.move[1]]);
 
-                                    this.pushMove('Player', this.move[0], this.move[1]);
+                                    if(!this.gameOver)
+                                        this.pushMove('Player', this.move[0], this.move[1]);
 
                                     this.startMove(this.move[0]);
                                     this.board.movePiece(this.move[0], this.move[1]);
@@ -687,7 +691,6 @@ class FrogChess extends CGFobject {
                     if(this.moviePosition >= this.fills.length){
                         this.moviePosition = 0;
                         this.fillingBoard = false;
-                        return;
                     }
                 }else{
                     const movingPiece = this.board.getMovingPiece();
@@ -699,19 +702,20 @@ class FrogChess extends CGFobject {
 
                     }else if(!movingPiece.isMoving()){
                         const currentMove = this.moves[this.moviePosition];
-                        this.finishMove(currentMove.from, currentMove.to);
-                        this.board.finishPieceMove();
 
+                        this.finishMove(currentMove.from, currentMove.to);
+
+                        this.moviePosition++;
+
+                        const nextMove = this.moves[this.moviePosition];
                         
-                        const nextMove = this.moves[this.moviePosition++];
-                        
-                        if(nextMove != null){
-                            if(nextMove.type != currentMove.type){
+                        if(nextMove !== null){
+                            if(nextMove.color_moving !== currentMove.color_moving){
+                                this.board.finishPieceMove();
                                 this.board.removeOuterFrogs();
                             }
                         }
 
-                        this.moviePosition++;
                         if(this.moviePosition >= this.moves.length){
                             this.showingMovie = false;
                             this.showGameOverMessage = true;
@@ -766,8 +770,9 @@ class FrogChess extends CGFobject {
                     if(this.move.length > 2){
                         this.finishMove(this.move[0], this.move[1]);
                         this.move.shift();
-
-                        this.pushMove('CPU', this.move[0], this.move[1]);
+                        
+                        if(!this.gameOver)
+                            this.pushMove('CPU', this.move[0], this.move[1]);
 
                         this.startMove(this.move[0]);
                         movingPiece.move(this.move[0], this.move[1], this.board.getMaxHeight());
