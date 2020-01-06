@@ -262,8 +262,11 @@ class XMLscene extends CGFscene {
 
     mainMenu(){
         this.displayMenu = true;
+        this.menu.restartMusic();
+
         this.sceneInited = false;
         this.graph = new MySceneGraph("Menu.xml", this);
+        this.frogchess.stopMusic();
         this.frogchess = null; 
         this.initGame = false;
     }
@@ -310,6 +313,8 @@ class XMLscene extends CGFscene {
      * Renders the scene.
      */
     render(isRTT) {
+        this.updateLights();
+        
         // ---- BEGIN Background, camera and axis setup
         if(isRTT)
             this.updateRTTCamera();

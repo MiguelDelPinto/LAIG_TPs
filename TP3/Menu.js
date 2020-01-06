@@ -547,6 +547,10 @@ class Menu extends CGFobject {
         this.background_music.pause();
     }
 
+    restartMusic(){
+        this.background_music.play();
+    }
+
     pickResults() {
 		if (this.scene.pickMode == false) {
 			if (this.scene.pickResults != null && this.scene.pickResults.length > 0) {

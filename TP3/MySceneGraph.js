@@ -492,9 +492,10 @@ class MySceneGraph {
             var aux = this.reader.getBoolean(children[i], 'enabled');
             if (!(aux != null && !isNaN(aux) && (aux == true || aux == false)))
                 this.onXMLMinorError("unable to parse value component of the 'enable light' field for ID = " + lightId + "; assuming 'value = 1'");
-            else
+            else{
+                console.log(aux);
                 enableLight = aux;
-
+            }
             //Add enabled boolean and type name to light info
             global.push(enableLight);
             global.push(children[i].nodeName);

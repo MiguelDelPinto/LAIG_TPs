@@ -43,6 +43,10 @@ class MyBoard extends CGFobject {
         this.background_music.autoplay = true;
     }
 
+    stopMusic(){
+        this.background_music.pause();
+    }
+
     generateTiles() {
         this.tiles = [];
 

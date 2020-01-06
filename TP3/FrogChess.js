@@ -78,6 +78,10 @@ class FrogChess extends CGFobject {
         return "yellow";
     }
 
+    stopMusic(){
+        this.board.stopMusic();
+    }
+
     nextPlayer(){
         const camera = this.scene.getMainCamera();
         this.cameraAnimation = new CameraAnimation(camera, this.player === 1 ? -1 : 1);
@@ -233,9 +237,6 @@ class FrogChess extends CGFobject {
         fill.color = this.getPlayerColor();
 
         this.fills.push(fill);
-
-        console.log(fill);
-        console.log(this.fills);
     }
 
     // ---------- GAME LOGIC -----------
@@ -278,14 +279,6 @@ class FrogChess extends CGFobject {
         }
     }
 
-    // Generates possible jump positions
-    /*getValidJumpPosition(position) { 
-        if(!this.serverCall){
-            serverValidJumpPosition(this.board.getPieces(), position, data => this.handleValidJumpPosition(position, data));
-            this.serverCall = true;
-        }
-    }*/
-
     // Generates all valid moves
     getValidMoves(position) {
         if(!this.serverCall){
@@ -312,7 +305,10 @@ class FrogChess extends CGFobject {
         }
 
         this.board.setPiecePosition(position, this.getPlayerColor());
-        this.pushFill('CPU', position);
+       
+        if(!this.gameOver)
+            this.pushFill('CPU', position);
+        
         this.nextPlayer();
 
         this.serverCall = false;
@@ -361,26 +357,6 @@ class FrogChess extends CGFobject {
         this.isPicking = true;
     }
 
-    // Handles a position [x, y] from the request
-    /*handleValidJumpPosition(position, data){
-        let finalPosition = JSON.parse(data.target.response);
-
-        if(finalPosition === undefined){
-            console.log("ERROR: getting valid jump position");
-            this.serverCall = false;
-            return;
-        }
-        
-        this.serverCall = false;
-
-
-        if(Array.isArray(finalPosition) && !finalPosition.length){ // Selected frog can't jump        
-            console.log("Deselected Piece");
-            this.board.deselectPiece(...position);    
-            this.isPicking = true;
-        }
-    }*/
-
     // Handles an array with all possible moves of the player
     handleValidMoves(position, data) {
         let moves = JSON.parse(data.target.response);
@@ -420,6 +396,7 @@ class FrogChess extends CGFobject {
                 this.selectedPiece = false;
                 this.playerStartMoving = false;
                 this.nextPlayer();
+                this.board.deselectPiece(position[0], position[1]);   
                 this.isPicking = false;
                 this.board.disableDisplayCheck();
             }else{
@@ -479,28 +456,6 @@ class FrogChess extends CGFobject {
         this.gameOver = true;
         this.serverCall = false;
     }
-    
-    // Parses a position [x, y] from the request
-    handlePosition(data) {
-        let position = JSON.parse(data.target.response);
-        this.next_position = position;
-        console.log(this.next_position);
-    }
-
-    // Parses an array of positions [ [x,y], [x, y], ...] from the request
-    handlePositionArray(data) {
-        let positions = JSON.parse(data.target.response);
-        this.valid_positions = positions;
-        console.log(positions);
-    }
-
-    // Parses a board [ [piece, ...], [piece, ...], ... ] from the request
-    handleBoard(data) {
-        let board = JSON.parse(data.target.response);
-        this.next_board = board;
-        console.log(board);
-    }
-
 
     // ---------- PICKING -----------
 
@@ -578,7 +533,10 @@ class FrogChess extends CGFobject {
                             else if(this.fillingBoard){ // Filling Board
                                
                                 this.board.setPiecePosition([Math.trunc(index / 8), index % 8], this.getPlayerColor());
-                                this.pushFill('Human', [Math.trunc(index / 8), index % 8]);
+                                
+                                if(!this.gameOver)
+                                    this.pushFill('Human', [Math.trunc(index / 8), index % 8]);
+                                
                                 this.nextPlayer();				 
                                 this.board.playDownTiles();
                             }else{ // Game
@@ -708,8 +666,8 @@ class FrogChess extends CGFobject {
                         this.moviePosition++;
 
                         const nextMove = this.moves[this.moviePosition];
-                        
-                        if(nextMove !== null){
+                     
+                        if(nextMove !== null && nextMove !== undefined){
                             if(nextMove.color_moving !== currentMove.color_moving){
                                 this.board.finishPieceMove();
                                 this.board.removeOuterFrogs();
