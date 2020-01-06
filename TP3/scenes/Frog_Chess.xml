@@ -161,6 +161,10 @@
             <children>
                 <componentref id="background" />
                 <componentref id="table" />
+                <componentref id="bench_1" />
+                <componentref id="bench_2" />
+                <componentref id="bench_3" />
+                <componentref id="bench_4" />
             </children>
         </component>
 
@@ -540,5 +544,59 @@
                 <primitiveref id="rectangle" />
             </children>
         </component>     
+        <component id="bench_1">
+            <transformation>
+                <translate x="0" y="-6" z="12" />
+                <scale x="0.3" y="0.55" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="table_wood" length_s="2" length_t="2" />
+            <children>
+                <componentref id="table" />
+            </children>
+        </component>
+        <component id="bench_2">
+            <transformation>
+                <translate x="0" y="-6" z="-12" />
+                <scale x="0.3" y="0.55" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="table_wood" length_s="2" length_t="2" />
+            <children>
+                <componentref id="table" />
+            </children>
+        </component>
+        <component id="bench_3">
+            <transformation>
+                <translate x="12" y="-6" z="0" />
+                <rotate axis="y" angle="90"/>
+                <scale x="0.3" y="0.55" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="table_wood" length_s="2" length_t="2" />
+            <children>
+                <componentref id="table" />
+            </children>
+        </component>
+        <component id="bench_4">
+            <transformation>
+                <translate x="-12" y="-6" z="0" />
+                <rotate axis="y" angle="90"/>
+                <scale x="0.3" y="0.55" z="0.25"/>
+            </transformation>
+            <materials>
+                <material id="inherit" />
+            </materials>
+            <texture id="table_wood" length_s="2" length_t="2" />
+            <children>
+                <componentref id="table" />
+            </children>
+        </component>
     </components>
 </lxs>
