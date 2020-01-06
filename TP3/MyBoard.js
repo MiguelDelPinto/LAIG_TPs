@@ -295,6 +295,14 @@ class MyBoard extends CGFobject {
         this.updateScore();
     }
 
+    eraseLastFill(position) {
+        this.pieces[position[0]][position[1]] = "empty";
+
+        this.realPieces.pop();
+
+        this.updateScore();
+    }
+
     setTransformationMatrix(transformationMatrix){
         this.transformationMatrix = transformationMatrix;
     }

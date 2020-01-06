@@ -186,6 +186,39 @@ class FrogChess extends CGFobject {
         }
     }
 
+    undoFill() {
+        if(this.fills.length > 0) {
+            let fill = this.fills.pop();
+
+            // If it's Player vs CPU, and the last fill was a CPU one, undoes the last two fills
+            if(fill.type === 'CPU' && this.gameMode === 2) {
+                if(this.fills.length == 0) {
+                    this.fills.push(fill);
+                    return;
+                }
+
+                this.board.eraseLastFill(fill.position);
+
+                fill = this.fills.pop();
+                this.board.eraseLastFill(fill.position);
+
+                this.getFillPositions();
+            }
+            else {
+                this.nextPlayer();
+                this.board.eraseLastFill(fill.position);
+
+                if(fill.type === 'Player') {
+                    this.getFillPositions();
+                }
+                else {
+                    this.chooseFillPosition();
+                }
+
+            }
+        }
+    }
+
     calculateMiddle(pos_from, pos_to) {
         let pos_middle = [];
 
@@ -233,9 +266,6 @@ class FrogChess extends CGFobject {
         fill.color = this.getPlayerColor();
 
         this.fills.push(fill);
-
-        console.log(fill);
-        console.log(this.fills);
     }
 
     // ---------- GAME LOGIC -----------
@@ -530,7 +560,11 @@ class FrogChess extends CGFobject {
 
                         // Undo button
                         if(index === 419) {
-                            if(!this.cpuIsMoving && !this.cpuIsUndoing && this.moves.length > 0) {
+                            if(this.fillingBoard && this.fills.length > 0 && this.gameMode != 3) {
+                                this.undoFill();
+                            }
+
+                            else if(!this.cpuIsMoving && !this.cpuIsUndoing && this.moves.length > 0 && this.gameMode != 3) {
 
                                 // If there's a selected bouncing piece, deselects it
                                 const movingPiece = this.board.getMovingPiece();
@@ -578,7 +612,7 @@ class FrogChess extends CGFobject {
                             else if(this.fillingBoard){ // Filling Board
                                
                                 this.board.setPiecePosition([Math.trunc(index / 8), index % 8], this.getPlayerColor());
-                                this.pushFill('Human', [Math.trunc(index / 8), index % 8]);
+                                this.pushFill('Player', [Math.trunc(index / 8), index % 8]);
                                 this.nextPlayer();				 
                                 this.board.playDownTiles();
                             }else{ // Game
@@ -745,6 +779,8 @@ class FrogChess extends CGFobject {
                         }
                         break;
                     case 3: //Players are both CPU
+                        if(this.updateWait())
+                            return;                    
                         this.chooseFillPosition();
                         break;
                     default: 
