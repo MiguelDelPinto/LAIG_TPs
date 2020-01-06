@@ -681,10 +681,10 @@ class FrogChess extends CGFobject {
                 if(this.fillingBoard){
                     const currentFill = this.fills[this.moviePosition];
 
-                    this.board.setPiecePosition(currenFill.position, currentFill.color);
+                    this.board.setPiecePosition(currentFill.position, currentFill.color);
 
                     this.moviePosition++;
-                    if(this.moviePosition >= this.moves.length){
+                    if(this.moviePosition >= this.fills.length){
                         this.moviePosition = 0;
                         this.fillingBoard = false;
                         return;
@@ -701,7 +701,15 @@ class FrogChess extends CGFobject {
                         const currentMove = this.moves[this.moviePosition];
                         this.finishMove(currentMove.from, currentMove.to);
                         this.board.finishPieceMove();
-                        this.board.removeOuterFrogs();
+
+                        
+                        const nextMove = this.moves[this.moviePosition++];
+                        
+                        if(nextMove != null){
+                            if(nextMove.type != currentMove.type){
+                                this.board.removeOuterFrogs();
+                            }
+                        }
 
                         this.moviePosition++;
                         if(this.moviePosition >= this.moves.length){
@@ -710,7 +718,6 @@ class FrogChess extends CGFobject {
                             return;
                         }
 
-                        const nextMove = this.moves[this.moviePosition];
                         this.board.movePiece(nextMove.from, nextMove.to);
                         this.startMove(nextMove.from);
                     }
