@@ -176,6 +176,9 @@ class FrogChess extends CGFobject {
                 if(numberOfMoves > 1) {
                     this.playerLockFrog = true;
                 }
+                else {
+                    this.board.disableDisplayCheck();
+                }
 
                 // Reactivates the last piece, in case it's been cleared for being on the edges
                 this.board.reactivatePiece(this.move[0]);
