@@ -2,8 +2,8 @@
 * MyLake
 */
 class MyLake extends MyBoard {
-    constructor(scene, piece, transformationMatrix) {
-        super(scene, piece, transformationMatrix);
+    constructor(scene, piece, transformationMatrix, level) {
+        super(scene, piece, transformationMatrix, level);
         this.scene = scene;
 
         this.water = new MyLakeWater(this.scene);
@@ -14,7 +14,7 @@ class MyLake extends MyBoard {
 
         this.undo_button = new LakeUndoButton(scene);
         this.check_button = new LakeFinishMoveButton(scene);
-        this.clock = new LakeScoreClock(scene);
+        this.clock = new LakeScoreClock(scene, level);
 
         this.maxHeight = 1;
 
@@ -25,6 +25,11 @@ class MyLake extends MyBoard {
         this.blueMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
         this.initMusic();
+    }
+    
+    setLevel(level){
+        this.clock.setLevel(level);
+        this.level = level;
     }
 
     generateTiles() {

@@ -8,13 +8,13 @@ class FrogChess extends CGFobject {
         super(scene);
         this.scene = scene;
 
-        // TODO this.board = board;   (passes from menu, could be a lake or normal board)
-
-        this.board = board || new MyBoard(scene);
-        
-        this.player = 1; //First Player is the player 1
-
         this.level = level || 1; 
+
+        this.board = board || new MyBoard(scene, null, null, this.level);
+        
+        this.board.setLevel(this.level);
+
+        this.player = 1; //First Player is the player 1
         
         this.gameMode = gameMode || 2;
 

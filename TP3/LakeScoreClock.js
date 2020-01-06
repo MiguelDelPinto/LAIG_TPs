@@ -4,8 +4,8 @@
 * @param scene - Reference to MyScene object
 */
 class LakeScoreClock extends ScoreClock {
-    constructor(scene) {
-        super(scene);
+    constructor(scene, level) {
+        super(scene, level);
         this.scene = scene;
         
         this.lilypad = new MyLilyPad(this.scene, 'clock');

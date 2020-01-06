@@ -4,7 +4,7 @@
 * @param scene - Reference to MyScene object
 */
 class MyBoard extends CGFobject {
-    constructor(scene, piece, transformationMatrix) {
+    constructor(scene, piece, transformationMatrix, level) {
         super(scene);
         this.scene = scene;
 
@@ -12,9 +12,12 @@ class MyBoard extends CGFobject {
 
         this.loaded = false;
 
+        
+        console.log(level);
+
         this.undo_button = new MyUndoButton(scene);
         this.check_button = new FinishMoveButton(scene);
-        this.clock = new ScoreClock(scene);
+        this.clock = new ScoreClock(scene, level);
 
         this.canDisplayCheck = false;
 
@@ -34,6 +37,11 @@ class MyBoard extends CGFobject {
         this.maxHeight = 2;
 
         this.initMusic();
+    }
+
+    setLevel(level){
+        this.clock.setLevel(level);
+        this.level = level;
     }
 
     initMusic(){

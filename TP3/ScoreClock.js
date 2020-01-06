@@ -87,6 +87,16 @@ class ScoreClock extends CGFobject {
 
     }
 
+    
+    setLevel(level){
+        this.level = level;
+
+        this.firstPlayerTime = 300000 * this.level;
+        this.secondPlayerTime = 300000 * this.level;
+            
+        this.createTimeString();
+    }
+
     createNumbers(){
         this.numbers = [
             new Zero(this.scene),
